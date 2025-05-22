@@ -463,7 +463,7 @@ authorizations:
       # -- Container name for envoy-proxy
       repository: docker.io/envoyproxy/envoy-distroless
       # image.tag -- Container image tag
-      tag: v1.22-latest
+      tag: v1.34-latest
       # -- Container image pull policy
       pullPolicy: Always
 
