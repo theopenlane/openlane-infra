@@ -1,0 +1,8 @@
+apiVersion: v2
+appVersion: 0.1.0
+description: Deploies Alertmanager through Prometheus-Operator
+maintainers:
+- email: support@theopenlane.io
+  name: Openlane
+name: openlane-alertmanager
+version: 0.1.0

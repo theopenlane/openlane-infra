@@ -1,0 +1,11 @@
+global:
+  cnrmNamespace: "default"
+  abandon: true
+  gcpProjectId: "openlane-dev"
+
+name: "test-openlane-router"
+description: "Compute Router for managing BGP routing in GKE cluster"
+region: us-central1
+networkRef:
+  name: "openlane-vpc"
+bgp: {}

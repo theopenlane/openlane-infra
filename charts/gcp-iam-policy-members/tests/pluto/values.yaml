@@ -1,0 +1,11 @@
+global:
+  gcpProjectId: "openlane-dev"
+  cnrmNamespace: "cnrm-system"
+
+members:
+  - name: "test-iam-policy-members-0"
+    member: "serviceAccount:iampolicymemberstest@openlane-dev.iam.gserviceaccount.com"
+    role: "roles/dns.admin"
+    resourceRef:
+      kind: "Project"
+      external: "projects/openlane-dev"
