@@ -1,0 +1,157 @@
+version: '3'
+
+vars:
+  CHARTS:
+    sh: ls -d charts/*
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task --list
+
+  lint:
+    desc: Lint all Helm charts
+    deps:
+      - for: { var: CHARTS, as: CHART }
+        task: lint:chart
+        vars:
+          CHART: '{{.CHART}}'
+
+  lint:chart:
+    desc: Lint a single Helm chart
+    cmds:
+      - helm lint {{.CHART}}
+
+  deps:bump:
+    desc: Bump dependencies in all Chart.yaml files
+    deps:
+      - for: { var: CHARTS, as: CHART }
+        task: deps:bump:chart
+        vars:
+          CHART: '{{.CHART}}'
+
+  deps:bump:chart:
+    desc: Bump dependencies in a single Chart.yaml file
+    cmds:
+      - helm dependency update {{.CHART}}
+
+  lint:schema:
+    desc: Validate Helm chart manifests using kubeconform and GCP schemas
+    cmds:
+      - rm -f rendered/manifests.yaml
+      - for: { var: CHARTS, as: CHART }
+        cmd: |
+          echo "Linting {{.CHART}}..."
+          helm dependency build "{{.CHART}}" || true
+          helm template "{{.CHART}}" --include-crds --skip-tests >> rendered/manifests.yaml || echo "Failed to render {{.CHART}}" >&2
+      - kubeconform -verbose -strict -output pretty -summary -kubernetes-version="1.32.3" -cache .conform-cache  -schema-location 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/refs/heads/master/crds/{{`{{.Group}}`}}_{{`{{.ResourceAPIVersion}}`}}_{{`{{.ResourceKind}}`}}.yaml' -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://json.schemastore.org/{{`{{.ResourceKind}}`}}.json' -schema-location 'https://kubernetes-schemas.pages.dev/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location default rendered/manifests.yaml
+
+  package:
+    desc: Package all charts
+    cmds:
+      - mkdir -p packaged
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm package {{.CHART}} -d packaged
+
+  spicylint:
+    desc: Lint your Helm chart with kube-score and kubeconform
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm template {{.CHART}} --include-crds --skip-tests | kubeconform -strict
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm template {{.CHART}} --include-crds --skip-tests | kube-score score -
+
+  copy:readme:
+    desc: Copy README.md.gotmpl into all chart directories
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: cp scripts/templates/README.md.gotmpl {{.CHART}}/README.md.gotmpl
+      - helm-docs .
+
+  docs:
+    desc: Generate documentation for your Helm chart
+    cmds: 
+      - helm-docs .
+
+  template:
+    desc: Template your Helm chart
+    dir: ./charts/openlane
+    cmds:
+      - helm template . > output/manifest.yaml
+
+  dependency:
+    desc: Install dependencies
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm dependency update {{.CHART}}
+
+  minikube:
+    desc: Start minikube
+    cmds:
+      - minikube start --addons=ingress
+    silent: true
+    status:
+      - test $(minikube status | grep -i running | wc -l) -eq 3
+
+  minikube:down:
+    desc: Bring down minikube
+    cmds:
+      - minikube stop
+    silent: true
+    status:
+      - test $(minikube status | grep -i stopped | wc -l) -eq 4
+
+  minikube:purge:
+    desc: Run minikube delete
+    cmds:
+      - minikube delete
+    silent: true
+
+  install:
+    desc: Install dependencies related to this Taskfile
+    cmds:
+      - brew install helm
+      - brew install kubectl
+      - brew install kubeconform
+      - brew install kubeaudit
+      - brew install kube-score
+      - task: krew
+      - brew install norwoodj/tap/helm-docs
+
+  krew:
+    desc: Install krew
+    cmds:
+      - |
+        set -x; cd "$(mktemp -d)" &&
+        OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+        KREW="krew-${OS}_${ARCH}" &&
+        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+        tar zxvf "${KREW}.tar.gz" &&
+        ./"${KREW}" install krew
+
+  docker:run:
+    desc: Run task inside Docker container with preinstalled CLI tools
+    cmds:
+      - docker build -t openlane/chart-tools .
+      - docker run --rm -v $PWD:/workspace -w /workspace openlane/chart-tools
+
+  lint:ct:
+    desc: Run chart-testing (ct) lint against all Helm charts
+    cmds:
+      - ct lint --all --chart-dirs charts --validate-maintainers=false
+
+  lint:fix:
+    desc: Fix lint issues using yamllint with custom config
+    cmds:
+      - yamllint -c .github/configs/lintconf.yaml charts/
+
+  lint:script:
+    desc: Lint Helm charts using bash script
+    cmds:
+      - ./scripts/lint.sh
+    status:
+      - test $(find charts/ -name *.yaml | xargs kubeconform | wc -l) -eq 0
+      - test $(helm lint charts/* | grep -i error | wc -l) -eq 0
+      - test $(find charts/ -name *.yaml | xargs yamllint | grep -i error | wc -l) -eq 0

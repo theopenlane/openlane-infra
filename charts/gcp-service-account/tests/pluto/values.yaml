@@ -1,0 +1,10 @@
+global:
+  gcpProjectId: openlane-dev
+
+name: openlane-writer
+displayName: "openlane Binary Uploader"
+description: "Allows github actions to upload the openlane binary to the bucket"
+
+key:
+  create: true
+  importAsSecret: true

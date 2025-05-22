@@ -1,0 +1,34 @@
+# Builder stage: download and prepare binaries
+FROM golang:1.24-alpine AS builder
+
+RUN apk add --no-cache curl git
+
+# Install Task
+RUN curl -sL https://taskfile.dev/install.sh | sh -s -- -d -b /usr/local/bin
+
+# Install Helm
+RUN curl -fsSL https://get.helm.sh/helm-v3.12.3-linux-amd64.tar.gz -o helm.tgz \
+  && tar -xzf helm.tgz \
+  && mv linux-amd64/helm /usr/local/bin/helm \
+  && chmod +x /usr/local/bin/helm
+
+# Install kubeconform (replacing deprecated kubeval)
+RUN curl -Lo /usr/local/bin/kubeconform https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64 \
+  && chmod +x /usr/local/bin/kubeconform
+
+# Install chart-testing
+RUN curl -sSL https://github.com/helm/chart-testing/releases/download/v3.8.0/chart-testing_3.8.0_linux_amd64.tar.gz \
+  | tar xz && chmod +x ct && mv ct /usr/local/bin/ct
+
+# Final runtime image
+FROM alpine:3.21
+
+RUN apk add --no-cache bash curl git
+
+COPY --from=builder /usr/local/bin/task /usr/local/bin/task
+COPY --from=builder /usr/local/bin/helm /usr/local/bin/helm
+COPY --from=builder /usr/local/bin/kubeconform /usr/local/bin/kubeconform
+COPY --from=builder /usr/local/bin/ct /usr/local/bin/ct
+
+WORKDIR /workspace
+ENTRYPOINT ["task"]

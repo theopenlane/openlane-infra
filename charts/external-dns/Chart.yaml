@@ -1,0 +1,8 @@
+apiVersion: v2
+appVersion: 0.1.0
+description: Deploys external-dns and its monitoring
+maintainers:
+- email: support@theopenlane.io
+  name: Openlane
+name: openlane-external-dns
+version: 0.1.0

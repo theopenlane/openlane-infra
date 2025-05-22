@@ -1,0 +1,11 @@
+global:
+  cnrmNamespace: "cnrm-system"
+  abandon: true
+  gcpProjectId: "openlane-dev"
+
+name: "openlane-ingress-nginx-ip"
+addressType: "EXTERNAL"
+description: "Static external IP for ingress on openlane-vpc-network-dev"
+ipVersion: "IPV4"
+location: us-central1
+networkTier: "STANDARD"

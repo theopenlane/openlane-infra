@@ -1,0 +1,195 @@
+global:
+  cnrmNamespace: "default"
+  abandon: true
+  skipUnspecifiedFields: false
+  gcpProjectId: "openlane-dev"
+  description: "gke cluster for test"
+
+removeDefaultNodePool: "true"
+
+privateClusterConfig:
+  enabled: true
+  enablePrivateEndpoint: false
+  enablePrivateNodes: true
+  masterIpv4CidrBlock: "172.16.0.0/28"  # Required for private clusters
+  masterGlobalAccessConfig:
+    enabled: false
+  # privateEndpointSubnetworkRef:
+  #   name: "openlane-subnetwork"
+  webhookPorts:
+    # -- List of ports used for admission webhooks. GKE Private Cluster doest only allows communications between masters and node through https 443 by default.
+    tcp:
+      - 8080
+      - 9443
+      - 6443
+      - 8443
+      - 443
+
+tags:
+  networking: true
+  enable-nat: true
+
+gcpVpcNetwork:
+  name: "openlane-vpc-network"
+  description: "OPENLANE VPC Network"
+  resourceID: "openlane-vpc-network"
+  routingMode: REGIONAL
+  autoCreateSubnetworks: false
+
+gcpSubnetwork:
+  name: "openlane-subnetwork"
+  description: "OPENLANE Subnetwork"
+  region: us-central1
+  ipCidrRange: "10.0.0.0/24"
+  networkRef:
+    name: "openlane-vpc-network"
+  purpose: ""
+  secondaryIpRange:
+  - ipCidrRange: "10.0.32.0/19"
+    rangeName: "clusterrange"
+  - ipCidrRange: "10.0.16.0/20"
+    rangeName: "servicesrange"
+
+gcpCloudNat:
+  gcpCloudRouter:
+    name: "openlane-cloud-router"
+    description: "Cloud Router for GKE workers in openlane-subnetwork"
+    region: us-central1
+    networkRef:
+      name: "openlane-vpc-network"
+    bgp: {}
+  
+  name: "openlane-cloud-nat"
+  region: us-central1
+  routerRef:
+    name: "openlane-cloud-router"
+  natIpAllocateOption: "AUTO_ONLY"
+  sourceSubnetworkIpRangesToNat: "LIST_OF_SUBNETWORKS"
+  subnetwork:
+    - sourceIpRangesToNat:
+      - LIST_OF_SECONDARY_IP_RANGES
+      subnetworkRef:
+        name: "openlane-subnetwork"
+      secondaryIpRangeNames:
+      - clusterrange
+      - servicesrange
+  logConfig:
+    enable: true
+    filter: "ALL"
+
+ipAllocationPolicy:
+  enabled: true
+  servicesSecondaryRangeName: servicesrange
+  clusterSecondaryRangeName: clusterrange
+
+name: "test-gke-cluster"
+location: us-central1
+
+initialNodeCount: 1
+
+datapathProvider: "ADVANCED_DATAPATH"
+
+workloadIdentityConfig:
+  workloadPool: "openlane-dev.svc.id.goog"
+
+releaseChannel:
+  channel: REGULAR
+
+addonsConfig:
+  dnsCacheConfig:
+    enabled: true
+  verticalPodAutoscaling:
+    enabled: true
+  authenticatorGroupsConfig:
+    securityGroup: "gke-security-groups@openlane.com"
+  gcePersistentDiskCsiDriverConfig:
+    enabled: true
+  networkPolicyConfig:
+    disabled: false
+    provider: CALICO
+  httpLoadBalancing:
+    disabled: false
+  horizontalPodAutoscaling:
+    disabled: false
+
+enableShieldedNodes: true
+networkingMode: "VPC_NATIVE"
+networkRef:
+  name: "openlane-vpc-network"
+subnetworkRef:
+  name: "openlane-subnetwork"
+
+loggingConfig: {}
+loggingService: "logging.googleapis.com/kubernetes"
+monitoringConfig: {}
+monitoringService: "monitoring.googleapis.com/kubernetes"
+
+# TODO: SHOULD BE MODIFIED ACCORDING TO THE NEEDS
+masterAuthorizedNetworksConfig:
+  cidrBlocks:
+    - cidrBlock: "0.0.0.0/0"
+      displayName: "all"
+
+clusterAutoscaling:
+  enabled: false
+
+resourceID: "test-gke-cluster"
+
+nodePools:
+  - nodePoolName: spot-n2-standard-8-openlane-testnode-a
+    autoscaling:
+      enabled: true
+      minNodeCount: 0
+      maxNodeCount: 1
+    initialNodeCount: 1
+    management:
+      autoRepair: true
+      autoUpgrade: true
+    maxPodsPerNode: 32
+    nodeConfig:
+      bootDiskKMSCryptoKey:
+        enabled: false
+      diskSize: 100
+      diskType: 'pd-balanced'
+      imageType: COS_CONTAINERD
+      spot: true
+      machineType: 'n2-standard-8'
+      metadata:
+        disable-legacy-endpoints: "true"
+      oauthScopes:
+        - "https://www.googleapis.com/auth/devstorage.read_only"
+        - "https://www.googleapis.com/auth/logging.write"
+        - "https://www.googleapis.com/auth/monitoring"
+        - "https://www.googleapis.com/auth/compute"
+      tags:
+        - gke-spot-nodes
+      labels:
+        owner: "openlane-testnode-a-owner"
+        env: "dev"
+        usage: "openlane-testnode-a"
+        resource_type: "gke"
+        function: "openlane-host"
+      serviceAccount:
+        name: openlane-testnode-a-sa
+        create: true
+
+resourceUsageExportConfig:
+  bigqueryDestination:
+    datasetId: openlane_gke_billing
+  enableNetworkEgressMetering: true
+  enableResourceConsumptionMetering: true
+
+bigquery-dataset:
+  enabled: true
+  bigqueryDataset:
+    name: "openlane-gke-billing"
+    resourceID: "openlane_gke_billing"
+    description: "OPENLANE GKE Billing Dataset"
+    friendlyName: "openlane-gke-biling-dataset"
+    location: us-central1
+    access:
+    - role: OWNER
+      userByEmail: openlane-infra-sa@openlane-dev.iam.gserviceaccount.com
+    - role: WRITER
+      userByEmail: openlane-testnode-a-sa@openlane-dev.iam.gserviceaccount.com
+    # - role: READER    #   groupByEmail: gke-security-groups@openlane.com

@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: 0.1.0
+description: A Helm chart that Creates a Google VPC Network through Config Connector
+maintainers:
+- email: support@theopenlane.io
+  name: Openlane
+name: openlane-gcp-vpc-network
+type: application
+version: 0.1.0
