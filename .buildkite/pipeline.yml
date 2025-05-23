@@ -1,20 +1,20 @@
 steps:
   - label: ":helm: Lint Chart"
     plugins:
-      - docker#v3.14.0:
+      - docker#v5.12.0:
           image: alpine/helm:3.11.1
     commands:
       - helm lint .
 
   - label: ":helm: Lint Charts"
     plugins:
-      - docker#v3.14.0:
+      - docker#v5.12.0:
           image: alpine/helm:3.11.2
           command: helm lint charts/*
 
   - label: ":hammer: Render Dev"
     plugins:
-      - docker#v3.14.0:
+      - docker#v5.12.0:
           image: alpine/helm:3.11.1
     commands:
       - mkdir -p rendered/dev
@@ -22,7 +22,7 @@ steps:
 
   - label: ":hammer: Render Prod"
     plugins:
-      - docker#v3.14.0:
+      - docker#v5.12.0:
           image: alpine/helm:3.11.1
     commands:
       - mkdir -p rendered/prod
@@ -30,7 +30,7 @@ steps:
 
   - label: ":mag: Validate YAML"
     plugins:
-      - docker#v3.14.0:
+      - docker#v5.12.0:
           image: cytopia/yamllint
     commands:
       - yamllint rendered/
