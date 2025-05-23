@@ -38,7 +38,6 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "gcp-iam-policy-members.labels" -}}
-helm.sh/chart: {{ include "gcp-iam-policy-members.chart" . }}
 {{ include "gcp-iam-policy-members.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

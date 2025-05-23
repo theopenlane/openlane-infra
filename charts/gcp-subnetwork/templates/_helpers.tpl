@@ -38,7 +38,6 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "compute-subnetwork.labels" -}}
-helm.sh/chart: {{ include "compute-subnetwork.chart" . }}
 {{ include "compute-subnetwork.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

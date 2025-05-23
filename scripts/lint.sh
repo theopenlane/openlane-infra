@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script runs the chart-testing tool locally. It simulates the linting that is also done by the github action. Run this without any errors before pushing.
+# This script runs the chart-testing tool locally. It simulates the linting that is also done by the github action.
 # Reference: https://github.com/helm/chart-testing
 
 set -eux

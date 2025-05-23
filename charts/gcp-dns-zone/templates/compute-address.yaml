@@ -16,7 +16,7 @@ metadata:
 spec:
   addressType: {{ .addressType | default "EXTERNAL" }}
   description: {{ .description }}
-  location: us-central1
+ {{ .Values.location | quote }}
   networkTier: {{ .networkTier | default "PREMIUM" }}
   ipVersion: {{ .ipVersion |  default "IPV4" }}
   {{- if eq .addressType "INTERNAL" }}

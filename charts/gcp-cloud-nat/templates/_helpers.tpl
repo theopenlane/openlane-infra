@@ -38,7 +38,6 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "gcp-cloud-nat.labels" -}}
-helm.sh/chart: {{ include "gcp-cloud-nat.chart" . }}
 {{ include "gcp-cloud-nat.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

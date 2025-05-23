@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_FILE="configs/ct.yaml"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/../configs/ct.yaml"
 
 # Check if the configuration file exists
 if [[ ! -f "$CONFIG_FILE" ]]; then

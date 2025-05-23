@@ -34,7 +34,6 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "dns-zone.labels" -}}
-helm.sh/chart: {{ include "dns-zone.chart" . }}
 {{ include "dns-zone.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
