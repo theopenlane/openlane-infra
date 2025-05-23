@@ -38,7 +38,6 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "gcp-compute-router.labels" -}}
-helm.sh/chart: {{ include "gcp-compute-router.chart" . }}
 {{ include "gcp-compute-router.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

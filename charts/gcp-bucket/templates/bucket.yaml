@@ -57,7 +57,7 @@ spec:
       withState: {{ .condition.withState }}
   {{- end }}
   {{- end }}
-  location: us-central1
+ {{ .Values.location | quote }}
   {{- if .Values.logging.enabled }}
   logging:
     logBucket: {{ .Values.logging.logBucket }}

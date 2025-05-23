@@ -15,7 +15,7 @@ spec:
   {{ fail "networkTier should not be set when addressType is INTERNAL" }}
   {{- end }}
 
-  location: us-central1
+ {{ .Values.location | quote }}
   {{- if .Values.address }}
   address: {{ .Values.address | quote }}
   {{- end }}

@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# fix-lint.sh - Fix spacing issues in files
-
-# Initialize variables
 FIX_COMMENTS="yes"
 FIX_TRAILING="yes"
 FIX_EOL="yes"

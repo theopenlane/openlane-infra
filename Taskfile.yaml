@@ -23,7 +23,7 @@ tasks:
     cmds:
       - helm lint {{.CHART}}
 
-  deps:bump:
+  deps:
     desc: Bump dependencies in all Chart.yaml files
     deps:
       - for: { var: CHARTS, as: CHART }
@@ -62,23 +62,12 @@ tasks:
       - for: { var: CHARTS, as: CHART }
         cmd: helm template {{.CHART}} --include-crds --skip-tests | kube-score score -
 
-  copy:readme:
+  docs:
     desc: Copy README.md.gotmpl into all chart directories
     cmds:
       - for: { var: CHARTS, as: CHART }
         cmd: cp scripts/templates/README.md.gotmpl {{.CHART}}/README.md.gotmpl
       - helm-docs .
-
-  docs:
-    desc: Generate documentation for your Helm chart
-    cmds: 
-      - helm-docs .
-
-  template:
-    desc: Template your Helm chart
-    dir: ./charts/openlane
-    cmds:
-      - helm template . > output/manifest.yaml
 
   dependency:
     desc: Install dependencies

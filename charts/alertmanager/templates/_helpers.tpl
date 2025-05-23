@@ -41,7 +41,6 @@ version: {{ .Chart.AppVersion | quote | trim }}
 app: {{ printf "%s-alertmanager" (include "alertmanager.name" . ) }}
 app.kubernetes.io/name: {{ printf "%s-alertmanager" (include "alertmanager.name" . ) }}
 clusterName: {{ include "alertmanager.clustername" . }}
-helm.sh/chart: {{ include "alertmanager.chart" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
