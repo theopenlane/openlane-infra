@@ -6,7 +6,6 @@ chart-dirs:
 chart-repos:
  - external-secrets=https://charts.external-secrets.io
  - dex=https://charts.dexidp.io
- - openlane-infra=https://theopenlane.github.io/openlane-infra
  - argo-cd=https://argoproj.github.io/argo-helm
  - cert-manager=https://charts.jetstack.io
  - kube-prometheus-stack=https://prometheus-community.github.io/helm-charts
