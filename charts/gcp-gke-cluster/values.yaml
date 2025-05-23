@@ -630,5 +630,5 @@ bigquery-dataset:
     name: "<to_set>"
     description: "<to_set>"
     friendlyName: "<to_set>"
-   {{ .Values.location | quote }}
+    location: "<to_set>"
     access: []

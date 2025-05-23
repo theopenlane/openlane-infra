@@ -24,17 +24,10 @@ tasks:
       - helm lint {{.CHART}}
 
   deps:
-    desc: Bump dependencies in all Chart.yaml files
-    deps:
-      - for: { var: CHARTS, as: CHART }
-        task: deps:bump:chart
-        vars:
-          CHART: '{{.CHART}}'
-
-  deps:bump:chart:
-    desc: Bump dependencies in a single Chart.yaml file
+    desc: bump deps
     cmds:
-      - helm dependency update {{.CHART}}
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm dependency update {{.CHART}}
 
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas
