@@ -15,6 +15,24 @@ entries:
     version: 0.1.0
   openlane-argocd:
   - apiVersion: v2
+    appVersion: 3.0.3
+    created: "2025-05-24T20:35:12.810935111Z"
+    dependencies:
+    - alias: argocd
+      name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 8.0.9
+    description: A Helm chart for Kubernetes
+    digest: 681cf462ede50ce7597a75e9cff759ce61604571208b48fa070b4a45cb02e1b9
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-argocd
+    type: application
+    urls:
+    - openlane-argocd-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:40.981973-05:00"
     description: A Helm chart for Kubernetes
@@ -30,6 +48,36 @@ entries:
   openlane-cert-manager:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-24T20:35:12.947622481Z"
+    dependencies:
+    - alias: certmanager
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.17.2
+    - alias: workloadIdentity
+      name: openlane-gcp-workload-identity
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    - alias: iamPolicyMembers
+      name: openlane-gcp-iam-policy-members
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    description: A Helm chart for cert-manager
+    digest: 5bcb524e100891aac51ae2c7327824f0866ef737525f65ac1a23d4307221cf8c
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-cert-manager
+    type: application
+    urls:
+    - openlane-cert-manager-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:41.144026-05:00"
     description: A Helm chart for cert-manager
     digest: 8a27dd0fe42c726d57be2e22daf0190b2854d823483651001b0f9036f66e2284
@@ -42,6 +90,35 @@ entries:
     - openlane-cert-manager-0.1.0.tgz
     version: 0.1.0
   openlane-external-dns:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-24T20:35:13.088762077Z"
+    dependencies:
+    - alias: externaldns
+      name: external-dns
+      repository: https://kubernetes-sigs.github.io/external-dns/
+      version: 1.16.1
+    - alias: workloadIdentity
+      name: openlane-gcp-workload-identity
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    - alias: iamPolicyMembers
+      name: openlane-gcp-iam-policy-members
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    description: Deploys external-dns and its monitoring
+    digest: 5366011b6dec0d3ce4fec232f439f537ae37dca4cf10a4957af724f596e2d5ec
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-external-dns
+    urls:
+    - openlane-external-dns-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:41.312038-05:00"
@@ -69,6 +146,25 @@ entries:
     - openlane-gcp-bucket-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-cloud-nat:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-24T20:35:13.377961415Z"
+    dependencies:
+    - alias: gcpCloudRouter
+      name: openlane-gcp-compute-router
+      repository: https://theopenlane.github.io/openlane-infra
+      version: 0.1.0
+    description: A Helm chart to provision a Cloud NAT (ComputeRouterNAT) via Config
+      Connector
+    digest: ab2ebd5d71a32a42ee504656dc0a5d00bd00da7e93f1423acf57d1ca365e9f41
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-cloud-nat
+    type: application
+    urls:
+    - openlane-gcp-cloud-nat-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:41.572061-05:00"
@@ -126,6 +222,38 @@ entries:
     - openlane-gcp-dns-zone-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-gke-cluster:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-24T20:35:13.855890582Z"
+    dependencies:
+    - alias: gcpSubnetwork
+      name: openlane-gcp-subnetwork
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - networking
+      version: 0.1.0
+    - alias: gcpVpcNetwork
+      name: openlane-gcp-vpc-network
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - networking
+      version: 0.1.0
+    - alias: gcpCloudNat
+      name: openlane-gcp-cloud-nat
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - enable-nat
+      version: 0.1.0
+    description: Provisions a GKE Cluster via Config Connector
+    digest: 165f352ea863514c1dc0c2fc2512171ee9104ac63fac26011687c00e77aa2212
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-gke-cluster
+    type: application
+    urls:
+    - openlane-gcp-gke-cluster-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:42.128483-05:00"
@@ -212,4 +340,4 @@ entries:
     urls:
     - openlane-gcp-workload-identity-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-22T17:31:42.758695-05:00"
+generated: "2025-05-24T20:35:19.638423386Z"
