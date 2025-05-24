@@ -12,22 +12,9 @@ tasks:
 
   lint:
     desc: Lint all Helm charts
-    deps:
-      - for: { var: CHARTS, as: CHART }
-        task: lint:chart
-        vars:
-          CHART: '{{.CHART}}'
-
-  lint:chart:
-    desc: Lint a single Helm chart
-    cmds:
-      - helm lint {{.CHART}}
-
-  deps:
-    desc: bump deps
     cmds:
       - for: { var: CHARTS, as: CHART }
-        cmd: helm dependency update {{.CHART}}
+        cmd: helm lint {{.CHART}}
 
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas

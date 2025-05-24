@@ -6,4 +6,9 @@ maintainers:
   name: Openlane
 name: openlane-gcp-cloud-nat
 type: application
-version: 0.1.0
+version: 0.1.1
+dependencies:
+  - name: openlane-gcp-compute-router
+    version: "0.1.0"
+    repository: "https://theopenlane.github.io/openlane-infra"
+    alias: gcpCloudRouter

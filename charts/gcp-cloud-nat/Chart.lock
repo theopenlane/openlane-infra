@@ -1,0 +1,6 @@
+dependencies:
+- name: openlane-gcp-compute-router
+  repository: https://theopenlane.github.io/openlane-infra
+  version: 0.1.0
+digest: sha256:5410f428c3ec1f5df0de97de2a16ab23fddca9d94790431ba17be295b7b6a6b1
+generated: "2025-05-24T15:27:13.620567-05:00"

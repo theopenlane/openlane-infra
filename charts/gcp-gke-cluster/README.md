@@ -1,11 +1,19 @@
 # openlane-gcp-gke-cluster
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 ## Prerequisites
 
 - Helm v3
 - Config Connector installed (v1.6.0)
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://theopenlane.github.io/openlane-infra | gcpCloudNat(openlane-gcp-cloud-nat) | 0.1.0 |
+| https://theopenlane.github.io/openlane-infra | gcpSubnetwork(openlane-gcp-subnetwork) | 0.1.0 |
+| https://theopenlane.github.io/openlane-infra | gcpVpcNetwork(openlane-gcp-vpc-network) | 0.1.0 |
 
 ## Maintainers
 
@@ -15,7 +23,7 @@
 
 ## Description
 
-A Helm chart to provision a GKE Cluster via Config Connector
+Provisions a GKE Cluster via Config Connector
 
 ## Values
 
@@ -52,7 +60,7 @@ A Helm chart to provision a GKE Cluster via Config Connector
 | annotations | object | `{}` | Add annotations to the GKE Cluster. |
 | authenticatorGroupsConfig | object | `{"securityGroup":""}` | Configuration for the Google Groups for GKE feature. |
 | authenticatorGroupsConfig.securityGroup | string | `""` | The name of the RBAC security group for use with Google security groups in Kubernetes RBAC. Group name must be in format gke-security-groups@yourdomain.com. |
-| bigquery-dataset | object | `{"bigqueryDataset":{"access":[],"description":"<to_set>","friendlyName":"<to_set>","location":"us-central1","name":"<to_set>"},"enabled":false,"gcpProjectId":"<to_set>"}` | Enables Bigquery Dataset for billing GKE resources |
+| bigquery-dataset | object | `{"bigqueryDataset":{"access":[],"description":"<to_set>","friendlyName":"<to_set>","location":"<to_set>","name":"<to_set>"},"enabled":false,"gcpProjectId":"<to_set>"}` | Enables Bigquery Dataset for billing GKE resources |
 | binaryAuthorization | object | `{"enabled":false,"evaluationMode":"EVALUATION_MODE_UNSPECIFIED"}` | Configuration for the Binary Authorization feature. |
 | binaryAuthorization.enabled | bool | `false` | DEPRECATED. Deprecated in favor of evaluation_mode. Enable Binary Authorization for this cluster. |
 | binaryAuthorization.evaluationMode | string | `"EVALUATION_MODE_UNSPECIFIED"` | Mode of operation for Binary Authorization policy evaluation. |
@@ -290,7 +298,7 @@ spec:
 
   source:
     repoURL: "https://theopenlane.github.io/openlane-infra"
-    targetRevision: "0.1.0"
+    targetRevision: "0.1.1"
     chart: openlane-gcp-gke-cluster
     path: ''
     helm:
