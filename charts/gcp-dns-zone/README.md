@@ -22,8 +22,8 @@ A Helm chart for gcp-dns-zone resource
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | computeAddresses | list | `[]` | List of compute addresses to create |
-| dnsManagedZone | object | `{"dnsName":"tst1.poc.gcp.openlane.com.","name":"tst1-poc-gcp-openlane-com","privateVisibilityConfig":{"gkeClusters":[],"networks":[]},"visibility":"public"}` | DNS Managed zone configuration |
-| dnsManagedZone.dnsName | string | `"tst1.poc.gcp.openlane.com."` | The name of DNS |
+| dnsManagedZone | object | `{"dnsName":"tst1.poc.gcp.theopenlane.io.","name":"tst1-poc-gcp-openlane-com","privateVisibilityConfig":{"gkeClusters":[],"networks":[]},"visibility":"public"}` | DNS Managed zone configuration |
+| dnsManagedZone.dnsName | string | `"tst1.poc.gcp.theopenlane.io."` | The name of DNS |
 | dnsManagedZone.name | string | `"tst1-poc-gcp-openlane-com"` | The name of dnsManagedZone |
 | dnsManagedZone.privateVisibilityConfig | object | `{"gkeClusters":[],"networks":[]}` | The configuration of private DNS zone |
 | dnsManagedZone.visibility | string | `"public"` | The visibility of the DNS zone |

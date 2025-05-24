@@ -101,7 +101,7 @@ addonsConfig:
   verticalPodAutoscaling:
     enabled: true
   authenticatorGroupsConfig:
-    securityGroup: "gke-security-groups@openlane.com"
+    securityGroup: "gke-security-groups@theopenlane.io"
   gcePersistentDiskCsiDriverConfig:
     enabled: true
   networkPolicyConfig:
@@ -186,10 +186,10 @@ bigquery-dataset:
     resourceID: "openlane_gke_billing"
     description: "OPENLANE GKE Billing Dataset"
     friendlyName: "openlane-gke-biling-dataset"
-   {{ .Values.location | quote }}
+    location: "us-central1"
     access:
     - role: OWNER
       userByEmail: openlane-infra-sa@openlane-dev.iam.gserviceaccount.com
     - role: WRITER
       userByEmail: openlane-testnode-a-sa@openlane-dev.iam.gserviceaccount.com
-    # - role: READER    #   groupByEmail: gke-security-groups@openlane.com
+    # - role: READER    #   groupByEmail: gke-security-groups@theopenlane.io

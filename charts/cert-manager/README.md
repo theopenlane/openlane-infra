@@ -1,11 +1,19 @@
 # openlane-cert-manager
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 ## Prerequisites
 
 - Helm v3
 - Config Connector installed (v1.6.0)
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://charts.jetstack.io | certmanager(cert-manager) | v1.17.2 |
+| https://theopenlane.github.io/openlane-infra | iamPolicyMembers(openlane-gcp-iam-policy-members) | 0.1.0 |
+| https://theopenlane.github.io/openlane-infra | workloadIdentity(openlane-gcp-workload-identity) | 0.1.0 |
 
 ## Maintainers
 
@@ -58,7 +66,7 @@ A Helm chart for cert-manager
 | certmanager.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | certmanager.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | certmanager.containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
-| certmanager.crds.enabled | bool | `false` |  |
+| certmanager.crds.enabled | bool | `true` |  |
 | certmanager.crds.keep | bool | `true` |  |
 | certmanager.creator | string | `"helm"` |  |
 | certmanager.disableAutoApproval | bool | `false` |  |
@@ -92,7 +100,7 @@ A Helm chart for cert-manager
 | certmanager.livenessProbe.successThreshold | int | `1` |  |
 | certmanager.livenessProbe.timeoutSeconds | int | `15` |  |
 | certmanager.maxConcurrentChallenges | int | `60` |  |
-| certmanager.namespace | string | `""` |  |
+| certmanager.namespace | string | `"cert-manager"` |  |
 | certmanager.nodeSelector."kubernetes.io/os" | string | `"linux"` |  |
 | certmanager.podDisruptionBudget.enabled | bool | `false` |  |
 | certmanager.podLabels | object | `{}` |  |
@@ -232,12 +240,12 @@ A Helm chart for cert-manager
 | issuers | list | Please look at the `values.yaml` file | List of issuers to create. Please read the following [documentation](https://cert-manager.io/docs/concepts/issuer/) |
 | prometheusRules.rules.enabled | bool | `false` | Enables prometheus operator rules for cert-manager |
 | prometheusRules.rules.labels | object | `{"prometheus":"prometheus-operator-prometheus"}` | Labels to affect to the Prometheus Rules |
-| tags.configConnector | bool | `false` | Enables Config Connector features |
+| tags.configConnector | bool | `true` | Enables Config Connector features |
 | workloadIdentity.global.gsa.create | bool | `true` |  |
 | workloadIdentity.global.gsa.name | string | `"wi-k8s"` |  |
 | workloadIdentity.global.gsa.project | string | `""` |  |
-| workloadIdentity.global.ksa.name | string | `"default"` |  |
-| workloadIdentity.global.ksa.namespace | string | `""` |  |
+| workloadIdentity.global.ksa.name | string | `"wi-k8s"` |  |
+| workloadIdentity.global.ksa.namespace | string | `"cert-manager"` |  |
 
 ## Installing the Chart
 
@@ -264,7 +272,7 @@ spec:
 
   source:
     repoURL: "https://theopenlane.github.io/openlane-infra"
-    targetRevision: "0.1.0"
+    targetRevision: "0.1.1"
     chart: openlane-cert-manager
     path: ''
     helm:

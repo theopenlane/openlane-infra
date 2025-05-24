@@ -20,7 +20,7 @@ dnsManagedZone:
   # dnsManagedZone.name -- The name of dnsManagedZone
   name: tst1-poc-gcp-openlane-com
   # dnsManagedZone.dnsName -- The name of DNS
-  dnsName: tst1.poc.gcp.openlane.com.
+  dnsName: tst1.poc.gcp.theopenlane.io.
   # dnsManagedZone.visibility -- The visibility of the DNS zone
   visibility: public
   # dnsManagedZone.privateVisibilityConfig -- The configuration of private DNS zone
@@ -38,7 +38,7 @@ dnsManagedZone:
 
 # dnsRecordSet -- DNS Records to create. Possible records: A, CNAME and NS
 dnsRecordSet: []
-  # - dnsRecordName: "*.tst1.poc.gcp.openlane.com."
+  # - dnsRecordName: "*.tst1.poc.gcp.theopenlane.io."
   #   name: tst1-poc-gcp-openlane-com
   #   type: A
   #   computeAddressRef: addr1

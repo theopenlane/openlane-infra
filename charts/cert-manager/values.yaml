@@ -91,7 +91,7 @@ certmanager:
   crds:
     # This option decides if the CRDs should be installed
     # as part of the Helm installation.
-    enabled: false
+    enabled: true
 
     # This option makes it so that the "helm.sh/resource-policy": keep
     # annotation is added to the CRD. This will prevent Helm from uninstalling
@@ -183,7 +183,7 @@ certmanager:
   # This namespace allows you to define where the services are installed into.
   # If not set then they use the namespace of the release.
   # This is helpful when installing cert manager as a chart dependency (sub chart).
-  namespace: ""
+  namespace: "cert-manager"
 
   # Override the "cert-manager.fullname" value. This value is used as part of
   # most of the names of the resources created by this Helm chart.
@@ -1537,7 +1537,7 @@ certs: []
 
 tags:
   # -- Enables Config Connector features
-  configConnector: false
+  configConnector: true
 
 iamPolicyMembers:
   members:
@@ -1561,6 +1561,6 @@ workloadIdentity:
       project: ""
     ksa:
       # global.ksa.namespace -- Kubernetes Service Account namespace. Overrides the Release Namespace
-      namespace: ""
+      namespace: "cert-manager"
       # global.ksa.name -- Name of the Kubernetes Service Account
-      name: default
+      name: wi-k8s

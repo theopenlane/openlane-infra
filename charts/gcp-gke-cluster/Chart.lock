@@ -1,0 +1,12 @@
+dependencies:
+- name: openlane-gcp-subnetwork
+  repository: https://theopenlane.github.io/openlane-infra
+  version: 0.1.0
+- name: openlane-gcp-vpc-network
+  repository: https://theopenlane.github.io/openlane-infra
+  version: 0.1.0
+- name: openlane-gcp-cloud-nat
+  repository: https://theopenlane.github.io/openlane-infra
+  version: 0.1.0
+digest: sha256:926ab3661f4b2ae7230a26770ea7b34b00e641a759a9480542665c70579083db
+generated: "2025-05-24T14:57:25.41569-05:00"

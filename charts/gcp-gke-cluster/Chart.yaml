@@ -1,9 +1,28 @@
 apiVersion: v2
 appVersion: 0.1.0
-description: A Helm chart to provision a GKE Cluster via Config Connector
+description: Provisions a GKE Cluster via Config Connector
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
 name: openlane-gcp-gke-cluster
 type: application
-version: 0.1.0
+version: 0.1.1
+dependencies:
+- name: openlane-gcp-subnetwork
+  version: 0.1.0
+  repository: "https://theopenlane.github.io/openlane-infra"
+  alias: gcpSubnetwork
+  tags:
+    - networking
+- name: openlane-gcp-vpc-network
+  version: 0.1.0
+  repository: "https://theopenlane.github.io/openlane-infra"
+  alias: gcpVpcNetwork
+  tags:
+    - networking
+- name: openlane-gcp-cloud-nat
+  version: 0.1.0
+  repository: "https://theopenlane.github.io/openlane-infra"
+  alias: gcpCloudNat
+  tags:
+  - enable-nat
