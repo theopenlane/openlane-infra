@@ -7,6 +7,6 @@ dependencies:
   version: 0.1.0
 - name: openlane-gcp-cloud-nat
   repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
-digest: sha256:926ab3661f4b2ae7230a26770ea7b34b00e641a759a9480542665c70579083db
-generated: "2025-05-24T14:57:25.41569-05:00"
+  version: 0.1.1
+digest: sha256:7cf7adb19757cdb783e03f460cca6f982960aac42581e710a4a59c0471600751
+generated: "2025-05-25T02:35:04.19974094Z"
