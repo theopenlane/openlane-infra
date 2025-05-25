@@ -1,0 +1,90 @@
+# Default values for gcp-cloudsql.
+# This chart provisions a CloudSQL PostgreSQL instance, databases, and users using Config Connector.
+
+enabled: true
+
+sqlInstance:
+  # -- Name of the CloudSQL instance.
+  name: "openlane-postgresql-instance"
+  # -- GCP Project ID where the instance will be created.
+  projectId: "" # Must be set via Taskfile or .env.local
+  # -- GCP location for the instance (region or zone).
+  region: "us-central1" # Cloud SQL uses region, not location.
+  # -- Database version (e.g., POSTGRES_14, POSTGRES_15).
+  databaseVersion: "POSTGRES_14"
+
+  # -- Instance settings for performance and availability.
+  settings:
+    # -- Tier of the instance (e.g., db-f1-micro, db-standard-4).
+    tier: "db-standard-4"
+    # -- Availability type (REGIONAL for HA, ZONAL for single zone).
+    availabilityType: "REGIONAL" # High Availability
+    # -- Data disk size in GB.
+    dataDiskSizeGb: 20
+    # -- Data disk type (PD_SSD or PD_HDD). SSD recommended for production.
+    dataDiskType: "PD_SSD"
+    # -- Enable disk auto resize.
+    diskAutoresize: true
+    # -- Maximum data disk size (in GB) when diskAutoresize is enabled.
+    diskAutoresizeLimit: 500
+
+    # -- IP Configuration for connectivity.
+    ipConfiguration:
+      ipv4Enabled: false # Disable public IP
+      # -- Private network reference (from gcp-vpc chart).
+      privateNetworkRef:
+        external: "openlane-network"
+      # -- Enable outgoing private IP to other Google services (e.g. Cloud Storage).
+      #    This is not for direct DB connectivity, but for internal Google services.
+      requireSsl: true # Enforce SSL connections
+
+    # -- Backup configuration.
+    backupConfiguration:
+      enabled: true
+      # -- The start time of the backup window, in HH:MM format.
+      startTime: "03:00"
+      # -- How many days to retain backups.
+      binaryLogEnabled: true # Enable for point-in-time recovery
+      location: "" # Specify a backup location, e.g. "us-central1"
+
+    # -- Maintenance window settings.
+    maintenanceWindow:
+      day: 7 # Sunday
+      hour: 2 # 2 AM UTC
+
+    # -- Database flags. Consult PostgreSQL documentation for best practices.
+    databaseFlags:
+      - name: "cloudsql.enable_pg_service_encryption"
+        value: "On"
+      - name: "log_min_messages"
+        value: "warning"
+
+    # -- Insights configuration.
+    queryInsightsConfig: # CNRM specific
+      queryInsightsEnabled: true
+
+# -- Databases to create within the instance.
+databases:
+  enabled: true
+  items:
+    - name: "application-db"
+      charset: "UTF8"
+      collation: "en_US.UTF8"
+    - name: "metrics-db"
+      charset: "UTF8"
+      collation: "en_US.UTF8"
+
+# -- Users to create for the database instance.
+users:
+  enabled: true
+  items:
+    - name: "openlane-app-user"
+      # -- Host from which this user can connect (e.g., '%' for any host).
+      host: "%"
+      # -- Reference to a Kubernetes Secret where the password will be stored.
+      passwordSecretRef:
+        secretRef:
+          name: "openlane-app-db-password"
+          key: "password"
+      # -- IAM authentication.
+      #    type: "CLOUD_IAM_USER" # For IAM authenticated users

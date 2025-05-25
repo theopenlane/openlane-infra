@@ -33,3 +33,75 @@ resourceID: ""
 
 # -- Add annotations to the VPC Network.
 annotations: {}
+
+firewallRules:
+  enabled: true
+  rules:
+  # -- Allow internal communication within the VPC network (essential for GKE pod communication).
+  - name: "allow-internal-all"
+    description: "Allow all internal traffic within the VPC."
+    direction: "INGRESS"
+    priority: 1000
+    sourceRanges:
+      - "10.0.0.0/8" # Adjust to your VPC's full private range if broader
+    allowed:
+      - protocol: "all"
+    targetTags: [] # Apply to all instances in source ranges
+
+  # -- Allow ingress from GKE masters to nodes (required by GKE).
+  - name: "allow-gke-master-ingress"
+    description: "Allow GKE master ingress to nodes."
+    direction: "INGRESS"
+    priority: 1000
+    # GKE master CIDR block is dynamic, use Google-recommended static ranges + your VPC CIDR
+    sourceRanges:
+      - "130.211.0.0/22" # GCP LB health checks and masters
+      - "35.191.0.0/16" # GCP LB health checks and masters
+      # Consider adding your GKE master authorized network if explicitly set in cluster.
+    targetTags:
+      - 'gke-{{ .Values.network.projectId }}-{{ include "gcp-gke-prod-cluster.fullname" . }}-node' 
+    allowed:
+      - protocol: "tcp"
+        ports: ["1-65535"]
+      - protocol: "udp"
+        ports: ["1-65535"]
+      - protocol: "icmp"
+
+  # -- Allow ephemeral ports (for health checks from load balancer)
+  - name: "allow-health-check-ingress"
+    description: "Allow ingress for health checks from GCP Load Balancer."
+    direction: "INGRESS"
+    priority: 1000
+    sourceRanges:
+      - "130.211.0.0/22" # GCP Load Balancer Health Check IP range
+      - "35.191.0.0/16" # GCP Load Balancer Health Check IP range
+    allowed:
+      - protocol: "tcp"
+        ports: ["80", "443", "8080"] # Adjust to your service ports
+    targetTags: [] # Apply to all relevant instances/VMs (e.g., GKE nodes)
+
+  # -- Default allow egress to all (securely restrict this where possible)
+  - name: "allow-egress-all"
+    description: "Allow all egress traffic."
+    direction: "EGRESS"
+    priority: 1000
+    destinationRanges:
+      - "0.0.0.0/0"
+    allowed:
+      - protocol: "all"
+    targetTags: []
+
+# -- Shared VPC configuration
+sharedVPC:
+  # -- Enable this project as a Shared VPC Host.
+  host:
+    enabled: false
+  # -- Enable this project as a Shared VPC Service.
+  service:
+    enabled: false
+    # -- The reference to the host project.
+    hostProjectRef:
+      external: "" # IMPORTANT: Set this to your host project ID.
+    # -- The reference to the host network in the Shared VPC Host project.
+    hostNetworkRef:
+      external: "openlane-network"

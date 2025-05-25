@@ -1,0 +1,35 @@
+# Default values for gcp-memorystore-redis.
+# This chart provisions a Google Cloud Memorystore for Redis instance using Config Connector.
+
+enabled: true
+
+redisInstance:
+  # -- Name of the Redis instance.
+  name: "openlane-redis-cache"
+  # -- GCP Project ID where the instance will be created.
+  projectId: "" # Must be set via Taskfile or .env.local
+  # -- GCP region for the instance.
+  region: "us-central1" # Memorystore uses region.
+  # -- Redis version (e.g., REDIS_6_X, REDIS_7_0).
+  #    Check valid versions for your region.
+  redisVersion: "REDIS_7_0"
+  # -- Tier of the instance (BASIC or STANDARD_HA). STANDARD_HA recommended for production.
+  tier: "STANDARD_HA"
+  # -- Memory capacity in GiB (e.g., 1, 5, 10). Minimums apply based on tier.
+  memorySizeGb: 5
+
+  # -- Network configuration.
+  networkRef:
+    # -- Name of the ComputeNetwork resource (from gcp-vpc chart).
+    external: "openlane-network"
+
+  # -- Enable transit encryption (SSL/TLS for client connections).
+  #    Values: SERVER_AUTHENTICATION (client must establish SSL), DISABLED.
+  #    SERVER_AUTHENTICATION requires client-side certificate validation.
+  transitEncryptionMode: "DISABLED" # Set to "SERVER_AUTHENTICATION" for encrypted traffic.
+
+  # -- Connection details will be exposed as a Kubernetes Secret.
+  #    Config Connector automatically creates a secret. Define its name here.
+  #    The secret will contain keys like 'host' and 'port'.
+  secretRef:
+    name: "kubernetes-{{ .Release.Name }}-redis-connection"
