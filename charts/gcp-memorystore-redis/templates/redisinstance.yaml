@@ -16,7 +16,7 @@ metadata:
 {{- end }}
     cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
   labels:
-    {{- include "openlane-gcp-memorystorelabels" . | nindent 4 }}
+    {{- include "openlane-gcp-memorystore.labels" . | nindent 4 }}
 spec:
   region: {{ .Values.redisInstance.region | quote }}
   tier: {{ .Values.redisInstance.tier | quote }}

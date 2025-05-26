@@ -3,7 +3,7 @@ apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeManagedSSLCertificate
 metadata:
   name: {{ .Values.managedSslCertificate.name | quote }}
-  namespace: {{ include "gcp-lb.namespace" . }}
+  namespace: {{ include "openlane-gcp-lb.namespace" . }}
   annotations:
 {{- if .Values.global.abandon }}
     cnrm.cloud.google.com/deletion-policy: abandon
@@ -16,7 +16,7 @@ metadata:
 {{- end }}
     cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
   labels:
-    {{- include "gcp-lb.labels" . | nindent 4 }}
+    {{- include "openlane-gcp-lb.labels" . | nindent 4 }}
 spec:
   domains:
 {{ toYaml .Values.managedSslCertificate.domains | indent 4 }}

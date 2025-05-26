@@ -11,9 +11,9 @@ metadata:
     cnrm.cloud.google.com/state-into-spec: absent
     {{- end }}
   labels:
-    {{- include "gcp-gke-cluster.labels" . | nindent 4 }}
-  name: {{ include "gcp-gke-cluster.fullname" . }}
-  namespace: {{ include "gcp-gke-cluster.namespace" . }}
+    {{- include "openlane-gcp-gke-cluster.labels" . | nindent 4 }}
+  name: {{ include "openlane-gcp-gke-cluster.fullname" . }}
+  namespace: {{ include "openlane-gcp-gke-cluster.namespace" . }}
 spec:
   description: {{ .Values.description }}
   location: {{ .Values.location }}

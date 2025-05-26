@@ -16,8 +16,6 @@ enabled: true
 sqlInstance:
   # Metadata name (string)
   name: "openlane-postgresql-instance"
-  # GCP project ID (string, required)
-  projectId: ""
   # Instance region (string)
   region: "us-central1"
   # Postgres version (string)
@@ -25,7 +23,7 @@ sqlInstance:
   # Optional resource ID override (string)
   resourceID: ""
   # Protect against accidental deletion (boolean)
-  deletionProtectionEnabled: false
+  deletionProtectionEnabled: true
 
   # Replica settings
   replicaConfiguration:

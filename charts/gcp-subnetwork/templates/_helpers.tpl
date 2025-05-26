@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "compute-subnetwork.name" -}}
+{{- define "openlane-gcp-subnetwork.name" -}}
 {{- default .Chart.Name .Values.global.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "compute-subnetwork.fullname" -}}
+{{- define "openlane-gcp-subnetwork.fullname" -}}
 {{- if .Values.name }}
 {{- .Values.name | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -30,15 +30,15 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "compute-subnetwork.chart" -}}
+{{- define "openlane-gcp-subnetwork.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "compute-subnetwork.labels" -}}
-{{ include "compute-subnetwork.selectorLabels" . }}
+{{- define "openlane-gcp-subnetwork.labels" -}}
+{{ include "openlane-gcp-subnetwork.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -48,17 +48,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "compute-subnetwork.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "compute-subnetwork.name" . }}
+{{- define "openlane-gcp-subnetwork.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "openlane-gcp-subnetwork.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "compute-subnetwork.serviceAccountName" -}}
+{{- define "openlane-gcp-subnetwork.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "compute-subnetwork.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "openlane-gcp-subnetwork.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -67,6 +67,6 @@ Create the name of the service account to use
 {{/*
 Define Namespace
 */}}
-{{- define "compute-subnetwork.namespace" -}}
+{{- define "openlane-gcp-subnetwork.namespace" -}}
 {{ default .Release.Namespace .Values.global.cnrmNamespace }}
 {{- end -}}

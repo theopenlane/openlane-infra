@@ -4,12 +4,18 @@ apiVersion: sql.cnrm.cloud.google.com/v1beta1
 kind: SQLUser
 metadata:
   name: {{ .name | quote }}
-  namespace: {{ include "gcp-cloudsql-postgresql.namespace" $ }}
+  namespace: {{ include "openlane-gcp-cloudsql.namespace" $ }}
   annotations:
-    cnrm.cloud.google.com/project-id: {{ .Values.sqlInstance.projectId | quote }}
-    {{- if .Values.sqlInstance.deletionProtectionEnabled }}
+{{- if .Values.global.abandon }}
     cnrm.cloud.google.com/deletion-policy: abandon
-    {{- end }}
+{{- end }}
+{{- if .Values.global.forceDestroy }}
+    cnrm.cloud.google.com/force-destroy: "true"
+{{- end }}
+{{- if .Values.global.skipUnspecifiedFields }}
+    cnrm.cloud.google.com/state-into-spec: absent
+{{- end }}
+    cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
 spec:
   instanceRef:
     name: {{ .Values.sqlInstance.name | quote }}

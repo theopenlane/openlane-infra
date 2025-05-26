@@ -16,6 +16,15 @@ tasks:
       - for: { var: CHARTS, as: CHART }
         cmd: helm lint {{.CHART}}
 
+  template:all:
+    desc: Render all Helm charts, fail if any chart fails to template
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: |
+          echo "Rendering {{.CHART}}..."
+          helm dependency build "{{.CHART}}"
+          helm template "{{.CHART}}" --include-crds --skip-tests >> rendered/manifests.yaml
+
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas
     vars:
@@ -36,14 +45,6 @@ tasks:
       - mkdir -p packaged
       - for: { var: CHARTS, as: CHART }
         cmd: helm package {{.CHART}} -d packaged
-
-  spicylint:
-    desc: Lint your Helm chart with kube-score and kubeconform
-    cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: helm template {{.CHART}} --include-crds --skip-tests | kubeconform -strict
-      - for: { var: CHARTS, as: CHART }
-        cmd: helm template {{.CHART}} --include-crds --skip-tests | kube-score score -
 
   docs:
     desc: Copy README.md.gotmpl into all chart directories

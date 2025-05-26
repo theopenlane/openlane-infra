@@ -2,8 +2,8 @@
 apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
 kind: Project
 metadata:
-  name: {{ include "gcp-project.fullname" . }}
-  namespace: {{ include "gcp-project.namespace" . }}
+  name: {{ include "openlane-gcp-project.fullname" . }}
+  namespace: {{ include "openlane-gcp-project.namespace" . }}
   annotations:
     {{- if .Values.annotations.autoCreateNetwork }}
     cnrm.cloud.google.com/auto-create-network: {{ .Values.annotations.autoCreateNetwork | quote }}

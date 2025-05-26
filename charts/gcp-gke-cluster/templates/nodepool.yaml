@@ -10,7 +10,7 @@ metadata:
     cnrm.cloud.google.com/deletion-policy: abandon
     {{- end }}
   labels:
-{{- include "gcp-gke-cluster.labels" $ | nindent 4 }}
+{{- include "openlane-gcp-gke-cluster.labels" $ | nindent 4 }}
   {{- if and (.nodePoolName) (not .name) }}
   name: {{ .nodePoolName }}
   {{- else }}
