@@ -1,0 +1,25 @@
+{{- if .Values.enabled }}
+apiVersion: redis.cnrm.cloud.google.com/v1beta1
+kind: RedisInstance
+metadata:
+  name: {{ .Values.redisInstance.name | quote }}
+  namespace: {{ include "gcp-memorystore-redis.namespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.redisInstance.projectId | quote }}
+spec:
+  region: {{ .Values.redisInstance.region | quote }}
+  tier: {{ .Values.redisInstance.tier | quote }}
+  memorySizeGb: {{ .Values.redisInstance.memorySizeGb }}
+  {{- if .Values.redisInstance.displayName }}
+  displayName: {{ .Values.redisInstance.displayName | quote }}
+  {{- end }}
+  {{- if .Values.redisInstance.authNetworkRef.external }}
+  authorizedNetworkRef:
+    external: {{ .Values.redisInstance.authNetworkRef.external | quote }}
+  {{- end }}
+  redisVersion: {{ .Values.redisInstance.redisVersion | quote }}
+  {{- if .Values.redisInstance.redisConfigs }}
+  redisConfigs:
+{{ toYaml .Values.redisInstance.redisConfigs | indent 4 }}
+  {{- end }}
+{{- end }}

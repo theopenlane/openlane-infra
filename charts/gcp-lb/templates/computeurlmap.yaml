@@ -1,0 +1,15 @@
+{{- if .Values.urlMap.enabled }}
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeURLMap
+metadata:
+  name: {{ .Values.urlMap.name | quote }}
+  namespace: {{ include "gcp-lb.namespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.projectId | quote }}
+spec:
+  defaultService: {{ .Values.urlMap.defaultService | quote }}
+  hostRules:
+{{ toYaml .Values.urlMap.hostRules | indent 4 }}
+  pathMatchers:
+{{ toYaml .Values.urlMap.pathMatchers | indent 4 }}
+{{- end }}

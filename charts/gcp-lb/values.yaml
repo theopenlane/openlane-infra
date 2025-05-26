@@ -1,177 +1,72 @@
-# Default values for gcp-lb-ingress.
-# This chart provisions an external HTTP(S) Load Balancer for GKE ingress using Config Connector.
-
+# Default values for the Load Balancer chart
+# Enable or disable the entire chart (boolean)
 enabled: true
 
-# -- Project ID where Load Balancer resources will be created.
-projectId: "" # Must be set via Taskfile or .env.local
-
-# -- Global static IP address for the Load Balancer.
+# Global IP address configuration
 globalAddress:
-  # -- Name for the global static IP address.
-  name: "openlane-external-ip"
-  # -- IP version (IPV4 or IPV6).
+  # Name of the ComputeAddress resource (string)
+  name: "openlane-lb-address"
+  # GCP project ID (string)
+  projectId: ""
+  # Address type: EXTERNAL or INTERNAL (string)
+  addressType: "EXTERNAL"
+  # IP version: IPV4 or IPV6 (string)
   ipVersion: "IPV4"
-  # -- Description for the IP address.
-  description: "External IP for Openlane Load Balancer"
+  # Description for the address (string)
+  description: ""
+  # Network tier: PREMIUM or STANDARD (string)
+  networkTier: "PREMIUM"
+  # Prefix length for internal addresses (integer)
+  prefixLength: 0
+  # Purpose of address (string)
+  purpose: ""
+  # VPC network reference (string)
+  networkRef:
+    external: ""
+  # Subnetwork reference (string)
+  subnetworkRef:
+    external: ""
 
-# -- Managed SSL Certificate configuration (for HTTPS).
-managedSslCert:
-  enabled: true
-  # -- Name for the managed SSL certificate.
-  name: "openlane-managed-cert"
-  # -- Domains for which the certificate will be issued.
-  domains:
-    - "openlane.example.com" # IMPORTANT: Change to your domain.
-    - "www.openlane.example.com" # Add subdomains as needed.
-
-# -- SSL Policy for the Load Balancer.
-sslPolicy:
-  enabled: true
-  # -- Name for the SSL policy.
-  name: "openlane-ssl-policy"
-  # -- Description for the SSL policy.
-  description: "Recommended SSL policy for Openlane"
-  # -- Minimum TLS version (e.g., TLS_1_2).
-  minTlsVersion: "TLS_1_2"
-  # -- Profile (e.g., MODERN, COMPATIBLE, RESTRICTED).
-  profile: "MODERN"
-
-# -- Health Check for the Backend Service.
-healthCheck:
-  # -- Name for the health check.
-  name: "openlane-backend-health-check"
-  # -- Protocol for the health check (e.g., HTTP, HTTPS, TCP, SSL).
-  protocol: "HTTP"
-  # -- Request path for HTTP/HTTPS health checks.
-  requestPath: "/healthz" # Or your application's health endpoint.
-  # -- Port for the health check.
-  port: 80
-  # -- How often to perform health checks (seconds).
-  checkIntervalSec: 5
-  # -- Timeout for each health check attempt (seconds).
-  timeoutSec: 5
-  # -- Number of consecutive successful checks for a healthy status.
-  healthyThreshold: 2
-  # -- Number of consecutive failed checks for an unhealthy status.
-  unhealthyThreshold: 2
-
-# -- Backend Service configuration. This links to your GKE NodePort service.
+# Global HTTP(S) load balancer settings
+# Backend service configuration (map)
 backendService:
-  # -- Name for the backend service.
-  name: "openlane-backend-service"
-  # -- Protocol used for connections to the backend (e.g., HTTP, HTTPS, HTTP2, SSL, TCP).
-  protocol: "HTTP" # Use HTTP for cluster internal NodePort if not TLS terminated there.
-  # -- The port on the backend to connect to. This maps to your GKE Service NodePort.
-  portName: "http" # or https, or your named port (targetPort of the Service)
-  # -- Enable CDN for the backend service.
-  cdnPolicy:
-    enabled: false
-  # -- Logging configuration.
-  logConfig:
-    enable: true
-    sampleRate: 1.0 # 100% of traffic.
-  # -- Backends to attach to this service. Should point to your GKE Node Instance Group.
-  backends:
-    - # -- Group or NetworkEndpointGroup reference of your GKE NodePool.
-      #    This is crucial. You need to obtain the URL or name of your GKE Instance Group.
-      #    Example for Node-based backend:
-      groupRef:
-        # Example: GKE "ContainerCluster" provides its InstanceGroup.
-        # This will be named something like gke-CLUSTER_NAME-NODEPOOL_NAME-LONGHASH
-        # It needs to refer to the actual GKE InstanceGroup resource created by the cluster.
-        # The .Values.cluster variable would typically come from the gke-cluster chart's output or a centralized value.
-        # This is a complex reference due to dynamic naming by GKE.
-        # A common practice is to create a NodePort service, and then use
-        # a ComputeNetworkEndpointGroup for more precise backend management.
-        name: "gke-{{ .Values.gkeClusterName }}-default-pool" # Example name in same project.
-        # external: "projects/YOUR_PROJECT_ID/zones/YOUR_ZONE/instanceGroups/gke-YOUR_CLUSTER_NAME-YOUR_POOL"
-      # For a fully dynamic solution, you might need to query the InstanceGroup via kubectl or gcloud.
-      # Or, preferably use a NetworkEndpointGroup.
-      # If using "EXTERNAL" load balancing scheme, the backend is usually an InstanceGroup.
-      balancingMode: "UTILIZATION" # CONNECTION, RATE, UTILIZATION
-      maxUtilization: 0.8
-      # -- The number of seconds to wait for a connection to establish.
-      connectionTrackingDurationSec: 300
+  # Name of the BackendService (string)
+  name: ""
+  # Protocol: HTTP, HTTPS, or HTTP2 (string)
+  protocol: "HTTP"
+  # Port numbers (array of integers)
+  ports: []
+  # Health check reference name (string)
+  healthCheck: ""
+  # Enable CDN (boolean)
+  enableCDN: false
+  # Session affinity setting (string)
+  sessionAffinity: "NONE"
 
-# -- URL Map configuration. Maps incoming host/path to backend services.
+# URL map configuration
 urlMap:
-  # -- Name for the URL map.
-  name: "openlane-url-map"
-  # -- Description for the URL map.
-  description: "URL map for Openlane application"
-  # -- Default service for requests that don't match any rules.
-  defaultServiceRef:
-    external: "openlane-backend-service"
-  # -- Host rules (e.g., domain.com -> backend_service)
-  hostRules:
-    - hosts:
-        - "openlane.example.com"
-        - "www.openlane.example.com"
-      pathMatcher: "path-matcher-1"
-  # -- Path matchers (e.g., /api -> backend_service_api, / -> default_backend)
-  pathMatchers:
-    - name: "path-matcher-1"
-      defaultServiceRef:
-        external: "openlane-backend-service"
-      # pathRules:
-      #   - paths:
-      #       - "/rest"
-      #       - "/rest/*"
-      #     serviceRef:
-      #       external: "openlane-api-backend-service"
+  # Name of the URLMap (string)
+  name: ""
+  # Default service backend (string)
+  defaultService: ""
 
-# -- HTTP Proxy. For redirecting HTTP to HTTPS.
+# Target proxy configuration
 httpProxy:
-  # -- Name for the HTTP proxy.
-  name: "openlane-http-proxy"
-  # -- URL Map reference for the HTTP proxy.
-  urlMapRef:
-    external: "openlane-url-map"
-
-# -- HTTPS Proxy.
+  # Name of the TargetHttpProxy (string)
+  name: ""
 httpsProxy:
-  # -- Name for the HTTPS proxy.
-  name: "openlane-https-proxy"
-  # -- URL Map reference for the HTTPS proxy.
-  urlMapRef:
-    external: "openlane-url-map"
-  # -- SSL Certificates to attach.
-  sslCertificates:
-    - external: "openlane-managed-cert"
-  # -- SSL Policy to attach.
-  sslPolicyRef:
-    external: "openlane-ssl-policy"
+  # Name of the TargetHttpsProxy (string)
+  name: ""
+  # SSL certificate references (array of strings)
+  sslCertificates: []
 
-# -- Forwarding Rules
-forwardingRuleHttp:
-  # -- Name for the HTTP forwarding rule.
-  name: "openlane-http-forwarding-rule"
-  # -- IP address for the forwarding rule (references globalAddress).
-  ipAddressRef:
-    external: "openlane-external-ip"
-  # -- IP protocol (TCP, UDP, SCTP, ESP, AH).
-  ipProtocol: "TCP"
-  # -- Port range.
-  portRange: "80"
-  # -- Target for the forwarding rule.
-  targetRef:
-    external: "openlane-http-proxy"
-  # -- Load balancing scheme.
-  loadBalancingScheme: "EXTERNAL"
-
-forwardingRuleHttps:
-  # -- Name for the HTTPS forwarding rule.
-  name: "openlane-https-forwarding-rule"
-  # -- IP address for the forwarding rule (references globalAddress).
-  ipAddressRef:
-    external: "openlane-external-ip"
-  # -- IP protocol.
-  ipProtocol: "TCP"
-  # -- Port range.
-  portRange: "443"
-  # -- Target for the forwarding rule.
-  targetRef:
-    external: "openlane-https-proxy"
-  # -- Load balancing scheme.
-  loadBalancingScheme: "EXTERNAL"
+# Global forwarding rules
+forwardingRule:
+  # Name of the GlobalForwardingRule (string)
+  name: ""
+  # IP protocol: TCP or UDP (string)
+  IPProtocol: "TCP"
+  # Port range (string)
+  portRange: ""
+  # Target proxy reference (string)
+  target: ""

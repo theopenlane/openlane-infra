@@ -1,0 +1,19 @@
+{{- if .Values.users.enabled }}
+{{- range .Values.users.items }}
+apiVersion: sql.cnrm.cloud.google.com/v1beta1
+kind: SQLUser
+metadata:
+  name: {{ .name | quote }}
+  namespace: {{ include "gcp-cloudsql-postgresql.namespace" $ }}
+spec:
+  instanceRef:
+    name: {{ .Values.sqlInstance.name | quote }}
+  name: {{ .name | quote }}
+  host: {{ .host | quote }}
+  type: {{ .type | quote }}
+  passwordSecretRef:
+    secretRef:
+      name: {{ .passwordSecretRef.secretRef.name | quote }}
+      key: {{ .passwordSecretRef.secretRef.key | quote }}
+{{- end }}
+{{- end }}

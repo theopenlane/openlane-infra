@@ -1,0 +1,18 @@
+enabled: true
+project:
+  name: "test-project"
+  resourceID: "test-id"
+  description: "test"
+billingAccountRef:
+  external: "test-billing"
+parentRefs:
+  folderRef:
+    external: "test-folder"
+labels:
+  env: "test"
+enableServices:
+  - "compute.googleapis.com"
+projectIamBindings:
+  - role: "roles/viewer"
+    members:
+      - "user:test@example.com"

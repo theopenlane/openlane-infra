@@ -1,0 +1,64 @@
+projectId: "test-project"
+globalAddress:
+  enabled: true
+  name: "test-address"
+managedSslCertificate:
+  enabled: false
+sslPolicy:
+  enabled: false
+healthCheck:
+  enabled: true
+  name: "test-hc"
+  type: "HTTP"
+  checkIntervalSec: 5
+  timeoutSec: 5
+  healthyThreshold: 2
+  unhealthyThreshold: 2
+  httpHealthCheck:
+    port: 80
+    requestPath: "/"
+    proxyHeader: "NONE"
+backendService:
+  enabled: true
+  name: "test-backend"
+  protocol: "HTTP"
+  portName: "http"
+  loadBalancingScheme: "EXTERNAL"
+  timeoutSec: 30
+  connectionDraining:
+    drainingTimeoutSec: 0
+  enableCdn: false
+  affinityCookieTtlSec: 0
+  healthChecks:
+    - external: "test-hc"
+  backends:
+    - groupRef:
+        external: "test-neg"
+      balancingMode: "UTILIZATION"
+      maxUtilization: 0.8
+urlMap:
+  enabled: true
+  name: "test-urlmap"
+  defaultService: "test-backend"
+  hostRules:
+    - hosts: ["example.com"]
+      pathMatcher: "pm1"
+  pathMatchers:
+    - name: "pm1"
+      defaultService: "test-backend"
+      pathRules:
+        - paths: ["/"]
+          service: "test-backend"
+httpProxy:
+  enabled: true
+  name: "test-http-proxy"
+  urlMapRef: "test-urlmap"
+httpsProxy:
+  enabled: false
+forwardingRules:
+  http:
+    enabled: true
+    name: "test-fr-http"
+    portRange: "80"
+  https:
+    enabled: false

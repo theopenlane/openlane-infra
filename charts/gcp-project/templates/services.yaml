@@ -1,0 +1,9 @@
+apiVersion: serviceusage.cnrm.cloud.google.com/v1beta1
+kind: Service
+metadata:
+  name: {{ . | replace "/" "-" | quote }}  # Name must be DNS-compatible
+  namespace: {{ include "gcp-project.namespace" . }}
+spec:
+  service: {{ . | quote }}
+  projectRef:
+    external: {{ $.Values.project.resourceID | quote }}

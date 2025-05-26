@@ -1,0 +1,33 @@
+{{- if .Values.forwardingRules.http.enabled }}
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeGlobalForwardingRule
+metadata:
+  name: {{ .Values.forwardingRules.http.name | quote }}
+  namespace: {{ include "gcp-lb.namespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.projectId | quote }}
+spec:
+  loadBalancingScheme: "EXTERNAL"
+  portRange: {{ .Values.forwardingRules.http.portRange | quote }}
+  target:
+    external: {{ .Values.httpProxy.name | quote }}
+  ipAddressRef:
+    external: {{ .Values.globalAddress.name | quote }}
+{{- end }}
+
+{{- if .Values.forwardingRules.https.enabled }}
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeGlobalForwardingRule
+metadata:
+  name: {{ .Values.forwardingRules.https.name | quote }}
+  namespace: {{ include "gcp-lb.namespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.projectId | quote }}
+spec:
+  loadBalancingScheme: "EXTERNAL"
+  portRange: {{ .Values.forwardingRules.https.portRange | quote }}
+  target:
+    external: {{ .Values.httpsProxy.name | quote }}
+  ipAddressRef:
+    external: {{ .Values.globalAddress.name | quote }}
+{{- end }}

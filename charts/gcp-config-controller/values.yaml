@@ -1,45 +1,55 @@
-# Default values for gcp-config-controller.
-# This chart primarily defines the resource for a GCP Config Controller managed instance via Config Connector.
-
-# -- Enable / Disable deployment of this chart.
+# Default values for the Config Controller chart
+# Enable or disable the entire chart (boolean)
 enabled: true
 
-# -- General settings for the Config Controller instance
+# Configuration for ConfigControllerInstance resource
 configController:
-  # -- Name of the Config Controller instance. Must be unique within the region/project.
+  # Resource name (string)
   name: "openlane-config-controller"
-  # -- GCP Project ID where the Config Controller will be created.
-  projectId: "" # Must be set via Taskfile or .env.local
-
-  # -- GCP region for the Config Controller instance.
+  # GCP project reference
+  projectRef:
+    # Project resource path, e.g., projects/{projectId} (string)
+    external: ""
+    # Optional ref name (string)
+    name: ""
+    # Optional ref namespace (string)
+    namespace: ""
+  # Location for Config Controller (string)
   location: "us-central1"
+  # Optional resourceID override (string)
+  resourceID: ""
+  # Enable private endpoint (boolean)
+  usePrivateEndpoint: false
 
-  # -- The VPC network to which the Config Controller's private cluster is connected.
-  #    This reference *must* point to an existing VPC Network that has been already provisioned.
-  #    Ideal for shared VPC host project network.
-  network: "openlane-host-vpc" # This should point to the Network defined in gcp-vpc chart as host
-  # -- The master IPv4 CIDR block for the Config Controller cluster.
-  #    Ensure this does not overlap with other networks.
-  masterIpv4CidrBlock: "10.10.0.0/28" # Small CIDR, as it's a private endpoint for control plane.
-
-  # -- The release channel for the underlying GKE cluster (e.g., REGULAR, STABLE, RAPID).
-  releaseChannel: "REGULAR"
-
-  # -- The resource locations where the Config Controller can create cluster resources.
-  #    Can be a comma-separated list of regions or zones.
-  resourceLocations: "us-central1,us-central1-a"
-
-  # -- Optionally enable a public endpoint for the Config Controller cluster's API server.
-  #    Not recommended for production.
-  publicEndpointEnabled: false
-
-  # -- Monitoring configuration for the Config Controller cluster.
-  monitoring:
-    managedServiceMonitoring:
-      # -- Enable or disable managed service monitoring.
-      enabled: true
-      # -- Service account for monitoring (e.g., service-xxxxxxxxxx@gcp-sa-monitoring-control-plane.iam.gserviceaccount.com)
-      #    Usually automatically set by GCP for managed services.
-      #    This field is typically not set in spec for ConfigController CR.
-      # serviceAccountRef:
-      #   name: "<your-monitoring-sa>"
+  # Management configuration
+  managementConfig:
+    # Full management configuration settings (map)
+    fullManagementConfig:
+      # CIDR block for cluster (string)
+      clusterCidrBlock: ""
+      # Named range for cluster (string)
+      clusterNamedRange: ""
+      # Master IPv4 CIDR block (string)
+      masterIPv4CidrBlock: ""
+      # VPC network reference (string)
+      networkRef:
+        external: ""
+      # Services CIDR block (string)
+      servicesCidrBlock: ""
+      # Named range for services (string)
+      servicesNamedRange: ""
+    # Standard management config settings (map)
+    standardManagementConfig:
+      # CIDR block for cluster (string)
+      clusterCidrBlock: ""
+      # Named range for cluster (string)
+      clusterNamedRange: ""
+      # Master IPv4 CIDR block (string)
+      masterIPv4CidrBlock: ""
+      # VPC network reference (string)
+      networkRef:
+        external: ""
+      # Services CIDR block (string)
+      servicesCidrBlock: ""
+      # Named range for services (string)
+      servicesNamedRange: ""

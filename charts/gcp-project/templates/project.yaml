@@ -1,0 +1,25 @@
+{{- if .Values.enabled }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: Project
+metadata:
+  name: {{ include "gcp-project.fullname" . }}
+  namespace: {{ include "gcp-project.namespace" . }}
+spec:
+  name: {{ .Values.project.name | quote }}
+  {{- if .Values.project.resourceID }}
+  resourceID: {{ .Values.project.resourceID | quote }}
+  {{- end }}
+  description: {{ .Values.project.description | quote }}
+  billingAccountRef:
+    external: {{ .Values.billingAccountRef.external | quote }}
+  {{- if .Values.parentRefs.folderRef.external }}
+  folderRef:
+    external: {{ .Values.parentRefs.folderRef.external | quote }}
+  {{- end }}
+  {{- if .Values.parentRefs.organizationRef.external }}
+  organizationRef:
+    external: {{ .Values.parentRefs.organizationRef.external | quote }}
+  {{- end }}
+  labels:
+{{ toYaml .Values.labels | indent 4 }}
+{{- end }}
