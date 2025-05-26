@@ -1,4 +1,4 @@
-{{- if .Values.healthCheck.enabled }}
+{{- if .Values.enabled }}
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeHealthCheck
 metadata:
@@ -7,21 +7,17 @@ metadata:
   annotations:
     cnrm.cloud.google.com/project-id: {{ .Values.projectId | quote }}
 spec:
-  type: {{ .Values.healthCheck.type | quote }}
   checkIntervalSec: {{ .Values.healthCheck.checkIntervalSec }}
   timeoutSec: {{ .Values.healthCheck.timeoutSec }}
   healthyThreshold: {{ .Values.healthCheck.healthyThreshold }}
   unhealthyThreshold: {{ .Values.healthCheck.unhealthyThreshold }}
-  {{- if eq .Values.healthCheck.type "HTTP" }}
+  {{- if .Values.healthCheck.tcpHealthCheck }}
+  tcpHealthCheck:
+{{ toYaml .Values.healthCheck.tcpHealthCheck | indent 4 }}
+  {{- end }}
+  {{- if .Values.healthCheck.httpHealthCheck }}
   httpHealthCheck:
     port: {{ .Values.healthCheck.httpHealthCheck.port }}
     requestPath: {{ .Values.healthCheck.httpHealthCheck.requestPath | quote }}
-    proxyHeader: {{ .Values.healthCheck.httpHealthCheck.proxyHeader | quote }}
-  {{- end }}
-  {{- if eq .Values.healthCheck.type "HTTPS" }}
-  httpsHealthCheck:
-    port: {{ .Values.healthCheck.httpsHealthCheck.port }}
-    requestPath: {{ .Values.healthCheck.httpsHealthCheck.requestPath | quote }}
-    proxyHeader: {{ .Values.healthCheck.httpsHealthCheck.proxyHeader | quote }}
   {{- end }}
 {{- end }}

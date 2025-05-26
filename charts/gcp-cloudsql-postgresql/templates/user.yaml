@@ -5,6 +5,11 @@ kind: SQLUser
 metadata:
   name: {{ .name | quote }}
   namespace: {{ include "gcp-cloudsql-postgresql.namespace" $ }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.sqlInstance.projectId | quote }}
+    {{- if .Values.sqlInstance.deletionProtectionEnabled }}
+    cnrm.cloud.google.com/deletion-policy: abandon
+    {{- end }}
 spec:
   instanceRef:
     name: {{ .Values.sqlInstance.name | quote }}

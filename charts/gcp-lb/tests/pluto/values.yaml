@@ -1,64 +1,54 @@
+enabled: true
 projectId: "test-project"
 globalAddress:
-  enabled: true
-  name: "test-address"
+  name: "test-ip"
+  addressType: "EXTERNAL"
+  ipVersion: "IPV4"
 managedSslCertificate:
-  enabled: false
+  name: "test-cert"
+  domains: ["example.com"]
 sslPolicy:
-  enabled: false
+  name: "test-sslpolicy"
+  minTlsVersion: "TLS_1_2"
+  profile: "MODERN"
 healthCheck:
-  enabled: true
   name: "test-hc"
-  type: "HTTP"
-  checkIntervalSec: 5
+  checkIntervalSec: 10
   timeoutSec: 5
-  healthyThreshold: 2
-  unhealthyThreshold: 2
+  healthyThreshold: 1
+  unhealthyThreshold: 1
   httpHealthCheck:
     port: 80
     requestPath: "/"
-    proxyHeader: "NONE"
 backendService:
-  enabled: true
   name: "test-backend"
   protocol: "HTTP"
   portName: "http"
-  loadBalancingScheme: "EXTERNAL"
-  timeoutSec: 30
-  connectionDraining:
-    drainingTimeoutSec: 0
-  enableCdn: false
-  affinityCookieTtlSec: 0
-  healthChecks:
-    - external: "test-hc"
   backends:
-    - groupRef:
-        external: "test-neg"
+    - group:
+        external: "test-group"
       balancingMode: "UTILIZATION"
       maxUtilization: 0.8
+      capacityScaler: 1.0
 urlMap:
-  enabled: true
   name: "test-urlmap"
   defaultService: "test-backend"
   hostRules:
     - hosts: ["example.com"]
-      pathMatcher: "pm1"
-  pathMatchers:
-    - name: "pm1"
-      defaultService: "test-backend"
-      pathRules:
-        - paths: ["/"]
-          service: "test-backend"
-httpProxy:
-  enabled: true
+      pathMatcher: "default"
+targetHttpProxy:
   name: "test-http-proxy"
-  urlMapRef: "test-urlmap"
-httpsProxy:
-  enabled: false
-forwardingRules:
-  http:
-    enabled: true
-    name: "test-fr-http"
-    portRange: "80"
-  https:
-    enabled: false
+  urlMap: "test-urlmap"
+targetHttpsProxy:
+  name: "test-https-proxy"
+  urlMap: "test-urlmap"
+  sslCertificates:
+    - external: "test-cert"
+forwardingRuleHttp:
+  name: "test-fr-http"
+  portRange: "80-80"
+  target: "test-http-proxy"
+forwardingRuleHttps:
+  name: "test-fr-https"
+  portRange: "443-443"
+  target: "test-https-proxy"

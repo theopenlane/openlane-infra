@@ -18,14 +18,17 @@ tasks:
 
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas
+    vars:
+      KUBERNETES_VERSION: '1.32.3'
     cmds:
+      - mkdir -p ~/.conform-cache
       - rm -f rendered/manifests.yaml
       - for: { var: CHARTS, as: CHART }
         cmd: |
           echo "Linting {{.CHART}}..."
           helm dependency build "{{.CHART}}" || true
           helm template "{{.CHART}}" --include-crds --skip-tests >> rendered/manifests.yaml || echo "Failed to render {{.CHART}}" >&2
-      - kubeconform -verbose -strict -output pretty -summary -kubernetes-version="1.32.3" -cache .conform-cache  -schema-location 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/refs/heads/master/crds/{{`{{.Group}}`}}_{{`{{.ResourceAPIVersion}}`}}_{{`{{.ResourceKind}}`}}.yaml' -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://json.schemastore.org/{{`{{.ResourceKind}}`}}.json' -schema-location 'https://kubernetes-schemas.pages.dev/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location default rendered/manifests.yaml
+      - kubeconform -verbose -strict -output pretty -summary -kubernetes-version={{.KUBERNETES_VERSION}} -cache ~/.conform-cache -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://json.schemastore.org/{{`{{.ResourceKind}}`}}.json' -schema-location 'https://kubernetes-schemas.pages.dev/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/refs/heads/master/crds/{{`{{.Group}}`}}_{{`{{.ResourceAPIVersion}}`}}_{{`{{.ResourceKind}}`}}.yaml' -schema-location 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v{{.KUBERNETES_VERSION}}/{{`{{.ResourceKind}}`}}.json' -schema-location default rendered/manifests.yaml
 
   package:
     desc: Package all charts

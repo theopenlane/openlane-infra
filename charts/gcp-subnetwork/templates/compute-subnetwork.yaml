@@ -44,7 +44,7 @@ spec:
 {{- if .Values.purpose }}
   purpose: {{ .Values.purpose }}
 {{- end }}
-  region: us-central1
+  region: {{ .Values.region | quote }}
 {{- if .Values.resourceID }}
   resourceID: {{ .Values.resourceID }}
 {{- end }}

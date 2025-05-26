@@ -1,9 +1,19 @@
 # Default values for the Load Balancer chart
 # Enable or disable the entire chart (boolean)
-enabled: true
+
+global:
+  # -- Allows to deploy in another namespace than the release one
+  # @default -- `nil`
+  cnrmNamespace: ""
+  # -- Google Project ID
+  gcpProjectId: myprojectid
+  # -- If true, Keep the resources even after the kcc resource deletion.
+  abandon: true
 
 # Global IP address configuration
 globalAddress:
+  # Whether to enable the global address (boolean)
+  enabled: true
   # Name of the ComputeAddress resource (string)
   name: "openlane-lb-address"
   # GCP project ID (string)
@@ -27,11 +37,39 @@ globalAddress:
   subnetworkRef:
     external: ""
 
+# Managed SSL Certificate
+managedSslCertificate:
+  # Whether to enable the managed SSL certificate (boolean)
+  enabled: true
+  # Name of the ManagedSslCertificate resource (string)
+  name: "openlane-ssl-cert"
+  # domains to secure (array of strings)   
+  domains:                   
+    - "example.com"
+    - "www.example.com"
+  # description for the certificate (string)
+  description: ""
+
+# SSL Policy
+sslPolicy:
+  # Whether to enable the ssl policy (boolean)
+  enabled: true
+  # Name of the SSL policy (string)
+  name: "openlane-ssl-policy"
+  # minimum TLS version (string)
+  minTlsVersion: "TLS_1_3"
+   # COMPATIBLE or MODERN
+  profile: "MODERN"
+  # e.g. TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256           
+  customFeatures: []          
+
 # Global HTTP(S) load balancer settings
 # Backend service configuration (map)
 backendService:
+  # Whether to enable the backend service (boolean)
+  enabled: true
   # Name of the BackendService (string)
-  name: ""
+  name: "openlane-backend-service"
   # Protocol: HTTP, HTTPS, or HTTP2 (string)
   protocol: "HTTP"
   # Port numbers (array of integers)
@@ -42,31 +80,92 @@ backendService:
   enableCDN: false
   # Session affinity setting (string)
   sessionAffinity: "NONE"
+  # ComputeInstanceGroup backends
+  backends:    
+  # Instance group resource path             
+    - group:
+        external: ""
+      # UTILIZATION or RATE         
+      balancingMode: "UTILIZATION"  
+      maxUtilization: 0.8
+      capacityScaler: 1.0
+
+# Health Check
+healthCheck:
+  # Whether to enable the healthcheck (boolean)
+  enabled: true
+  # Name of the HealthCheck (string)
+  name: "openlane-hc"
+  # number of seconds between health checks (integer)
+  checkIntervalSec: 10
+  # number of seconds before a timeout (integer)
+  timeoutSec: 5
+  # number of consecutive successful checks before marking healthy (integer)
+  healthyThreshold: 2
+  # number of consecutive failed checks before marking unhealthy (integer)
+  unhealthyThreshold: 2
+  # tcpHealth Check configuration
+  tcpHealthCheck: {}          # For TCP HCs
+  # httpHealthCheck configuration
+  httpHealthCheck:           # For HTTP HCs
+    # Port number (integer)
+    port: 80
+    # Request path for health check (string)
+    requestPath: "/healthz"
 
 # URL map configuration
 urlMap:
+  # Whether to enable the URL map (boolean)
+  enabled: true
   # Name of the URLMap (string)
-  name: ""
+  name: "openlane-url-map"
   # Default service backend (string)
-  defaultService: ""
+  defaultService: ""          
+  # Host-based routing
+  hostRules:                  
+    - hosts:
+        - "example.com"
+      pathMatcher: "default"
 
-# Target proxy configuration
+# HTTP target proxy configuration
 httpProxy:
+  # Whether to enable the HTTP target proxy (boolean)
+  enabled: true
   # Name of the TargetHttpProxy (string)
-  name: ""
+  name: "openlane-http-proxy"
+  urlMap: ""
+
+# HTTPS target proxy configuration
 httpsProxy:
+  # Whether to enable the HTTPS target proxy (boolean)
+  enabled: true
   # Name of the TargetHttpsProxy (string)
-  name: ""
+  name: "openlane-https-proxy"
   # SSL certificate references (array of strings)
   sslCertificates: []
 
 # Global forwarding rules
-forwardingRule:
+forwardingRuleHttp:
+  # Whether to enable the HTTP forwarding rule (boolean)
+  enabled: true
   # Name of the GlobalForwardingRule (string)
-  name: ""
+  name: "openlane-fr-http"
   # IP protocol: TCP or UDP (string)
   IPProtocol: "TCP"
   # Port range (string)
-  portRange: ""
+  portRange: "80-80"
+  # Target proxy reference (string)
+  target: ""
+
+# Global forwarding rulee
+forwardingRuleHttps:
+  # Whether to enable the HTTPS forwarding rule (boolean)
+  enabled: true
+  # Name of the GlobalForwardingRule (string)
+  name: "openlane-fr-https"
+  # IP protocol: TCP or UDP (string)
+  IPProtocol: "TCP"
+  # Port range (string)
+  portRange: "443-443"
   # Target proxy reference (string)
   target: ""

@@ -54,7 +54,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the vpc netwofk to use
+Create the name of the vpc network to use
 */}}
 {{- define "gcp-vpc-network.vpcNetworkName" -}}
 {{- if .Values.vpcNetworkName.create }}

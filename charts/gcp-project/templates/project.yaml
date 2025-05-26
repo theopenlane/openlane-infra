@@ -4,22 +4,23 @@ kind: Project
 metadata:
   name: {{ include "gcp-project.fullname" . }}
   namespace: {{ include "gcp-project.namespace" . }}
+  annotations:
+    {{- if .Values.annotations.autoCreateNetwork }}
+    cnrm.cloud.google.com/auto-create-network: {{ .Values.annotations.autoCreateNetwork | quote }}
+    {{- end }}
 spec:
   name: {{ .Values.project.name | quote }}
   {{- if .Values.project.resourceID }}
   resourceID: {{ .Values.project.resourceID | quote }}
   {{- end }}
-  description: {{ .Values.project.description | quote }}
   billingAccountRef:
-    external: {{ .Values.billingAccountRef.external | quote }}
-  {{- if .Values.parentRefs.folderRef.external }}
+    external: {{ .Values.project.billingAccountRef.external | quote }}
+  {{- if .Values.project.folderRef.external }}
   folderRef:
-    external: {{ .Values.parentRefs.folderRef.external | quote }}
+    external: {{ .Values.project.folderRef.external | quote }}
   {{- end }}
-  {{- if .Values.parentRefs.organizationRef.external }}
+  {{- if .Values.project.organizationRef.external }}
   organizationRef:
-    external: {{ .Values.parentRefs.organizationRef.external | quote }}
+    external: {{ .Values.project.organizationRef.external | quote }}
   {{- end }}
-  labels:
-{{ toYaml .Values.labels | indent 4 }}
 {{- end }}

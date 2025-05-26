@@ -1,9 +1,14 @@
+{{- if .Values.apiEnablement.enabled }}
+{{- range $svc := .Values.apiEnablement.services }}
 apiVersion: serviceusage.cnrm.cloud.google.com/v1beta1
 kind: Service
 metadata:
-  name: {{ . | replace "/" "-" | quote }}  # Name must be DNS-compatible
-  namespace: {{ include "gcp-project.namespace" . }}
+  name: {{ $svc | quote }}  
+  namespace: {{ include "gcp-project.namespace" $ }}
 spec:
-  service: {{ . | quote }}
+  service: {{ $svc | quote }}
   projectRef:
     external: {{ $.Values.project.resourceID | quote }}
+---
+{{- end }}
+{{- end }}
