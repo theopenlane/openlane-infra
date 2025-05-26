@@ -1,9 +1,9 @@
 apiVersion: v2
+name: openlane-gcp-bucket
+version: 0.1.0
 appVersion: 0.1.0
-description: A Helm chart for Bucket
+description: A Helm chart for creating a GCP Bucket via Config Connector
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
-name: openlane-gcp-bucket
 type: application
-version: 0.1.0
