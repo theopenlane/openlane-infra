@@ -179,6 +179,20 @@ entries:
     urls:
     - openlane-gcp-cloud-nat-0.1.0.tgz
     version: 0.1.0
+  openlane-gcp-cloudsql:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-26T18:08:36.699715017Z"
+    description: A Helm chart that Creates a Google CloudSQL Instance via Config Connector
+    digest: deb8975b4250cab32f34c74b8fe2488bc19c9b4c8c1f3f7fe2edb011e2514c25
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-cloudsql
+    type: application
+    urls:
+    - openlane-gcp-cloudsql-0.1.0.tgz
+    version: 0.1.0
   openlane-gcp-compute-address:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -282,6 +296,63 @@ entries:
     urls:
     - openlane-gcp-iam-policy-members-0.1.0.tgz
     version: 0.1.0
+  openlane-gcp-kcc:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-26T18:08:37.577497823Z"
+    description: A Helm chart that manages a Config Connector GCP instance
+    digest: a337f4cba589dbc4317e6da93a5795d9e2ce7736733b8aa523411059ba53789e
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-kcc
+    type: application
+    urls:
+    - openlane-gcp-kcc-0.1.0.tgz
+    version: 0.1.0
+  openlane-gcp-lb:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-26T18:08:37.720055274Z"
+    description: A Helm chart that Creates Loadbalancing resources via Config Connector
+    digest: 25109f477feb00452aff7fbff04a85a8741615e45988510ef0933b832127947d
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-lb
+    type: application
+    urls:
+    - openlane-gcp-lb-0.1.0.tgz
+    version: 0.1.0
+  openlane-gcp-memorystore:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-26T18:08:37.863206789Z"
+    description: A Helm chart that Creates a Google Memory Store (Redis instance)
+      through Config Connector
+    digest: 9dc4181b64537e18a3a230447033983f550ba913878a3c989d4c1d140e715703
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-memorystore
+    type: application
+    urls:
+    - openlane-gcp-memorystore-0.1.0.tgz
+    version: 0.1.0
+  openlane-gcp-project:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-26T18:08:37.983908773Z"
+    description: A Helm chart that Creates GCP projects and configuration Config Connector
+    digest: 001268585d5d8a89cd8366b3feb60ab887492032889e748e35811a7db05d5ffc
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+    name: openlane-gcp-project
+    type: application
+    urls:
+    - openlane-gcp-project-0.1.0.tgz
+    version: 0.1.0
   openlane-gcp-service-account:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -340,4 +411,4 @@ entries:
     urls:
     - openlane-gcp-workload-identity-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-24T20:35:19.638423386Z"
+generated: "2025-05-26T18:08:38.262945591Z"
