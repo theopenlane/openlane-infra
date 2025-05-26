@@ -1,4 +1,3 @@
----
 global:
   # -- Allows to deploy in another namespace than the release one
   # @default -- `nil`

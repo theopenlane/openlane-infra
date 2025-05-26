@@ -1,9 +1,8 @@
-{{- if .Values.enabled }}
 apiVersion: sql.cnrm.cloud.google.com/v1beta1
 kind: SQLInstance
 metadata:
-  name: {{ .Values.sqlInstance.name | quote }}
-  namespace: {{ include "gcp-cloudsql-postgresql.namespace" . }}
+  name: {{ .Values.name | quote }}
+  namespace: {{ include "openlane-gcp-cloudsql.namespace" . }}
   annotations:
 {{- if .Values.global.abandon }}
     cnrm.cloud.google.com/deletion-policy: abandon
@@ -16,76 +15,75 @@ metadata:
 {{- end }}
     cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
 spec:
-  region: {{ .Values.sqlInstance.region | quote }}
-  databaseVersion: {{ .Values.sqlInstance.databaseVersion | quote }}
-  {{- if .Values.sqlInstance.resourceID }}
-  resourceID: {{ .Values.sqlInstance.resourceID | quote }}
+  region: {{ .Values.region | quote }}
+  databaseVersion: {{ .Values.databaseVersion | quote }}
+  {{- if .Values.resourceID }}
+  resourceID: {{ .Values.resourceID | quote }}
   {{- end }}
-  deletionProtectionEnabled: {{ .Values.sqlInstance.deletionProtectionEnabled }}
-  {{- if .Values.sqlInstance.masterInstanceRef }}
+  deletionProtectionEnabled: {{ .Values.deletionProtectionEnabled }}
+  {{- if .Values.masterInstanceRef }}
   masterInstanceRef:
-    name: {{ .Values.sqlInstance.masterInstanceRef | quote }}
+    name: {{ .Values.masterInstanceRef | quote }}
   {{- end }}
-  {{- if .Values.sqlInstance.replicaConfiguration.connectRetryInterval }}
+  {{- if .Values.replicaConfiguration.connectRetryInterval }}
   replicaConfiguration:
-    connectRetryInterval: {{ .Values.sqlInstance.replicaConfiguration.connectRetryInterval }}
+    connectRetryInterval: {{ .Values.replicaConfiguration.connectRetryInterval }}
   {{- end }}
   settings:
-    tier: {{ .Values.sqlInstance.settings.tier | quote }}
-    availabilityType: {{ .Values.sqlInstance.settings.availabilityType | quote }}
-    activationPolicy: {{ .Values.sqlInstance.settings.activationPolicy | quote }}
-    diskSize: {{ .Values.sqlInstance.settings.diskSize }}
-    diskType: {{ .Values.sqlInstance.settings.diskType | quote }}
-    diskAutoresize: {{ .Values.sqlInstance.settings.diskAutoresize }}
-    diskAutoresizeLimit: {{ .Values.sqlInstance.settings.diskAutoresizeLimit }}
-    connectorEnforcement: {{ .Values.sqlInstance.settings.connectorEnforcement | quote }}
-    crashSafeReplication: {{ .Values.sqlInstance.settings.crashSafeReplication }}
-    deletionProtectionEnabled: {{ .Values.sqlInstance.settings.deletionProtectionEnabled }}
+    tier: {{ .Values.settings.tier | quote }}
+    availabilityType: {{ .Values.settings.availabilityType | quote }}
+    activationPolicy: {{ .Values.settings.activationPolicy | quote }}
+    diskSize: {{ .Values.settings.diskSize }}
+    diskType: {{ .Values.settings.diskType | quote }}
+    diskAutoresize: {{ .Values.settings.diskAutoresize }}
+    diskAutoresizeLimit: {{ .Values.settings.diskAutoresizeLimit }}
+    connectorEnforcement: {{ .Values.settings.connectorEnforcement | quote }}
+    crashSafeReplication: {{ .Values.settings.crashSafeReplication }}
+    deletionProtectionEnabled: {{ .Values.settings.deletionProtectionEnabled }}
     dataCacheConfig:
-      dataCacheEnabled: {{ .Values.sqlInstance.settings.dataCacheConfig.dataCacheEnabled }}
+      dataCacheEnabled: {{ .Values.settings.dataCacheConfig.dataCacheEnabled }}
     backupConfiguration:
-      enabled: {{ .Values.sqlInstance.settings.backupConfiguration.enabled }}
-      startTime: {{ .Values.sqlInstance.settings.backupConfiguration.startTime | quote }}
-      location: {{ .Values.sqlInstance.settings.backupConfiguration.location | quote }}
-      pointInTimeRecoveryEnabled: {{ .Values.sqlInstance.settings.backupConfiguration.pointInTimeRecoveryEnabled }}
-      transactionLogRetentionDays: {{ .Values.sqlInstance.settings.backupConfiguration.transactionLogRetentionDays }}
-      binaryLogEnabled: {{ .Values.sqlInstance.settings.backupConfiguration.binaryLogEnabled }}
+      enabled: {{ .Values.settings.backupConfiguration.enabled }}
+      startTime: {{ .Values.settings.backupConfiguration.startTime | quote }}
+      location: {{ .Values.settings.backupConfiguration.location | quote }}
+      pointInTimeRecoveryEnabled: {{ .Values.settings.backupConfiguration.pointInTimeRecoveryEnabled }}
+      transactionLogRetentionDays: {{ .Values.settings.backupConfiguration.transactionLogRetentionDays }}
+      binaryLogEnabled: {{ .Values.settings.backupConfiguration.binaryLogEnabled }}
       backupRetentionSettings:
-        retainedBackups: {{ .Values.sqlInstance.settings.backupConfiguration.backupRetentionSettings.retainedBackups }}
-        retentionUnit: {{ .Values.sqlInstance.settings.backupConfiguration.backupRetentionSettings.retentionUnit | quote }}
+        retainedBackups: {{ .Values.settings.backupConfiguration.backupRetentionSettings.retainedBackups }}
+        retentionUnit: {{ .Values.settings.backupConfiguration.backupRetentionSettings.retentionUnit | quote }}
     maintenanceWindow:
-      day: {{ .Values.sqlInstance.settings.maintenanceWindow.day }}
-      hour: {{ .Values.sqlInstance.settings.maintenanceWindow.hour }}
-      updateTrack: {{ .Values.sqlInstance.settings.maintenanceWindow.updateTrack | quote }}
+      day: {{ .Values.settings.maintenanceWindow.day }}
+      hour: {{ .Values.settings.maintenanceWindow.hour }}
+      updateTrack: {{ .Values.settings.maintenanceWindow.updateTrack | quote }}
     denyMaintenancePeriod:
-      startDate: {{ .Values.sqlInstance.settings.denyMaintenancePeriod.startDate | quote }}
-      endDate: {{ .Values.sqlInstance.settings.denyMaintenancePeriod.endDate | quote }}
-      time: {{ .Values.sqlInstance.settings.denyMaintenancePeriod.time | quote }}
-    collation: {{ .Values.sqlInstance.settings.collation | quote }}
-    edition: {{ .Values.sqlInstance.settings.edition | quote }}
+      startDate: {{ .Values.settings.denyMaintenancePeriod.startDate | quote }}
+      endDate: {{ .Values.settings.denyMaintenancePeriod.endDate | quote }}
+      time: {{ .Values.settings.denyMaintenancePeriod.time | quote }}
+    collation: {{ .Values.settings.collation | quote }}
+    edition: {{ .Values.settings.edition | quote }}
     insightsConfig:
-      queryInsightsEnabled: {{ .Values.sqlInstance.settings.insightsConfig.queryInsightsEnabled }}
-      queryPlansPerMinute: {{ .Values.sqlInstance.settings.insightsConfig.queryPlansPerMinute }}
-      queryStringLength: {{ .Values.sqlInstance.settings.insightsConfig.queryStringLength }}
-      recordApplicationTags: {{ .Values.sqlInstance.settings.insightsConfig.recordApplicationTags }}
-      recordClientAddress: {{ .Values.sqlInstance.settings.insightsConfig.recordClientAddress }}
+      queryInsightsEnabled: {{ .Values.settings.insightsConfig.queryInsightsEnabled }}
+      queryPlansPerMinute: {{ .Values.settings.insightsConfig.queryPlansPerMinute }}
+      queryStringLength: {{ .Values.settings.insightsConfig.queryStringLength }}
+      recordApplicationTags: {{ .Values.settings.insightsConfig.recordApplicationTags }}
+      recordClientAddress: {{ .Values.settings.insightsConfig.recordClientAddress }}
     ipConfiguration:
-      allocatedIpRange: {{ .Values.sqlInstance.settings.ipConfiguration.allocatedIpRange | quote }}
-      ipv4Enabled: {{ .Values.sqlInstance.settings.ipConfiguration.ipv4Enabled }}
-      enablePrivatePathForGoogleCloudServices: {{ .Values.sqlInstance.settings.ipConfiguration.enablePrivatePathForGoogleCloudServices }}
+      allocatedIpRange: {{ .Values.settings.ipConfiguration.allocatedIpRange | quote }}
+      ipv4Enabled: {{ .Values.settings.ipConfiguration.ipv4Enabled }}
+      enablePrivatePathForGoogleCloudServices: {{ .Values.settings.ipConfiguration.enablePrivatePathForGoogleCloudServices }}
       privateNetworkRef:
-        external: {{ .Values.sqlInstance.settings.ipConfiguration.privateNetworkRef.external | quote }}
+        external: {{ .Values.settings.ipConfiguration.privateNetworkRef.external | quote }}
       authorizedNetworks:
-{{- range .Values.sqlInstance.settings.ipConfiguration.authorizedNetworks }}
+{{- range .Values.settings.ipConfiguration.authorizedNetworks }}
         - name: {{ .name | quote }}
           value: {{ .value | quote }}
           expirationTime: {{ .expirationTime | quote }}
 {{- end }}
     databaseFlags:
-{{ toYaml .Values.sqlInstance.settings.databaseFlags | indent 6 }}
-    pricingPlan: {{ .Values.sqlInstance.settings.pricingPlan | quote }}
+{{ toYaml .Values.settings.databaseFlags | indent 6 }}
+    pricingPlan: {{ .Values.settings.pricingPlan | quote }}
     locationPreference:
-      zone: {{ .Values.sqlInstance.settings.locationPreference.zone | quote }}
-      secondaryZone: {{ .Values.sqlInstance.settings.locationPreference.secondaryZone | quote }}
-      followGaeApplication: {{ .Values.sqlInstance.settings.locationPreference.followGaeApplication | quote }}
-{{- end }}
+      zone: {{ .Values.settings.locationPreference.zone | quote }}
+      secondaryZone: {{ .Values.settings.locationPreference.secondaryZone | quote }}
+      followGaeApplication: {{ .Values.settings.locationPreference.followGaeApplication | quote }}
