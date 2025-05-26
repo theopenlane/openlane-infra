@@ -2,7 +2,7 @@
 apiVersion: redis.cnrm.cloud.google.com/v1beta1
 kind: RedisInstance
 metadata:
-  name: {{ .Values.redisInstance.name | quote }}
+  name: {{ .Values.name | quote }}
   namespace: {{ include "openlane-gcp-memorystore.namespace" . }}
   annotations:
 {{- if .Values.global.abandon }}
@@ -18,19 +18,19 @@ metadata:
   labels:
     {{- include "openlane-gcp-memorystore.labels" . | nindent 4 }}
 spec:
-  region: {{ .Values.redisInstance.region | quote }}
-  tier: {{ .Values.redisInstance.tier | quote }}
-  memorySizeGb: {{ .Values.redisInstance.memorySizeGb }}
-  {{- if .Values.redisInstance.displayName }}
-  displayName: {{ .Values.redisInstance.displayName | quote }}
+  region: {{ .Values.region | quote }}
+  tier: {{ .Values.tier | quote }}
+  memorySizeGb: {{ .Values.memorySizeGb }}
+  {{- if .Values.displayName }}
+  displayName: {{ .Values.displayName | quote }}
   {{- end }}
-  {{- if .Values.redisInstance.authNetworkRef.external }}
+  {{- if .Values.authNetworkRef.external }}
   authorizedNetworkRef:
-    external: {{ .Values.redisInstance.authNetworkRef.external | quote }}
+    external: {{ .Values.authNetworkRef.external | quote }}
   {{- end }}
-  redisVersion: {{ .Values.redisInstance.redisVersion | quote }}
-  {{- if .Values.redisInstance.redisConfigs }}
+  redisVersion: {{ .Values.redisVersion | quote }}
+  {{- if .Values.redisConfigs }}
   redisConfigs:
-{{ toYaml .Values.redisInstance.redisConfigs | indent 4 }}
+{{ toYaml .Values.redisConfigs | indent 4 }}
   {{- end }}
 {{- end }}

@@ -1,27 +1,27 @@
-{{- if .Values.httpsProxy.enabled }}
+{{- if $.Values.targetHttpsProxy.enabled }}
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeTargetHttpsProxy
 metadata:
-  name: {{ .Values.targetHttpsProxy.name | quote }}
+  name: {{ $.Values.targetHttpsProxy.name | quote }}
   namespace: {{ include "openlane-gcp-lb.namespace" . }}
   annotations:
-{{- if .Values.global.abandon }}
+{{- if $.Values.global.abandon }}
     cnrm.cloud.google.com/deletion-policy: abandon
 {{- end }}
-{{- if .Values.global.forceDestroy }}
+{{- if $.Values.global.forceDestroy }}
     cnrm.cloud.google.com/force-destroy: "true"
 {{- end }}
-{{- if .Values.global.skipUnspecifiedFields }}
+{{- if $.Values.global.skipUnspecifiedFields }}
     cnrm.cloud.google.com/state-into-spec: absent
 {{- end }}
-    cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
+    cnrm.cloud.google.com/project-id: {{ $.Values.global.gcpProjectId | quote }}
   labels:
     {{- include "openlane-gcp-lb.labels" . | nindent 4 }}
 spec:
   urlMapRef:
-    name: {{ .Values.targetHttpsProxy.urlMap | quote }}
+    name: {{ $.Values.targetHttpsProxy.urlMap | quote }}
   sslCertificates:
-{{- range .Values.targetHttpsProxy.sslCertificates }}
+{{- range $.Values.targetHttpsProxy.sslCertificates }}
     - external: {{ .external | quote }}
 {{- end }}
 {{- end }}

@@ -128,7 +128,7 @@ urlMap:
       pathMatcher: "default"
 
 # HTTP target proxy configuration
-httpProxy:
+targetHttpProxy:
   # Whether to enable the HTTP target proxy (boolean)
   enabled: true
   # Name of the TargetHttpProxy (string)
@@ -136,13 +136,15 @@ httpProxy:
   urlMap: ""
 
 # HTTPS target proxy configuration
-httpsProxy:
+targetHttpsProxy:
   # Whether to enable the HTTPS target proxy (boolean)
   enabled: true
   # Name of the TargetHttpsProxy (string)
   name: "openlane-https-proxy"
   # SSL certificate references (array of strings)
   sslCertificates: []
+  # URL map reference (string)
+  urlMap: "openlane-url-map"
 
 # Global forwarding rules
 forwardingRuleHttp:

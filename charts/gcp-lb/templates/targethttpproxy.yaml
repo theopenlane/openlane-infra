@@ -1,4 +1,4 @@
-{{- if .Values.httpProxy.enabled }}
+{{- if .Values.targetHttpProxy.enabled }}
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeTargetHttpProxy
 metadata:

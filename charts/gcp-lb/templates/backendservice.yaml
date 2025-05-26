@@ -29,5 +29,5 @@ spec:
       capacityScaler: {{ .capacityScaler }}
 {{- end }}
   healthChecks:
-    - {{ include "openlane-gcp-lb.healthcheckName" . | quote }}
+    - {{ .Values.healthCheck.name | quote }}
 {{- end }}

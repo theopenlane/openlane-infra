@@ -1,10 +1,17 @@
 # Default values for gcp-project.
 # This chart creates a new GCP project and its initial configurations using Config Connector.
-
-enabled: true
+global:
+  # -- Allows to deploy in another namespace than the release one
+  # @default -- `nil`
+  cnrmNamespace: ""
+  # -- Google Project ID
+  gcpProjectId: myprojectid
+  # -- If true, Keep the resource even after the kcc resource deletion.
+  abandon: true
 
 # -- Project specific settings
 project:
+  enabled: true
   # -- The desired GCP project ID. Must be globally unique.
   projectId: "" # IMPORTANT: Must be set!
   # -- Display name for the GCP project.
@@ -24,6 +31,10 @@ project:
   #   external: "folders/1234567890" # Example
   # organizationRef:
   #   external: "organizations/1234567890" # Example
+  # controls whether or not deafult network is created
+  autoCreateNetwork: false
+  # -- The project number is dynamically assigned by GCP when the project is created.
+  projectNumber: ""
 
 # -- List of GCP APIs to enable within this project.
 apiEnablement:

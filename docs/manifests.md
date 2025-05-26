@@ -10,6 +10,8 @@ https://cloud.google.com/config-connector/docs/reference/resource-docs/dns/dnsma
 
 https://cloud.google.com/config-connector/docs/reference/resource-docs/redis/rediscluster
 
+https://cloud.google.com/config-connector/docs/reference/resource-docs/serviceusage/service
+
 ## CRDs
 
 ```bash
