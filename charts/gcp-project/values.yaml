@@ -1,0 +1,78 @@
+# Default values for gcp-project.
+# This chart creates a new GCP project and its initial configurations using Config Connector.
+global:
+  # -- Allows to deploy in another namespace than the release one
+  # @default -- `nil`
+  cnrmNamespace: ""
+  # -- Google Project ID
+  gcpProjectId: myprojectid
+  # -- If true, Keep the resource even after the kcc resource deletion.
+  abandon: true
+
+# -- Project specific settings
+project:
+  enabled: true
+  # -- The desired GCP project ID. Must be globally unique.
+  projectId: "" # IMPORTANT: Must be set!
+  # -- Display name for the GCP project.
+  name: "openlane-service-project"
+  # -- Description for the project.
+  description: "Openlane application service project"
+
+  # -- Reference to the Billing Account ID that the project will be linked to.
+  #    This is crucial for project creation.
+  #    Example: "012345-6789BF-012345"
+  billingAccountRef:
+    external: "" # IMPORTANT: Must be set! (Can be passed via Taskfile)
+
+  # -- Parent of the project, either an Organization or a Folder.
+  #    If not set, project is created under the billing account's default resource hierachy.
+  # folderRef:
+  #   external: "folders/1234567890" # Example
+  # organizationRef:
+  #   external: "organizations/1234567890" # Example
+  # controls whether or not deafult network is created
+  autoCreateNetwork: false
+  # -- The project number is dynamically assigned by GCP when the project is created.
+  projectNumber: ""
+
+# -- List of GCP APIs to enable within this project.
+apiEnablement:
+  enabled: true
+  services:
+    - servicemanagement.googleapis.com
+    - serviceusage.googleapis.com
+    - container.googleapis.com
+    - compute.googleapis.com
+    - sqladmin.googleapis.com
+    - dns.googleapis.com
+    - redis.googleapis.com
+    - sourcerepo.googleapis.com
+    - connectgateway.googleapis.com # For GKE connect
+    - anthos.googleapis.com # For GKE connect
+    - gkehub.googleapis.com # For GKE connect
+    - cloudaudit.googleapis.com # For auditing
+
+# -- IAM settings for the project.
+iam:
+  enabled: true
+  # -- Service accounts to create within this project.
+  serviceAccounts:
+    - name: "openlane-app-sa"
+      displayName: "Service Account for Openlane Application"
+      roles:
+        # -- Roles for the application service account. Add specific roles as needed by the application.
+        - roles/viewer
+        - roles/secretmanager.secretAccessor # If app needs to access secrets
+        - roles/cloudsql.client # For CloudSQL private IP access
+        - roles/container.viewer # If app needs GKE info
+        # Add more specific roles as per application and security needs.
+
+  # -- IAM Members to bind to roles at the project level.
+  #    This is for project-level permissions to users, groups, or service accounts.
+  #    Often used to grant the Config Controller's managed SA permissions to new service projects.
+  projectBindings:
+    # Example: Grant Config Controller's managed service account (used by Config Connector)
+    # roles to this new project. This SA needs permissions to provision.
+    - role: "roles/owner" # Highly permissive, use for initial setup. Restrict to specific roles in production.
+      member: "serviceAccount:service-{{ .Values.configControllerProjectNumber }}@gcp-sa-config-controller.iam.gserviceaccount.com" # Dynamic project number

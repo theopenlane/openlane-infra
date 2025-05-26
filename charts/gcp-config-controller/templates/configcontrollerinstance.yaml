@@ -1,0 +1,40 @@
+{{- if .Values.enabled }}
+apiVersion: configcontroller.cnrm.cloud.google.com/v1alpha1
+kind: ConfigControllerInstance
+metadata:
+  name: {{ .Values.name | quote }}
+  namespace: {{ include "gcp-config-controller.namespace" . }}
+spec:
+  projectRef:
+    external: {{ .Values.projectRef.external | quote }}
+    {{- if .Values.configController.projectRef.name }}
+    name: {{ .Values.projectRef.name | quote }}
+    {{- end }}
+    {{- if .Values.configController.projectRef.namespace }}
+    namespace: {{ .Values.projectRef.namespace | quote }}
+    {{- end }}
+  location: {{ .Values.location | quote }}
+  {{- if .Values.configController.resourceID }}
+  resourceID: {{ .Values.resourceID | quote }}
+  {{- end }}
+  usePrivateEndpoint: {{ .Values.usePrivateEndpoint }}
+  managementConfig:
+    fullManagementConfig:
+      clusterCidrBlock: {{ .Values.managementConfig.fullManagementConfig.clusterCidrBlock | quote }}
+      clusterNamedRange: {{ .Values.managementConfig.fullManagementConfig.clusterNamedRange | quote }}
+      manBlock: {{ .Values.managementConfig.fullManagementConfig.manBlock | quote }}
+      masterIPv4CidrBlock: {{ .Values.managementConfig.fullManagementConfig.masterIPv4CidrBlock | quote }}
+      networkRef:
+        external: {{ .Values.managementConfig.fullManagementConfig.networkRef.external | quote }}
+      servicesCidrBlock: {{ .Values.managementConfig.fullManagementConfig.servicesCidrBlock | quote }}
+      servicesNamedRange: {{ .Values.managementConfig.fullManagementConfig.servicesNamedRange | quote }}
+    standardManagementConfig:
+      clusterCidrBlock: {{ .Values.managementConfig.standardManagementConfig.clusterCidrBlock | quote }}
+      clusterNamedRange: {{ .Values.managementConfig.standardManagementConfig.clusterNamedRange | quote }}
+      manBlock: {{ .Values.managementConfig.standardManagementConfig.manBlock | quote }}
+      masterIPv4CidrBlock: {{ .Values.managementConfig.standardManagementConfig.masterIPv4CidrBlock | quote }}
+      networkRef:
+        external: {{ .Values.managementConfig.standardManagementConfig.networkRef.external | quote }}
+      servicesCidrBlock: {{ .Values.managementConfig.standardManagementConfig.servicesCidrBlock | quote }}
+      servicesNamedRange: {{ .Values.managementConfig.standardManagementConfig.servicesNamedRange | quote }}
+{{- end }}

@@ -1,0 +1,10 @@
+enabled: true
+configController:
+  name: "test-cci"
+  projectRef:
+    external: "projects/test-project"
+  location: "us-central1"
+  usePrivateEndpoint: false
+  managementConfig:
+    fullManagementConfig: {}
+    standardManagementConfig: {}

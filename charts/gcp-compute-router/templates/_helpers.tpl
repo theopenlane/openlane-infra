@@ -54,17 +54,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
-*/}}
-{{- define "gcp-compute-router.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "gcp-compute-router.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
-
-{{/*
 Define Namespace
 */}}
 {{- define "gcp-compute-router.namespace" -}}

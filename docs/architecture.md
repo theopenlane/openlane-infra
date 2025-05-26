@@ -57,3 +57,8 @@ Other independent components:
 - Storage Bucket (audit/backups)
 - IAM bindings for Service Accounts
 ```
+
+
+https://cloud.google.com/architecture/security-foundations/networking
+https://cloud.google.com/architecture/security-foundations/preventative-controls
+https://cloud.google.com/architecture/security-foundations/summary

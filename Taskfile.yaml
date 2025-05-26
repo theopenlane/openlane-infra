@@ -16,16 +16,24 @@ tasks:
       - for: { var: CHARTS, as: CHART }
         cmd: helm lint {{.CHART}}
 
-  lint:schema:
-    desc: Validate Helm chart manifests using kubeconform and GCP schemas
+  template:all:
+    desc: Render all Helm charts, fail if any chart fails to template
     cmds:
-      - rm -f rendered/manifests.yaml
       - for: { var: CHARTS, as: CHART }
         cmd: |
-          echo "Linting {{.CHART}}..."
-          helm dependency build "{{.CHART}}" || true
-          helm template "{{.CHART}}" --include-crds --skip-tests >> rendered/manifests.yaml || echo "Failed to render {{.CHART}}" >&2
-      - kubeconform -verbose -strict -output pretty -summary -kubernetes-version="1.32.3" -cache .conform-cache  -schema-location 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/refs/heads/master/crds/{{`{{.Group}}`}}_{{`{{.ResourceAPIVersion}}`}}_{{`{{.ResourceKind}}`}}.yaml' -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://json.schemastore.org/{{`{{.ResourceKind}}`}}.json' -schema-location 'https://kubernetes-schemas.pages.dev/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location default rendered/manifests.yaml
+          echo "Rendering {{.CHART}}..."
+          helm dependency build "{{.CHART}}"
+          helm template "{{.CHART}}" --include-crds --skip-tests >> rendered/manifests.yaml
+
+  lint:schema:
+    desc: Validate Helm chart manifests using kubeconform and GCP schemas
+    vars:
+      KUBERNETES_VERSION: '1.32.3'
+    cmds:
+      - mkdir -p ~/.conform-cache
+      - rm -f rendered/manifests.yaml
+      - task: template:all
+      - kubeconform -verbose -strict -output pretty -summary -kubernetes-version={{.KUBERNETES_VERSION}} -cache ~/.conform-cache -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://json.schemastore.org/{{`{{.ResourceKind}}`}}.json' -schema-location 'https://kubernetes-schemas.pages.dev/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/refs/heads/master/crds/{{`{{.Group}}`}}_{{`{{.ResourceAPIVersion}}`}}_{{`{{.ResourceKind}}`}}.yaml' -schema-location 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v{{.KUBERNETES_VERSION}}/{{`{{.ResourceKind}}`}}.json' -schema-location default rendered/manifests.yaml
 
   package:
     desc: Package all charts
@@ -33,14 +41,6 @@ tasks:
       - mkdir -p packaged
       - for: { var: CHARTS, as: CHART }
         cmd: helm package {{.CHART}} -d packaged
-
-  spicylint:
-    desc: Lint your Helm chart with kube-score and kubeconform
-    cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: helm template {{.CHART}} --include-crds --skip-tests | kubeconform -strict
-      - for: { var: CHARTS, as: CHART }
-        cmd: helm template {{.CHART}} --include-crds --skip-tests | kube-score score -
 
   docs:
     desc: Copy README.md.gotmpl into all chart directories
@@ -85,20 +85,7 @@ tasks:
       - brew install kubeconform
       - brew install kubeaudit
       - brew install kube-score
-      - task: krew
       - brew install norwoodj/tap/helm-docs
-
-  krew:
-    desc: Install krew
-    cmds:
-      - |
-        set -x; cd "$(mktemp -d)" &&
-        OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-        KREW="krew-${OS}_${ARCH}" &&
-        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-        tar zxvf "${KREW}.tar.gz" &&
-        ./"${KREW}" install krew
 
   docker:run:
     desc: Run task inside Docker container with preinstalled CLI tools
@@ -114,13 +101,4 @@ tasks:
   lint:fix:
     desc: Fix lint issues using yamllint with custom config
     cmds:
-      - yamllint -c .github/configs/lintconf.yaml charts/
-
-  lint:script:
-    desc: Lint Helm charts using bash script
-    cmds:
-      - ./scripts/lint.sh
-    status:
-      - test $(find charts/ -name *.yaml | xargs kubeconform | wc -l) -eq 0
-      - test $(helm lint charts/* | grep -i error | wc -l) -eq 0
-      - test $(find charts/ -name *.yaml | xargs yamllint | grep -i error | wc -l) -eq 0
+      - yamllint -c configs/lintconf.yaml charts/

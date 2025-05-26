@@ -1,0 +1,54 @@
+enabled: true
+projectId: "test-project"
+globalAddress:
+  name: "test-ip"
+  addressType: "EXTERNAL"
+  ipVersion: "IPV4"
+managedSslCertificate:
+  name: "test-cert"
+  domains: ["example.com"]
+sslPolicy:
+  name: "test-sslpolicy"
+  minTlsVersion: "TLS_1_2"
+  profile: "MODERN"
+healthCheck:
+  name: "test-hc"
+  checkIntervalSec: 10
+  timeoutSec: 5
+  healthyThreshold: 1
+  unhealthyThreshold: 1
+  httpHealthCheck:
+    port: 80
+    requestPath: "/"
+backendService:
+  name: "test-backend"
+  protocol: "HTTP"
+  portName: "http"
+  backends:
+    - group:
+        external: "test-group"
+      balancingMode: "UTILIZATION"
+      maxUtilization: 0.8
+      capacityScaler: 1.0
+urlMap:
+  name: "test-urlmap"
+  defaultService: "test-backend"
+  hostRules:
+    - hosts: ["example.com"]
+      pathMatcher: "default"
+targetHttpProxy:
+  name: "test-http-proxy"
+  urlMap: "test-urlmap"
+targetHttpsProxy:
+  name: "test-https-proxy"
+  urlMap: "test-urlmap"
+  sslCertificates:
+    - external: "test-cert"
+forwardingRuleHttp:
+  name: "test-fr-http"
+  portRange: "80-80"
+  target: "test-http-proxy"
+forwardingRuleHttps:
+  name: "test-fr-https"
+  portRange: "443-443"
+  target: "test-https-proxy"

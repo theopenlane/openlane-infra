@@ -1,0 +1,33 @@
+{{- if .Values.backendService.enabled }}
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeBackendService
+metadata:
+  name: {{ .Values.backendService.name | quote }}
+  namespace: {{ include "openlane-gcp-lb.namespace" . }}
+  annotations:
+{{- if .Values.global.abandon }}
+    cnrm.cloud.google.com/deletion-policy: abandon
+{{- end }}
+{{- if .Values.global.forceDestroy }}
+    cnrm.cloud.google.com/force-destroy: "true"
+{{- end }}
+{{- if .Values.global.skipUnspecifiedFields }}
+    cnrm.cloud.google.com/state-into-spec: absent
+{{- end }}
+    cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
+  labels:
+    {{- include "openlane-gcp-lb.labels" . | nindent 4 }}
+spec:
+  protocol: {{ .Values.backendService.protocol | quote }}
+  portName: {{ .Values.backendService.portName | quote }}
+  backends:
+{{- range .Values.backendService.backends }}
+    - group:
+        external: {{ .group.external | quote }}
+      balancingMode: {{ .balancingMode | quote }}
+      maxUtilization: {{ .maxUtilization }}
+      capacityScaler: {{ .capacityScaler }}
+{{- end }}
+  healthChecks:
+    - {{ .Values.healthCheck.name | quote }}
+{{- end }}

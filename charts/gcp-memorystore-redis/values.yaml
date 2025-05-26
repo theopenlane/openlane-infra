@@ -1,0 +1,33 @@
+# Default values for gcp-memorystore-redis.
+# This chart provisions a RedisInstance via Config Connector
+
+global:
+  # -- Allows to deploy in another namespace than the release one
+  # @default -- `nil`
+  cnrmNamespace: ""
+  # -- Google Project ID
+  gcpProjectId: myprojectid
+  # -- If true, Keep the resource even after the kcc resource deletion.
+  abandon: true
+
+enabled: true
+
+# -- Name of the Redis instance (metadata.name).
+name: "openlane-redis"
+# -- GCP project ID where the instance lives.
+projectId: ""
+# -- Region for the Redis instance.
+region: "us-central1"
+# -- Service tier (BASIC or STANDARD_HA).
+tier: "BASIC"
+# -- Memory size in GB.
+memorySizeGb: 1
+# -- Optional display name.
+displayName: ""
+# -- Authorized network reference.
+authNetworkRef:
+  external: ""
+# -- Redis version (e.g., REDIS_6_X).
+redisVersion: "REDIS_6_X"
+# -- Map of custom Redis parameters.
+redisConfigs: {}

@@ -1,0 +1,13 @@
+{{- range .Values.projectIamBindings }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: ProjectIamBinding
+metadata:
+  name: {{ printf "%s-%s" .role (randAlphaNum 5) | quote }}
+  namespace: {{ include "openlane-gcp-project.namespace" $ }}
+spec:
+  projectRef:
+    external: {{ $.Values.project.resourceID | quote }}
+  role: {{ .role | quote }}
+  members:
+{{ toYaml .members | indent 4 }}
+{{- end }}

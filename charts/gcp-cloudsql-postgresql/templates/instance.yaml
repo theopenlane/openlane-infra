@@ -1,0 +1,89 @@
+apiVersion: sql.cnrm.cloud.google.com/v1beta1
+kind: SQLInstance
+metadata:
+  name: {{ .Values.name | quote }}
+  namespace: {{ include "openlane-gcp-cloudsql.namespace" . }}
+  annotations:
+{{- if .Values.global.abandon }}
+    cnrm.cloud.google.com/deletion-policy: abandon
+{{- end }}
+{{- if .Values.global.forceDestroy }}
+    cnrm.cloud.google.com/force-destroy: "true"
+{{- end }}
+{{- if .Values.global.skipUnspecifiedFields }}
+    cnrm.cloud.google.com/state-into-spec: absent
+{{- end }}
+    cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
+spec:
+  region: {{ .Values.region | quote }}
+  databaseVersion: {{ .Values.databaseVersion | quote }}
+  {{- if .Values.resourceID }}
+  resourceID: {{ .Values.resourceID | quote }}
+  {{- end }}
+  deletionProtectionEnabled: {{ .Values.deletionProtectionEnabled }}
+  {{- if .Values.masterInstanceRef }}
+  masterInstanceRef:
+    name: {{ .Values.masterInstanceRef | quote }}
+  {{- end }}
+  {{- if .Values.replicaConfiguration.connectRetryInterval }}
+  replicaConfiguration:
+    connectRetryInterval: {{ .Values.replicaConfiguration.connectRetryInterval }}
+  {{- end }}
+  settings:
+    tier: {{ .Values.settings.tier | quote }}
+    availabilityType: {{ .Values.settings.availabilityType | quote }}
+    activationPolicy: {{ .Values.settings.activationPolicy | quote }}
+    diskSize: {{ .Values.settings.diskSize }}
+    diskType: {{ .Values.settings.diskType | quote }}
+    diskAutoresize: {{ .Values.settings.diskAutoresize }}
+    diskAutoresizeLimit: {{ .Values.settings.diskAutoresizeLimit }}
+    connectorEnforcement: {{ .Values.settings.connectorEnforcement | quote }}
+    crashSafeReplication: {{ .Values.settings.crashSafeReplication }}
+    deletionProtectionEnabled: {{ .Values.settings.deletionProtectionEnabled }}
+    dataCacheConfig:
+      dataCacheEnabled: {{ .Values.settings.dataCacheConfig.dataCacheEnabled }}
+    backupConfiguration:
+      enabled: {{ .Values.settings.backupConfiguration.enabled }}
+      startTime: {{ .Values.settings.backupConfiguration.startTime | quote }}
+      location: {{ .Values.settings.backupConfiguration.location | quote }}
+      pointInTimeRecoveryEnabled: {{ .Values.settings.backupConfiguration.pointInTimeRecoveryEnabled }}
+      transactionLogRetentionDays: {{ .Values.settings.backupConfiguration.transactionLogRetentionDays }}
+      binaryLogEnabled: {{ .Values.settings.backupConfiguration.binaryLogEnabled }}
+      backupRetentionSettings:
+        retainedBackups: {{ .Values.settings.backupConfiguration.backupRetentionSettings.retainedBackups }}
+        retentionUnit: {{ .Values.settings.backupConfiguration.backupRetentionSettings.retentionUnit | quote }}
+    maintenanceWindow:
+      day: {{ .Values.settings.maintenanceWindow.day }}
+      hour: {{ .Values.settings.maintenanceWindow.hour }}
+      updateTrack: {{ .Values.settings.maintenanceWindow.updateTrack | quote }}
+    denyMaintenancePeriod:
+      startDate: {{ .Values.settings.denyMaintenancePeriod.startDate | quote }}
+      endDate: {{ .Values.settings.denyMaintenancePeriod.endDate | quote }}
+      time: {{ .Values.settings.denyMaintenancePeriod.time | quote }}
+    collation: {{ .Values.settings.collation | quote }}
+    edition: {{ .Values.settings.edition | quote }}
+    insightsConfig:
+      queryInsightsEnabled: {{ .Values.settings.insightsConfig.queryInsightsEnabled }}
+      queryPlansPerMinute: {{ .Values.settings.insightsConfig.queryPlansPerMinute }}
+      queryStringLength: {{ .Values.settings.insightsConfig.queryStringLength }}
+      recordApplicationTags: {{ .Values.settings.insightsConfig.recordApplicationTags }}
+      recordClientAddress: {{ .Values.settings.insightsConfig.recordClientAddress }}
+    ipConfiguration:
+      allocatedIpRange: {{ .Values.settings.ipConfiguration.allocatedIpRange | quote }}
+      ipv4Enabled: {{ .Values.settings.ipConfiguration.ipv4Enabled }}
+      enablePrivatePathForGoogleCloudServices: {{ .Values.settings.ipConfiguration.enablePrivatePathForGoogleCloudServices }}
+      privateNetworkRef:
+        external: {{ .Values.settings.ipConfiguration.privateNetworkRef.external | quote }}
+      authorizedNetworks:
+{{- range .Values.settings.ipConfiguration.authorizedNetworks }}
+        - name: {{ .name | quote }}
+          value: {{ .value | quote }}
+          expirationTime: {{ .expirationTime | quote }}
+{{- end }}
+    databaseFlags:
+{{ toYaml .Values.settings.databaseFlags | indent 6 }}
+    pricingPlan: {{ .Values.settings.pricingPlan | quote }}
+    locationPreference:
+      zone: {{ .Values.settings.locationPreference.zone | quote }}
+      secondaryZone: {{ .Values.settings.locationPreference.secondaryZone | quote }}
+      followGaeApplication: {{ .Values.settings.locationPreference.followGaeApplication | quote }}

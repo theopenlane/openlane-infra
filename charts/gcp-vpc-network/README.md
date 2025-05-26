@@ -1,3 +1,37 @@
+**Conceptual `charts/gcp-vpc/templates/` changes:**
+*   `network.yaml`: Defines `ComputeNetwork` CR (`compute.cnrm.cloud.google.com/v1beta1.ComputeNetwork`). `projectRef.external` points to `values.network.projectId`.
+*   `subnets.yaml`: Iterates `values.subnetworks` to create `ComputeSubnetwork` CRs (`compute.cnrm.cloud.google.com/v1beta1.ComputeSubnetwork`), referencing `networkRef.external` (to the network name) and `projectRef.external` (for the network's project).
+*   `firewall.yaml`: Iterates `values.firewallRules` to create `ComputeFirewall` CRs (`compute.cnrm.cloud.google.com/v1beta1.ComputeFirewall`), referencing `networkRef.external`.
+*   `shared-vpc-host.yaml`: If `values.sharedVPC.host.enabled` is `true`, creates a `ComputeSharedVPCHostProject` CR (`compute.cnrm.cloud.google.com/v1beta1.ComputeSharedVPCHostProject`), referencing the `projectRef.external` (current project).
+*   `shared-vpc-service.yaml`: If `values.sharedVPC.service.enabled` is `true`, creates a `ComputeSharedVPCServiceProject` CR (`compute.cnrm.cloud.google.com/v1beta1.ComputeSharedVPCServiceProject`), referencing `hostProjectRef.external` and `hostNetworkRef.external`.
+
+# GCP VPC Network Helm Chart (CNRM)
+
+This Helm chart provisions a Virtual Private Cloud (VPC) network, subnets, and essential firewall rules in GCP using **GCP Config Connector**.
+
+**Key Features:**
+
+*   **Shared VPC Support:** Configure the network as a Shared VPC Host project or attach it as a Shared VPC Service project.
+*   **VPC-native Networking:** Defaults to VPC-native GKE clusters.
+*   **Secure Firewall Rules:** Essential firewall rules for GKE cluster operation and internal communication.
+
+## Usage
+
+This chart is typically deployed early in the infrastructure provisioning process as other resources (GKE, CloudSQL, Redis) depend on it.
+
+## Shared VPC Configuration
+
+This chart can operate in two modes for Shared VPC:
+
+1.  **Host Project Mode:**
+    *   Set `sharedVPC.host.enabled: true`.
+    *   The chart will create the network and enable it as a Shared VPC Host using `ComputeSharedVPCHostProject`.
+    *   You'll define the service projects that are allowed to attach to this host (usually done using `ComputeSharedVPCServiceProject` in the service project).
+2.  **Service Project Mode:**
+    *   Set `sharedVPC.service.enabled: true`.
+    *   Specify the `hostNetworkRef` for the network in the Shared VPC Host project, and its `hostProjectRef`.
+    *   The chart will create a `ComputeSharedVPCServiceProject` resource, attaching this project to the host.
+
 # openlane-gcp-vpc-network
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)

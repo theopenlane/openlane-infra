@@ -1,0 +1,153 @@
+global:
+  # -- Allows to deploy in another namespace than the release one
+  # @default -- `nil`
+  cnrmNamespace: ""
+  # -- Google Project ID
+  gcpProjectId: myprojectid
+  # -- If true, Keep the Compute Address even after the kcc resource deletion.
+  abandon: true
+
+enabled: true
+# Configuration for the SQLInstance resource
+
+  # Metadata name (string)
+name: "openlane-postgresql-instance"
+# Instance region (string)
+region: "us-central1"
+# Postgres version (string)
+databaseVersion: "POSTGRES_14"
+# Optional resource ID override (string)
+resourceID: ""
+# Protect against accidental deletion (boolean)
+deletionProtectionEnabled: true
+# Replica settings
+replicaConfiguration:
+  # Connection retry interval in seconds (integer)
+  connectRetryInterval: 60
+# Instance settings
+settings:
+  # Machine type tier (string)
+  tier: "db-custom-2-7680"
+  # ZONAL or REGIONAL (string)
+  availabilityType: "ZONAL"
+  # ALWAYS or NEVER (string)
+  activationPolicy: "ALWAYS"
+  # Disk size in GB (integer)
+  diskSize: 10
+  # Disk type (PD_SSD or PD_HDD) (string)
+  diskType: "PD_SSD"
+  # Auto-resize enabled (boolean)
+  diskAutoresize: true
+  # Auto-resize limit in GB (integer)
+  diskAutoresizeLimit: 0
+  # Connector enforcement setting (string)
+  connectorEnforcement: ""
+  # Crash-safe replication (boolean)
+  crashSafeReplication: false
+  # Query data cache enabled (boolean)
+  dataCacheConfig:
+    dataCacheEnabled: false
+  # Automated backup configuration
+  backupConfiguration:
+    # Enable backups (boolean)
+    enabled: true
+    # Daily UTC start time HH:MM (string)
+    startTime: "03:00"
+    # Backup location (string)
+    location: "us"
+    # Enable PITR (boolean)
+    pointInTimeRecoveryEnabled: true
+    # Retain transaction logs days (integer)
+    transactionLogRetentionDays: 7
+    # Enable binary logs (boolean)
+    binaryLogEnabled: false
+    # Retention settings
+    backupRetentionSettings:
+      # Number of backups (integer)
+      retainedBackups: 7
+      # COUNT or TIME (string)
+      retentionUnit: COUNT
+  # Maintenance window settings
+  maintenanceWindow:
+    # Day of week 1=Mon..7=Sun (integer)
+    day: 7
+    # Hour UTC (integer)
+    hour: 3
+    # stable or canary (string)
+    updateTrack: "stable"
+  # Deny maintenance period
+  denyMaintenancePeriod:
+    # Start date YYYY-MM-DD (string)
+    startDate: ""
+    # End date YYYY-MM-DD (string)
+    endDate: ""
+    # Time HH:MM (string)
+    time: ""
+  # Database collation (string)
+  collation: ""
+  # ENTERPRISE or ENTERPRISE_PLUS (string)
+  edition: ""
+  # Query insights config
+  insightsConfig:
+    # Enable Query Insights (boolean)
+    queryInsightsEnabled: false
+    # Plans per minute (integer)
+    queryPlansPerMinute: 5
+    # Max string length (integer)
+    queryStringLength: 1024
+    # Record app tags (boolean)
+    recordApplicationTags: false
+    # Record client address (boolean)
+    recordClientAddress: false
+  # IP configuration
+  ipConfiguration:
+    # Secondary range for VPC peering (string)
+    allocatedIpRange: ""
+    # Enable IPv4 (boolean)
+    ipv4Enabled: true
+    # Private Google services path (boolean)
+    enablePrivatePathForGoogleCloudServices: false
+    # VPC network reference (string)
+    privateNetworkRef:
+      external: ""
+    # Authorized networks list
+    authorizedNetworks:
+      - name: ""  # Name for auth network (string)
+        value: ""  # CIDR block (string)
+        expirationTime: ""  # RFC3339 (string)
+  # Database flags as name/value pairs ([]map)
+  databaseFlags: []
+  # Pricing plan (PACKAGES or PER_USE) (string)
+  pricingPlan: "PER_USE"
+  # Placement preferences
+  locationPreference:
+    # Primary zone (string)
+    zone: ""
+    # Secondary zone (string)
+    secondaryZone: ""
+    # GAE app binding (string)
+    followGaeApplication: ""
+
+# Databases to create in instance
+databases:
+  # Enable database creation (boolean)
+  enabled: true
+  # List of databases
+  items:
+    - name: "mydb"  # Database name (string)
+      charset: "UTF8"  # Charset (string)
+      collation: "en_US.UTF8"  # Collation (string)
+
+# Users to create in instance
+users:
+  # Enable user creation (boolean)
+  enabled: true
+  items:
+    - name: "appuser"  # Username (string)
+      host: "%"  # Host wildcard (string)
+      type: "BUILT_IN"  # BUILT_IN or CLOUD_IAM_USER (string)
+      passwordSecretRef:
+        # K8s secret reference for password
+        secretRef:
+          name: "db-password-secret"  # Secret name (string)
+          key: "password"  # Secret key (string)

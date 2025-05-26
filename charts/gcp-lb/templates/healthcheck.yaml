@@ -1,0 +1,34 @@
+{{- if .Values.healthCheck.enabled }}
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeHealthCheck
+metadata:
+  name: {{ .Values.healthCheck.name | quote }}
+  namespace: {{ include "openlane-gcp-lb.namespace" . }}
+  annotations:
+{{- if .Values.global.abandon }}
+    cnrm.cloud.google.com/deletion-policy: abandon
+{{- end }}
+{{- if .Values.global.forceDestroy }}
+    cnrm.cloud.google.com/force-destroy: "true"
+{{- end }}
+{{- if .Values.global.skipUnspecifiedFields }}
+    cnrm.cloud.google.com/state-into-spec: absent
+{{- end }}
+    cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
+  labels:
+    {{- include "openlane-gcp-lb.labels" . | nindent 4 }}
+spec:
+  checkIntervalSec: {{ .Values.healthCheck.checkIntervalSec }}
+  timeoutSec: {{ .Values.healthCheck.timeoutSec }}
+  healthyThreshold: {{ .Values.healthCheck.healthyThreshold }}
+  unhealthyThreshold: {{ .Values.healthCheck.unhealthyThreshold }}
+  {{- if .Values.healthCheck.tcpHealthCheck }}
+  tcpHealthCheck:
+{{ toYaml .Values.healthCheck.tcpHealthCheck | indent 4 }}
+  {{- end }}
+  {{- if .Values.healthCheck.httpHealthCheck }}
+  httpHealthCheck:
+    port: {{ .Values.healthCheck.httpHealthCheck.port }}
+    requestPath: {{ .Values.healthCheck.httpHealthCheck.requestPath | quote }}
+  {{- end }}
+{{- end }}
