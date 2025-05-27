@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  gcp-project-base:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-05-27T06:56:04.595056589Z"
+    description: Reusable chart for defining a GCP Project and its common resources.
+    digest: dc9b88507405981653f2cce3f3fb5bee8d301a73d68cffe6ef534fce28eac148
+    name: gcp-project-base
+    type: application
+    urls:
+    - gcp-project-base-0.1.0.tgz
+    version: 0.1.0
   openlane-alertmanager:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -130,6 +141,18 @@ entries:
     name: openlane-external-dns
     urls:
     - openlane-external-dns-0.1.0.tgz
+    version: 0.1.0
+  openlane-gcp-bootstrap:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-05-27T06:56:05.165829149Z"
+    description: Bootstrap chart for OpenLane GCP infrastructure, creating folders,
+      and generating ArgoCD Applications for project deployments.
+    digest: 79e8674c028554f53cc47458282c7a7e7558f29d38bfdeb54661be79368a67ff
+    name: openlane-gcp-bootstrap
+    type: application
+    urls:
+    - openlane-gcp-bootstrap-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-bucket:
   - apiVersion: v2
@@ -411,4 +434,4 @@ entries:
     urls:
     - openlane-gcp-workload-identity-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-26T18:08:38.262945591Z"
+generated: "2025-05-27T06:56:07.330822943Z"
