@@ -75,7 +75,7 @@ sharedVpcHost: # Blueprint for a shared VPC host project instance
   project: # KCC Project resource details
     name: "openlane-shared-vpc-host" # Base Project ID
     id: "" # Hydrated numerical project ID
-    gcpProjectName: "OpenLane Shared VPC Host" # Base Display Name
+    gcpProjectName: "Openlane Shared VPC Host" # Base Display Name
     apis: ["compute.googleapis.com", "servicenetworking.googleapis.com", "cloudresourcemanager.googleapis.com", "cloudkms.googleapis.com"]
   network: # Shared VPC network details
     name: "openlane-shared-vpc" # Network name base
@@ -92,7 +92,7 @@ appProject: # Blueprint for an application project instance. Inherits from commo
   project:
     name: "openlane-app" # Base Project ID
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Application" # Base Display Name
+    gcpProjectName: "Openlane Application" # Base Display Name
     apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
   # Resource config defaults - will be merged with commonAppConfig and then instance-specific values
   gkeCluster: {} 
@@ -107,7 +107,7 @@ loggingProject: # Blueprint for a centralized logging project instance
   project:
     name: "openlane-logs"
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Central Logging"
+    gcpProjectName: "Openlane Central Logging"
     apis: ["logging.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com"]
   logSinks:
     orgAudit: { enabled: true, destinationBucketName: "openlane-central-logs-bucket", destinationDatasetName: "openlane_central_logs_dataset" }
@@ -117,7 +117,7 @@ billingProject: # Blueprint for a centralized billing project instance
   project:
     name: "openlane-billing"
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Billing Admin"
+    gcpProjectName: "Openlane Billing Admin"
     apis: ["cloudbilling.googleapis.com"]
 
 kmsProject: # Blueprint for a dedicated KMS project instance
@@ -125,6 +125,6 @@ kmsProject: # Blueprint for a dedicated KMS project instance
   project:
     name: "openlane-kms"
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Central KMS"
+    gcpProjectName: "Openlane Central KMS"
     folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Place under root org folder
     apis: ["cloudkms.googleapis.com"]

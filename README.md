@@ -1,4 +1,4 @@
-[![Build status](https://badge.buildkite.com/34ad31fe4231b2953cd3f2d116364d21a39b2a4dbf1eea539a.svg)](https://buildkite.com/theopenlane/openlane-infra?branch=main)
+[![Chart Publish](https://github.com/theopenlane/openlane-infra/actions/workflows/charts-publish.yml/badge.svg?branch=main)](https://github.com/heopenlane/openlane-infra/actions/workflows/publish.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=theopenlane_openlane-infra&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=theopenlane_openlane-infra)
 

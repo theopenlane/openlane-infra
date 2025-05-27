@@ -9,7 +9,7 @@
 
 ## Description
 
-Bootstrap chart for OpenLane GCP infrastructure, creating folders, and generating ArgoCD Applications for project deployments.
+Bootstrap chart for Openlane GCP infrastructure, creating folders, and generating ArgoCD Applications for project deployments.
 
 ## Values
 
@@ -28,14 +28,14 @@ Bootstrap chart for OpenLane GCP infrastructure, creating folders, and generatin
 | appProject.project.apis[4] | string | `"sqladmin.googleapis.com"` |  |
 | appProject.project.apis[5] | string | `"redis.googleapis.com"` |  |
 | appProject.project.apis[6] | string | `"dns.googleapis.com"` |  |
-| appProject.project.gcpProjectName | string | `"OpenLane Application"` |  |
+| appProject.project.gcpProjectName | string | `"Openlane Application"` |  |
 | appProject.project.id | string | `""` |  |
 | appProject.project.name | string | `"openlane-app"` |  |
 | appProject.storage | object | `{}` |  |
 | billingAccountId | string | `"YOUR_BILLING_ACCOUNT_ID_DEFAULT"` |  |
 | billingProject.enabled | bool | `false` |  |
 | billingProject.project.apis[0] | string | `"cloudbilling.googleapis.com"` |  |
-| billingProject.project.gcpProjectName | string | `"OpenLane Billing Admin"` |  |
+| billingProject.project.gcpProjectName | string | `"Openlane Billing Admin"` |  |
 | billingProject.project.id | string | `""` |  |
 | billingProject.project.name | string | `"openlane-billing"` |  |
 | commonAppConfig.bigquery.cmekEnabled | bool | `false` |  |
@@ -81,7 +81,7 @@ Bootstrap chart for OpenLane GCP infrastructure, creating folders, and generatin
 | kmsProject.enabled | bool | `false` |  |
 | kmsProject.project.apis[0] | string | `"cloudkms.googleapis.com"` |  |
 | kmsProject.project.folderRef | string | `"folders/{{ .Values.folders.openlaneOrg.id }}"` |  |
-| kmsProject.project.gcpProjectName | string | `"OpenLane Central KMS"` |  |
+| kmsProject.project.gcpProjectName | string | `"Openlane Central KMS"` |  |
 | kmsProject.project.id | string | `""` |  |
 | kmsProject.project.name | string | `"openlane-kms"` |  |
 | loggingProject.enabled | bool | `false` |  |
@@ -91,7 +91,7 @@ Bootstrap chart for OpenLane GCP infrastructure, creating folders, and generatin
 | loggingProject.project.apis[0] | string | `"logging.googleapis.com"` |  |
 | loggingProject.project.apis[1] | string | `"bigquery.googleapis.com"` |  |
 | loggingProject.project.apis[2] | string | `"storage.googleapis.com"` |  |
-| loggingProject.project.gcpProjectName | string | `"OpenLane Central Logging"` |  |
+| loggingProject.project.gcpProjectName | string | `"Openlane Central Logging"` |  |
 | loggingProject.project.id | string | `""` |  |
 | loggingProject.project.name | string | `"openlane-logs"` |  |
 | orgId | string | `"YOUR_GCP_ORGANIZATION_ID_DEFAULT"` |  |
@@ -126,7 +126,7 @@ Bootstrap chart for OpenLane GCP infrastructure, creating folders, and generatin
 | sharedVpcHost.project.apis[1] | string | `"servicenetworking.googleapis.com"` |  |
 | sharedVpcHost.project.apis[2] | string | `"cloudresourcemanager.googleapis.com"` |  |
 | sharedVpcHost.project.apis[3] | string | `"cloudkms.googleapis.com"` |  |
-| sharedVpcHost.project.gcpProjectName | string | `"OpenLane Shared VPC Host"` |  |
+| sharedVpcHost.project.gcpProjectName | string | `"Openlane Shared VPC Host"` |  |
 | sharedVpcHost.project.id | string | `""` |  |
 | sharedVpcHost.project.name | string | `"openlane-shared-vpc-host"` |  |
 | sharedVpcHost.serviceProjects | object | `{}` |  |

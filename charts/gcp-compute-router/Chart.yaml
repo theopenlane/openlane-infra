@@ -7,3 +7,8 @@ maintainers:
 name: openlane-gcp-compute-router
 type: application
 version: 0.1.0
+icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+sources:
+  - https://github.com/theopenlane/core
+  - https://github.com/theopenlane/openlane-infra
+home: https://www.theopenlane.io

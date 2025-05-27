@@ -1,9 +1,13 @@
 apiVersion: v2
+version: 0.1.0
 appVersion: 0.1.0
-description: A Helm chart for workload identity
+description: A Helm chart for managing GKE workload identity on GCP
+name: openlane-gcp-workload-identity
+type: application
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
-name: openlane-gcp-workload-identity
-type: application
-version: 0.1.0
+icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+sources:
+  - https://github.com/theopenlane/core
+  - https://github.com/theopenlane/openlane-infra
