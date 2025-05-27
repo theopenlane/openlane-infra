@@ -1,0 +1,97 @@
+# charts/openlane-gcp-bootstrap/values-dev.yaml
+# --- Environment-Specific Overrides for 'dev' ---
+
+# --- GENERAL ENVIRONMENT CONTEXT (Passed to all downstream charts for naming/context) ---
+env:
+  name: "dev"
+  capitalizedName: "Dev"
+# (Must be at the top level of the file)
+
+# --- GLOBAL OVERRIDES FOR 'DEV' ---
+# These override values.yaml defaults only when values-dev.yaml is used.
+orgId: "YOUR_DEV_GCP_ORGANIZATION_ID" # IMPORTANT: REPLACE ME!
+billingAccountId: "YOUR_DEV_BILLING_ACCOUNT_ID" # IMPORTANT: REPLACE ME!
+commonAppConfig:
+  primaryRegion: "us-east4" # Dev environments typically stay in one region
+  gkeCluster:
+    # Example: Dev GKE might not need specific masterAuthorizedNetworksConfig, or might be smaller
+    masterAuthorizedNetworksConfig: { enabled: false }
+    nodeCount: 1 # Default node count smaller for dev
+    machineType: "e2-medium"
+  bigquery:
+    cmekEnabled: false # Often no CMEK in Dev
+  storage:
+    cmekEnabled: false # Often no CMEK in Dev
+
+# --- FOLDER HYDRATION and NAMING ---
+# These are KCC Folder resource names, which will be created, and then their IDs must be hydrated here.
+folders:
+  # Root org folder ID is hydrated here (from values.yaml)
+  dev: { name: "openlane-org-dev", id: "" } # This specifically names the `openlane-org/dev` folder
+  prod: { enabled: false } # Disable prod folder creation for 'dev' environment
+  
+  # Base names for sub-folders, combined with env name (e.g., 'openlane-org-app-dev', 'openlane-org-shared-infra-dev')
+  appEnv: { name: "app", id: "" }
+  sharedInfraEnv: { name: "shared-infra", id: "" }
+  loggingEnv: { name: "logging", id: "" }
+  billingEnv: { name: "billing", id: "" }
+
+# --- PROJECT TYPE ACTIVATION AND CONFIGURATION FOR 'DEV' ENVIRONMENT ---
+# These sections enable and configure specific project types for the 'dev' environment.
+# They will override the 'enabled: false' defaults from values.yaml.
+
+# 1. Shared VPC Host Project (Dev)
+sharedVpcHost:
+  enabled: true
+  project:
+    name: "openlane-shared-vpc-host-dev" # Full KCC Project resource name (GCP ID)
+    id: "" # Hydrated numerical project ID
+    gcpProjectName: "OpenLane Shared VPC Host (Dev)"
+    folderRef: "folders/openlane-org-shared-infra-dev" # KCC Folder resource name
+  network: # Overrides default network name from values.yaml blueprint
+    name: "openlane-shared-vpc-dev" # Unique to dev
+    # Subnets are defined from commonAppConfig, here we link them to dev-specific names
+    # e.g., gkePrimary.name remains 'gke-primary', but KCC uses the project-specific network.
+  serviceProjects: # Define service projects that need NetworkUser role on *this* host
+    appProject: { enabled: true, name: "openlane-app-dev", id: "" } # KCC Project name & Needs Numerical ID
+    loggingProject: { enabled: true, name: "openlane-logs-dev", id: "" } # KCC Project name & Needs Numerical ID
+
+# 2. Application Project (Main App for Dev)
+appProject:
+  enabled: true
+  project:
+    name: "openlane-app-dev" # Full KCC Project resource name (GCP ID)
+    id: "" # Hydrated numerical project ID
+    gcpProjectName: "OpenLane Application (Dev)"
+    folderRef: "folders/openlane-org-app-dev" # KCC Folder resource name
+  apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
+  # Resource config overrides for this specific dev app project instance
+  gkeCluster: { enabled: true, name: "openlane-dev-app-gke" } # (Inherits nodeCount/machineType from commonAppConfig.gkeCluster)
+  bigquery: { enabled: true, name: "application-data-dev" } # (Inherits cmekEnabled=false from commonAppConfig.bigquery)
+  storage: { enabled: true, name: "openlane-dev-app-data-bucket" }
+  cloudsql: { enabled: true, instanceName: "openlane-dev-sql" }
+  memorystore: { enabled: true, instanceName: "openlane-dev-redis" }
+  dnsZone: { enabled: true, name: "openlane-dev-zone", domainName: "dev.openlane.com." }
+
+# 3. Logging Project (Central Logging for Dev)
+loggingProject:
+  enabled: true
+  project:
+    name: "openlane-logs-dev" # Full KCC Project resource name (GCP ID)
+    id: "" # Hydrated
+    gcpProjectName: "OpenLane Central Logging (Dev)"
+    folderRef: "folders/openlane-org-logging-dev"
+  logSinks:
+    orgAudit:
+      enabled: true
+      destinationBucketName: "openlane-central-logs-bucket-dev"
+      destinationDatasetName: "openlane_central_logs_dataset_dev"
+
+# 4. Billing Project (Central Billing for Dev)
+billingProject:
+  enabled: true # Yes, typically exists in Dev too for testing
+  project:
+    name: "openlane-billing-dev" # Full KCC Project resource name (GCP ID)
+    id: "" # Hydrated
+    gcpProjectName: "OpenLane Billing Admin (Dev)"
+    folderRef: "folders/openlane-org-billing-dev"

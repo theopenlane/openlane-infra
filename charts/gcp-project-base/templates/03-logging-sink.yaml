@@ -1,0 +1,56 @@
+# charts/gcp-project-base/templates/05-logging-sinks.yaml
+{{- if .Values.isLoggingProject }}
+apiVersion: bigquery.cnrm.cloud.google.com/v1beta1
+kind: BigQueryDataset
+metadata:
+  name: {{ .Values.logSinks.orgAudit.destinationDatasetName }}
+  namespace: {{ include "gcp-project-base.k8sNamespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
+spec:
+  location: {{ .Values.commonAppConfig.primaryRegion }}
+  defaultTableExpirationMs: 31536000000 # 1 year in milliseconds
+---
+apiVersion: storage.cnrm.cloud.google.com/v1beta1
+kind: StorageBucket
+metadata:
+  name: {{ .Values.logSinks.orgAudit.destinationBucketName }}
+  namespace: {{ include "gcp-project-base.k8sNamespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
+spec:
+  location: {{ .Values.commonAppConfig.primaryRegion }}
+  uniformBucketLevelAccess: true
+  lifecycleRule: # Example retention policy - logs typically have long retention
+    - action: { type: Delete }
+      condition: { age: 3650 } # 10 years
+---
+apiVersion: logging.cnrm.cloud.google.com/v1beta1
+kind: LoggingLogSink
+metadata:
+  name: org-audit-logs-to-bq-global # This sink collects logs from the entire organization
+  namespace: config-connector # Must be in config-connector namespace for org-level scope
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
+spec:
+  destination: "bigquery.googleapis.com/projects/{{ .Values.project.name }}/datasets/{{ .Values.logSinks.orgAudit.destinationDatasetName }}"
+  filter: "logName:\"cloudaudit.googleapis.com/activity\" OR logName:\"cloudaudit.googleapis.com/data_access\""
+  orgRef: { external: "organizations/{{ .Values.orgId }}" }
+  # NOTE: After KCC creates this sink, it will output a `writerIdentity` in its status.
+  # You MUST manually grant this service account (e.g., service-xxxxxxxxxxxx@gcp-sa-logging.iam.gserviceaccount.com)
+  # the 'roles/bigquery.dataEditor' permission on the BigQuery Dataset created above.
+  # This is a current limitation for organization-level sinks that target resources in specific projects.
+---
+# Example: Apply to the current project's resources only.
+apiVersion: logging.cnrm.cloud.google.com/v1beta1
+kind: LoggingLogSink
+metadata:
+  name: project-logs-to-bucket # This sink collects logs from the current project
+  namespace: {{ include "gcp-project-base.k8sNamespace" . }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
+spec:
+  destination: "storage.googleapis.com/{{ .Values.logSinks.orgAudit.destinationBucketName }}"
+  filter: "resource.type=gce_instance OR resource.type=container.googleapis.com"
+  projectRef: { name: {{ .Values.project.name }} }
+{{- end }}

@@ -1,0 +1,26 @@
+# charts/openlane-gcp-bootstrap/templates/02-kms-resources.yaml
+{{- if $.Values.kms.enabled }}
+apiVersion: kms.cnrm.cloud.google.com/v1beta1
+kind: KMSKeyRing
+metadata:
+  name: {{ $.Values.kms.keyRingName }}
+  namespace: config-connector # Typically managed in config-connector NS
+  annotations:
+    cnrm.cloud.google.com/location: "{{ $.Values.kms.location }}" # Location of the keyring
+    cnrm.cloud.google.com/project-id: "{{ $.Values.sharedVpcHostDev.project.name }}" # Assuming KMS is in Dev Shared VPC Host for now
+spec:
+  # The location is passed via annotation
+---
+apiVersion: kms.cnrm.cloud.google.com/v1beta1
+kind: KMSCryptoKey
+metadata:
+  name: {{ $.Values.kms.keyName }}
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/project-id: "{{ $.Values.sharedVpcHostDev.project.name }}" # Assuming KMS is in Dev Shared VPC Host for now
+spec:
+  keyRingRef: { name: {{ $.Values.kms.keyRingName }} }
+  rotationPeriod: 2592000s # 30 days
+  nextRotationTime: "2024-01-01T00:00:00Z" # Set an initial rotation time
+  purpose: ENCRYPT_DECRYPT
+{{- end }}

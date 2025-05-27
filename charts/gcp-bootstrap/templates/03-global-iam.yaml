@@ -1,0 +1,15 @@
+# charts/openlane-gcp-bootstrap/templates/03-global-iam.yaml
+# Example: Grant a Security Admin role to a specific group at the organization level
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicyMember
+metadata:
+  name: org-security-admin-group # Name of the KCC resource
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ $.Values.orgId }}"
+spec:
+  member: "group:gcp-security-admins@theopenlane.io" # Replace with your security group
+  role: roles/iam.securityAdmin
+  resourceRef:
+    external: "organizations/{{ $.Values.orgId }}" # Apply to the entire organization
+    kind: Organization

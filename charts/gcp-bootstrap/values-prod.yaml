@@ -1,0 +1,80 @@
+# charts/openlane-gcp-bootstrap/values-prod.yaml
+# --- Environment-Specific Overrides for 'prod' ---
+
+env:
+  name: "prod"
+  capitalizedName: "Prod"
+
+orgId: "YOUR_PROD_GCP_ORGANIZATION_ID" # IMPORTANT: Replace with Prod Org ID
+billingAccountId: "YOUR_PROD_BILLING_ACCOUNT_ID" # IMPORTANT: Replace with Prod Billing Account
+commonAppConfig:
+  primaryRegion: "us-east4" # Prod might use a specific region
+  gkeCluster:
+    masterAuthorizedNetworksConfig: { enabled: true, cidrBlocks: [{ cidrBlock: "203.0.113.0/24", displayName: "CI/CD Range" }] } # Stricter security
+    nodeCount: 3 # More nodes
+    machineType: "e2-standard-4" # Beefier machines
+  bigquery:
+    cmekEnabled: true # CMEK for Prod
+  storage:
+    cmekEnabled: true # CMEK for Prod
+
+# Folders: Names are environment-specific
+folders:
+  dev: { enabled: false } # Disable dev folder creation for 'prod' environment
+  prod: { name: "openlane-org-prod" }
+
+# --- PROJECT TYPE ACTIVATION AND CONFIGURATION FOR 'PROD' ENVIRONMENT ---
+
+sharedVpcHost:
+  enabled: true
+  project:
+    name: "openlane-shared-vpc-host-prod"
+    id: ""
+    gcpProjectName: "OpenLane Shared VPC Host (Prod)"
+    folderRef: "folders/openlane-org-shared-infra-prod"
+  network:
+    name: "openlane-shared-vpc-prod"
+    subnets: # Use distinct CIDR for Prod network
+      gkePrimary: { name: "gke-primary-prod", ipCidrRange: "10.1.0.0/20" }
+      gkePodsSecondary: { name: "gke-pods-prod", ipCidrRange: "10.1.32.0/16" }
+      gkeServicesSecondary: { name: "gke-services-prod", ipCidrRange: "10.1.16.0/20" }
+      internalApps: { name: "internal-apps-prod", ipCidrRange: "10.1.48.0/20" }
+  serviceProjects:
+    appProject: { enabled: true, name: "openlane-app-prod" }
+    loggingProject: { enabled: true, name: "openlane-logs-prod" }
+
+appProject:
+  enabled: true
+  project:
+    name: "openlane-app-prod"
+    id: ""
+    gcpProjectName: "OpenLane Application (Prod)"
+    folderRef: "folders/openlane-org-app-prod"
+  apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
+  gkeCluster: { enabled: true, name: "openlane-prod-app-gke" } # (Inherits beefier conf from commonAppConfig.gkeCluster)
+  bigquery: { enabled: true, name: "application-data-prod" }
+  storage: { enabled: true, name: "openlane-prod-app-data-bucket" }
+  cloudsql: { enabled: true, instanceName: "openlane-prod-sql" }
+  memorystore: { enabled: true, instanceName: "openlane-prod-redis" }
+  dnsZone: { enabled: true, name: "openlane-prod-zone", domainName: "prod.openlane.com." }
+
+loggingProject:
+  enabled: true
+  project:
+    name: "openlane-logs-prod"
+    id: ""
+    gcpProjectName: "OpenLane Central Logging (Prod)"
+    folderRef: "folders/openlane-org-logging-prod"
+  logSinks:
+    orgAudit:
+      enabled: true
+      destinationBucketName: "openlane-central-logs-bucket-prod"
+      destinationDatasetName: "openlane_central_logs_dataset_prod"
+
+billingProject:
+  enabled: true
+  project:
+    name: "openlane-billing-prod"
+    id: ""
+    gcpProjectName: "OpenLane Billing Admin (Prod)"
+    folderRef: "folders/openlane-org-billing-prod"

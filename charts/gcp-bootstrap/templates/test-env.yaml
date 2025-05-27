@@ -1,0 +1,5 @@
+# charts/openlane-gcp-bootstrap/templates/test-env.yaml
+{{- range $env := list .Values.env }}
+  - Environment Name: {{ $env.name }}
+  - Capitalized Name: {{ $env.capitalizedName }}
+{{- end }}

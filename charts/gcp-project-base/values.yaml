@@ -1,0 +1,46 @@
+# charts/gcp-project-base/values.yaml
+# This file defines the default values for a generic GCP project.
+# Actual values for an instance of gcp-project-base will come from the ArgoCD Application definition.
+
+# Project configuration (will be populated from ArgoCD App values)
+project:
+  name: "default-project"
+  id: "" # Hydrated numerical project ID
+  gcpProjectName: "Default GCP Project"
+  folderRef: "folders/default-folder-id" # Placeholder
+  apis: []
+
+# Contextual information passed from the bootstrap chart
+orgId: "OVERWRITE_ME"
+billingAccountId: "OVERWRITE_ME"
+primaryRegion: "us-east4"
+commonAppConfig: {} # Passed for resource defaults
+folders: {} # Passed for folder IDs reference
+kms: {} # Passed for KMS reference
+envName: "default"
+envCapitalizedName: "Default"
+
+# Flags & specific configurations
+isSharedVpcHost: false # If true, deploy Shared VPC network components via conditional templates
+isLoggingProject: false # If true, deploy log sinks via conditional templates
+
+# Shared VPC context for this environment (relevant portions for project's use)
+sharedVpcHostDev: {}
+sharedVpcHostProd: {}
+
+# === RESOURCE-SPECIFIC CONFIGURATION (will be populated from ArgoCD App values) ===
+# These defaults should reflect common settings *for the project type*.
+# Resource charts will read these sections under .Values.
+
+gkeCluster: { enabled: false } # Example GKE config
+bigquery: { enabled: false } # Example BigQuery config
+storage: { enabled: false } # Example Storage config
+cloudsql: { enabled: false }
+memorystore: { enabled: false }
+dnsZone: { enabled: false }
+
+# Shared VPC Network Configuration (if this project is a Shared VPC Host)
+network: {} # Will be populated if isSharedVpcHost is true
+firewallRules: {} # Will be populated if isSharedVpcHost is true
+serviceProjects: {} # Will be populated if isSharedVpcHost is true
+logSinks: {} # Will be populated if isLoggingProject is true
