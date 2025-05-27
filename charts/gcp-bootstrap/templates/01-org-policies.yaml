@@ -1,0 +1,87 @@
+# charts/openlane-gcp-bootstrap/templates/01-org-policies.yaml
+# Organization Policies (Global, applied to the entire organization)
+{{- if .Values.orgPolicies.disableServiceAccountKeyCreation }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-disable-service-account-key-creation
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+spec:
+  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  constraint: iam.disableServiceAccountKeyCreation
+  booleanPolicy: { enforced: true }
+---
+{{- end }}
+{{- if .Values.orgPolicies.skipDefaultNetworkCreation }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-skip-default-network-creation
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+spec:
+  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  constraint: compute.skipDefaultNetworkCreation
+  booleanPolicy: { enforced: true }
+---
+{{- end }}
+{{- if .Values.orgPolicies.disableSerialPortAccess }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-disable-serial-port-access
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+spec:
+  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  constraint: compute.disableSerialPortAccess
+  booleanPolicy: { enforced: true }
+---
+{{- end }}
+{{- if .Values.orgPolicies.resourceLocations.enabled }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-restrict-resource-locations
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+spec:
+  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  constraint: gcp.resourceLocations
+  listPolicy:
+    allow: 
+    {{- with .Values.orgPolicies.resourceLocations.allowedLocations }} # Use 'with' to check if list is non-empty
+    {{- range . }} # Range over the non-empty list
+      - "{{ . }}"
+    {{- end }}
+    {{- else }} # If the list is empty (no 'with' context)
+    - {} # Output an explicit empty item in the list
+    {{- end }}
+---
+{{- end }}
+{{- if .Values.orgPolicies.vmExternalIpAccess.enabled }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-no-vm-external-ip-access
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+spec:
+  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  constraint: compute.vmExternalIpAccess
+  booleanPolicy: { enforced: true }
+---
+{{- end }}
+{{- if .Values.orgPolicies.gkePrivateCluster.enabled }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-enforce-gke-private-cluster
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+spec:
+  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  constraint: container.setPrivateCluster
+  booleanPolicy: { enforced: true }
+{{- end }}

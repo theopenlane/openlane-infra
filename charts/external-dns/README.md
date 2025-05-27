@@ -39,7 +39,7 @@ Deploys external-dns and its monitoring
 | externaldns.domainFilters | list | `[]` | Limit possible target zones by domain suffixes. |
 | externaldns.env | list | `[]` | [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container. |
 | externaldns.excludeDomains | list | `[]` | Intentionally exclude domains from being managed. |
-| externaldns.extraArgs | object | `{}` | Extra arguments to provide to _ExternalDNS_. An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times. |
+| externaldns.extraArgs | list | `[]` | Extra arguments to provide to _ExternalDNS_. An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times. |
 | externaldns.extraContainers | object | `{}` | Extra containers to add to the `Deployment`. |
 | externaldns.extraVolumeMounts | list | `[]` | Extra [volume mounts](https://kubernetes.io/docs/concepts/storage/volumes/) for the `external-dns` container. |
 | externaldns.extraVolumes | list | `[]` | Extra [volumes](https://kubernetes.io/docs/concepts/storage/volumes/) for the `Pod`. |
@@ -131,7 +131,7 @@ Deploys external-dns and its monitoring
 | prometheus.grafanaDashboard.label | object | `{"grafana_dashboard":"1"}` | label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard |
 | prometheus.rules.enabled | bool | `true` | Enables prometheus operator rules |
 | prometheus.rules.labels | object | `{"prometheus":"prometheus-operator-prometheus"}` | Labels to affect to the Prometheus Rules |
-| tags.configConnector | bool | `false` | Enables Config Connector features |
+| tags.configConnector | bool | `true` | Enables Config Connector features |
 | workloadIdentity.global.gsa.create | bool | `true` |  |
 | workloadIdentity.global.gsa.name | string | `"wi-k8s"` |  |
 | workloadIdentity.global.gsa.project | string | `""` |  |

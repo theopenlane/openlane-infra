@@ -1,0 +1,6 @@
+apiVersion: v2
+name: openlane-gcp-bootstrap
+description: Bootstrap chart for OpenLane GCP infrastructure, creating folders, and generating ArgoCD Applications for project deployments.
+type: application
+version: 0.1.0
+appVersion: "1.0"

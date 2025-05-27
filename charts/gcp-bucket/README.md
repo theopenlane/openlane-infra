@@ -15,7 +15,7 @@
 
 ## Description
 
-A Helm chart for Bucket
+A Helm chart for creating a GCP Bucket via Config Connector
 
 ## Values
 
@@ -36,9 +36,11 @@ A Helm chart for Bucket
 | encryption.kccControlled | bool | `false` | Specify if the KMS key was created through Kubernetes Config Connector on the same cluster or if it was create outside. |
 | encryption.kmsKeyRefName | string | `"mykms"` | Name of the Cloud KMS key that will be used to encrypt objects inserted into this bucket |
 | encryption.kmsKeyRefNamespace | string | `nil` | Namespace where the KMS key was created through KCC. Only use if kccControlled=true |
-| global.abandon | bool | `true` | Activate abandon of the database (If true, the database will be keep after deleting k8s resources) |
+| global.abandon | bool | `true` | Abandon resource if the manifests are deleted. Allow deleting a resource from config connector without deleting it from GCP |
 | global.cnrmNamespace | string | `nil` | Allows to deploy in another namespace than the release one |
-| global.gcpProjectId | string | `"myprojectid"` | Google Project ID |
+| global.description | string | `""` | subNework description (use helm tpl) |
+| global.gcpProjectId | string | `"myprojectid"` | Project ID where to deploy the cluster |
+| global.skipUnspecifiedFields | bool | `false` | This skips populating unspecified fields into the Kubernetes resource spec. |
 | lifecycleRule | list | See the `values.yaml` for more details | The bucket's lifecycle configuration. See [lifecycle management](https://cloud.google.com/storage/docs/lifecycle) for more information. |
 | logging.enabled | bool | `false` | Enables logging for the bucket |
 | logging.logBucket | string | `"access_log_gcs_irn70740_lab_adm"` | The destination bucket where the current bucket's logs should be placed. |

@@ -1,0 +1,26 @@
+# charts/openlane-gcp-bootstrap/templates/02-kms-resources.yaml
+{{- if .Values.kms.enabled }}
+{{- if .Values.kmsProject.enabled }}
+apiVersion: kms.cnrm.cloud.google.com/v1beta1
+kind: KMSKeyRing
+metadata:
+  name: {{ .Values.kms.keyRingName }}
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/location: "{{ .Values.kms.location }}"
+    cnrm.cloud.google.com/project-id: "{{ .Values.kmsProject.project.name }}"
+spec:
+
+---
+apiVersion: kms.cnrm.cloud.google.com/v1beta1
+kind: KMSCryptoKey
+metadata:
+  name: {{ .Values.kms.keyName }}
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/project-id: "{{ .Values.kmsProject.project.name }}"
+spec:
+  keyRingRef: { name: {{ .Values.kms.keyRingName }} }
+
+{{- end }}
+{{- end }}

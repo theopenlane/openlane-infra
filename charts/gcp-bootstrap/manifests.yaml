@@ -1,0 +1,653 @@
+---
+# Source: openlane-gcp-bootstrap/templates/10-argocd-per-project-apps/render-project-apps.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openlane-dev-shared-vpc-host
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: openlane-dev-shared-vpc-host
+    app.kubernetes.io/instance: dev
+    app.kubernetes.io/component: gcp-project
+    app.kubernetes.io/managed-by: argocd
+    app.kubernetes.io/part-of: openlane-infra
+    environment: dev
+    projectType: unknown
+  annotations:
+    argocd.argocd.io/sync-wave: "1"
+spec:
+  project: openlane-dev-shared-vpc-host
+  source:
+    repoURL: https://github.com/theopenlane/openlane-infra
+    targetRevision: HEAD
+    path: charts/gcp-project-base
+    helm:
+      values: |
+        project:
+
+          apis:
+          - compute.googleapis.com
+          - servicenetworking.googleapis.com
+          - cloudresourcemanager.googleapis.com
+          - cloudkms.googleapis.com
+          folderRef: folders/openlane-org-shared-infra-dev
+          gcpProjectName: OpenLane Shared VPC Host (Dev) (Dev)
+          id: ""
+          name: openlane-shared-vpc-host-dev-dev
+        orgId: 
+        YOUR_DEV_GCP_ORGANIZATION_ID
+        billingAccountId: 
+        YOUR_DEV_BILLING_ACCOUNT_ID
+        primaryRegion: 
+        null
+        folders: 
+        appEnv:
+          id: ""
+          name: app
+        billingEnv:
+          id: ""
+          name: billing
+        dev:
+          id: ""
+          name: openlane-org-dev
+        loggingEnv:
+          id: ""
+          name: logging
+        openlaneOrg:
+          id: ""
+          name: openlane-org
+        prod:
+          enabled: false
+        sharedInfraEnv:
+          id: ""
+          name: shared-infra
+        kms: 
+        enabled: true
+        keyName: openlane-default-key
+        keyRingName: openlane-default-keyring
+        location: us-east4
+        commonAppConfig: 
+        bigquery:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        cloudsql:
+          cmekEnabled: false
+          enabled: false
+          instanceName: default-sql
+          tier: db-f1-micro
+          version: POSTGRES_14
+        dnsZone:
+          domainName: default.com.
+          enabled: false
+          name: default-zone
+        gkeCluster:
+          enabled: false
+          machineType: e2-medium
+          masterAuthorizedNetworksConfig:
+            cidrBlocks: []
+            enabled: false
+          nodeCount: 1
+          nodePools: []
+          workloadIdentityEnabled: true
+        memorystore:
+          enabled: false
+          instanceName: default-redis
+          memorySizeGb: 1
+          tier: BASIC
+        primaryRegion: us-east4
+        storage:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        envName: 
+        dev
+        envCapitalizedName: 
+        Dev
+        isSharedVpcHost: 
+        true
+        isLoggingProject: 
+        false
+        firewallRules:
+
+          {}
+        network:
+
+          firewallRules:
+            allowIAPSsh:
+              enabled: true
+              ports:
+              - ports:
+                - "22"
+                protocol: tcp
+              sourceRanges:
+              - 35.235.240.0/20
+              targetTags:
+              - ssh-via-iap
+          name: openlane-shared-vpc-dev
+          subnets:
+            gkePodsSecondary:
+              ipCidrRange: 10.0.32.0/16
+              name: gke-pods
+            gkePrimary:
+              ipCidrRange: 10.0.0.0/20
+              name: gke-primary
+              privateIpGoogleAccess: true
+            gkeServicesSecondary:
+              ipCidrRange: 10.0.16.0/20
+              name: gke-services
+            internalApps:
+              ipCidrRange: 10.0.48.0/20
+              name: internal-apps
+              privateIpGoogleAccess: true
+        serviceProjects:
+
+          appProject:
+            enabled: true
+            id: ""
+            name: openlane-app-dev
+          loggingProject:
+            enabled: true
+            id: ""
+            name: openlane-logs-dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: config-connector
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ApplyOutOfSyncOnly=true
+---
+# Source: openlane-gcp-bootstrap/templates/10-argocd-per-project-apps/render-project-apps.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openlane-dev-app-project
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: openlane-dev-app-project
+    app.kubernetes.io/instance: dev
+    app.kubernetes.io/component: gcp-project
+    app.kubernetes.io/managed-by: argocd
+    app.kubernetes.io/part-of: openlane-infra
+    environment: dev
+    projectType: unknown
+  annotations:
+    argocd.argocd.io/sync-wave: "1"
+spec:
+  project: openlane-dev-app-project
+  source:
+    repoURL: https://github.com/theopenlane/openlane-infra
+    targetRevision: HEAD
+    path: charts/gcp-project-base
+    helm:
+      values: |
+        project:
+
+          apis:
+          - compute.googleapis.com
+          - container.googleapis.com
+          - bigquery.googleapis.com
+          - storage.googleapis.com
+          - sqladmin.googleapis.com
+          - redis.googleapis.com
+          - dns.googleapis.com
+          folderRef: folders/openlane-org-app-dev
+          gcpProjectName: OpenLane Application (Dev) (Dev)
+          id: ""
+          name: openlane-app-dev-dev
+        orgId: 
+        YOUR_DEV_GCP_ORGANIZATION_ID
+        billingAccountId: 
+        YOUR_DEV_BILLING_ACCOUNT_ID
+        primaryRegion: 
+        null
+        folders: 
+        appEnv:
+          id: ""
+          name: app
+        billingEnv:
+          id: ""
+          name: billing
+        dev:
+          id: ""
+          name: openlane-org-dev
+        loggingEnv:
+          id: ""
+          name: logging
+        openlaneOrg:
+          id: ""
+          name: openlane-org
+        prod:
+          enabled: false
+        sharedInfraEnv:
+          id: ""
+          name: shared-infra
+        kms: 
+        enabled: true
+        keyName: openlane-default-key
+        keyRingName: openlane-default-keyring
+        location: us-east4
+        commonAppConfig: 
+        bigquery:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        cloudsql:
+          cmekEnabled: false
+          enabled: false
+          instanceName: default-sql
+          tier: db-f1-micro
+          version: POSTGRES_14
+        dnsZone:
+          domainName: default.com.
+          enabled: false
+          name: default-zone
+        gkeCluster:
+          enabled: false
+          machineType: e2-medium
+          masterAuthorizedNetworksConfig:
+            cidrBlocks: []
+            enabled: false
+          nodeCount: 1
+          nodePools: []
+          workloadIdentityEnabled: true
+        memorystore:
+          enabled: false
+          instanceName: default-redis
+          memorySizeGb: 1
+          tier: BASIC
+        primaryRegion: us-east4
+        storage:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        envName: 
+        dev
+        envCapitalizedName: 
+        Dev
+        isSharedVpcHost: 
+        false
+        isLoggingProject: 
+        false
+        dnsZone:
+
+          domainName: dev.openlane.com.
+          enabled: true
+          name: openlane-dev-zone
+        gkeCluster:
+
+          enabled: true
+          name: openlane-dev-app-gke
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: config-connector
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ApplyOutOfSyncOnly=true
+---
+# Source: openlane-gcp-bootstrap/templates/10-argocd-per-project-apps/render-project-apps.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openlane-dev-logging-project
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: openlane-dev-logging-project
+    app.kubernetes.io/instance: dev
+    app.kubernetes.io/component: gcp-project
+    app.kubernetes.io/managed-by: argocd
+    app.kubernetes.io/part-of: openlane-infra
+    environment: dev
+    projectType: unknown
+  annotations:
+    argocd.argocd.io/sync-wave: "1"
+spec:
+  project: openlane-dev-logging-project
+  source:
+    repoURL: https://github.com/theopenlane/openlane-infra
+    targetRevision: HEAD
+    path: charts/gcp-project-base
+    helm:
+      values: |
+        project:
+
+          apis:
+          - logging.googleapis.com
+          - bigquery.googleapis.com
+          - storage.googleapis.com
+          folderRef: folders/openlane-org-logging-dev
+          gcpProjectName: OpenLane Central Logging (Dev) (Dev)
+          id: ""
+          name: openlane-logs-dev-dev
+        orgId: 
+        YOUR_DEV_GCP_ORGANIZATION_ID
+        billingAccountId: 
+        YOUR_DEV_BILLING_ACCOUNT_ID
+        primaryRegion: 
+        null
+        folders: 
+        appEnv:
+          id: ""
+          name: app
+        billingEnv:
+          id: ""
+          name: billing
+        dev:
+          id: ""
+          name: openlane-org-dev
+        loggingEnv:
+          id: ""
+          name: logging
+        openlaneOrg:
+          id: ""
+          name: openlane-org
+        prod:
+          enabled: false
+        sharedInfraEnv:
+          id: ""
+          name: shared-infra
+        kms: 
+        enabled: true
+        keyName: openlane-default-key
+        keyRingName: openlane-default-keyring
+        location: us-east4
+        commonAppConfig: 
+        bigquery:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        cloudsql:
+          cmekEnabled: false
+          enabled: false
+          instanceName: default-sql
+          tier: db-f1-micro
+          version: POSTGRES_14
+        dnsZone:
+          domainName: default.com.
+          enabled: false
+          name: default-zone
+        gkeCluster:
+          enabled: false
+          machineType: e2-medium
+          masterAuthorizedNetworksConfig:
+            cidrBlocks: []
+            enabled: false
+          nodeCount: 1
+          nodePools: []
+          workloadIdentityEnabled: true
+        memorystore:
+          enabled: false
+          instanceName: default-redis
+          memorySizeGb: 1
+          tier: BASIC
+        primaryRegion: us-east4
+        storage:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        envName: 
+        dev
+        envCapitalizedName: 
+        Dev
+        isSharedVpcHost: 
+        false
+        isLoggingProject: 
+        true
+        logSinks:
+
+          orgAudit:
+            destinationBucketName: openlane-central-logs-bucket-dev
+            destinationDatasetName: openlane_central_logs_dataset_dev
+            enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: config-connector
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ApplyOutOfSyncOnly=true
+---
+# Source: openlane-gcp-bootstrap/templates/10-argocd-per-project-apps/render-project-apps.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openlane-dev-billing-project
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: openlane-dev-billing-project
+    app.kubernetes.io/instance: dev
+    app.kubernetes.io/component: gcp-project
+    app.kubernetes.io/managed-by: argocd
+    app.kubernetes.io/part-of: openlane-infra
+    environment: dev
+    projectType: unknown
+  annotations:
+    argocd.argocd.io/sync-wave: "1"
+spec:
+  project: openlane-dev-billing-project
+  source:
+    repoURL: https://github.com/theopenlane/openlane-infra
+    targetRevision: HEAD
+    path: charts/gcp-project-base
+    helm:
+      values: |
+        project:
+
+          apis:
+          - cloudbilling.googleapis.com
+          folderRef: folders/openlane-org-billing-dev
+          gcpProjectName: OpenLane Billing Admin (Dev) (Dev)
+          id: ""
+          name: openlane-billing-dev-dev
+        orgId: 
+        YOUR_DEV_GCP_ORGANIZATION_ID
+        billingAccountId: 
+        YOUR_DEV_BILLING_ACCOUNT_ID
+        primaryRegion: 
+        null
+        folders: 
+        appEnv:
+          id: ""
+          name: app
+        billingEnv:
+          id: ""
+          name: billing
+        dev:
+          id: ""
+          name: openlane-org-dev
+        loggingEnv:
+          id: ""
+          name: logging
+        openlaneOrg:
+          id: ""
+          name: openlane-org
+        prod:
+          enabled: false
+        sharedInfraEnv:
+          id: ""
+          name: shared-infra
+        kms: 
+        enabled: true
+        keyName: openlane-default-key
+        keyRingName: openlane-default-keyring
+        location: us-east4
+        commonAppConfig: 
+        bigquery:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        cloudsql:
+          cmekEnabled: false
+          enabled: false
+          instanceName: default-sql
+          tier: db-f1-micro
+          version: POSTGRES_14
+        dnsZone:
+          domainName: default.com.
+          enabled: false
+          name: default-zone
+        gkeCluster:
+          enabled: false
+          machineType: e2-medium
+          masterAuthorizedNetworksConfig:
+            cidrBlocks: []
+            enabled: false
+          nodeCount: 1
+          nodePools: []
+          workloadIdentityEnabled: true
+        memorystore:
+          enabled: false
+          instanceName: default-redis
+          memorySizeGb: 1
+          tier: BASIC
+        primaryRegion: us-east4
+        storage:
+          cmekEnabled: false
+          enabled: false
+          location: us-east4
+        envName: 
+        dev
+        envCapitalizedName: 
+        Dev
+        isSharedVpcHost: 
+        false
+        isLoggingProject: 
+        false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: config-connector
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ApplyOutOfSyncOnly=true
+---
+# Source: openlane-gcp-bootstrap/templates/00-folders.yaml
+# charts/openlane-gcp-bootstrap/templates/00-folders.yamlapiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: Folder
+metadata:
+  name: openlane-org
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID"
+spec:
+  displayName: openlane-org
+  organizationRef: { external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" }
+---
+# Source: openlane-gcp-bootstrap/templates/03-global-iam.yaml
+# charts/openlane-gcp-bootstrap/templates/03-global-iam.yaml
+# Example: Grant a Security Admin role to a specific group at the organization level
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicyMember
+metadata:
+  name: org-security-admin-group # Name of the KCC resource
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID"
+spec:
+  member: "group:gcp-security-admins@theopenlane.io" # Replace with your security group
+  role: roles/iam.securityAdmin
+  resourceRef:
+    external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" # Apply to the entire organization
+    kind: Organization
+---
+# Source: openlane-gcp-bootstrap/templates/02-kms-resources.yaml
+apiVersion: kms.cnrm.cloud.google.com/v1beta1
+kind: KMSCryptoKey
+metadata:
+  name: openlane-default-key
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/project-id: "openlane-kms-dev"
+spec:
+  keyRingRef: { name: openlane-default-keyring }
+---
+# Source: openlane-gcp-bootstrap/templates/02-kms-resources.yaml
+# charts/openlane-gcp-bootstrap/templates/02-kms-resources.yaml
+apiVersion: kms.cnrm.cloud.google.com/v1beta1
+kind: KMSKeyRing
+metadata:
+  name: openlane-default-keyring
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/location: "us-east4"
+    cnrm.cloud.google.com/project-id: "openlane-kms-dev"
+spec:
+---
+# Source: openlane-gcp-bootstrap/templates/01-org-policies.yaml
+# charts/openlane-gcp-bootstrap/templates/01-org-policies.yaml
+# Organization Policies (Global, applied to the entire organization)
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-disable-service-account-key-creation
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID" }
+spec:
+  organizationRef: { external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" }
+  constraint: iam.disableServiceAccountKeyCreation
+  booleanPolicy: { enforced: true }
+---
+# Source: openlane-gcp-bootstrap/templates/01-org-policies.yaml
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-disable-serial-port-access
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID" }
+spec:
+  organizationRef: { external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" }
+  constraint: compute.disableSerialPortAccess
+  booleanPolicy: { enforced: true }
+---
+# Source: openlane-gcp-bootstrap/templates/01-org-policies.yaml
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-restrict-resource-locations
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID" }
+spec:
+  organizationRef: { external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" }
+  constraint: gcp.resourceLocations
+  listPolicy:
+    allow: # Use 'with' to check if list is non-empty # Range over the non-empty list
+      - "us-east4" # Range over the non-empty list
+      - "us-central1"
+---
+# Source: openlane-gcp-bootstrap/templates/01-org-policies.yaml
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-no-vm-external-ip-access
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID" }
+spec:
+  organizationRef: { external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" }
+  constraint: compute.vmExternalIpAccess
+  booleanPolicy: { enforced: true }
+---
+# Source: openlane-gcp-bootstrap/templates/01-org-policies.yaml
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: OrganizationPolicy
+metadata:
+  name: org-enforce-gke-private-cluster
+  namespace: config-connector
+  annotations: { cnrm.cloud.google.com/organization-id: "YOUR_DEV_GCP_ORGANIZATION_ID" }
+spec:
+  organizationRef: { external: "organizations/YOUR_DEV_GCP_ORGANIZATION_ID" }
+  constraint: container.setPrivateCluster
+  booleanPolicy: { enforced: true }

@@ -11,7 +11,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://theopenlane.github.io/openlane-infra | gcpCloudNat(openlane-gcp-cloud-nat) | 0.1.0 |
+| https://theopenlane.github.io/openlane-infra | gcpCloudNat(openlane-gcp-cloud-nat) | 0.1.1 |
 | https://theopenlane.github.io/openlane-infra | gcpSubnetwork(openlane-gcp-subnetwork) | 0.1.0 |
 | https://theopenlane.github.io/openlane-infra | gcpVpcNetwork(openlane-gcp-vpc-network) | 0.1.0 |
 

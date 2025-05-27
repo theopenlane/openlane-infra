@@ -15,25 +15,29 @@ metadata:
   name: {{ include "openlane-gcp-gke-cluster.fullname" . }}
   namespace: {{ include "openlane-gcp-gke-cluster.namespace" . }}
 spec:
+  projectRef: { name: {{ .Values.projectId }} } # References the KCC Project CR (must be in config-connector NS)
   description: {{ .Values.description }}
   location: {{ .Values.location }}
-  initialNodeCount: {{ .Values.initialNodeCount }}
+  initialNodeCount: {{ .Values.nodeCount | default .Values.commonAppConfig.gkeCluster.nodeCount }}
+  # Reference the correct Shared VPC network from either sharedVpcHostDev or sharedVpcHostProd
+  {{- $sharedVpc := dict -}}
+  {{- if eq .Values.envName "dev" -}}
+    {{- $sharedVpc = .Values.sharedVpcHostDev -}}
+  {{- else if eq .Values.envName "prod" -}}
+    {{- $sharedVpc = .Values.sharedVpcHostProd -}}
+  {{- end -}}
+
+  {{- if $sharedVpc.enabled -}}
   networkRef:
-    {{- if .Values.networkRef.external }}
-    external: {{ .Values.networkRef.external }}
-    {{- end }}
-    name: {{ .Values.networkRef.name | default "openlane-vpc" }}
-    {{- if .Values.networkRef.namespace }}
-    namespace: {{ .Values.networkRef.namespace }}
-    {{- end }}
+    external: "projects/{{ $sharedVpc.project.name }}/global/networks/{{ $sharedVpc.network.name }}"
   subnetworkRef:
-    {{- if .Values.subnetworkRef.external }}
-    external: {{ .Values.subnetworkRef.external }}
-    {{- end }}
-    name: {{ .Values.subnetworkRef.name | default "openlane-subnetwork" }}
-    {{- if .Values.subnetworkRef.namespace }}
-    namespace: {{ .Values.subnetworkRef.namespace }}
-    {{- end }}
+    external: "projects/{{ $sharedVpc.project.name }}/regions/{{ .Values.region }}/subnetworks/{{ $sharedVpc.network.subnets.gkePrimary.name }}"
+  ipAllocationPolicy:
+    clusterSecondaryRangeName: {{ (first ($sharedVpc.network.subnets | where "name" "gke-pods")).name }} # Dynamically get name
+    servicesSecondaryRangeName: {{ (first ($sharedVpc.network.subnets | where "name" "gke-services")).name }} # Dynamically get name
+    useIpAliases: true
+  {{- end }}
+  
   networkingMode: {{ .Values.networkingMode }}
   {{- if and (.Values.clusterIpv4Cidr) (eq .Values.networkingMode "ROUTES") (not .Values.ipAllocationPolicy) }}
   clusterIpv4Cidr: {{ .Values.clusterIpv4Cidr }}
