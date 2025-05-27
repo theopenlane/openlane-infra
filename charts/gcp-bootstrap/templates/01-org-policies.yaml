@@ -49,7 +49,15 @@ metadata:
 spec:
   organizationRef: { external: "organizations/{{ .Values.orgId }}" }
   constraint: gcp.resourceLocations
-  listPolicy: { allow: {{ .Values.orgPolicies.resourceLocations.allowedLocations | toYaml | nindent 6 }} }
+  listPolicy:
+    allow: 
+    {{- with .Values.orgPolicies.resourceLocations.allowedLocations }} # Use 'with' to check if list is non-empty
+    {{- range . }} # Range over the non-empty list
+      - "{{ . }}"
+    {{- end }}
+    {{- else }} # If the list is empty (no 'with' context)
+    - {} # Output an explicit empty item in the list
+    {{- end }}
 ---
 {{- end }}
 {{- if .Values.orgPolicies.vmExternalIpAccess.enabled }}

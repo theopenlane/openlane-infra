@@ -1,7 +1,3 @@
-**Conceptual `charts/gcp-dns/templates/` changes:**
-*   `managed-zone.yaml`: Defines `DNSManagedZone` CR (`dns.cnrm.cloud.google.com/v1beta1.DNSManagedZone`). `projectRef.external` points to `values.projectId`. `networkRef.external` for private zones.
-*   `record-set.yaml`: Iterates `values.recordSets.items` to create `DNSRecordSet` CRs (`dns.cnrm.cloud.google.com/v1beta1.DNSRecordSet`). `managedZoneRef.external` points to the managed zone name.
-
 # openlane-gcp-dns-zone
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)

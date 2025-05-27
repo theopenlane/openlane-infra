@@ -119,3 +119,12 @@ billingProject: # Blueprint for a centralized billing project instance
     id: "" # Hydrated
     gcpProjectName: "OpenLane Billing Admin"
     apis: ["cloudbilling.googleapis.com"]
+
+kmsProject: # Blueprint for a dedicated KMS project instance
+  enabled: false
+  project:
+    name: "openlane-kms"
+    id: "" # Hydrated
+    gcpProjectName: "OpenLane Central KMS"
+    folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Place under root org folder
+    apis: ["cloudkms.googleapis.com"]

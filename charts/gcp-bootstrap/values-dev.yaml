@@ -95,3 +95,11 @@ billingProject:
     id: "" # Hydrated
     gcpProjectName: "OpenLane Billing Admin (Dev)"
     folderRef: "folders/openlane-org-billing-dev"
+
+kmsProject:
+  enabled: true
+  project:
+    name: "openlane-kms-dev" # Unique name for dev
+    id: "" # Hydrated
+    gcpProjectName: "OpenLane Central KMS (Dev)"
+    folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Live under root org folder

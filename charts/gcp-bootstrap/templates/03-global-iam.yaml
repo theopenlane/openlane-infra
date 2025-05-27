@@ -6,10 +6,10 @@ metadata:
   name: org-security-admin-group # Name of the KCC resource
   namespace: config-connector
   annotations:
-    cnrm.cloud.google.com/organization-id: "{{ $.Values.orgId }}"
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
   member: "group:gcp-security-admins@theopenlane.io" # Replace with your security group
   role: roles/iam.securityAdmin
   resourceRef:
-    external: "organizations/{{ $.Values.orgId }}" # Apply to the entire organization
+    external: "organizations/{{ .Values.orgId }}" # Apply to the entire organization
     kind: Organization

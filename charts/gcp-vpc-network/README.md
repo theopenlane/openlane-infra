@@ -1,37 +1,3 @@
-**Conceptual `charts/gcp-vpc/templates/` changes:**
-*   `network.yaml`: Defines `ComputeNetwork` CR (`compute.cnrm.cloud.google.com/v1beta1.ComputeNetwork`). `projectRef.external` points to `values.network.projectId`.
-*   `subnets.yaml`: Iterates `values.subnetworks` to create `ComputeSubnetwork` CRs (`compute.cnrm.cloud.google.com/v1beta1.ComputeSubnetwork`), referencing `networkRef.external` (to the network name) and `projectRef.external` (for the network's project).
-*   `firewall.yaml`: Iterates `values.firewallRules` to create `ComputeFirewall` CRs (`compute.cnrm.cloud.google.com/v1beta1.ComputeFirewall`), referencing `networkRef.external`.
-*   `shared-vpc-host.yaml`: If `values.sharedVPC.host.enabled` is `true`, creates a `ComputeSharedVPCHostProject` CR (`compute.cnrm.cloud.google.com/v1beta1.ComputeSharedVPCHostProject`), referencing the `projectRef.external` (current project).
-*   `shared-vpc-service.yaml`: If `values.sharedVPC.service.enabled` is `true`, creates a `ComputeSharedVPCServiceProject` CR (`compute.cnrm.cloud.google.com/v1beta1.ComputeSharedVPCServiceProject`), referencing `hostProjectRef.external` and `hostNetworkRef.external`.
-
-# GCP VPC Network Helm Chart (CNRM)
-
-This Helm chart provisions a Virtual Private Cloud (VPC) network, subnets, and essential firewall rules in GCP using **GCP Config Connector**.
-
-**Key Features:**
-
-*   **Shared VPC Support:** Configure the network as a Shared VPC Host project or attach it as a Shared VPC Service project.
-*   **VPC-native Networking:** Defaults to VPC-native GKE clusters.
-*   **Secure Firewall Rules:** Essential firewall rules for GKE cluster operation and internal communication.
-
-## Usage
-
-This chart is typically deployed early in the infrastructure provisioning process as other resources (GKE, CloudSQL, Redis) depend on it.
-
-## Shared VPC Configuration
-
-This chart can operate in two modes for Shared VPC:
-
-1.  **Host Project Mode:**
-    *   Set `sharedVPC.host.enabled: true`.
-    *   The chart will create the network and enable it as a Shared VPC Host using `ComputeSharedVPCHostProject`.
-    *   You'll define the service projects that are allowed to attach to this host (usually done using `ComputeSharedVPCServiceProject` in the service project).
-2.  **Service Project Mode:**
-    *   Set `sharedVPC.service.enabled: true`.
-    *   Specify the `hostNetworkRef` for the network in the Shared VPC Host project, and its `hostProjectRef`.
-    *   The chart will create a `ComputeSharedVPCServiceProject` resource, attaching this project to the host.
-
 # openlane-gcp-vpc-network
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
@@ -61,6 +27,11 @@ A Helm chart that Creates a Google VPC Network through Config Connector
 | description | string | `"OPENLANE VPC Network for infrastructure."` | A text description of the VPC Network. Must be less than or equal to 256 UTF-8 bytes. |
 | displayName | string | `"OPENLANE VPC"` | The display name for the VPC Network. Can be updated without creating a new resource. |
 | enableUlaInternalIpv6 | bool | `false` | Enable ULA internal ipv6 on this network. |
+| firewallRules.enabled | bool | `true` |  |
+| firewallRules.rules[0] | object | `{"allowed":[{"protocol":"all"}],"description":"Allow all internal traffic within the VPC.","direction":"INGRESS","name":"allow-internal-all","priority":1000,"sourceRanges":["10.0.0.0/8"],"targetTags":[]}` | Allow internal communication within the VPC network (essential for GKE pod communication). |
+| firewallRules.rules[1] | object | `{"allowed":[{"ports":["1-65535"],"protocol":"tcp"},{"ports":["1-65535"],"protocol":"udp"},{"protocol":"icmp"}],"description":"Allow GKE master ingress to nodes.","direction":"INGRESS","name":"allow-gke-master-ingress","priority":1000,"sourceRanges":["130.211.0.0/22","35.191.0.0/16"],"targetTags":["gke-{{ .Values.network.projectId }}-{{ include \"gcp-gke-prod-cluster.fullname\" . }}-node"]}` | Allow ingress from GKE masters to nodes (required by GKE). |
+| firewallRules.rules[2] | object | `{"allowed":[{"ports":["80","443","8080"],"protocol":"tcp"}],"description":"Allow ingress for health checks from GCP Load Balancer.","direction":"INGRESS","name":"allow-health-check-ingress","priority":1000,"sourceRanges":["130.211.0.0/22","35.191.0.0/16"],"targetTags":[]}` | Allow ephemeral ports (for health checks from load balancer) |
+| firewallRules.rules[3] | object | `{"allowed":[{"protocol":"all"}],"description":"Allow all egress traffic.","destinationRanges":["0.0.0.0/0"],"direction":"EGRESS","name":"allow-egress-all","priority":1000,"targetTags":[]}` | Default allow egress to all (securely restrict this where possible) |
 | global.abandon | bool | `false` | Keep the VPC even after the kcc resource deletion. |
 | global.cnrmNamespace | string | `nil` | Allows to deploy in another namespace than the release one |
 | global.gcpProjectId | string | `"myprojectid"` | Google Project ID |
@@ -70,6 +41,11 @@ A Helm chart that Creates a Google VPC Network through Config Connector
 | networkFirewallPolicyEnforcementOrder | string | `"AFTER_CLASSIC_FIREWALL"` | The order that Firewall Rules and Firewall Policies are evaluated. Default value: "AFTER_CLASSIC_FIREWALL" Possible values: ["BEFORE_CLASSIC_FIREWALL", "AFTER_CLASSIC_FIREWALL"]. |
 | resourceID | string | `""` | Optional resource ID. |
 | routingMode | string | `"REGIONAL"` | Routing mode for the VPC Network. |
+| sharedVPC | object | `{"host":{"enabled":false},"service":{"enabled":false,"hostNetworkRef":{"external":"openlane-network"},"hostProjectRef":{"external":""}}}` | Shared VPC configuration |
+| sharedVPC.host | object | `{"enabled":false}` | Enable this project as a Shared VPC Host. |
+| sharedVPC.service | object | `{"enabled":false,"hostNetworkRef":{"external":"openlane-network"},"hostProjectRef":{"external":""}}` | Enable this project as a Shared VPC Service. |
+| sharedVPC.service.hostNetworkRef | object | `{"external":"openlane-network"}` | The reference to the host network in the Shared VPC Host project. |
+| sharedVPC.service.hostProjectRef | object | `{"external":""}` | The reference to the host project. |
 
 ## Installing the Chart
 
