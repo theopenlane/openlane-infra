@@ -58,10 +58,6 @@ With the goal of being able to idempotently re-establish the entire Openlane inf
     *   ArgoCD is configured to monitor a separate Git repository (e.g., `theopenlane/openlane-application`) containing the application's Kubernetes manifests.
     *   ArgoCD then deploys the Openlane application to the provisioned **Workload GKE Autopilot cluster**.
 
-You're right, that's a much cleaner and more user-friendly way to present the information! Hyperlinking the chart name directly to its README simplifies navigation.
-
-Here's the updated Markdown table with Chart Name and Description, where the Chart Name is a hyperlink to its respective `README.md` file:
-
 ### **Repo Charts Inventory**
 
 This repository organizes GCP infrastructure definitions using Helm charts. Each chart defines a specific aspect or set of resources, following a hierarchical deployment model.
