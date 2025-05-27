@@ -141,6 +141,6 @@ docker run --rm -it -w /charts -v $(pwd)/../:/charts quay.io/helmpack/chart-test
 Documentation is automatically generated from chart annotations using helm-docs. To manually generate documentation:
 
 ```bash
-task 
+task dpcs
 ```
 
