@@ -18,6 +18,10 @@ commonAppConfig:
     masterAuthorizedNetworksConfig: { enabled: false }
     nodeCount: 1 # Default node count smaller for dev
     machineType: "e2-medium"
+    nodePools:
+      - name: "gke-primary" # Default node pool name, can be overridden in specific projects
+        nodeCount: 1 # Smaller for dev
+        machineType: "e2-medium" # Smaller machine type for dev
   bigquery:
     cmekEnabled: false # Often no CMEK in Dev
   storage:
@@ -27,9 +31,7 @@ commonAppConfig:
 # These are KCC Folder resource names, which will be created, and then their IDs must be hydrated here.
 folders:
   # Root org folder ID is hydrated here (from values.yaml)
-  dev: { name: "openlane-org-dev", id: "" } # This specifically names the `openlane-org/dev` folder
-  prod: { enabled: false } # Disable prod folder creation for 'dev' environment
-  
+  dev: { name: "openlane-org-dev", id: "" } # This specifically names the `openlane-org/dev` foldeer
   # Base names for sub-folders, combined with env name (e.g., 'openlane-org-app-dev', 'openlane-org-shared-infra-dev')
   appEnv: { name: "app", id: "" }
   sharedInfraEnv: { name: "shared-infra", id: "" }
@@ -46,12 +48,14 @@ sharedVpcHost:
   project:
     name: "openlane-shared-vpc-host-dev" # Full KCC Project resource name (GCP ID)
     id: "" # Hydrated numerical project ID
-    gcpProjectName: "OpenLane Shared VPC Host (Dev)"
+    gcpProjectName: "Openlane Shared VPC Host (Dev)"
     folderRef: "folders/openlane-org-shared-infra-dev" # KCC Folder resource name
   network: # Overrides default network name from values.yaml blueprint
     name: "openlane-shared-vpc-dev" # Unique to dev
-    # Subnets are defined from commonAppConfig, here we link them to dev-specific names
-    # e.g., gkePrimary.name remains 'gke-primary', but KCC uses the project-specific network.
+    gkePrimary:     { name: "openlane-gke-primary-dev", ipCidrRange: "10.0.0.0/20", privateIpGoogleAccess: true }
+    gkePodsSecondary: { name: "gke-pods", ipCidrRange: "10.0.32.0/16" }
+    gkeServicesSecondary: { name: "gke-services", ipCidrRange: "10.0.16.0/20" }
+    internalApps:   { name: "openlane-internal-apps-dev", ipCidrRange: "10.0.48.0/20", privateIpGoogleAccess: true }
   serviceProjects: # Define service projects that need NetworkUser role on *this* host
     appProject: { enabled: true, name: "openlane-app-dev", id: "" } # KCC Project name & Needs Numerical ID
     loggingProject: { enabled: true, name: "openlane-logs-dev", id: "" } # KCC Project name & Needs Numerical ID
@@ -62,7 +66,7 @@ appProject:
   project:
     name: "openlane-app-dev" # Full KCC Project resource name (GCP ID)
     id: "" # Hydrated numerical project ID
-    gcpProjectName: "OpenLane Application (Dev)"
+    gcpProjectName: "Openlane Application (Dev)"
     folderRef: "folders/openlane-org-app-dev" # KCC Folder resource name
   apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
   # Resource config overrides for this specific dev app project instance
@@ -79,7 +83,7 @@ loggingProject:
   project:
     name: "openlane-logs-dev" # Full KCC Project resource name (GCP ID)
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Central Logging (Dev)"
+    gcpProjectName: "Openlane Central Logging (Dev)"
     folderRef: "folders/openlane-org-logging-dev"
   logSinks:
     orgAudit:
@@ -93,7 +97,7 @@ billingProject:
   project:
     name: "openlane-billing-dev" # Full KCC Project resource name (GCP ID)
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Billing Admin (Dev)"
+    gcpProjectName: "Openlane Billing Admin (Dev)"
     folderRef: "folders/openlane-org-billing-dev"
 
 kmsProject:
@@ -101,5 +105,5 @@ kmsProject:
   project:
     name: "openlane-kms-dev" # Unique name for dev
     id: "" # Hydrated
-    gcpProjectName: "OpenLane Central KMS (Dev)"
+    gcpProjectName: "Openlane Central KMS (Dev)"
     folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Live under root org folder

@@ -31,7 +31,7 @@ spec:
           - cloudresourcemanager.googleapis.com
           - cloudkms.googleapis.com
           folderRef: folders/openlane-org-shared-infra-dev
-          gcpProjectName: OpenLane Shared VPC Host (Dev) (Dev)
+          gcpProjectName: Openlane Shared VPC Host (Dev) (Dev)
           id: ""
           name: openlane-shared-vpc-host-dev-dev
         orgId: 
@@ -196,7 +196,7 @@ spec:
           - redis.googleapis.com
           - dns.googleapis.com
           folderRef: folders/openlane-org-app-dev
-          gcpProjectName: OpenLane Application (Dev) (Dev)
+          gcpProjectName: Openlane Application (Dev) (Dev)
           id: ""
           name: openlane-app-dev-dev
         orgId: 
@@ -324,7 +324,7 @@ spec:
           - bigquery.googleapis.com
           - storage.googleapis.com
           folderRef: folders/openlane-org-logging-dev
-          gcpProjectName: OpenLane Central Logging (Dev) (Dev)
+          gcpProjectName: Openlane Central Logging (Dev) (Dev)
           id: ""
           name: openlane-logs-dev-dev
         orgId: 
@@ -447,7 +447,7 @@ spec:
           apis:
           - cloudbilling.googleapis.com
           folderRef: folders/openlane-org-billing-dev
-          gcpProjectName: OpenLane Billing Admin (Dev) (Dev)
+          gcpProjectName: Openlane Billing Admin (Dev) (Dev)
           id: ""
           name: openlane-billing-dev-dev
         orgId: 

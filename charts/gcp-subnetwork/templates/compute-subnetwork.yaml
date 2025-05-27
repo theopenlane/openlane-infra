@@ -59,3 +59,9 @@ spec:
 {{- if .Values.stackType }}
   stackType: {{ .Values.stackType }}
 {{- end }}
+  # Add VPC Flow Logs config
+  logConfig:
+    enable: true
+    flowSampling: 0.5 # Sample 50% of packets
+    aggregationInterval: INTERVAL_5_SEC # Aggregate logs every 5 seconds
+    metadata: INCLUDE_ALL_METADATA # Include all metadata (VM info, etc.)

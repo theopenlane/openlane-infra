@@ -10,14 +10,101 @@ billingAccountId: "YOUR_PROD_BILLING_ACCOUNT_ID" # IMPORTANT: Replace with Prod 
 commonAppConfig:
   primaryRegion: "us-east4" # Prod might use a specific region
   gkeCluster:
-    masterAuthorizedNetworksConfig: { enabled: true, cidrBlocks: [{ cidrBlock: "203.0.113.0/24", displayName: "CI/CD Range" }] } # Stricter security
     nodeCount: 3 # More nodes
     machineType: "e2-standard-4" # Beefier machines
+    releaseChannel: "REGULAR"
+    nodePools:
+      - name: "gke-primary-prod" # Distinct node pool for Prod
+        nodeCount: 3 # More nodes in Prod
+        machineType: "e2-standard-4" # Beefier machine type for Prod
+        autoscaling: { enabled: true, minNodeCount: 3, maxNodeCount: 10 }
+        oauthScopes:
+        - "https://www.googleapis.com/auth/devstorage.read_only"
+        - "https://www.googleapis.com/auth/logging.write"
+        - "https://www.googleapis.com/auth/monitoring"
+        - "https://www.googleapis.com/auth/service.management.readonly"
+        - "https://www.googleapis.com/auth/servicecontrol"
+        - "https://www.googleapis.com/auth/trace.append"
+    addonsConfig:
+      horizontalPodAutoscaling: { disabled: false } # Enable HPA in Prod
+      httpLoadBalancing: { disabled: false } # Enable HTTP LB in Prod
+      networkPolicyConfig: { disabled: false } # Enable Network Policy in Prod
+      configConnectorConfig: { enabled: true } # Enable Config Connector in Prod
+      dnsCacheConfig: { enabled: true } # Enable DNS Cache in Prod
+      gcePersistentDiskCsiDriverConfig: { enabled: true } # Enable GCE PD CSI Driver in Prod
+      gcsFuseCsiDriverConfig: { enabled: true } # Enable GCS FUSE CSI Driver in Prod
+      gcpFilestoreCsiDriverConfig: { enabled: true } # Enable GCP Filestore CSI Driver in Prod
+      gkeBackupAgentConfig: { enabled: true } # Enable GKE Backup Agent in Prod
+    authenticatorGroupsConfig:
+      securityGroup: "gke-security-groups@theopenlane.io"
+    datapathProvider: "ADVANCED_DATAPATH" # Use advanced datapath for Prod
+    enableAutopilot: true
+    enableIntranodeVisibility: true
+    enableShieldedNodes: true
+    identityServiceConfig: { enabled: true } # Enable Identity Service in Prod
+    # REVIEW
+    ipAllocationPolicy:
+      useIpAliases: true
+      enabled: true
+      additionalPodRangesConfig:
+        podRangeNames:
+          - name: "gke-pods-prod"
+          - name: "gke-services-prod"
+      clusterIpv4CidrBlock: "10.0.0.0/16"
+      clusterSecondaryRangeName:
+      servicesIpv4CidrBlock: "10.1.0.0/16"
+      servicesSecondaryRangeName:
+    masterAuthorizedNetworksConfig: { enabled: true, cidrBlocks: [{ cidrBlock: "203.0.113.0/24", displayName: "CI/CD Range" }] }
+    networkRef:
+      name: "openlane-shared-vpc-prod" 
+    subnetworkRef:
+      external: "openlane-shared-vpc-subnetwork"
+    loggingConfig:
+      enabled: true # Enable logging in Prod
+      enableComponents: ["SYSTEM_COMPONENTS", "API_SERVER", "CONTROLLER_MANAGER", "SCHEDULER", "WORKLOADS"] # Enable all logging components in Prod
+    monitoringConfig:
+      advancedDatapathObservabilityConfig:
+      - enableMetrics: true
+      enableComponents:
+      - SYSTEM_COMPONENTS
+      - STORAGE
+      - HPA
+      - POD
+      - DAEMONSET
+      - DEPLOYMENT
+      - STATEFULSET
+      - JOBSET
+      - CADVISOR
+      - KUBELET
+      - DCGM
+      managedPrometheus:
+        enabled: true
+      privateClusterConfig:
+        enablePrivateNodes: true
+        masterGlobalAccessConfig:
+          enabled: false
+        privateEndpoint: 10.128.0.2
+        publicEndpoint: 34.9.75.254 # Example public endpoint for Prod
+      serviceExternalIpsConfig: { enabled: true } # Enable external IPs for services in Prod
   bigquery:
     cmekEnabled: true # CMEK for Prod
   storage:
     cmekEnabled: true # CMEK for Prod
-
+  cloudsql:
+    enabled: false
+    instanceName: "openlane-prod-sql"
+    version: "POSTGRES_14"
+    tier: "db-f1-micro"
+    cmekEnabled: false
+  memorystore:
+    enabled: false
+    instanceName: "default-redis"
+    tier: "BASIC"
+    memorySizeGb: 1
+  dnsZone:
+    enabled: false
+    name: "default-zone"
+    domainName: "default.com."
 # Folders: Names are environment-specific
 folders:
   dev: { enabled: false } # Disable dev folder creation for 'prod' environment
@@ -28,17 +115,17 @@ folders:
 sharedVpcHost:
   enabled: true
   project:
-    name: "openlane-shared-vpc-host-prod"
+    name: "openlane-prod-shared-vpc"
     id: ""
-    gcpProjectName: "OpenLane Shared VPC Host (Prod)"
-    folderRef: "folders/openlane-org-shared-infra-prod"
+    gcpProjectName: "openlane-prod-shared-vpc"
+    folderRef: "folders/openlane-prod-shared-vpc"
   network:
     name: "openlane-shared-vpc-prod"
     subnets: # Use distinct CIDR for Prod network
-      gkePrimary: { name: "gke-primary-prod", ipCidrRange: "10.1.0.0/20" }
-      gkePodsSecondary: { name: "gke-pods-prod", ipCidrRange: "10.1.32.0/16" }
-      gkeServicesSecondary: { name: "gke-services-prod", ipCidrRange: "10.1.16.0/20" }
-      internalApps: { name: "internal-apps-prod", ipCidrRange: "10.1.48.0/20" }
+      gkePrimary: { name: "openlane-gke-primary-prod", ipCidrRange: "10.1.0.0/20", privateIpGoogleAccess: true }
+      gkePodsSecondary: { name: "gke-pods", ipCidrRange: "10.1.32.0/16" }
+      gkeServicesSecondary: { name: "gke-services", ipCidrRange: "10.1.16.0/20" }
+      internalApps: { name: "openlane-internal-apps-prod", ipCidrRange: "10.1.48.0/20", privateIpGoogleAccess: true }
   serviceProjects:
     appProject: { enabled: true, name: "openlane-app-prod" }
     loggingProject: { enabled: true, name: "openlane-logs-prod" }
@@ -46,12 +133,12 @@ sharedVpcHost:
 appProject:
   enabled: true
   project:
-    name: "openlane-app-prod"
+    name: "openlane-prod-shared-infra"
     id: ""
-    gcpProjectName: "OpenLane Application (Prod)"
-    folderRef: "folders/openlane-org-app-prod"
+    gcpProjectName: "openlane-prod-shared-infra"
+    folderRef: "folders/openlane-prod-shared-infra"
   apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
-  gkeCluster: { enabled: true, name: "openlane-prod-app-gke" } # (Inherits beefier conf from commonAppConfig.gkeCluster)
+  gkeCluster: { enabled: true, name: "openlane-prod-app-gke" }
   bigquery: { enabled: true, name: "application-data-prod" }
   storage: { enabled: true, name: "openlane-prod-app-data-bucket" }
   cloudsql: { enabled: true, instanceName: "openlane-prod-sql" }
@@ -63,18 +150,18 @@ loggingProject:
   project:
     name: "openlane-logs-prod"
     id: ""
-    gcpProjectName: "OpenLane Central Logging (Prod)"
-    folderRef: "folders/openlane-org-logging-prod"
+    gcpProjectName: "Openlane Central Logging (Prod)"
+    folderRef: "folders/openlane-prod-logging"
   logSinks:
     orgAudit:
       enabled: true
-      destinationBucketName: "openlane-central-logs-bucket-prod"
+      destinationBucketName: "openlane-prod-logs-bucket"
       destinationDatasetName: "openlane_central_logs_dataset_prod"
 
 billingProject:
   enabled: true
   project:
-    name: "openlane-billing-prod"
+    name: "openlane-prod-billing"
     id: ""
-    gcpProjectName: "OpenLane Billing Admin (Prod)"
-    folderRef: "folders/openlane-org-billing-prod"
+    gcpProjectName: "openlane-prod-billing"
+    folderRef: "folders/openlane-prod-billing"

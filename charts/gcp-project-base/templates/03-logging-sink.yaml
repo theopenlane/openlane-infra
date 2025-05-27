@@ -34,7 +34,17 @@ metadata:
     cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
   destination: "bigquery.googleapis.com/projects/{{ .Values.project.name }}/datasets/{{ .Values.logSinks.orgAudit.destinationDatasetName }}"
-  filter: "logName:\"cloudaudit.googleapis.com/activity\" OR logName:\"cloudaudit.googleapis.com/data_access\""
+  filter: |-
+    resource.type="gce_instance" OR
+    resource.type="container" OR
+    resource.type="cloudsql_database" OR
+    resource.type="gcs_bucket" OR
+    resource.type="k8s_cluster" OR
+    resource.type="gke_node" OR
+    resource.type="gcloud_project" OR
+    logName=~"projects/openlane/.*/logs/cloudaudit.googleapis.com%2Factivity" OR
+    logName=~"projects/openlane/.*/logs/cloudaudit.googleapis.com%2Fdata_access" OR
+    logName=~"projects/openlane/.*/logs/oauth_access"
   orgRef: { external: "organizations/{{ .Values.orgId }}" }
   # NOTE: After KCC creates this sink, it will output a `writerIdentity` in its status.
   # You MUST manually grant this service account (e.g., service-xxxxxxxxxxxx@gcp-sa-logging.iam.gserviceaccount.com)
@@ -51,6 +61,16 @@ metadata:
     cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
 spec:
   destination: "storage.googleapis.com/{{ .Values.logSinks.orgAudit.destinationBucketName }}"
-  filter: "resource.type=gce_instance OR resource.type=container.googleapis.com"
+    filter: |-
+    resource.type="gce_instance" OR
+    resource.type="container" OR
+    resource.type="cloudsql_database" OR
+    resource.type="gcs_bucket" OR
+    resource.type="k8s_cluster" OR
+    resource.type="gke_node" OR
+    resource.type="gcloud_project" OR
+    logName=~"projects/openlane/.*/logs/cloudaudit.googleapis.com%2Factivity" OR
+    logName=~"projects/openlane/.*/logs/cloudaudit.googleapis.com%2Fdata_access" OR
+    logName=~"projects/openlane/.*/logs/oauth_access"
   projectRef: { name: {{ .Values.project.name }} }
 {{- end }}

@@ -1,10 +1,14 @@
 apiVersion: v2
 appVersion: 0.1.0
 description: Chart for compute-subnetwork resource with config connector
-home: https://github.com/openlane/openlane-helm
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
 name: openlane-gcp-subnetwork
 type: application
 version: 0.1.0
+icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+sources:
+  - https://github.com/theopenlane/core
+  - https://github.com/theopenlane/openlane-infra
+home: https://www.theopenlane.io
