@@ -35,7 +35,7 @@ jobs:
       - name: List changed charts
         id: list-changed
         run: |
-          changed=$(ct --config ./configs/ct-lint.yaml list-changed)
+          changed=$(ct --config configs/ct.yaml list-changed)
           charts=$(echo "$changed" | tr '\n' ' ' | xargs)
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
@@ -43,7 +43,7 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --debug --config ./configs/ct-lint.yaml --lint-conf ./configs/lintconf.yaml
+        run: ct lint --debug --config configs/ct.yaml --lint-conf configs/lintconf.yaml
 
       - name: Run docs-testing (helm-docs)
         id: helm-docs
@@ -57,6 +57,6 @@ jobs:
             echo -e '\033[0;32mDocumentation up to date\033[0m ✔'
           fi
 
-      - name: Run chart-testing (install)
-        run: ct install --config ./configs/ct-install.yaml
+      - name: Run chart-testing
+        run: ct install --config configs/ct.yaml
         if: steps.list-changed.outputs.changed == 'true'

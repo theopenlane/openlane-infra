@@ -65,7 +65,7 @@ jobs:
       - name: Run Chart Releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
-          config: "./configs/cr.yaml"
+          config: "configs/cr.yaml"
           packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
@@ -83,6 +83,6 @@ jobs:
           for pkg in .cr-release-packages/*.tgz; do
             if [ -z "${pkg:-}" ]; then
               break
-            fi]
+            fi
             helm push "${pkg}" oci://ghcr.io/${{ github.repository }}
           done
