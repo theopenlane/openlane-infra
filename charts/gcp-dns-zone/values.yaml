@@ -15,6 +15,11 @@ global:
   # global.gcpProjectId -- Project ID where to deploy the cluster
   gcpProjectId: "myprojectid"
 
+commonAppConfig:
+  enabled: false
+  name: "default-zone"
+  domainName: "default.com."
+
 # dnsManagedZone -- DNS Managed zone configuration
 dnsManagedZone:
   # dnsManagedZone.name -- The name of dnsManagedZone

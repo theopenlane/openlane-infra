@@ -7,6 +7,26 @@ global:
   # -- If true, Keep the GKE Cluster even after the kcc resource deletion.
   abandon: true
 
+# Contextual and configuration data passed from gcp-project-base
+projectId: "default-project"
+projectNumericalId: "123456789012"
+gcpProjectName: "Default Project"
+k8sNamespace: "default-ns"
+orgId: "ORG_ID_DEFAULT"
+billingAccountId: "BILLING_ID_DEFAULT"
+primaryRegion: "us-east4"
+envName: "default"
+envCapitalizedName: "Default"
+kms: {} # Passed for CMEK reference
+commonAppConfig:
+  gkeCluster:
+    enabled: true # Default state for GKE clusters in app projects
+    nodeCount: 1
+    machineType: "e2-standard-2"
+    workloadIdentityEnabled: true
+    masterAuthorizedNetworksConfig: { enabled: false, cidrBlocks: [] }
+    nodePools: []
+
 # -- Add annotations to the GKE Cluster.
 annotations: {}
 
@@ -293,7 +313,7 @@ ipAllocationPolicy:
   # -- Immutable. The IP address range for the cluster pod IPs. Set to blank to have a range chosen with the default size. Set to /netmask (e.g. /14) to have a range chosen with a specific netmask. Set to a CIDR notation (e.g. 10.96.0.0/14) from the RFC-1918 private networks (e.g. 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) to pick a specific range to use.
   clusterIpv4CidrBlock:
   # -- Immutable. The name of the existing secondary range in the cluster's subnetwork to use for pod IP addresses. Alternatively, cluster_ipv4_cidr_block can be used to automatically create a GKE-managed one.
-  clusterSecondaryRangeName:
+  clusterSecondaryRangeName: gke-pods
   # -- Immutable. Configuration for cluster level pod cidr overprovision. Default is disabled=false.
   podCidrOverprovisionConfig:
     # -- Whether pod cidr overprovision is disabled.
@@ -301,7 +321,7 @@ ipAllocationPolicy:
   # -- Immutable. The IP address range of the services IPs in this cluster. Set to blank to have a range chosen with the default size. Set to /netmask (e.g. /14) to have a range chosen with a specific netmask. Set to a CIDR notation (e.g. 10.96.0.0/14) from the RFC-1918 private networks (e.g. 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) to pick a specific range to use.
   servicesIpv4CidrBlock:
   # -- Immutable. The name of the existing secondary range in the cluster's subnetwork to use for service ClusterIPs. Alternatively, services_ipv4_cidr_block can be used to automatically create a GKE-managed one.
-  servicesSecondaryRangeName:
+  servicesSecondaryRangeName: gke-services
   # -- Immutable. The IP Stack type of the cluster. Choose between IPV4 and IPV4_IPV6. Default type is IPV4 Only if not set.
   stackType:
 

@@ -4,17 +4,9 @@
 # Specific environment overrides will be applied via values-dev.yaml / values-prod.yaml.
 
 # --- Global Settings ---
-orgId: "YOUR_GCP_ORGANIZATION_ID_DEFAULT" # Placeholder: MUST BE OVERRIDDEN per env
-billingAccountId: "YOUR_BILLING_ACCOUNT_ID_DEFAULT" # Placeholder: MUST BE OVERRIDDEN per env
+orgId: "319013011373" # Placeholder: MUST BE OVERRIDDEN per env
+billingAccountId: "01AC20-2CEAE3-8BB367" # Placeholder: MUST BE OVERRIDDEN per env
 repoURL: "https://github.com/theopenlane/openlane-infra" # Your Git repository URL
-
-# Folders definition (common names, IDs need hydration)
-folders:
-  openlaneOrg: { name: "openlane-org", id: "" } # Root organizational folder
-  appEnv: { name: "app", id: "" } # Base name for application environment folders (e.g., openlane-org-app-dev)
-  sharedInfraEnv: { name: "shared-infra", id: "" } # Base name for shared infra environment folders
-  loggingEnv: { name: "logging", id: "" } # Base name for logging environment folders
-  billingEnv: { name: "billing", id: "" } # Base name for billing environment folders
 
 # --- Organization-Level Policies & Services (Always apply if enabled) ---
 orgPolicies: # Control which org policies are applied.
@@ -128,3 +120,48 @@ kmsProject: # Blueprint for a dedicated KMS project instance
     gcpProjectName: "Openlane Central KMS"
     folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Place under root org folder
     apis: ["cloudkms.googleapis.com"]
+
+
+folders:
+  bootstrap:
+    displayName: "bootstrap"
+    parentType: "organization"
+    parent: "1234567890"
+    id: ""
+  common:
+    displayName: "common"
+    parentType: "organization"
+    parent: "1234567890"
+    id: ""
+
+projects:
+  common-shared-kms:
+    displayName: "common-shared-kms"
+    parentType: "folder"
+    parent: "common"
+    id: ""
+  common-shared-secrets:
+    displayName: "common-shared-secrets"
+    parentType: "folder"
+    parent: "common"
+    id: ""
+  common-shared-network-project:
+    displayName: "common-shared-network-project"
+    parentType: "folder"
+    parent: "common"
+    id: ""
+  common-shared-logging:
+    displayName: "common-shared-logging"
+    parentType: "folder"
+    parent: "common"
+    id: ""
+  common-shared-monitoring:
+    displayName: "common-shared-monitoring"
+    parentType: "folder"
+    parent: "common"
+    id: ""
+  common-billing-project:
+    displayName: "common-billing-project"
+    parentType: "folder"
+    parent: "common"
+    id: ""

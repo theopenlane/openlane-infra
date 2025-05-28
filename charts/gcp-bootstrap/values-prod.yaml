@@ -105,53 +105,49 @@ commonAppConfig:
     enabled: false
     name: "default-zone"
     domainName: "default.com."
-# Folders: Names are environment-specific
-folders:
-  dev: { enabled: false } # Disable dev folder creation for 'prod' environment
-  prod: { name: "openlane-org-prod" }
 
 # --- PROJECT TYPE ACTIVATION AND CONFIGURATION FOR 'PROD' ENVIRONMENT ---
 
 sharedVpcHost:
   enabled: true
   project:
-    name: "openlane-prod-shared-vpc"
+    name: "openlane-prod-network-project"
     id: ""
-    gcpProjectName: "openlane-prod-shared-vpc"
-    folderRef: "folders/openlane-prod-shared-vpc"
+    gcpProjectName: "openlane-prod-network-project"
+    folderRef: "folders/openlane-prod-network-folder"
   network:
-    name: "openlane-shared-vpc-prod"
+    name: "prod-shared-vpc"
     subnets: # Use distinct CIDR for Prod network
-      gkePrimary: { name: "openlane-gke-primary-prod", ipCidrRange: "10.1.0.0/20", privateIpGoogleAccess: true }
-      gkePodsSecondary: { name: "gke-pods", ipCidrRange: "10.1.32.0/16" }
-      gkeServicesSecondary: { name: "gke-services", ipCidrRange: "10.1.16.0/20" }
-      internalApps: { name: "openlane-internal-apps-prod", ipCidrRange: "10.1.48.0/20", privateIpGoogleAccess: true }
+      gkePrimary: { name: "prod-gke-subnet", ipCidrRange: "10.1.0.0/20", privateIpGoogleAccess: true }
+      gkePodsSecondary: { name: "prod-gke-podsubet-secondary", ipCidrRange: "10.1.32.0/16" }
+      gkeServicesSecondary: { name: "prod-gke-servicesubnet-secondary", ipCidrRange: "10.1.16.0/20" }
+      internalApps: { name: "prod-apps-subnet-primary", ipCidrRange: "10.1.48.0/20", privateIpGoogleAccess: true }
   serviceProjects:
-    appProject: { enabled: true, name: "openlane-app-prod" }
-    loggingProject: { enabled: true, name: "openlane-logs-prod" }
+    appProject: { enabled: true, name: "openlane-prod-app-project" }
+    loggingProject: { enabled: true, name: "openlane-prod-logs-project" }
 
 appProject:
   enabled: true
   project:
-    name: "openlane-prod-shared-infra"
+    name: "openlane-prod-app-project"
     id: ""
-    gcpProjectName: "openlane-prod-shared-infra"
-    folderRef: "folders/openlane-prod-shared-infra"
+    gcpProjectName: "openlane-prod-app-project"
+    folderRef: "folders/openlane-prod-app-folder"
   apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
-  gkeCluster: { enabled: true, name: "openlane-prod-app-gke" }
-  bigquery: { enabled: true, name: "application-data-prod" }
-  storage: { enabled: true, name: "openlane-prod-app-data-bucket" }
-  cloudsql: { enabled: true, instanceName: "openlane-prod-sql" }
-  memorystore: { enabled: true, instanceName: "openlane-prod-redis" }
-  dnsZone: { enabled: true, name: "openlane-prod-zone", domainName: "prod.openlane.com." }
+  gkeCluster: { enabled: true, name: "prod-app-gke-central1" }
+  bigquery: { enabled: true, name: "prod-app-bigquery-central1" }
+  storage: { enabled: true, name: "prod-app-data-bucket" }
+  cloudsql: { enabled: true, instanceName: "prod-app-cloudsql" }
+  memorystore: { enabled: true, instanceName: "prod-app-redis" }
+  dnsZone: { enabled: true, name: "prod-app-dnszone", domainName: "prod.openlane.com." }
 
 loggingProject:
   enabled: true
   project:
-    name: "openlane-logs-prod"
+    name: "openlane-prod-logs-project"
     id: ""
-    gcpProjectName: "Openlane Central Logging (Prod)"
-    folderRef: "folders/openlane-prod-logging"
+    gcpProjectName: "openlane-prod-logs-project"
+    folderRef: "folders/openlane-prod-logs-folder"
   logSinks:
     orgAudit:
       enabled: true
@@ -161,7 +157,81 @@ loggingProject:
 billingProject:
   enabled: true
   project:
-    name: "openlane-prod-billing"
+    name: "openlane-prod-billing-project"
     id: ""
-    gcpProjectName: "openlane-prod-billing"
-    folderRef: "folders/openlane-prod-billing"
+    gcpProjectName: "openlane-prod-billing-project"
+    folderRef: "folders/openlane-prod-billing-folder"
+
+folders:
+  prod:
+    displayName: "prod"
+    parentType: "organization"
+    parent: "1234567890"
+    id: ""
+  prod-networking:
+    displayName: "networking"
+    parentType: "folder"
+    parent: "prod"
+    id: ""
+  prod-sharedInfra:
+    displayName: "sharedInfra"
+    parentType: "folder"
+    parent: "prod"
+    id: ""
+  prod-signals:
+    displayName: "signals"
+    parentType: "folder"
+    parent: "prod"
+    id: ""
+  prod-billing:
+    displayName: "billing"
+    parentType: "folder"
+    parent: "prod"
+    id: ""
+  prod-apps:
+    displayName: "apps"
+    parentType: "folder"
+    parent: "prod"
+    id: ""
+
+projects:
+  prod-bootstrap-project:
+    displayName: "prod-bootstrap-project"
+    parentType: "folder"
+    parent: "bootstrap"
+    id: ""
+  prod-shared-network-project:
+    displayName: "prod-shared-network-project"
+    parentType: "folder"
+    parent: "prod-networking"
+    id: ""
+  prod-shared-kms:
+    displayName: "prod-shared-kms"
+    parentType: "folder"
+    parent: "prod-sharedInfra"
+    id: ""
+  prod-shared-secrets:
+    displayName: "prod-shared-secrets"
+    parentType: "folder"
+    parent: "prod-sharedInfra"
+    id: ""
+  prod-signals-logging:
+    displayName: "prod-signals-logging"
+    parentType: "folder"
+    parent: "prod-signals"
+    id: ""
+  prod-signals-monitoring:
+    displayName: "prod-signals-monitoring"
+    parentType: "folder"
+    parent: "prod-signals"
+    id: ""
+  prod-billing-project:
+    displayName: "prod-billing-project"
+    parentType: "folder"
+    parent: "prod-billing"
+    id: ""
+  prod-apps-project:
+    displayName: "prod-apps-project"
+    parentType: "folder"
+    parent: "prod-apps"
+    id: ""

@@ -142,6 +142,70 @@ docker run --rm -it -w /charts -v $(pwd)/../:/charts quay.io/helmpack/chart-test
 Documentation is automatically generated from chart annotations using helm-docs. To manually generate documentation:
 
 ```bash
-task dpcs
+task docs
 ```
 
+## Shared VPC Setup
+
+This repository supports GCP Shared VPC using Config Connector resources and Helm charts.
+
+- Use `gcp-bootstrap` with `sharedVPC.enabled` and your host/service project IDs to generate `ComputeSharedVPCServiceProject` bindings.
+- The host project owns the VPC and subnets; the service projects attach and use them.
+- Use `gcp-iam-policy-members` to grant `roles/compute.networkUser` to your service projects or service accounts.
+- In your workload resource charts (GKE, VM), reference the shared VPC and subnet using the `external` field.
+
+**Example usage in `charts/gcp-bootstrap/values.yaml`:**
+```yaml
+sharedVPC:
+  enabled: true
+  hostProjectId: my-shared-vpc-host
+  serviceProjects:
+    - my-service-project-1
+    - my-service-project-2
+```
+
+## Project and Folder Heirarchy
+
+```bash
+organization
+├── bootstrap (folder)
+│   ├── prod-bootstrap-project
+│   └── dev-bootstrap-project
+├── common (folder)
+│   ├── sharedInfra (folder)
+│   │   ├── common-shared-kms-project
+│   │   └── common-shared-secrets-project
+│   ├── networking (folder)
+│   │   └── common-shared-network-project
+│   ├── signals (folder)
+│   │   ├── common-shared-logging-project
+│   │   └── common-shared-monitoring-project
+│   └── billing (folder)
+│       └── common-billing-project
+├── prod (folder)
+│   ├── networking (folder)
+│   │   └── prod-shared-network-project
+│   ├── sharedInfra (folder)
+│   │   ├── prod-shared-kms-project
+│   │   └── prod-shared-secrets-project
+│   ├── signals (folder)
+│   │   ├── prod-signals-logging-project
+│   │   └── prod-signals-monitoring-project
+│   ├── billing (folder)
+│   │   └── prod-billing-project
+│   └── apps (folder)
+│       └── prod-apps-project
+└── dev (folder)
+    ├── networking (folder)
+    │   └── dev-shared-network-project
+    ├── sharedInfra (folder)
+    │   ├── dev-shared-kms-project
+    │   └── dev-shared-secrets-project
+    ├── signals (folder)
+    │   ├── dev-signals-logging-project
+    │   └── dev-signals-monitoring-project
+    ├── billing (folder)
+    │   └── dev-billing-project-project
+    └── apps (folder)
+        └── dev-apps-project-project
+```

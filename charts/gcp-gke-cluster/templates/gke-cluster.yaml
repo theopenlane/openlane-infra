@@ -33,8 +33,8 @@ spec:
   subnetworkRef:
     external: "projects/{{ $sharedVpc.project.name }}/regions/{{ .Values.region }}/subnetworks/{{ $sharedVpc.network.subnets.gkePrimary.name }}"
   ipAllocationPolicy:
-    clusterSecondaryRangeName: {{ (first ($sharedVpc.network.subnets | where "name" "gke-pods")).name }} # Dynamically get name
-    servicesSecondaryRangeName: {{ (first ($sharedVpc.network.subnets | where "name" "gke-services")).name }} # Dynamically get name
+    clusterSecondaryRangeName: {{ $sharedVpc.network.subnets.gkePodsSecondary.name }}
+    servicesSecondaryRangeName: {{ $sharedVpc.network.subnets.gkeServicesSecondary.name }}
     useIpAliases: true
   {{- end }}
   

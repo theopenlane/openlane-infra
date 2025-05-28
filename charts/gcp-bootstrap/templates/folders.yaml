@@ -1,0 +1,18 @@
+{{- if .Values.folders }}
+{{- range $folderName, $folder := .Values.folders }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: Folder
+metadata:
+  name: {{ $folderName | quote }}
+spec:
+  displayName: {{ $folder.displayName | quote }}
+  {{- if eq $folder.parentType "organization" }}
+  organizationRef:
+    external: "organizations/{{ $folder.parent }}"
+  {{- else if eq $folder.parentType "folder" }}
+  folderRef:
+    name: {{ $folder.parent | quote }}
+  {{- end }}
+---
+{{- end }}
+{{- end }}

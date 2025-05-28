@@ -10,6 +10,13 @@ global:
   # -- If true, Keep the resource even after the kcc resource deletion.
   abandon: true
 
+commonAppConfig:
+  memorystore:
+    enabled: false
+    instanceName: "default-redis"
+    tier: "BASIC"
+    memorySizeGb: 1
+
 enabled: true
 
 # -- Name of the Redis instance (metadata.name).

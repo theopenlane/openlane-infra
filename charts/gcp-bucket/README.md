@@ -2,6 +2,8 @@
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
+**Homepage:** <https://www.theopenlane.io>
+
 ## Prerequisites
 
 - Helm v3
@@ -16,6 +18,11 @@
 ## Description
 
 A Helm chart for creating a GCP Bucket via Config Connector
+
+## Source Code
+
+* <https://github.com/theopenlane/core>
+* <https://github.com/theopenlane/openlane-infra>
 
 ## Values
 
@@ -34,7 +41,7 @@ A Helm chart for creating a GCP Bucket via Config Connector
 | enableVersioning | bool | `false` | Activate bucket versioning |
 | encryption.enabled | bool | `false` | Enables customer-supplied or customer-managed encryption. By default, Bucket are encrypted |
 | encryption.kccControlled | bool | `false` | Specify if the KMS key was created through Kubernetes Config Connector on the same cluster or if it was create outside. |
-| encryption.kmsKeyRefName | string | `"mykms"` | Name of the Cloud KMS key that will be used to encrypt objects inserted into this bucket |
+| encryption.kmsKeyRefName | string | `"mykms"` | (string) Name of the Cloud KMS key that will be used to encrypt objects inserted into this bucket |
 | encryption.kmsKeyRefNamespace | string | `nil` | Namespace where the KMS key was created through KCC. Only use if kccControlled=true |
 | global.abandon | bool | `true` | Abandon resource if the manifests are deleted. Allow deleting a resource from config connector without deleting it from GCP |
 | global.cnrmNamespace | string | `nil` | Allows to deploy in another namespace than the release one |

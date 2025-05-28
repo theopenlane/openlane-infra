@@ -11,6 +11,11 @@ global:
   # global.description -- subNework description (use helm tpl)
   description: ""
 
+commonAppConfig:
+  storage:
+    enabled: false # Default state for Storage buckets in app projects
+    location: "us-east4"
+    cmekEnabled: false
 # bucketName -- Name of the bucket. Must be unique.
 bucketName: myfirstbucket
 

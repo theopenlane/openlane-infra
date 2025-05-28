@@ -17,6 +17,11 @@
 
 A Helm chart that Creates a Google VPC Network through Config Connector
 
+## Source Code
+
+* <https://github.com/theopenlane/core>
+* <https://github.com/theopenlane/openlane-infra>
+
 ## Values
 
 | Key | Type | Default | Description |

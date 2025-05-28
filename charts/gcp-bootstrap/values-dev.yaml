@@ -27,17 +27,6 @@ commonAppConfig:
   storage:
     cmekEnabled: false # Often no CMEK in Dev
 
-# --- FOLDER HYDRATION and NAMING ---
-# These are KCC Folder resource names, which will be created, and then their IDs must be hydrated here.
-folders:
-  # Root org folder ID is hydrated here (from values.yaml)
-  dev: { name: "openlane-org-dev", id: "" } # This specifically names the `openlane-org/dev` foldeer
-  # Base names for sub-folders, combined with env name (e.g., 'openlane-org-app-dev', 'openlane-org-shared-infra-dev')
-  appEnv: { name: "app", id: "" }
-  sharedInfraEnv: { name: "shared-infra", id: "" }
-  loggingEnv: { name: "logging", id: "" }
-  billingEnv: { name: "billing", id: "" }
-
 # --- PROJECT TYPE ACTIVATION AND CONFIGURATION FOR 'DEV' ENVIRONMENT ---
 # These sections enable and configure specific project types for the 'dev' environment.
 # They will override the 'enabled: false' defaults from values.yaml.
@@ -107,3 +96,78 @@ kmsProject:
     id: "" # Hydrated
     gcpProjectName: "Openlane Central KMS (Dev)"
     folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Live under root org folder
+
+
+folders:
+  dev:
+    displayName: "dev"
+    parentType: "organization"
+    parent: "319013011373"
+    id: ""
+  networking:
+    displayName: "networking"
+    parentType: "folder"
+    parent: "dev"
+    id: ""
+  sharedInfra:
+    displayName: "sharedInfra"
+    parentType: "folder"
+    parent: "dev"
+    id: ""
+  signals:
+    displayName: "signals"
+    parentType: "folder"
+    parent: "dev"
+    id: ""
+  billing:
+    displayName: "billing"
+    parentType: "folder"
+    parent: "dev"
+    id: ""
+  apps:
+    displayName: "apps"
+    parentType: "folder"
+    parent: "dev"
+    id: ""
+
+projects:
+  dev-bootstrap-project:
+    displayName: "dev-bootstrap-project"
+    parentType: "folder"
+    parent: "bootstrap"
+    id: ""
+  dev-shared-network-project:
+    displayName: "dev-shared-network-project"
+    parentType: "folder"
+    parent: "dev/networking"
+    id: ""
+  dev-shared-kms:
+    displayName: "dev-shared-kms-project"
+    parentType: "folder"
+    parent: "dev/sharedInfra"
+    id: ""
+  dev-shared-secrets:
+    displayName: "dev-shared-secrets-project"
+    parentType: "folder"
+    parent: "dev/sharedInfra"
+    id: ""
+  dev-signals-logging:
+    displayName: "dev-signals-logging-project"
+    parentType: "folder"
+    parent: "dev/signals"
+    id: ""
+  dev-signals-monitoring:
+    displayName: "dev-signals-monitoring-project"
+    parentType: "folder"
+    parent: "dev/signals"
+    id: ""
+  dev-billing-project:
+    displayName: "dev-billing-project-project"
+    parentType: "folder"
+    parent: "dev/billing"
+    id: ""
+  dev-apps-project:
+    displayName: "dev-apps-project-project"
+    parentType: "folder"
+    parent: "dev/apps"
+    id: ""
