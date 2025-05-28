@@ -8,6 +8,9 @@ orgId: "319013011373" # Placeholder: MUST BE OVERRIDDEN per env
 billingAccountId: "01AC20-2CEAE3-8BB367" # Placeholder: MUST BE OVERRIDDEN per env
 repoURL: "https://github.com/theopenlane/openlane-infra" # Your Git repository URL
 
+env:
+  name: ""
+
 # --- Organization-Level Policies & Services (Always apply if enabled) ---
 orgPolicies: # Control which org policies are applied.
   disableServiceAccountKeyCreation: true

@@ -10,7 +10,7 @@ global:
 bigqueryDataset:
   delete_contents_on_destroy: "false"
   # -- name of the Dataset
-  name: openlane-bigQueryDataset
+  name: openlane-bigquery
   namespace: cnrm-gcp-dev
   access:
   - dataset: {}

@@ -1,18 +1,26 @@
-{{- if .Values.folders }}
-{{- range $folderName, $folder := .Values.folders }}
+{{- /* Creates KCC Folder resources based on '.Values.folders' definitions. */}}
+{{- range $folderKey, $folderConfig := .Values.folders }}
 apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
 kind: Folder
 metadata:
-  name: {{ $folderName | quote }}
+  name: {{ include "gcp-bootstrap.folderKccName" (dict "folderKey" $folderKey) }}
+  namespace: config-connector
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ $.Values.orgId }}"
+    {{- if $folderConfig.id }}
+    cnrm.cloud.google.com/folder-id: "{{ $folderConfig.id }}"
+    {{- end }}
+    argocd.argocd.io/sync-wave: "0"
 spec:
-  displayName: {{ $folder.displayName | quote }}
-  {{- if eq $folder.parentType "organization" }}
+  displayName: {{ $folderConfig.displayName | quote }}
+  {{- if eq $folderConfig.parentType "organization" }}
   organizationRef:
-    external: "organizations/{{ $folder.parent }}"
-  {{- else if eq $folder.parentType "folder" }}
+    external: "organizations/{{ $folderConfig.parent }}"
+  {{- else if eq $folderConfig.parentType "folder" }}
   folderRef:
-    name: {{ $folder.parent | quote }}
+    name: {{ include "gcp-bootstrap.folderKccName" (dict "folderKey" $folderConfig.parent) }}
+  {{- else }}
+  {{- fail (printf "Folder '%s' has an invalid parentType: '%s'. Must be 'organization' or 'folder'." $folderKey $folderConfig.parentType) }}
   {{- end }}
 ---
-{{- end }}
 {{- end }}
