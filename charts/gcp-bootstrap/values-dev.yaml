@@ -207,39 +207,47 @@ projects:
     displayName: dev-bootstrap-project
     parentType: folder
     parent: bootstrap
-    id: ""
+    id: ''
+    type: miscProject
   dev-shared-network-project:
     displayName: dev-shared-network-project
     parentType: folder
     parent: dev/networking
-    id: ""
+    id: ''
+    type: sharedVpcHost
   dev-shared-kms:
     displayName: dev-shared-kms-project
     parentType: folder
     parent: dev/sharedInfra
-    id: ""
+    id: ''
+    type: sharedInfrastructureProject
   dev-shared-secrets:
     displayName: dev-shared-secrets-project
     parentType: folder
     parent: dev/sharedInfra
-    id: ""
+    id: ''
+    type: sharedInfrastructureProject
   dev-signals-logging:
     displayName: dev-signals-logging-project
     parentType: folder
     parent: dev/signals
-    id: ""
+    id: ''
+    type: loggingProject
   dev-signals-monitoring:
     displayName: dev-signals-monitoring-project
     parentType: folder
     parent: dev/signals
-    id: ""
+    id: ''
+    type: loggingProject
   dev-billing-project:
     displayName: dev-billing-project-project
     parentType: folder
     parent: dev/billing
-    id: ""
+    id: ''
+    type: billingProject
   dev-apps-project:
     displayName: dev-apps-project-project
     parentType: folder
     parent: dev/apps
-    id: ""
+    id: ''
+    type: appProject

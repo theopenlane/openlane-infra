@@ -272,39 +272,49 @@ projects:
     displayName: prod-bootstrap-project
     parentType: folder
     parent: prod/bootstrap
-    id: ""
+    id: ''
+    type: miscProject
   prod-shared-network-project:
     displayName: prod-shared-network-project
     parentType: folder
     parent: prod/networking
-    id: ""
+    id: ''
+    type: sharedVpcHost
   prod-shared-kms:
     displayName: prod-shared-kms
     parentType: folder
     parent: prod/sharedInfra
-    id: ""
+    id: ''
+    apis:
+    - cloudkms.googleapis.com
+    type: sharedInfrastructureProject
   prod-shared-secrets:
     displayName: prod-shared-secrets
     parentType: folder
     parent: prod/sharedInfra
-    id: ""
+    id: ''
+    type: sharedInfrastructureProject
   prod-signals-logging:
     displayName: prod-signals-logging
     parentType: folder
     parent: prod/signals
-    id: ""
+    id: ''
+    type: loggingProject
   prod-signals-monitoring:
     displayName: prod-signals-monitoring
     parentType: folder
     parent: prod/signals
-    id: ""
+    id: ''
+    type: loggingProject
   prod-billing-project:
     displayName: prod-billing-project
     parentType: folder
     parent: prod/billing
-    id: ""
+    id: ''
+    type: billingProject
   prod-apps-project:
     displayName: prod-apps-project
     parentType: folder
     parent: prod/apps
-    id: ""
+    id: ''
+    type: appProject

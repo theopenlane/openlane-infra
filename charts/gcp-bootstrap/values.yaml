@@ -196,29 +196,35 @@ projects:
     displayName: common-shared-kms
     parentType: folder
     parent: common
-    id: ""
+    id: ''
+    type: sharedInfrastructureProject
   common-shared-secrets:
     displayName: common-shared-secrets
     parentType: folder
     parent: common
-    id: ""
+    id: ''
+    type: sharedInfrastructureProject
   common-shared-network-project:
     displayName: common-shared-network-project
     parentType: folder
     parent: common
-    id: ""
+    id: ''
+    type: sharedVpcHost
   common-shared-logging:
     displayName: common-shared-logging
     parentType: folder
     parent: common
-    id: ""
+    id: ''
+    type: loggingProject
   common-shared-monitoring:
     displayName: common-shared-monitoring
     parentType: folder
     parent: common
-    id: ""
+    id: ''
+    type: loggingProject
   common-billing-project:
     displayName: common-billing-project
     parentType: folder
     parent: common
-    id: ""
+    id: ''
+    type: billingProject

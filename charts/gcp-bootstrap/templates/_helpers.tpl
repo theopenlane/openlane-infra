@@ -128,3 +128,7 @@ spec:
       - CreateNamespace=false
       - ApplyOutOfSyncOnly=true
 {{- end }}
+{{/* Return project map by name */}}
+{{- define "gcp-bootstrap.project" -}}
+{{- index .Values.projects . -}}
+{{- end }}

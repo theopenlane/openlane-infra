@@ -1,9 +1,16 @@
 {{- /* Loop for the current environment only */ -}}
 {{- $env := .Values.env -}} 
+{{- $env := .Values.env -}}
 {{- $globalValues := .Values -}}
 
-{{- /* Define a list of project type keys to iterate over */ -}}
-{{- $projectTypeKeys := list "sharedVpcHost" "appProject" "loggingProject" "billingProject" }}
+{{- /* Build list of unique project types present in .Values.projects */ -}}
+{{- $typeSet := dict -}}
+{{- range $n, $p := .Values.projects }}
+  {{- $typeSet = set $typeSet $p.type true }}
+{{- end }}
+{{- $projectTypeKeys := keys $typeSet | sortAlpha }}
+{{- $globalValues := .Values -}}
+
 
 {{- range $projectTypeKey := $projectTypeKeys }}
   {{- $projectConfig := get $globalValues $projectTypeKey -}}

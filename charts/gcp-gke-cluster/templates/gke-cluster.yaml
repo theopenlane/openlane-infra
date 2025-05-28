@@ -22,9 +22,9 @@ spec:
   # Reference the correct Shared VPC network from either sharedVpcHostDev or sharedVpcHostProd
   {{- $sharedVpc := dict -}}
   {{- if eq .Values.envName "dev" -}}
-    {{- $sharedVpc = .Values.sharedVpcHostDev -}}
+    {{- $sharedVpc = .Values.projects.sharedVpcHostDev -}}
   {{- else if eq .Values.envName "prod" -}}
-    {{- $sharedVpc = .Values.sharedVpcHostProd -}}
+    {{- $sharedVpc = .Values.projects.sharedVpcHostProd -}}
   {{- end -}}
 
   {{- if $sharedVpc.enabled -}}
