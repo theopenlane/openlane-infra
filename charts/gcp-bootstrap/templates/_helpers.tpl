@@ -128,7 +128,8 @@ spec:
       - CreateNamespace=false
       - ApplyOutOfSyncOnly=true
 {{- end }}
-{{/* Return project map by name */}}
-{{- define "gcp-bootstrap.project" -}}
-{{- index .Values.projects . -}}
+{{- define "gcp-bootstrap.projectNameByType" -}}
+{{- $ctx := index . "ctx" -}}
+{{- $t := index . "type" -}}
+{{- range $n,$c := $ctx.Values.projects }}{{- if eq $c.type $t }}{{ $n }}{{- end }}{{- end }}
 {{- end }}
