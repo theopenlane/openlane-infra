@@ -1,4 +1,4 @@
-{{- if .Values.sharedVPC.enabled }}
+{{- if .Values.sharedVpcHost.enabled }}
 {{- range $svc := .Values.sharedVPC.serviceProjects }}
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeSharedVPCServiceProject

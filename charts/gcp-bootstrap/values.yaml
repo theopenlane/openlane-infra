@@ -57,7 +57,18 @@ commonAppConfig:
     enabled: false
     name: "default-zone"
     domainName: "default.com."
-
+  enableAPIs:
+  - compute.googleapis.com
+  - servicenetworking.googleapis.com
+  - iam.googleapis.com
+  - container.googleapis.com
+  - cloudresourcemanager.googleapis.com
+  - dns.googleapis.com
+  - cloudkms.googleapis.com
+  - sqladmin.googleapis.com
+  - redis.googleapis.com
+  - logging.googleapis.com
+  - monitoring.googleapis.com
 # --- PROJECT TYPE BLUEPRINTS ---
 # These define the default structure and properties for each *type* of project.
 # They are not enabled by default. `values-dev.yaml` / `values-prod.yaml` will *enable* and *override* these.
@@ -118,50 +129,96 @@ kmsProject: # Blueprint for a dedicated KMS project instance
     name: "openlane-kms"
     id: "" # Hydrated
     gcpProjectName: "Openlane Central KMS"
-    folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Place under root org folder
+    folderRef: "folders/common/common-shared-kms"
     apis: ["cloudkms.googleapis.com"]
 
 
 folders:
   bootstrap:
-    displayName: "bootstrap"
-    parentType: "organization"
-    parent: "1234567890"
+    displayName: bootstrap
+    parentType: organization
+    parent: 319013011373
     id: ""
+    billingAccountRef: 01AC20-2CEAE3-8BB367
+    enableAPIs:
+    - iam.googleapis.com
+    - cloudresourcemanager.googleapis.com
+    - dns.googleapis.com
+    - compute.googleapis.com
+    - servicenetworking.googleapis.com
+    - container.googleapis.com
+    - storage.googleapis.com
+    - artifactregistry.googleapis.com
+    - anthosidentityservice.googleapis.com
+    - anthosgke.googleapis.com
+    - autoscaling.googleapis.com
+    - anthos.googleapis.com
+    - anthospolicycontroller.googleapis.com
+    - config.googleapis.com
+    - cloudapis.googleapis.com
+    - servicemanagement.googleapis.com
+    - servicenetworking.googleapis.com
   common:
-    displayName: "common"
-    parentType: "organization"
-    parent: "1234567890"
+    displayName: common
+    parentType: organization
+    parent: 319013011373
     id: ""
-
+    billingAccountRef: 01AC20-2CEAE3-8BB367
+    enableAPIs:
+    - iam.googleapis.com
+    - serviceusage.googleapis.com
+    - compute.googleapis.com
+    - logging.googleapis.com
+    - storage.googleapis.com
+    - cloudtrace.googleapis.com
+    - monitoring.googleapis.com
+    - cloudbilling.googleapis.com
+    - dns.googleapis.com
+    - servicenetworking.googleapis.com
+    - secretmanager.googleapis.com
+    - cloudkms.googleapis.com
+    - secretmanager.googleapis.com
+    - analyticshub.googleapis.com
+    - bigquery.googleapis.com
+    - bigqueryconnection.googleapis.com
+    - bigquerymigration.googleapis.com
+    - cloudidentity.googleapis.com
+    - auditmanager.googleapis.com
+    - cloudbuild.googleapis.com
+    - clouddeploy.googleapis.com
+    - cloudasset.googleapis.com
+    - identitytoolkit.googleapis.com
+    - networkmanagement.googleapis.com
+    - trafficdirector.googleapis.com
+    - servicemanagement.googleapis.com
 projects:
   common-shared-kms:
-    displayName: "common-shared-kms"
-    parentType: "folder"
-    parent: "common"
+    displayName: common-shared-kms
+    parentType: folder
+    parent: common
     id: ""
   common-shared-secrets:
-    displayName: "common-shared-secrets"
-    parentType: "folder"
-    parent: "common"
+    displayName: common-shared-secrets
+    parentType: folder
+    parent: common
     id: ""
   common-shared-network-project:
-    displayName: "common-shared-network-project"
-    parentType: "folder"
-    parent: "common"
+    displayName: common-shared-network-project
+    parentType: folder
+    parent: common
     id: ""
   common-shared-logging:
-    displayName: "common-shared-logging"
-    parentType: "folder"
-    parent: "common"
+    displayName: common-shared-logging
+    parentType: folder
+    parent: common
     id: ""
   common-shared-monitoring:
-    displayName: "common-shared-monitoring"
-    parentType: "folder"
-    parent: "common"
+    displayName: common-shared-monitoring
+    parentType: folder
+    parent: common
     id: ""
   common-billing-project:
-    displayName: "common-billing-project"
-    parentType: "folder"
-    parent: "common"
+    displayName: common-billing-project
+    parentType: folder
+    parent: common
     id: ""

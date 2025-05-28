@@ -164,74 +164,147 @@ billingProject:
 
 folders:
   prod:
-    displayName: "prod"
-    parentType: "organization"
-    parent: "1234567890"
+    displayName: prod
+    parentType: organization
+    parent: 319013011373
+    billingAccountRef: 01AC20-2CEAE3-8BB367
     id: ""
-  prod-networking:
-    displayName: "networking"
-    parentType: "folder"
-    parent: "prod"
+    enableAPIs:
+    - iam.googleapis.com
+    - serviceusage.googleapis.com
+    - compute.googleapis.com
+    - container.googleapis.com
+    - servicenetworking.googleapis.com
+    - logging.googleapis.com
+    - monitoring.googleapis.com
+    - sqladmin.googleapis.com
+    - redis.googleapis.com
+    - secretmanager.googleapis.com
+    - cloudkms.googleapis.com
+    - cloudtrace.googleapis.com
+    - artifactregistry.googleapis.com
+    - anthosidentityservice.googleapis.com
+    - analyticshub.googleapis.com
+    - anthosgke.googleapis.com
+    - autoscaling.googleapis.com
+    - anthosconfigmanagement.googleapis.com
+    - bigquery.googleapis.com
+    - anthos.googleapis.com
+    - anthospolicycontroller.googleapis.com
+    - bigqueryconnection.googleapis.com
+    - bigquerystorage.googleapis.com
+    - config.googleapis.com
+    - bigquerymigration.googleapis.com
+    - cloudidentity.googleapis.com
+    - auditmanager.googleapis.com
+    - cloudbuild.googleapis.com
+    - clouddeploy.googleapis.com
+    - cloudasset.googleapis.com
+    - apphub.googleapis.com
+    - bigquerydatapolicy.googleapis.com
+    - deploymentmanager.googleapis.com
+    - containerscanning.googleapis.com
+    - cloudresourcemanager.googleapis.com
+    - containerthreatdetection.googleapis.com
+    - containerfilesystem.googleapis.com
+    - identitytoolkit.googleapis.com
+    - cloudapis.googleapis.com
+    - domains.googleapis.com
+    - containerregistry.googleapis.com
+    - networkmanagement.googleapis.com
+    - dns.googleapis.com
+    - containeranalysis.googleapis.com
+    - endpoints.googleapis.com
+    - recommender.googleapis.com
+    - datastore.googleapis.com
+    - trafficdirector.googleapis.com
+    - storage.googleapis.com
+    - servicemanagement.googleapis.com
+    - iap.googleapis.com
+    - sqladmin.googleapis.com
+    - containersecurity.googleapis.com
+    - gkeconnect.googleapis.com
+    - gkehub.googleapis.com
+    - iamcredentials.googleapis.com
+    - networkconnectivity.googleapis.com
+    - firewallinsights.googleapis.com
+    - krmapihosting.googleapis.com
+    - networksecurity.googleapis.com
+    - pubsub.googleapis.com
+    - sql-component.googleapis.com
+    - servicedirectory.googleapis.com
+    - serviceusage.googleapis.com
+    - networkservices.googleapis.com
+    - servicehealth.googleapis.com
+    - storage-component.googleapis.com
+    - orgpolicy.googleapis.com
+    - servicenetworking.googleapis.com
+    - privilegedaccessmanager.googleapis.com
+    - storage-api.googleapis.com
+  networking:
+    displayName: networking
+    parentType: folder
+    parent: prod
     id: ""
-  prod-sharedInfra:
-    displayName: "sharedInfra"
-    parentType: "folder"
-    parent: "prod"
+  sharedInfra:
+    displayName: sharedInfra
+    parentType: folder
+    parent: prod
     id: ""
-  prod-signals:
-    displayName: "signals"
-    parentType: "folder"
-    parent: "prod"
+  signals:
+    displayName: signals
+    parentType: folder
+    parent: prod
     id: ""
-  prod-billing:
-    displayName: "billing"
-    parentType: "folder"
-    parent: "prod"
+  billing:
+    displayName: billing
+    parentType: folder
+    parent: prod
     id: ""
-  prod-apps:
-    displayName: "apps"
-    parentType: "folder"
-    parent: "prod"
+  apps:
+    displayName: apps
+    parentType: folder
+    parent: prod
     id: ""
 
 projects:
   prod-bootstrap-project:
-    displayName: "prod-bootstrap-project"
-    parentType: "folder"
-    parent: "bootstrap"
+    displayName: prod-bootstrap-project
+    parentType: folder
+    parent: prod/bootstrap
     id: ""
   prod-shared-network-project:
-    displayName: "prod-shared-network-project"
-    parentType: "folder"
-    parent: "prod-networking"
+    displayName: prod-shared-network-project
+    parentType: folder
+    parent: prod/networking
     id: ""
   prod-shared-kms:
-    displayName: "prod-shared-kms"
-    parentType: "folder"
-    parent: "prod-sharedInfra"
+    displayName: prod-shared-kms
+    parentType: folder
+    parent: prod/sharedInfra
     id: ""
   prod-shared-secrets:
-    displayName: "prod-shared-secrets"
-    parentType: "folder"
-    parent: "prod-sharedInfra"
+    displayName: prod-shared-secrets
+    parentType: folder
+    parent: prod/sharedInfra
     id: ""
   prod-signals-logging:
-    displayName: "prod-signals-logging"
-    parentType: "folder"
-    parent: "prod-signals"
+    displayName: prod-signals-logging
+    parentType: folder
+    parent: prod/signals
     id: ""
   prod-signals-monitoring:
-    displayName: "prod-signals-monitoring"
-    parentType: "folder"
-    parent: "prod-signals"
+    displayName: prod-signals-monitoring
+    parentType: folder
+    parent: prod/signals
     id: ""
   prod-billing-project:
-    displayName: "prod-billing-project"
-    parentType: "folder"
-    parent: "prod-billing"
+    displayName: prod-billing-project
+    parentType: folder
+    parent: prod/billing
     id: ""
   prod-apps-project:
-    displayName: "prod-apps-project"
-    parentType: "folder"
-    parent: "prod-apps"
+    displayName: prod-apps-project
+    parentType: folder
+    parent: prod/apps
     id: ""

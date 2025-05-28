@@ -1,0 +1,9 @@
+# See https://github.com/helm/chart-testing#configuration
+remote: origin
+chart-dirs:
+  - charts
+chart-repos:
+  - external-dns=https://kubernetes-sigs.github.io/external-dns
+  - openlane-helm=https://openlane.github.io/openlane-helm
+helm-extra-args: --timeout=500
+check-version-increment: true
