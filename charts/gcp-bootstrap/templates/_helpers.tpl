@@ -1,14 +1,9 @@
 {{/* --- Helm Template Helpers --- */}}
 
-{{/* Converts a string to kebab-case. Example: "My String" -> "my-string" */}}
 {{- define "gcp-bootstrap.kebabcase" -}}
 {{- . | lower | replace " " "-" | replace "_" "-" -}}
 {{- end -}}
 
-{{/*
-  Safely gets a key from a map, returning a default value if the key is not present.
-  Usage: {{ include "gcp-bootstrap.get" (list $myMap "myKey" "defaultValue") }}
-*/}}
 {{- define "gcp-bootstrap.get" -}}
 {{- $map := index . 0 -}}
 {{- $key := index . 1 -}}
@@ -21,30 +16,36 @@
 {{- end -}}
 
 {{/*
-  Performs a deep copy of a map or list.
-  Usage: {{ $copiedMap := include "gcp-bootstrap.deepCopy" (list $originalMap) | fromYaml }}
+  WARNING: This deepCopy, when used with 'include', renders a string representation.
+  If you need a true map/list variable in the calling template after using this
+  with 'include', you'd typically need '... | fromYaml' IF the output of this helper
+  was guaranteed to be a valid single YAML document string.
+  Given the recursive 'include' calls within this deepCopy, relying on its string
+  output for 'fromYaml' can be fragile.
+  It's generally safer to use 'merge' for shallow copies of maps or reconstruct
+  data structures if deep copies of complex nested objects are needed as variables.
 */}}
 {{- define "gcp-bootstrap.deepCopy" -}}
 {{- $value := index . 0 -}}
-{{- if (kindOf $value) eq "map" -}}
+{{- if eq (kindOf $value) "map" -}}
     {{- $copy := dict -}}
     {{- range $k, $v := $value -}}
         {{- $copiedValue := $v -}}
-        {{- if (kindOf $v) eq "map" -}}
+        {{- if eq (kindOf $v) "map" -}}
             {{- $copiedValue = include "gcp-bootstrap.deepCopy" (list $v) -}}
-        {{- else if (kindOf $v) eq "slice" -}}
+        {{- else if eq (kindOf $v) "slice" -}}
             {{- $copiedValue = include "gcp-bootstrap.deepCopy" (list $v) -}}
         {{- end -}}
         {{- $_ := set $copy $k $copiedValue -}}
     {{- end -}}
     {{- $copy -}}
-{{- else if (kindOf $value) eq "slice" -}}
+{{- else if eq (kindOf $value) "slice" -}}
     {{- $copy := list -}}
     {{- range $item := $value -}}
         {{- $copiedItem := $item -}}
-        {{- if (kindOf $item) eq "map" -}}
+        {{- if eq (kindOf $item) "map" -}}
             {{- $copiedItem = include "gcp-bootstrap.deepCopy" (list $item) -}}
-        {{- else if (kindOf $item) eq "slice" -}}
+        {{- else if eq (kindOf $item) "slice" -}}
             {{- $copiedItem = include "gcp-bootstrap.deepCopy" (list $item) -}}
         {{- end -}}
         {{- $copy = append $copy $copiedItem -}}
@@ -55,18 +56,10 @@
 {{- end -}}
 {{- end -}}
 
-{{/*
-  Generates a Kubernetes namespace name for KCC resources, typically based on a project identifier.
-  Example: {{ include "gcp-bootstrap.kccNsName" "my-project" }} -> "myproject-ns"
-*/}}
 {{- define "gcp-bootstrap.kccNsName" -}}
 {{- . | replace "-" "" | lower | printf "%s-ns" -}}
 {{- end -}}
 
-{{/*
-  Renders an ArgoCD Application manifest for a GCP project managed by the gcp-project-base subchart.
-  (Identical to Revision 1)
-*/}}
 {{- define "gcp-bootstrap.renderArgoProjectApp" -}}
 {{- $appConfig := . -}}
 {{- $projectConfig := .projectConfig -}}
@@ -75,7 +68,6 @@
 {{- $globalValues := .globalValues -}}
 {{- $gcpProjectBaseFlags := .gcpProjectBaseFlags -}}
 {{- $resourceConfigs := .resourceConfigs -}}
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -106,8 +98,8 @@ spec:
         {{- if $globalValues.commonAppConfig.primaryRegion }}
         primaryRegion: {{ $globalValues.commonAppConfig.primaryRegion | quote }}
         {{- end }}
-        kms: {{ $globalValues.kms | default dict | toYaml | nindent 8 }}
-        commonAppConfig: {{ $globalValues.commonAppConfig | default dict | toYaml | nindent 8 }}
+        kms: {{- $globalValues.kms | default dict | toYaml | nindent 10 }}
+        commonAppConfig: {{- $globalValues.commonAppConfig | default dict | toYaml | nindent 10 }}
         envName: {{ $envName | quote }}
         envCapitalizedName: {{ $envCapName | quote }}
         {{- $sharedVpcHostProjectKey := "" }}
@@ -118,15 +110,15 @@ spec:
           {{- end }}
         {{- end }}
         {{- if $sharedVpcHostProjectKey }}
-          {{- $sharedVpcHostProjectInstance := include "gcp-bootstrap.getProjectInstanceConfig" (dict "projectKey" $sharedVpcHostProjectKey "ctx" (dict "Values" $globalValues)) | fromYaml -}}
+          {{- $sharedVpcHostProjectInstance := get $globalValues.projects $sharedVpcHostProjectKey -}}
           {{- $sharedVpcHostBlueprint := get $globalValues $sharedVpcHostProjectInstance.type -}}
           {{- if $sharedVpcHostBlueprint }}
         sharedVpcHostProjectId: {{ include "gcp-bootstrap.gcpProjectId" (dict "projectKey" $sharedVpcHostProjectKey "envName" $envName "ctx" (dict "Values" $globalValues)) | quote }}
           {{- end }}
         {{- end }}
-        isSharedVpcHost: {{ $gcpProjectBaseFlags.isSharedVpcHost | default false | toYaml | nindent 8 }}
-        isLoggingProject: {{ $gcpProjectBaseFlags.isLoggingProject | default false | toYaml | nindent 8 }}
-        isKmsProject: {{ $gcpProjectBaseFlags.isKmsProject | default false | toYaml | nindent 8 }}
+        isSharedVpcHost: {{ $gcpProjectBaseFlags.isSharedVpcHost | default false | toYaml | nindent 10 }}
+        isLoggingProject: {{ $gcpProjectBaseFlags.isLoggingProject | default false | toYaml | nindent 10 }}
+        isKmsProject: {{ $gcpProjectBaseFlags.isKmsProject | default false | toYaml | nindent 10 }}
 {{- if $resourceConfigs }}
 {{- range $resourceKey, $resourceVal := $resourceConfigs }}
         {{ $resourceKey }}:
@@ -145,41 +137,20 @@ spec:
       - ApplyOutOfSyncOnly=true
 {{- end -}}
 
-{{/*
-  Derives the actual GCP Project ID.
-  Revision 2: Forms ID, e.g., "project_id_prefix-blueprint_base_name" (e.g., "openlane-shared-vpc-host"). NO env suffix.
-*/}}
 {{- define "gcp-bootstrap.gcpProjectId" -}}
 {{- $projectKey := .projectKey -}}
+{{- $envName := .envName -}}
 {{- $ctx := .ctx -}}
-{{- $projectInstance := include "gcp-bootstrap.getProjectInstanceConfig" (dict "projectKey" $projectKey "ctx" $ctx) | fromYaml -}}
-{{- $projectType := $projectInstance.type -}}
-{{- $projectBlueprint := get $ctx.Values $projectType -}}
+{{- $projectInstance := get $ctx.Values.projects $projectKey | required (printf "gcp-bootstrap.gcpProjectId: Project key '%s' not found in .Values.projects" $projectKey) -}}
+{{- $projectType := $projectInstance.type | required (printf "gcp-bootstrap.gcpProjectId: Project instance '%s' is missing .type attribute" $projectKey) -}}
+{{- $projectBlueprint := get $ctx.Values $projectType | required (printf "gcp-bootstrap.gcpProjectId: Project blueprint for type '%s' (from project '%s') not found in .Values" $projectType $projectKey) -}}
 {{- if not (and (hasKey $projectBlueprint "project") (hasKey $projectBlueprint.project "name")) -}}
     {{- fail (printf "gcp-bootstrap.gcpProjectId: Blueprint '%s' (for project '%s') is missing 'project.name' definition." $projectType $projectKey ) -}}
 {{- end -}}
 {{- $blueprintBaseName := $projectBlueprint.project.name -}}
-{{- $prefix := $ctx.Values.projectCreation.project_id_prefix | default "openlane" -}}
-{{- printf "%s-%s" $prefix $blueprintBaseName | include "gcp-bootstrap.kebabcase" -}}
+{{- printf "%s-%s" $blueprintBaseName $envName | include "gcp-bootstrap.kebabcase" -}}
 {{- end -}}
 
-{{/*
-  Gets the KCC Folder Resource Name (metadata.name for KCC Folder resource).
-  (Identical to Revision 1)
-*/}}
 {{- define "gcp-bootstrap.folderKccName" -}}
 {{- .folderKey | include "gcp-bootstrap.kebabcase" -}}
-{{- end -}}
-
-{{/*
-  Gets a project's instance configuration map from .Values.projects.
-  (Identical to Revision 1)
-*/}}
-{{- define "gcp-bootstrap.getProjectInstanceConfig" -}}
-{{- $projectKey := .projectKey -}}
-{{- $ctx := .ctx -}}
-{{- if not (hasKey $ctx.Values.projects $projectKey) -}}
-  {{- fail (printf "Project instance with key '%s' not found in .Values.projects." $projectKey) -}}
-{{- end -}}
-{{- get $ctx.Values.projects $projectKey -}}
 {{- end -}}

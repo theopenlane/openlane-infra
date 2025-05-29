@@ -1,109 +1,72 @@
 # charts/openlane-gcp-bootstrap/values-dev.yaml
 # --- Environment-Specific Overrides for 'dev' ---
 
-# --- GENERAL ENVIRONMENT CONTEXT (Passed to all downstream charts for naming/context) ---
 env:
   name: "dev"
   capitalizedName: "Dev"
-# (Must be at the top level of the file)
 
-# --- GLOBAL OVERRIDES FOR 'DEV' ---
-# These override values.yaml defaults only when values-dev.yaml is used.
-orgId: "YOUR_DEV_GCP_ORGANIZATION_ID" # IMPORTANT: REPLACE ME!
-billingAccountId: "YOUR_DEV_BILLING_ACCOUNT_ID" # IMPORTANT: REPLACE ME!
+orgId: "319013011373"
+billingAccountId: "01AC20-2CEAE3-8BB367"
+
+# --- COMMON APP CONFIG OVERRIDES FOR 'DEV' ---
 commonAppConfig:
-  primaryRegion: "us-east4" # Dev environments typically stay in one region
+  primaryRegion: "us-central1"
   gkeCluster:
-    # Example: Dev GKE might not need specific masterAuthorizedNetworksConfig, or might be smaller
     masterAuthorizedNetworksConfig: { enabled: false }
-    nodeCount: 1 # Default node count smaller for dev
+    nodeCount: 1
     machineType: "e2-medium"
     nodePools:
-      - name: "gke-primary" # Default node pool name, can be overridden in specific projects
-        nodeCount: 1 # Smaller for dev
-        machineType: "e2-medium" # Smaller machine type for dev
+      - name: "default-dev-pool"
+        nodeCount: 1
+        machineType: "e2-medium"
   bigquery:
-    cmekEnabled: false # Often no CMEK in Dev
+    cmekEnabled: false
   storage:
-    cmekEnabled: false # Often no CMEK in Dev
+    cmekEnabled: false
 
-# --- PROJECT TYPE ACTIVATION AND CONFIGURATION FOR 'DEV' ENVIRONMENT ---
-# These sections enable and configure specific project types for the 'dev' environment.
-# They will override the 'enabled: false' defaults from values.yaml.
-
-# 1. Shared VPC Host Project (Dev)
+# --- PROJECT TYPE BLUEPRINT ACTIVATION & OVERRIDES FOR 'DEV' ---
 sharedVpcHost:
   enabled: true
-  project:
-    name: "openlane-shared-vpc-host-dev" # Full KCC Project resource name (GCP ID)
-    id: "" # Hydrated numerical project ID
-    gcpProjectName: "Openlane Shared VPC Host (Dev)"
-    folderRef: "folders/openlane-org-shared-infra-dev" # KCC Folder resource name
-  network: # Overrides default network name from values.yaml blueprint
-    name: "openlane-shared-vpc-dev" # Unique to dev
-    gkePrimary:     { name: "openlane-gke-primary-dev", ipCidrRange: "10.0.0.0/20", privateIpGoogleAccess: true }
-    gkePodsSecondary: { name: "gke-pods", ipCidrRange: "10.0.32.0/16" }
-    gkeServicesSecondary: { name: "gke-services", ipCidrRange: "10.0.16.0/20" }
-    internalApps:   { name: "openlane-internal-apps-dev", ipCidrRange: "10.0.48.0/20", privateIpGoogleAccess: true }
-  serviceProjects: # Define service projects that need NetworkUser role on *this* host
-    appProject: { enabled: true, name: "openlane-app-dev", id: "" } # KCC Project name & Needs Numerical ID
-    loggingProject: { enabled: true, name: "openlane-logs-dev", id: "" } # KCC Project name & Needs Numerical ID
+  network:
+    name: "shared-vpc-dev"
+    subnets:
+      gkePrimary: { name: "gke-primary-dev", ipCidrRange: "10.0.0.0/20", privateIpGoogleAccess: true, secondaryIpRanges: [{rangeName: "gke-pods-dev", ipCidrRange: "10.0.32.0/16"}, {rangeName: "gke-services-dev", ipCidrRange: "10.0.16.0/20"}] }
+      internalApps: { name: "internal-apps-dev", ipCidrRange: "10.0.48.0/20", privateIpGoogleAccess: true }
+  serviceProjects:
+    - "dev-apps-project"
+    - "dev-signals-logging"
 
-# 2. Application Project (Main App for Dev)
 appProject:
   enabled: true
-  project:
-    name: "openlane-app-dev" # Full KCC Project resource name (GCP ID)
-    id: "" # Hydrated numerical project ID
-    gcpProjectName: "Openlane Application (Dev)"
-    folderRef: "folders/openlane-org-app-dev" # KCC Folder resource name
-  apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
-  # Resource config overrides for this specific dev app project instance
-  gkeCluster: { enabled: true, name: "openlane-dev-app-gke" } # (Inherits nodeCount/machineType from commonAppConfig.gkeCluster)
-  bigquery: { enabled: true, name: "application-data-dev" } # (Inherits cmekEnabled=false from commonAppConfig.bigquery)
-  storage: { enabled: true, name: "openlane-dev-app-data-bucket" }
-  cloudsql: { enabled: true, instanceName: "openlane-dev-sql" }
-  memorystore: { enabled: true, instanceName: "openlane-dev-redis" }
-  dnsZone: { enabled: true, name: "openlane-dev-zone", domainName: "dev.openlane.com." }
 
-# 3. Logging Project (Central Logging for Dev)
 loggingProject:
   enabled: true
-  project:
-    name: "openlane-logs-dev" # Full KCC Project resource name (GCP ID)
-    id: "" # Hydrated
-    gcpProjectName: "Openlane Central Logging (Dev)"
-    folderRef: "folders/openlane-org-logging-dev"
   logSinks:
     orgAudit:
       enabled: true
-      destinationBucketName: "openlane-central-logs-bucket-dev"
-      destinationDatasetName: "openlane_central_logs_dataset_dev"
+      destinationBucketName: "central-logs-bucket-dev"
+      destinationDatasetName: "central_logs_dataset_dev"
 
-# 4. Billing Project (Central Billing for Dev)
 billingProject:
-  enabled: true # Yes, typically exists in Dev too for testing
-  project:
-    name: "openlane-billing-dev" # Full KCC Project resource name (GCP ID)
-    id: "" # Hydrated
-    gcpProjectName: "Openlane Billing Admin (Dev)"
-    folderRef: "folders/openlane-org-billing-dev"
+  enabled: true
 
 kmsProject:
   enabled: true
-  project:
-    name: "openlane-kms-dev" # Unique name for dev
-    id: "" # Hydrated
-    gcpProjectName: "Openlane Central KMS (Dev)"
-    folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Live under root org folder
 
+sharedInfrastructureProject:
+  enabled: true
 
+bootstrapProject:
+  enabled: true
+
+# --- ENVIRONMENT-SPECIFIC FOLDER DEFINITIONS FOR 'DEV' ---
 folders:
-  dev:
+  dev-root:
     displayName: dev
     parentType: organization
-    parent: 319013011373
+    parent: "319013011373"
     id: ""
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
     enableAPIs:
     - iam.googleapis.com
     - serviceusage.googleapis.com
@@ -156,7 +119,6 @@ folders:
     - storage.googleapis.com
     - servicemanagement.googleapis.com
     - iap.googleapis.com
-    - sqladmin.googleapis.com
     - containersecurity.googleapis.com
     - gkeconnect.googleapis.com
     - gkehub.googleapis.com
@@ -168,86 +130,88 @@ folders:
     - pubsub.googleapis.com
     - sql-component.googleapis.com
     - servicedirectory.googleapis.com
-    - serviceusage.googleapis.com
     - networkservices.googleapis.com
     - servicehealth.googleapis.com
     - storage-component.googleapis.com
     - orgpolicy.googleapis.com
-    - servicenetworking.googleapis.com
     - privilegedaccessmanager.googleapis.com
     - storage-api.googleapis.com
-  networking:
+  dev-networking:
     displayName: networking
     parentType: folder
-    parent: dev
+    parent: dev-root
     id: ""
-  sharedInfra:
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
+  dev-sharedInfra:
     displayName: sharedInfra
     parentType: folder
-    parent: dev
+    parent: dev-root
     id: ""
-  signals:
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
+  dev-signals:
     displayName: signals
     parentType: folder
-    parent: dev
+    parent: dev-root
     id: ""
-  billing:
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
+  dev-billing:
     displayName: billing
     parentType: folder
-    parent: dev
+    parent: dev-root
     id: ""
-  apps:
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
+  dev-apps:
     displayName: apps
     parentType: folder
-    parent: dev
+    parent: dev-root
     id: ""
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
 
+# --- ENVIRONMENT-SPECIFIC PROJECT INSTANCE DEFINITIONS FOR 'DEV' ---
 projects:
   dev-bootstrap-project:
     displayName: dev-bootstrap-project
-    parentType: folder
     parent: bootstrap
     id: ''
-    type: miscProject
+    type: bootstrapProject
   dev-shared-network-project:
     displayName: dev-shared-network-project
-    parentType: folder
-    parent: dev/networking
+    parent: dev-networking
     id: ''
     type: sharedVpcHost
   dev-shared-kms:
     displayName: dev-shared-kms-project
-    parentType: folder
-    parent: dev/sharedInfra
+    parent: dev-sharedInfra
     id: ''
-    type: sharedInfrastructureProject
+    type: kmsProject
   dev-shared-secrets:
     displayName: dev-shared-secrets-project
-    parentType: folder
-    parent: dev/sharedInfra
+    parent: dev-sharedInfra
     id: ''
     type: sharedInfrastructureProject
   dev-signals-logging:
     displayName: dev-signals-logging-project
-    parentType: folder
-    parent: dev/signals
+    parent: dev-signals
     id: ''
     type: loggingProject
   dev-signals-monitoring:
     displayName: dev-signals-monitoring-project
-    parentType: folder
-    parent: dev/signals
+    parent: dev-signals
     id: ''
     type: loggingProject
   dev-billing-project:
     displayName: dev-billing-project-project
-    parentType: folder
-    parent: dev/billing
+    parent: dev-billing
     id: ''
     type: billingProject
   dev-apps-project:
     displayName: dev-apps-project-project
-    parentType: folder
-    parent: dev/apps
+    parent: dev-apps
     id: ''
     type: appProject
+    gkeCluster: { enabled: true, name: "dev-app-gke" }
+    bigquery: { enabled: true, name: "dev-app-bq-dataset" }
+    storage: { enabled: true, name: "dev-app-bucket" }
+    cloudsql: { enabled: true, instanceName: "openlane-dev-sql" }
+    memorystore: { enabled: true, instanceName: "openlane-dev-redis" }
+    dnsZone: { enabled: true, name: "openlane-dev-zone", domainName: "dev.openlane.com." }

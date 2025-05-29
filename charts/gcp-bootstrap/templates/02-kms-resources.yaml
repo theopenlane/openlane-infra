@@ -10,7 +10,7 @@ metadata:
     cnrm.cloud.google.com/location: "{{ .Values.kms.location }}"
     cnrm.cloud.google.com/project-id: "{{ .Values.kmsProject.project.name }}"
 spec:
-
+  location: {{ .Values.kms.location }}
 ---
 apiVersion: kms.cnrm.cloud.google.com/v1beta1
 kind: KMSCryptoKey

@@ -1,4 +1,3 @@
-{{- /* Generates ArgoCD Application manifests for each project defined in '.Values.projects'. */}}
 {{- $env := .Values.env -}}
 {{- if not (and $env (hasKey $env "name")) -}}
   {{- fail "'.Values.env.name' is not defined. Ensure it's set in environment-specific values (e.g., env: { name: \"dev\", capitalizedName: \"Dev\" })." -}}
@@ -7,8 +6,8 @@
 {{- $envCapName := $env.capitalizedName | default ($envName | upper) -}}
 {{- $globalValues := .Values -}}
 
-{{- range $projectKey, $projectInstanceConfig_raw := .Values.projects }}
-  {{- $projectInstanceConfig := include "gcp-bootstrap.getProjectInstanceConfig" (dict "projectKey" $projectKey "ctx" $) | fromYaml -}}
+{{- range $projectKey, $projectInstanceConfig := .Values.projects }}
+
   {{- $projectType := $projectInstanceConfig.type | required (printf "Project '%s' in .Values.projects is missing the 'type' attribute." $projectKey) -}}
   {{- $projectBlueprint := get $globalValues $projectType | required (printf "Project blueprint type '%s' (for project key '%s') not found in root .Values." $projectType $projectKey) -}}
 
@@ -21,17 +20,21 @@
     {{- $parentFolderKey := $projectInstanceConfig.parent | required (printf "Project '%s' is missing 'parent' attribute linking to a folder key." $projectKey) -}}
     {{- $parentFolderKccName := include "gcp-bootstrap.folderKccName" (dict "folderKey" $parentFolderKey) -}}
 
-    {{- $projectValuesForBaseChart := include "gcp-bootstrap.deepCopy" (list $projectBlueprint.project) | fromYaml -}}
-    {{- $_ := set $projectValuesForBaseChart "name" $gcpActualProjectId -}}
-    {{- $_ := set $projectValuesForBaseChart "displayName" (printf "%s (%s)" ($projectInstanceConfig.displayName | default $projectBlueprint.project.gcpProjectName) $envCapName) -}}
-    {{- $_ := set $projectValuesForBaseChart "folderRef" (printf "folders/%s" $parentFolderKccName) -}}
-    {{- $_ := set $projectValuesForBaseChart "id" ($projectInstanceConfig.id | default ($projectBlueprint.project.id | default "")) -}}
-    
-    {{- $finalApis := $projectBlueprint.project.apis | default list | include "gcp-bootstrap.deepCopy" | fromYaml -}}
+    {{- $baseProjectConf := $projectBlueprint.project | default dict -}}
+    {{- $instanceDisplayName := $projectInstanceConfig.displayName | default $baseProjectConf.gcpProjectName -}}
+    {{- $instanceId := $projectInstanceConfig.id | default ($baseProjectConf.id | default "") -}}
+
+    {{- $finalApisList := $baseProjectConf.apis | default list -}}
     {{- if $projectInstanceConfig.apis -}}
-      {{- $finalApis = $projectInstanceConfig.apis | include "gcp-bootstrap.deepCopy" | fromYaml -}}
+      {{- $finalApisList = $projectInstanceConfig.apis -}}
     {{- end -}}
-    {{- $_ := set $projectValuesForBaseChart "apis" $finalApis -}}
+
+    {{- $projectValuesForBaseChart := $baseProjectConf | merge dict -}}
+    {{- $_ := set $projectValuesForBaseChart "name" $gcpActualProjectId -}}
+    {{- $_ := set $projectValuesForBaseChart "displayName" (printf "%s (%s)" $instanceDisplayName $envCapName) -}}
+    {{- $_ := set $projectValuesForBaseChart "folderRef" (printf "folders/%s" $parentFolderKccName) -}}
+    {{- $_ := set $projectValuesForBaseChart "id" $instanceId -}}
+    {{- $_ := set $projectValuesForBaseChart "apis" $finalApisList -}}
 
     {{- $gcpProjectBaseFlags := dict -}}
     {{- if eq $projectType "sharedVpcHost" }}{{- $_ := set $gcpProjectBaseFlags "isSharedVpcHost" true -}}{{- end -}}
@@ -40,14 +43,41 @@
 
     {{- $resourceConfigs := dict -}}
     {{- $knownResourceKeys := list "gkeCluster" "bigquery" "storage" "cloudsql" "memorystore" "dnsZone" "network" "subnets" "firewallRules" "serviceProjects" "logSinks" -}}
+
     {{- range $resKey := $knownResourceKeys }}
-      {{- $finalResConf := dict -}}
-      {{- $commonConf := get $globalValues.commonAppConfig $resKey | default dict -}}
-      {{- $blueprintConf := get $projectBlueprint $resKey | default dict -}}
-      {{- $instanceConf := get $projectInstanceConfig $resKey | default dict -}}
-      {{- $finalResConf = merge $finalResConf $commonConf $blueprintConf $instanceConf -}}
-      {{- if $finalResConf -}}
-        {{- $_ := set $resourceConfigs $resKey $finalResConf -}}
+      {{- $commonConf := get $globalValues.commonAppConfig $resKey -}}
+      {{- $blueprintConf := get $projectBlueprint $resKey -}}
+      {{- $instanceConf := get $projectInstanceConfig $resKey -}}
+
+      {{- $finalValue := "" -}}
+      {{- $isList := false -}}
+
+      {{- /* Determine final value and if it's a list */ -}}
+      {{- if $instanceConf -}}
+        {{- $finalValue = $instanceConf -}}
+        {{- if eq (kindOf $instanceConf) "slice" }}{{- $isList = true -}}{{- end -}}
+      {{- else if $blueprintConf -}}
+        {{- $finalValue = $blueprintConf -}}
+        {{- if eq (kindOf $blueprintConf) "slice" }}{{- $isList = true -}}{{- end -}}
+      {{- else if $commonConf -}}
+        {{- $finalValue = $commonConf -}}
+        {{- if eq (kindOf $commonConf) "slice" }}{{- $isList = true -}}{{- end -}}
+      {{- end -}}
+
+      {{- if $isList -}}
+        {{- /* For lists, instance overrides blueprint, which overrides common. Direct assignment. */ -}}
+        {{- if $finalValue -}} {{/* Ensure it's not nil before setting */}}
+          {{- $_ := set $resourceConfigs $resKey $finalValue -}}
+        {{- end -}}
+      {{- else -}}
+        {{- /* For maps, perform a merge */ -}}
+        {{- $mergedMap := dict -}}
+        {{- if $commonConf | and (kindIs "map" $commonConf) }}{{- $mergedMap = merge $mergedMap $commonConf -}}{{- end -}}
+        {{- if $blueprintConf | and (kindIs "map" $blueprintConf) }}{{- $mergedMap = merge $mergedMap $blueprintConf -}}{{- end -}}
+        {{- if $instanceConf | and (kindIs "map" $instanceConf) }}{{- $mergedMap = merge $mergedMap $instanceConf -}}{{- end -}}
+        {{- if $mergedMap -}}
+          {{- $_ := set $resourceConfigs $resKey $mergedMap -}}
+        {{- end -}}
       {{- end -}}
     {{- end -}}
 

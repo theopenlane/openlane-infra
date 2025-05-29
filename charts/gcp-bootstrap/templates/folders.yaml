@@ -1,4 +1,3 @@
-{{- /* Creates KCC Folder resources based on '.Values.folders' definitions. */}}
 {{- range $folderKey, $folderConfig := .Values.folders }}
 apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
 kind: Folder
@@ -20,7 +19,7 @@ spec:
   folderRef:
     name: {{ include "gcp-bootstrap.folderKccName" (dict "folderKey" $folderConfig.parent) }}
   {{- else }}
-  {{- fail (printf "Folder '%s' has an invalid parentType: '%s'. Must be 'organization' or 'folder'." $folderKey $folderConfig.parentType) }}
+  {{- fail (printf "Folder with key '%s' has an invalid 'parentType': '%s'. Must be 'organization' or 'folder'." $folderKey $folderConfig.parentType) }}
   {{- end }}
 ---
 {{- end }}
