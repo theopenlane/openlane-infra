@@ -59,7 +59,7 @@ firewallRules:
       - "35.191.0.0/16" # GCP LB health checks and masters
       # Consider adding your GKE master authorized network if explicitly set in cluster.
     targetTags:
-      - 'gke-{{ .Values.network.projectId }}-{{ include "gcp-gke-prod-cluster.fullname" . }}-node' 
+      - 'gke-{{ .Values.network.projectId }}-{{ include "gcp-gke-prod-cluster.fullname" . }}-node'
     allowed:
       - protocol: "tcp"
         ports: ["1-65535"]
