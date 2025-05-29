@@ -142,6 +142,26 @@ entries:
     urls:
     - openlane-external-dns-0.1.0.tgz
     version: 0.1.0
+  openlane-gcp-bigquery:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-29T02:44:39.764788844Z"
+    description: A Helm chart that Creates BigQuery resources through Config Connector
+    digest: 9e7990afe1a628aea25a70451441865cebe21dbfbc94f2a3033358df21b9797b
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://wwww.theopenlane.io
+    name: openlane-gcp-bigquery
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-bigquery-0.1.0.tgz
+    version: 0.1.0
   openlane-gcp-bootstrap:
   - apiVersion: v2
     appVersion: "1.0"
@@ -434,4 +454,4 @@ entries:
     urls:
     - openlane-gcp-workload-identity-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-27T06:56:07.330822943Z"
+generated: "2025-05-29T02:44:41.840332955Z"
