@@ -12,7 +12,8 @@ billingAccountId: "01AC20-2CEAE3-8BB367"
 commonAppConfig:
   primaryRegion: "us-central1"
   gkeCluster:
-    masterAuthorizedNetworksConfig: { enabled: false }
+    masterAuthorizedNetworksConfig:
+      enabled: false
     nodeCount: 1
     machineType: "e2-medium"
     nodePools:
@@ -30,8 +31,19 @@ sharedVpcHost:
   network:
     name: "shared-vpc-dev"
     subnets:
-      gkePrimary: { name: "gke-primary-dev", ipCidrRange: "10.0.0.0/20", privateIpGoogleAccess: true, secondaryIpRanges: [{rangeName: "gke-pods-dev", ipCidrRange: "10.0.32.0/16"}, {rangeName: "gke-services-dev", ipCidrRange: "10.0.16.0/20"}] }
-      internalApps: { name: "internal-apps-dev", ipCidrRange: "10.0.48.0/20", privateIpGoogleAccess: true }
+      gkePrimary:
+        name: "gke-primary-dev"
+        ipCidrRange: "10.0.0.0/20"
+        privateIpGoogleAccess: true
+        secondaryIpRanges:
+          - rangeName: "gke-pods-dev"
+            ipCidrRange: "10.0.32.0/16"
+          - rangeName: "gke-services-dev"
+            ipCidrRange: "10.0.16.0/20"
+      internalApps:
+        name: "internal-apps-dev"
+        ipCidrRange: "10.0.48.0/20"
+        privateIpGoogleAccess: true
   serviceProjects:
     - "dev-apps-project"
     - "dev-signals-logging"
@@ -209,9 +221,22 @@ projects:
     parent: dev-apps
     id: ''
     type: appProject
-    gkeCluster: { enabled: true, name: "dev-app-gke" }
-    bigquery: { enabled: true, name: "dev-app-bq-dataset" }
-    storage: { enabled: true, name: "dev-app-bucket" }
-    cloudsql: { enabled: true, instanceName: "openlane-dev-sql" }
-    memorystore: { enabled: true, instanceName: "openlane-dev-redis" }
-    dnsZone: { enabled: true, name: "openlane-dev-zone", domainName: "dev.openlane.com." }
+    gkeCluster:
+      enabled: true
+      name: "dev-app-gke"
+    bigquery:
+      enabled: true
+      name: "dev-app-bq-dataset"
+    storage:
+      enabled: true
+      name: "dev-app-bucket"
+    cloudsql:
+      enabled: true
+      instanceName: "openlane-dev-sql"
+    memorystore:
+      enabled: true
+      instanceName: "openlane-dev-redis"
+    dnsZone:
+      enabled: true
+      name: "openlane-dev-zone"
+      domainName: "dev.openlane.com."

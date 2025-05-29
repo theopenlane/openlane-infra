@@ -19,7 +19,10 @@ commonAppConfig:
       - name: "gke-primary-prod"
         nodeCount: 3
         machineType: "e2-standard-4"
-        autoscaling: { enabled: true, minNodeCount: 3, maxNodeCount: 10 }
+        autoscaling:
+          enabled: true,
+          minNodeCount: 3
+          maxNodeCount: 10
         oauthScopes:
         - "https://www.googleapis.com/auth/devstorage.read_only"
         - "https://www.googleapis.com/auth/logging.write"
@@ -28,42 +31,60 @@ commonAppConfig:
         - "https://www.googleapis.com/auth/servicecontrol"
         - "https://www.googleapis.com/auth/trace.append"
     addonsConfig:
-      horizontalPodAutoscaling: { disabled: false }
-      httpLoadBalancing: { disabled: false }
-      networkPolicyConfig: { disabled: false }
-      configConnectorConfig: { enabled: true }
-      dnsCacheConfig: { enabled: true }
-      gcePersistentDiskCsiDriverConfig: { enabled: true }
-      gcsFuseCsiDriverConfig: { enabled: true }
-      gcpFilestoreCsiDriverConfig: { enabled: true }
-      gkeBackupAgentConfig: { enabled: true }
+      horizontalPodAutoscaling:
+        disabled: false
+      httpLoadBalancing:
+        disabled: false
+      networkPolicyConfig:
+        disabled: false
+      configConnectorConfig:
+        enabled: true
+      dnsCacheConfig:
+        enabled: true
+      gcePersistentDiskCsiDriverConfig:
+        enabled: true
+      gcsFuseCsiDriverConfig:
+        enabled: true
+      gcpFilestoreCsiDriverConfig:
+        enabled: true
+      gkeBackupAgentConfig:
+        enabled: true
     authenticatorGroupsConfig:
       securityGroup: "gke-security-groups@theopenlane.io"
     datapathProvider: "ADVANCED_DATAPATH"
     enableAutopilot: false
     enableIntranodeVisibility: true
     enableShieldedNodes: true
-    identityServiceConfig: { enabled: true }
+    identityServiceConfig:
+      enabled: true
     ipAllocationPolicy:
       useIpAliases: true
       additionalPodRangesConfig:
         podRangeNames:
           - name: "gke-pods-prod"
           - name: "gke-services-prod"
-    masterAuthorizedNetworksConfig: { enabled: true, cidrBlocks: [{ cidrBlock: "203.0.113.0/24", displayName: "CI/CD Range" }] }
+    masterAuthorizedNetworksConfig:
+      enabled: false
     loggingConfig:
       loggingService: "logging.googleapis.com/kubernetes"
-      enableComponents: ["SYSTEM_COMPONENTS", "API_SERVER", "CONTROLLER_MANAGER", "SCHEDULER", "WORKLOADS"]
+      enableComponents:
+        - "SYSTEM_COMPONENTS"
+        - "API_SERVER"
+        - "CONTROLLER_MANAGER"
+        - "SCHEDULER"
+        - "WORKLOADS"
     monitoringConfig:
       monitoringService: "monitoring.googleapis.com/kubernetes"
       advancedDatapathObservabilityConfig:
         enableMetrics: true
-      enableComponents: ["SYSTEM_COMPONENTS"]
+      enableComponents:
+        - "SYSTEM_COMPONENTS"
       managedPrometheus:
         enabled: true
     privateClusterConfig:
       enablePrivateNodes: true
-    serviceExternalIpsConfig: { enabled: true }
+    serviceExternalIpsConfig:
+      enabled: true
   bigquery:
     cmekEnabled: true
   storage:
@@ -87,8 +108,19 @@ sharedVpcHost:
   network:
     name: "shared-vpc-prod"
     subnets:
-      gkePrimary: { name: "gke-primary-prod", ipCidrRange: "10.1.0.0/20", privateIpGoogleAccess: true, secondaryIpRanges: [{rangeName: "gke-pods-prod", ipCidrRange: "10.1.32.0/16"}, {rangeName: "gke-services-prod", ipCidrRange: "10.1.16.0/20"}] }
-      internalApps: { name: "prod-apps-subnet-primary", ipCidrRange: "10.1.48.0/20", privateIpGoogleAccess: true }
+      gkePrimary:
+        name: "gke-primary-prod"
+        ipCidrRange: "10.1.0.0/20"
+        privateIpGoogleAccess: true
+      secondaryIpRanges:
+        - rangeName: "gke-pods-prod"
+          ipCidrRange: "10.1.32.0/16"
+        - rangeName: "gke-services-prod"
+          ipCidrRange: "10.1.16.0/20"
+      internalApps:
+        name: "prod-apps-subnet-primary"
+        ipCidrRange: "10.1.48.0/20"
+        privateIpGoogleAccess: true
   serviceProjects:
     - "prod-apps-project"
     - "prod-signals-logging"
@@ -275,9 +307,22 @@ projects:
     project: # Instance specific GCP Project ID / Display Name
       name: "openlane-prod-app-project"
       gcpProjectName: "openlane-prod-app-project"
-    gkeCluster: { enabled: true, name: "prod-app-gke" }
-    bigquery: { enabled: true, name: "prod-app-bq-dataset" }
-    storage: { enabled: true, name: "prod-app-bucket" }
-    cloudsql: { enabled: true, instanceName: "prod-app-sql" }
-    memorystore: { enabled: true, instanceName: "prod-app-redis" }
-    dnsZone: { enabled: true, name: "prod-app-dnszone", domainName: "app.prod.openlane.com." }
+    gkeCluster:
+      enabled: true
+      name: "prod-app-gke"
+    bigquery:
+      enabled: true
+      name: "prod-app-bq-dataset"
+    storage:
+      enabled: true
+      name: "prod-app-bucket"
+    cloudsql:
+      enabled: true
+      instanceName: "prod-app-sql"
+    memorystore:
+      enabled: true
+      instanceName: "prod-app-redis"
+    dnsZone:
+      enabled: true
+      name: "prod-app-dnszone"
+      domainName: "app.prod.openlane.com."

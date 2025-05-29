@@ -15,6 +15,8 @@ tasks:
     cmds:
       - for: { var: CHARTS, as: CHART }
         cmd: helm lint {{.CHART}}
+    preconditions:
+      - which helm
 
   template:all:
     desc: Render all Helm charts, fail if any chart fails to template
@@ -23,7 +25,9 @@ tasks:
         cmd: |
           echo "Rendering {{.CHART}}..."
           helm dependency build "{{.CHART}}"
-          helm template "{{.CHART}}" --include-crds --skip-tests >> rendered/manifests.yaml
+          helm template "{{.CHART}}" --include-crds --skip-tests --output-dir=rendered
+    preconditions:
+      - which helm
 
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas
@@ -34,6 +38,9 @@ tasks:
       - rm -f rendered/manifests.yaml
       - task: template:all
       - kubeconform -verbose -strict -output pretty -summary -kubernetes-version={{.KUBERNETES_VERSION}} -cache ~/.conform-cache -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://json.schemastore.org/{{`{{.ResourceKind}}`}}.json' -schema-location 'https://kubernetes-schemas.pages.dev/{{`{{.Group}}`}}/{{`{{.ResourceKind}}`}}}_{{`{{.ResourceAPIVersion}}`}}.json' -schema-location 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/refs/heads/master/crds/{{`{{.Group}}`}}_{{`{{.ResourceAPIVersion}}`}}_{{`{{.ResourceKind}}`}}.yaml' -schema-location 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v{{.KUBERNETES_VERSION}}/{{`{{.ResourceKind}}`}}.json' -schema-location default rendered/manifests.yaml
+    preconditions:
+      - which helm
+      - which kubeconform
 
   package:
     desc: Package all charts
@@ -41,19 +48,16 @@ tasks:
       - mkdir -p packaged
       - for: { var: CHARTS, as: CHART }
         cmd: helm package {{.CHART}} -d packaged
-
-  docs:
-    desc: Copy README.md.gotmpl into all chart directories
-    cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: cp scripts/templates/README.md.gotmpl {{.CHART}}/README.md.gotmpl
-      - helm-docs .
+    preconditions:
+      - which helm
 
   dependency:
     desc: Install dependencies
     cmds:
       - for: { var: CHARTS, as: CHART }
         cmd: helm dependency update {{.CHART}}
+    preconditions:
+      - which helm
 
   minikube:
     desc: Start minikube
@@ -85,7 +89,11 @@ tasks:
       - brew install kubeconform
       - brew install kubeaudit
       - brew install kube-score
-      - brew install norwoodj/tap/helm-docs
+      - brew install helm-docs
+      - brew install chart-testing
+      - brew install yamllint
+    preconditions:
+      - which brew
 
   docker:run:
     desc: Run task inside Docker container with preinstalled CLI tools
@@ -97,8 +105,12 @@ tasks:
     desc: Run chart-testing (ct) lint against all Helm charts
     cmds:
       - ct lint --all --chart-dirs charts --validate-maintainers=false
+    preconditions:
+      - which ct
 
   lint:fix:
     desc: Fix lint issues using yamllint with custom config
     cmds:
       - yamllint -c configs/lintconf.yaml charts/
+    preconditions:
+      - which yamllint

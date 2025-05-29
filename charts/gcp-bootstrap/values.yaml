@@ -17,9 +17,16 @@ orgPolicies:
   disableServiceAccountKeyCreation: true
   skipDefaultNetworkCreation: false
   disableSerialPortAccess: true
-  resourceLocations: { enabled: true, allowedLocations: ["us-east4", "us-central1"] }
-  vmExternalIpAccess: { enabled: true, policyType: "DENY_ALL" }
-  gkePrivateCluster: { enabled: true }
+  resourceLocations:
+    enabled: true
+    allowedLocations:
+      - "us-east4"
+      - "us-central1"
+  vmExternalIpAccess:
+    enabled: true
+    policyType: "DENY_ALL"
+  gkePrivateCluster:
+    enabled: true
 
 kms:
   enabled: true
@@ -35,7 +42,9 @@ commonAppConfig:
     nodeCount: 1
     machineType: "e2-standard-2"
     workloadIdentityEnabled: true
-    masterAuthorizedNetworksConfig: { enabled: false, cidrBlocks: [] }
+    masterAuthorizedNetworksConfig:
+      enabled: false
+      cidrBlocks: []
     nodePools: []
   bigquery:
     enabled: false
@@ -75,7 +84,7 @@ commonAppConfig:
 
 # --- PROJECT TYPE BLUEPRINTS ---
 sharedVpcHost:
-  enabled: false
+  enabled: true
   project:
     name: "shared-vpc"
     gcpProjectName: "shared-vpc"
@@ -83,62 +92,81 @@ sharedVpcHost:
   network:
     name: "shared-vpc"
     subnets:
-      gkePrimary: { name: "gke-primary", ipCidrRange: "10.0.0.0/20", privateIpGoogleAccess: true }
-      gkePodsSecondary: { name: "gke-pods", ipCidrRange: "10.0.32.0/16" }
-      gkeServicesSecondary: { name: "gke-services", ipCidrRange: "10.0.16.0/20" }
-      internalApps: { name: "internal-apps", ipCidrRange: "10.0.48.0/20", privateIpGoogleAccess: true }
+      gkePrimary:
+        name: "gke-primary"
+        ipCidrRange: "10.0.0.0/20"
+        privateIpGoogleAccess: true
+      gkePodsSecondary:
+        name: "gke-pods"
+        ipCidrRange: "10.0.32.0/16"
+      gkeServicesSecondary:
+        name: "gke-services"
+        ipCidrRange: "10.0.16.0/20"
+      internalApps:
+        name: "internal-apps"
+        ipCidrRange: "10.0.48.0/20"
+        rivateIpGoogleAccess: true
   firewallRules:
-    allowIAPSsh: { enabled: true, sourceRanges: ["35.235.240.0/20"], targetTags: ["ssh-via-iap"], ports: [{ protocol: "tcp", ports: ["22"] }] }
+    allowIAPSsh:
+      enabled: true
+      sourceRanges:
+        - "35.235.240.0/20"
+      targetTags:
+        - "ssh-via-iap"
+      ports:
+        protocol: "tcp"
+        ports:
+          - "22"
   serviceProjects: []
 
 appProject:
-  enabled: false
+  enabled: true
   project:
     name: "openlane-app"
     gcpProjectName: "Openlane Application"
     id: ""
-  gkeCluster: {} 
-  bigquery: {} 
-  storage: {} 
-  cloudsql: {} 
-  memorystore: {} 
-  dnsZone: {} 
+  gkeCluster: {}
+  bigquery: {}
+  storage: {}
+  cloudsql: {}
+  memorystore: {}
+  dnsZone: {}
 
 loggingProject:
-  enabled: false
+  enabled: true
   project:
     name: "openlane-logs"
     gcpProjectName: "Openlane Central Logging"
-    apis: ["logging.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com"]
     id: ""
   logSinks:
-    orgAudit: { enabled: true, destinationBucketName: "openlane-central-logs-bucket", destinationDatasetName: "openlane_central_logs_dataset" }
+    orgAudit:
+      enabled: true
+      destinationBucketName: "openlane-central-logs-bucket"
+      destinationDatasetName: "openlane_central_logs_dataset"
 
 billingProject:
-  enabled: false
+  enabled: true
   project:
     name: "openlane-billing"
     gcpProjectName: "Openlane Billing Admin"
-    apis: ["cloudbilling.googleapis.com"]
     id: ""
 
 kmsProject:
-  enabled: false
+  enabled: true
   project:
     name: "openlane-kms"
     gcpProjectName: "Openlane Central KMS"
-    apis: ["cloudkms.googleapis.com"]
     id: ""
 
 sharedInfrastructureProject:
-  enabled: false
+  enabled: true
   project:
     name: "openlane-shared-infra"
     gcpProjectName: "Openlane Shared Infrastructure"
     id: ""
 
 bootstrapProject:
-  enabled: false
+  enabled: true
   project:
     name: "openlane-misc"
     gcpProjectName: "Openlane Bootstrap Project"
