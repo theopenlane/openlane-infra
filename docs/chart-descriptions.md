@@ -1,4 +1,3 @@
-
 # GCP Resource Chart Descriptions
 
 This file documents the GCP resource charts and their interrelationships.
