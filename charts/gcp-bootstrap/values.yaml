@@ -1,54 +1,49 @@
 # charts/openlane-gcp-bootstrap/values.yaml
-# Global Configuration Blueprint
-# This defines the structure and default settings for all project types.
-# Specific environment overrides will be applied via values-dev.yaml / values-prod.yaml.
+# Global Configuration Blueprint and Common Resources Foundation.
 
 # --- Global Settings ---
-orgId: "YOUR_GCP_ORGANIZATION_ID_DEFAULT" # Placeholder: MUST BE OVERRIDDEN per env
-billingAccountId: "YOUR_BILLING_ACCOUNT_ID_DEFAULT" # Placeholder: MUST BE OVERRIDDEN per env
-repoURL: "https://github.com/theopenlane/openlane-infra" # Your Git repository URL
+orgId: "319013011373"
+billingAccountId: "01AC20-2CEAE3-8BB367"
+repoURL: "https://github.com/theopenlane/openlane-infra"
+projectCreation:
+  project_id_prefix: "openlane"
 
-# Folders definition (common names, IDs need hydration)
-folders:
-  openlaneOrg: { name: "openlane-org", id: "" } # Root organizational folder
-  appEnv: { name: "app", id: "" } # Base name for application environment folders (e.g., openlane-org-app-dev)
-  sharedInfraEnv: { name: "shared-infra", id: "" } # Base name for shared infra environment folders
-  loggingEnv: { name: "logging", id: "" } # Base name for logging environment folders
-  billingEnv: { name: "billing", id: "" } # Base name for billing environment folders
+env:
+  name: "unset"
+  capitalizedName: "Unset"
 
-# --- Organization-Level Policies & Services (Always apply if enabled) ---
-orgPolicies: # Control which org policies are applied.
+# --- Organization-Level Policies & Services ---
+orgPolicies:
   disableServiceAccountKeyCreation: true
-  skipDefaultNetworkCreation: false # Set to false if you are creating default networks for tests, otherwise true
+  skipDefaultNetworkCreation: false
   disableSerialPortAccess: true
   resourceLocations: { enabled: true, allowedLocations: ["us-east4", "us-central1"] }
   vmExternalIpAccess: { enabled: true, policyType: "DENY_ALL" }
   gkePrivateCluster: { enabled: true }
 
-kms: # Global KMS configuration blueprint
+kms:
   enabled: true
   keyRingName: "openlane-default-keyring"
   keyName: "openlane-default-key"
-  location: "us-east4" # Default KMS key location
+  location: "us-central1"
 
-# --- COMMON APP CONFIG (Default settings for all application resources across environments) ---
-# These values apply unless specifically overridden per specific project type.
+# --- COMMON APP CONFIG ---
 commonAppConfig:
-  primaryRegion: "us-east4" # Default primary region for compute resources
+  primaryRegion: "us-central1"
   gkeCluster:
-    enabled: false # Default state for GKE clusters in app projects
+    enabled: false
     nodeCount: 1
     machineType: "e2-standard-2"
     workloadIdentityEnabled: true
     masterAuthorizedNetworksConfig: { enabled: false, cidrBlocks: [] }
     nodePools: []
   bigquery:
-    enabled: false # Default state for BigQuery datasets in app projects
-    location: "us-east4"
+    enabled: false
+    location: "us-central1"
     cmekEnabled: false
   storage:
-    enabled: false # Default state for Storage buckets in app projects
-    location: "us-east4"
+    enabled: false
+    location: "us-central1"
     cmekEnabled: false
   cloudsql:
     enabled: false
@@ -65,36 +60,43 @@ commonAppConfig:
     enabled: false
     name: "default-zone"
     domainName: "default.com."
+  enableAPIs:
+  - compute.googleapis.com
+  - servicenetworking.googleapis.com
+  - iam.googleapis.com
+  - container.googleapis.com
+  - cloudresourcemanager.googleapis.com
+  - dns.googleapis.com
+  - cloudkms.googleapis.com
+  - sqladmin.googleapis.com
+  - redis.googleapis.com
+  - logging.googleapis.com
+  - monitoring.googleapis.com
 
 # --- PROJECT TYPE BLUEPRINTS ---
-# These define the default structure and properties for each *type* of project.
-# They are not enabled by default. `values-dev.yaml` / `values-prod.yaml` will *enable* and *override* these.
-
-sharedVpcHost: # Blueprint for a shared VPC host project instance
-  enabled: false # Must be enabled in values-dev/prod.yaml
-  project: # KCC Project resource details
-    name: "openlane-shared-vpc-host" # Base Project ID
-    id: "" # Hydrated numerical project ID
-    gcpProjectName: "Openlane Shared VPC Host" # Base Display Name
-    apis: ["compute.googleapis.com", "servicenetworking.googleapis.com", "cloudresourcemanager.googleapis.com", "cloudkms.googleapis.com"]
-  network: # Shared VPC network details
-    name: "openlane-shared-vpc" # Network name base
+sharedVpcHost:
+  enabled: false
+  project:
+    name: "shared-vpc"
+    gcpProjectName: "shared-vpc"
+    id: ""
+  network:
+    name: "shared-vpc"
     subnets:
       gkePrimary: { name: "gke-primary", ipCidrRange: "10.0.0.0/20", privateIpGoogleAccess: true }
       gkePodsSecondary: { name: "gke-pods", ipCidrRange: "10.0.32.0/16" }
       gkeServicesSecondary: { name: "gke-services", ipCidrRange: "10.0.16.0/20" }
       internalApps: { name: "internal-apps", ipCidrRange: "10.0.48.0/20", privateIpGoogleAccess: true }
-    firewallRules: { allowIAPSsh: { enabled: true, sourceRanges: ["35.235.240.0/20"], targetTags: ["ssh-via-iap"], ports: [{ protocol: "tcp", ports: ["22"] }] } }
-  serviceProjects: {} # Empty by default, populated in env-specific values
+  firewallRules:
+    allowIAPSsh: { enabled: true, sourceRanges: ["35.235.240.0/20"], targetTags: ["ssh-via-iap"], ports: [{ protocol: "tcp", ports: ["22"] }] }
+  serviceProjects: []
 
-appProject: # Blueprint for an application project instance. Inherits from commonAppConfig.
+appProject:
   enabled: false
   project:
-    name: "openlane-app" # Base Project ID
-    id: "" # Hydrated
-    gcpProjectName: "Openlane Application" # Base Display Name
-    apis: ["compute.googleapis.com", "container.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com", "sqladmin.googleapis.com", "redis.googleapis.com", "dns.googleapis.com"]
-  # Resource config defaults - will be merged with commonAppConfig and then instance-specific values
+    name: "openlane-app"
+    gcpProjectName: "Openlane Application"
+    id: ""
   gkeCluster: {} 
   bigquery: {} 
   storage: {} 
@@ -102,29 +104,138 @@ appProject: # Blueprint for an application project instance. Inherits from commo
   memorystore: {} 
   dnsZone: {} 
 
-loggingProject: # Blueprint for a centralized logging project instance
+loggingProject:
   enabled: false
   project:
     name: "openlane-logs"
-    id: "" # Hydrated
     gcpProjectName: "Openlane Central Logging"
     apis: ["logging.googleapis.com", "bigquery.googleapis.com", "storage.googleapis.com"]
+    id: ""
   logSinks:
     orgAudit: { enabled: true, destinationBucketName: "openlane-central-logs-bucket", destinationDatasetName: "openlane_central_logs_dataset" }
 
-billingProject: # Blueprint for a centralized billing project instance
+billingProject:
   enabled: false
   project:
     name: "openlane-billing"
-    id: "" # Hydrated
     gcpProjectName: "Openlane Billing Admin"
     apis: ["cloudbilling.googleapis.com"]
+    id: ""
 
-kmsProject: # Blueprint for a dedicated KMS project instance
+kmsProject:
   enabled: false
   project:
     name: "openlane-kms"
-    id: "" # Hydrated
     gcpProjectName: "Openlane Central KMS"
-    folderRef: "folders/{{ .Values.folders.openlaneOrg.id }}" # Place under root org folder
     apis: ["cloudkms.googleapis.com"]
+    id: ""
+
+sharedInfrastructureProject:
+  enabled: false
+  project:
+    name: "openlane-shared-infra"
+    gcpProjectName: "Openlane Shared Infrastructure"
+    id: ""
+
+bootstrapProject:
+  enabled: false
+  project:
+    name: "openlane-misc"
+    gcpProjectName: "Openlane Bootstrap Project"
+    id: ""
+
+# --- COMMON/GLOBAL FOLDER & PROJECT DEFINITIONS ---
+folders:
+  bootstrap:
+    displayName: bootstrap
+    parentType: organization
+    parent: "319013011373"
+    id: ""
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
+    enableAPIs:
+    - iam.googleapis.com
+    - cloudresourcemanager.googleapis.com
+    - dns.googleapis.com
+    - compute.googleapis.com
+    - servicenetworking.googleapis.com
+    - container.googleapis.com
+    - storage.googleapis.com
+    - artifactregistry.googleapis.com
+    - anthosidentityservice.googleapis.com
+    - anthosgke.googleapis.com
+    - autoscaling.googleapis.com
+    - anthos.googleapis.com
+    - anthospolicycontroller.googleapis.com
+    - config.googleapis.com
+    - cloudapis.googleapis.com
+    - servicemanagement.googleapis.com
+  common:
+    displayName: common
+    parentType: organization
+    parent: "319013011373"
+    id: ""
+    billingAccountRef: "01AC20-2CEAE3-8BB367"
+    enableAPIs:
+    - iam.googleapis.com
+    - serviceusage.googleapis.com
+    - compute.googleapis.com
+    - logging.googleapis.com
+    - storage.googleapis.com
+    - cloudtrace.googleapis.com
+    - monitoring.googleapis.com
+    - cloudbilling.googleapis.com
+    - dns.googleapis.com
+    - servicenetworking.googleapis.com
+    - secretmanager.googleapis.com
+    - cloudkms.googleapis.com
+    - analyticshub.googleapis.com
+    - bigquery.googleapis.com
+    - bigqueryconnection.googleapis.com
+    - bigquerymigration.googleapis.com
+    - cloudidentity.googleapis.com
+    - auditmanager.googleapis.com
+    - cloudbuild.googleapis.com
+    - clouddeploy.googleapis.com
+    - cloudasset.googleapis.com
+    - identitytoolkit.googleapis.com
+    - networkmanagement.googleapis.com
+    - trafficdirector.googleapis.com
+    - servicemanagement.googleapis.com
+
+projects:
+  common-shared-kms:
+    displayName: common-shared-kms
+    parentType: folder
+    parent: common
+    id: ''
+    type: sharedInfrastructureProject
+  common-shared-secrets:
+    displayName: common-shared-secrets
+    parentType: folder
+    parent: common
+    id: ''
+    type: sharedInfrastructureProject
+  common-shared-network-project:
+    displayName: common-shared-network-project
+    parentType: folder
+    parent: common
+    id: ''
+    type: sharedVpcHost
+  common-shared-logging:
+    displayName: common-shared-logging
+    parentType: folder
+    parent: common
+    id: ''
+    type: loggingProject
+  common-shared-monitoring:
+    displayName: common-shared-monitoring
+    parentType: folder
+    parent: common
+    id: ''
+    type: loggingProject
+  common-billing-project:
+    displayName: common-billing-project
+    parentType: folder
+    parent: common
+    id: ''
+    type: billingProject

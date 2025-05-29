@@ -2,6 +2,8 @@
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
+**Homepage:** <https://www.theopenlane.io>
+
 ## Prerequisites
 
 - Helm v3
@@ -16,6 +18,11 @@
 ## Description
 
 A Helm chart for gcp-dns-zone resource
+
+## Source Code
+
+* <https://github.com/theopenlane/core>
+* <https://github.com/theopenlane/openlane-infra>
 
 ## Values
 

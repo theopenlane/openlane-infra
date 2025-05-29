@@ -30,7 +30,7 @@ Deploys external-dns and its monitoring
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | externaldns.affinity | object | `{}` | Affinity settings for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/). If an explicit label selector is not provided for pod affinity or pod anti-affinity one will be created from the pod selector labels. |
-| externaldns.automountServiceAccountToken | bool | `true` | Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`. |
+| externaldns.automountServiceAccountToken | bool | `true` | (bool) Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`. |
 | externaldns.commonLabels | object | `{}` | Labels to add to all chart resources. |
 | externaldns.deploymentAnnotations | object | `{}` | Annotations to add to the `Deployment`. |
 | externaldns.deploymentStrategy | object | `{"type":"Recreate"}` | [Deployment Strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy). |

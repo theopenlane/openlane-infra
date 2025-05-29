@@ -128,7 +128,7 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 | sharedVpcHost.project.apis[3] | string | `"cloudkms.googleapis.com"` |  |
 | sharedVpcHost.project.gcpProjectName | string | `"Openlane Shared VPC Host"` |  |
 | sharedVpcHost.project.id | string | `""` |  |
-| sharedVpcHost.project.name | string | `"openlane-shared-vpc-host"` |  |
+| sharedVpcHost.project.name | string | `"openlane-shared-vpc"` |  |
 | sharedVpcHost.serviceProjects | object | `{}` |  |
 
 ## Installing the Chart

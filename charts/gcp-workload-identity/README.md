@@ -15,7 +15,12 @@
 
 ## Description
 
-A Helm chart for workload identity
+A Helm chart for managing GKE workload identity on GCP
+
+## Source Code
+
+* <https://github.com/theopenlane/core>
+* <https://github.com/theopenlane/openlane-infra>
 
 ## Values
 

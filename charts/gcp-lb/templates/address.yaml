@@ -20,4 +20,5 @@ metadata:
 spec:
   addressType: {{ .Values.globalAddress.addressType | quote }}
   ipVersion: {{ .Values.globalAddress.ipVersion | quote }}
+  location: {{ .Values.globalAddress.location | quote }}
 {{- end }}

@@ -7,6 +7,15 @@ global:
   # -- If true, Keep the Compute Address even after the kcc resource deletion.
   abandon: true
 
+# -- Placeholder for values to be overridden by bootrap
+commonAppConfig:
+  cloudsql:
+    enabled: false
+    instanceName: "default-sql"
+    version: "POSTGRES_14"
+    tier: "db-f1-micro"
+    cmekEnabled: false
+
 enabled: true
 # Configuration for the SQLInstance resource
 

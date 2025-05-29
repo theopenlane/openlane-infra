@@ -1,73 +1,99 @@
-{{- /* Loop for the current environment only */ -}}
-{{- $env := .Values.env -}} 
+{{- $env := .Values.env -}}
+{{- if not (and $env (hasKey $env "name")) -}}
+  {{- fail "'.Values.env.name' is not defined. Ensure it's set in environment-specific values (e.g., env: { name: \"dev\", capitalizedName: \"Dev\" })." -}}
+{{- end -}}
+{{- $envName := $env.name -}}
+{{- $envCapName := $env.capitalizedName | default ($envName | upper) -}}
 {{- $globalValues := .Values -}}
 
-{{- /* Define a list of project type keys to iterate over */ -}}
-{{- $projectTypeKeys := list "sharedVpcHost" "appProject" "loggingProject" "billingProject" }}
+{{- range $projectKey, $projectInstanceConfig := .Values.projects }}
 
-{{- range $projectTypeKey := $projectTypeKeys }}
-  {{- $projectConfig := get $globalValues $projectTypeKey -}}
+  {{- $projectType := $projectInstanceConfig.type | required (printf "Project '%s' in .Values.projects is missing the 'type' attribute." $projectKey) -}}
+  {{- $projectBlueprint := get $globalValues $projectType | required (printf "Project blueprint type '%s' (for project key '%s') not found in root .Values." $projectType $projectKey) -}}
 
-  {{- if $projectConfig.enabled -}}
+  {{- if $projectBlueprint.enabled }}
+    {{- $argoAppName := printf "openlane-%s-%s" $envName ($projectKey | include "gcp-bootstrap.kebabcase") -}}
+    {{- $argoProjectNameForArgoApp := printf "openlane-%s" $envName -}}
 
-    {{- /* Determine Project App Name for ArgoCD (e.g., openlane-dev-shared-vpc-host, openlane-prod-app) */ -}}
-    {{- $argoAppName := printf "openlane-%s-%s" $env.name ($projectTypeKey | kebabcase) -}}
+    {{- $gcpActualProjectId := include "gcp-bootstrap.gcpProjectId" (dict "projectKey" $projectKey "envName" $envName "ctx" $) -}}
 
-    {{- /* Determine the KCC Project Name (e.g., openlane-shared-vpc-host-dev) */ -}}
-    {{- $kccProjectName := printf "%s-%s" $projectConfig.project.name $env.name | kebabcase -}}
+    {{- $parentFolderKey := $projectInstanceConfig.parent | required (printf "Project '%s' is missing 'parent' attribute linking to a folder key." $projectKey) -}}
+    {{- $parentFolderKccName := include "gcp-bootstrap.folderKccName" (dict "folderKey" $parentFolderKey) -}}
 
-    {{- /* Determine the KCC Folder Resource Name */ -}}
-    {{- $folderNameForRef := "" -}}
-    {{- if eq $projectTypeKey "appProject" -}}{{- $folderNameForRef = printf "%s-%s" $globalValues.folders.openlaneOrg.name $globalValues.folders.appEnv.name -}}
-    {{- else if eq $projectTypeKey "sharedVpcHost" -}}{{- $folderNameForRef = printf "%s-%s" $globalValues.folders.openlaneOrg.name $globalValues.folders.sharedInfraEnv.name -}}
-    {{- else if eq $projectTypeKey "loggingProject" -}}{{- $folderNameForRef = printf "%s-%s" $globalValues.folders.openlaneOrg.name $globalValues.folders.loggingEnv.name -}}
-    {{- else if eq $projectTypeKey "billingProject" -}}{{- $folderNameForRef = printf "%s-%s" $globalValues.folders.openlaneOrg.name $globalValues.folders.billingEnv.name -}}
+    {{- $baseProjectConf := $projectBlueprint.project | default dict -}}
+    {{- $instanceDisplayName := $projectInstanceConfig.displayName | default $baseProjectConf.gcpProjectName -}}
+    {{- $instanceId := $projectInstanceConfig.id | default ($baseProjectConf.id | default "") -}}
+
+    {{- $finalApisList := $baseProjectConf.apis | default list -}}
+    {{- if $projectInstanceConfig.apis -}}
+      {{- $finalApisList = $projectInstanceConfig.apis -}}
     {{- end -}}
-    {{- $folderRefKccName := printf "%s-%s" $folderNameForRef $env.name | kebabcase -}}
 
-    {{- /* Build the project config object to pass to gcp-project-base */ -}}
-    {{- $projectConfigForBase := deepCopy $projectConfig.project -}}
-    {{- $_ := set $projectConfigForBase "name" $kccProjectName -}}
-    {{- $_ := set $projectConfigForBase "gcpProjectName" (printf "%s (%s)" $projectConfig.project.gcpProjectName $env.capitalizedName) -}}
-    {{- $_ := set $projectConfigForBase "folderRef" (printf "folders/%s" $folderRefKccName) -}}
-    {{- $_ := set $projectConfigForBase "id" (get $projectConfig.project "id" | default "") -}}
+    {{- $projectValuesForBaseChart := $baseProjectConf | merge dict -}}
+    {{- $_ := set $projectValuesForBaseChart "name" $gcpActualProjectId -}}
+    {{- $_ := set $projectValuesForBaseChart "displayName" (printf "%s (%s)" $instanceDisplayName $envCapName) -}}
+    {{- $_ := set $projectValuesForBaseChart "folderRef" (printf "folders/%s" $parentFolderKccName) -}}
+    {{- $_ := set $projectValuesForBaseChart "id" $instanceId -}}
+    {{- $_ := set $projectValuesForBaseChart "apis" $finalApisList -}}
 
-    {{- /* Collect special flags for gcp-project-base (isSharedVpcHost, isLoggingProject) */ -}}
     {{- $gcpProjectBaseFlags := dict -}}
-        {{- if eq $projectTypeKey "sharedVpcHost" -}}{{- $_ := set $gcpProjectBaseFlags "isSharedVpcHost" true -}}{{- end -}}
-        {{- if eq $projectTypeKey "loggingProject" -}}{{- $_ := set $gcpProjectBaseFlags "isLoggingProject" true -}}{{- end -}}
+    {{- if eq $projectType "sharedVpcHost" }}{{- $_ := set $gcpProjectBaseFlags "isSharedVpcHost" true -}}{{- end -}}
+    {{- if eq $projectType "loggingProject" }}{{- $_ := set $gcpProjectBaseFlags "isLoggingProject" true -}}{{- end -}}
+    {{- if eq $projectType "kmsProject" }}{{- $_ := set $gcpProjectBaseFlags "isKmsProject" true -}}{{- end -}}
 
-    {{- /* Collect resource-level configuration (e.g., gkeCluster, bigqueryDataset, etc.) */ -}}
     {{- $resourceConfigs := dict -}}
-        {{- if hasKey $projectConfig "gkeCluster" -}}{{- $_ := set $resourceConfigs "gkeCluster" ($projectConfig.gkeCluster | default dict) -}}{{- end -}}
-        {{- if hasKey $projectConfig "bigqueryDataset" -}}{{- $_ := set $resourceConfigs "bigqueryDataset" ($projectConfig.bigqueryDataset | default dict) -}}{{- end -}}
-        {{- if hasKey $projectConfig "gcpBucket" -}}{{- $_ := set $resourceConfigs "gcpBucket" ($projectConfig.gcpBucket | default dict) -}}{{- end -}}
-        {{- if hasKey $projectConfig "cloudsqlPostgresql" -}}{{- $_ := set $resourceConfigs "cloudsqlPostgresql" ($projectConfig.cloudsqlPostgresql | default dict) -}}{{- end -}}
-        {{- if hasKey $projectConfig "memorystoreRedis" -}}{{- $_ := set $resourceConfigs "memorystoreRedis" ($projectConfig.memorystoreRedis | default dict) -}}{{- end -}}
-        {{- if hasKey $projectConfig "dnsZone" -}}{{- $_ := set $resourceConfigs "dnsZone" ($projectConfig.dnsZone | default dict) -}}{{- end -}}
-        {{- if eq $projectTypeKey "sharedVpcHost" -}} 
-          {{- $_ := set $resourceConfigs "network" $projectConfig.network -}}
-          {{- $_ := set $resourceConfigs "firewallRules" $projectConfig.firewallRules -}}
-          {{- $_ := set $resourceConfigs "serviceProjects" $projectConfig.serviceProjects -}}
-        {{- end -}}
-        {{- if eq $projectTypeKey "loggingProject" -}} 
-          {{- $_ := set $resourceConfigs "logSinks" $projectConfig.logSinks -}}
-        {{- end -}}
+    {{- $knownResourceKeys := list "gkeCluster" "bigquery" "storage" "cloudsql" "memorystore" "dnsZone" "network" "subnets" "firewallRules" "serviceProjects" "logSinks" -}}
 
-    {{- /* Render the ArgoCD Application for this project instance */ -}}
-    {{- include "bootstrap.renderProjectApp" (dict
-        "appName" $argoAppName 
+    {{- range $resKey := $knownResourceKeys }}
+      {{- $commonConf := get $globalValues.commonAppConfig $resKey -}}
+      {{- $blueprintConf := get $projectBlueprint $resKey -}}
+      {{- $instanceConf := get $projectInstanceConfig $resKey -}}
+
+      {{- $finalValue := "" -}}
+      {{- $isList := false -}}
+
+      {{- /* Determine final value and if it's a list */ -}}
+      {{- if $instanceConf -}}
+        {{- $finalValue = $instanceConf -}}
+        {{- if eq (kindOf $instanceConf) "slice" }}{{- $isList = true -}}{{- end -}}
+      {{- else if $blueprintConf -}}
+        {{- $finalValue = $blueprintConf -}}
+        {{- if eq (kindOf $blueprintConf) "slice" }}{{- $isList = true -}}{{- end -}}
+      {{- else if $commonConf -}}
+        {{- $finalValue = $commonConf -}}
+        {{- if eq (kindOf $commonConf) "slice" }}{{- $isList = true -}}{{- end -}}
+      {{- end -}}
+
+      {{- if $isList -}}
+        {{- /* For lists, instance overrides blueprint, which overrides common. Direct assignment. */ -}}
+        {{- if $finalValue -}} {{/* Ensure it's not nil before setting */}}
+          {{- $_ := set $resourceConfigs $resKey $finalValue -}}
+        {{- end -}}
+      {{- else -}}
+        {{- /* For maps, perform a merge */ -}}
+        {{- $mergedMap := dict -}}
+        {{- if $commonConf | and (kindIs "map" $commonConf) }}{{- $mergedMap = merge $mergedMap $commonConf -}}{{- end -}}
+        {{- if $blueprintConf | and (kindIs "map" $blueprintConf) }}{{- $mergedMap = merge $mergedMap $blueprintConf -}}{{- end -}}
+        {{- if $instanceConf | and (kindIs "map" $instanceConf) }}{{- $mergedMap = merge $mergedMap $instanceConf -}}{{- end -}}
+        {{- if $mergedMap -}}
+          {{- $_ := set $resourceConfigs $resKey $mergedMap -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- include "gcp-bootstrap.renderArgoProjectApp" (dict
+        "appName" $argoAppName
+        "argoProjectName" $argoProjectNameForArgoApp
         "repoURL" $globalValues.repoURL
-        "syncWave" "1" 
-        "projectConfig" $projectConfigForBase
-        "envName" $env.name
-        "envCapName" $env.capitalizedName
-        "globalValues" $globalValues
-        "gcpProjectBaseFlags" $gcpProjectBaseFlags
-        "resourceConfigs" $resourceConfigs
+        "syncWave" "1"
+        "projectType" $projectType 
+        "projectConfig" $projectValuesForBaseChart 
+        "envName" $envName
+        "envCapName" $envCapName
+        "globalValues" $globalValues 
+        "gcpProjectBaseFlags" $gcpProjectBaseFlags 
+        "resourceConfigs" $resourceConfigs 
     ) | nindent 0 }}
-
 ---
-
-{{- end -}}
+  {{- end -}}
 {{- end -}}

@@ -36,6 +36,7 @@ globalAddress:
   # Subnetwork reference (string)
   subnetworkRef:
     external: ""
+  location: "global"  # Location for global addresses
 
 # Managed SSL Certificate
 managedSslCertificate:

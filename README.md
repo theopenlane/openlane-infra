@@ -67,7 +67,7 @@ This repository organizes GCP infrastructure definitions using Helm charts. Each
 | [`openlane-gcp-bootstrap`](charts/openlane-gcp-bootstrap/README.md)       | **Bootstrap / Orchestrator Chart.** This is the top-level chart that defines the fundamental GCP organizational structure (folders, organization policies, global KMS) and orchestrates the deployment of individual GCP projects by generating ArgoCD `Application` resources. It acts as the central control plane for environment setup.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | [`gcp-project`](charts/gcp-project/README.md)                  | **Project Chart.** A reusable blueprint for a single GCP project. It creates the KCC `Project` resource and its associated Kubernetes `Namespace`, enables required GCP APIs, sets up basic project-level IAM, and acts as a parent for specific resource charts like GKE clusters, BigQuery datasets, and storage. It also handles conditional deployment of Shared VPC network components if acting as a Shared VPC host.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | [`gcp-gke-cluster`](charts/gcp-gke-cluster/README.md)          | **Resource Chart: GCP GKE Cluster.** Defines the configuration for a Google Kubernetes Engine (GKE) cluster, including cluster-level settings, node pools, and Workload Identity.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| [`gcp-bigquery-dataset`](charts/gcp-bigquery-dataset/README.md) | **Resource Chart: GCP BigQuery Dataset.** Defines the configuration for a BigQuery dataset, including its location, default expiration, and Customer-Managed Encryption Key (CMEK) settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [`openlane-gcp-bigquery`](charts/openlane-gcp-bigquery/README.md) | **Resource Chart: GCP BigQuery Dataset.** Defines the configuration for a BigQuery dataset, including its location, default expiration, and Customer-Managed Encryption Key (CMEK) settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | [`gcp-bucket`](charts/gcp-bucket/README.md)                   | **Resource Chart: GCP Cloud Storage Bucket.** Defines the configuration for a Cloud Storage bucket, including its location, lifecycle rules, and Customer-Managed Encryption Key (CMEK) settings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | [`gcp-cloudsql-postgresql`](charts/gcp-cloudsql-postgresql/README.md) | **Resource Chart: GCP Cloud SQL PostgreSQL.** Defines a managed PostgreSQL database instance, including its version, tier, network settings (e.g., private IP), and high-availability options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | [`gcp-memorystore-redis`](charts/gcp-memorystore-redis/README.md) | **Resource Chart: GCP Memorystore for Redis.** Defines a managed Redis instance, including its tier, memory size, and network configuration.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -142,6 +142,70 @@ docker run --rm -it -w /charts -v $(pwd)/../:/charts quay.io/helmpack/chart-test
 Documentation is automatically generated from chart annotations using helm-docs. To manually generate documentation:
 
 ```bash
-task dpcs
+task docs
 ```
 
+## Shared VPC Setup
+
+This repository supports GCP Shared VPC using Config Connector resources and Helm charts.
+
+- Use `gcp-bootstrap` with `sharedVPC.enabled` and your host/service project IDs to generate `ComputeSharedVPCServiceProject` bindings.
+- The host project owns the VPC and subnets; the service projects attach and use them.
+- Use `gcp-iam-policy-members` to grant `roles/compute.networkUser` to your service projects or service accounts.
+- In your workload resource charts (GKE, VM), reference the shared VPC and subnet using the `external` field.
+
+**Example usage in `charts/gcp-bootstrap/values.yaml`:**
+```yaml
+sharedVPC:
+  enabled: true
+  hostProjectId: my-shared-vpc-host
+  serviceProjects:
+    - my-service-project-1
+    - my-service-project-2
+```
+
+## Project and Folder Heirarchy
+
+```bash
+organization
+├── bootstrap (folder)
+│   ├── prod-bootstrap-project
+│   └── dev-bootstrap-project
+├── common (folder)
+│   ├── sharedInfra (folder)
+│   │   ├── common-shared-kms-project
+│   │   └── common-shared-secrets-project
+│   ├── networking (folder)
+│   │   └── common-shared-network-project
+│   ├── signals (folder)
+│   │   ├── common-shared-logging-project
+│   │   └── common-shared-monitoring-project
+│   └── billing (folder)
+│       └── common-billing-project
+├── prod (folder)
+│   ├── networking (folder)
+│   │   └── prod-shared-network-project
+│   ├── sharedInfra (folder)
+│   │   ├── prod-shared-kms-project
+│   │   └── prod-shared-secrets-project
+│   ├── signals (folder)
+│   │   ├── prod-signals-logging-project
+│   │   └── prod-signals-monitoring-project
+│   ├── billing (folder)
+│   │   └── prod-billing-project
+│   └── apps (folder)
+│       └── prod-apps-project
+└── dev (folder)
+    ├── networking (folder)
+    │   └── dev-shared-network-project
+    ├── sharedInfra (folder)
+    │   ├── dev-shared-kms-project
+    │   └── dev-shared-secrets-project
+    ├── signals (folder)
+    │   ├── dev-signals-logging-project
+    │   └── dev-signals-monitoring-project
+    ├── billing (folder)
+    │   └── dev-billing-project
+    └── apps (folder)
+        └── dev-apps-project
+```

@@ -1,0 +1,18 @@
+{{- if .Values.projects }}
+{{- range $projectName, $project := .Values.projects }}
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: Project
+metadata:
+  name: {{ $projectName | quote }}
+spec:
+  name: {{ $project.displayName | quote }}
+  {{- if eq $project.parentType "organization" }}
+  organizationRef:
+    external: "organizations/{{ $project.parent }}"
+  {{- else if eq $project.parentType "folder" }}
+  folderRef:
+    name: {{ $project.parent | quote }}
+  {{- end }}
+---
+{{- end }}
+{{- end }}
