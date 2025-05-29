@@ -24,10 +24,12 @@ commonAppConfig:
     nodeCount: 1
     machineType: "e2-standard-2"
     workloadIdentityEnabled: true
-    masterAuthorizedNetworksConfig: { enabled: false, cidrBlocks: [] }
+    masterAuthorizedNetworksConfig:
+      enabled: false
+      cidrBlocks: []
     nodePools: []
 
-# -- Add annotations to the GKE Cluster.
+# -- Add annotations to the GKE Cluster
 annotations: {}
 
 tags:
@@ -35,7 +37,7 @@ tags:
   networking: false
 
 
-# -- Name of the GKE Cluster.
+# -- Name of the GKE Cluster
 name: "openlane-gke-cluster"
 # -- A text description of the GKE Cluster. Must be less than or equal to 256 UTF-8 bytes.
 description: "OPENLANE GKE Cluster"

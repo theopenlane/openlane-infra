@@ -32,12 +32,18 @@ sharedVpcHostProd: {}
 # These defaults should reflect common settings *for the project type*.
 # Resource charts will read these sections under .Values.
 
-gkeCluster: { enabled: false } # Example GKE config
-bigquery: { enabled: false } # Example BigQuery config
-storage: { enabled: false } # Example Storage config
-cloudsql: { enabled: false }
-memorystore: { enabled: false }
-dnsZone: { enabled: false }
+gkeCluster:
+  enabled: false
+bigquery:
+  enabled: false
+storage:
+  enabled: false
+cloudsql:
+  enabled: false
+memorystore:
+  enabled: false
+dnsZone:
+  enabled: false
 
 # Shared VPC Network Configuration (if this project is a Shared VPC Host)
 network: {} # Will be populated if isSharedVpcHost is true

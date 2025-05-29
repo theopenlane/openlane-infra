@@ -44,8 +44,8 @@ managedSslCertificate:
   enabled: true
   # Name of the ManagedSslCertificate resource (string)
   name: "openlane-ssl-cert"
-  # domains to secure (array of strings)   
-  domains:                   
+  # domains to secure (array of strings)
+  domains:
     - "example.com"
     - "www.example.com"
   # description for the certificate (string)
@@ -61,8 +61,8 @@ sslPolicy:
   minTlsVersion: "TLS_1_3"
    # COMPATIBLE or MODERN
   profile: "MODERN"
-  # e.g. TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256           
-  customFeatures: []          
+  # e.g. TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+  customFeatures: []
 
 # Global HTTP(S) load balancer settings
 # Backend service configuration (map)
@@ -82,12 +82,12 @@ backendService:
   # Session affinity setting (string)
   sessionAffinity: "NONE"
   # ComputeInstanceGroup backends
-  backends:    
-  # Instance group resource path             
+  backends:
+  # Instance group resource path
     - group:
         external: ""
-      # UTILIZATION or RATE         
-      balancingMode: "UTILIZATION"  
+      # UTILIZATION or RATE
+      balancingMode: "UTILIZATION"
       maxUtilization: 0.8
       capacityScaler: 1.0
 
@@ -106,9 +106,9 @@ healthCheck:
   # number of consecutive failed checks before marking unhealthy (integer)
   unhealthyThreshold: 2
   # tcpHealth Check configuration
-  tcpHealthCheck: {}          # For TCP HCs
+  tcpHealthCheck: {}
   # httpHealthCheck configuration
-  httpHealthCheck:           # For HTTP HCs
+  httpHealthCheck:
     # Port number (integer)
     port: 80
     # Request path for health check (string)
@@ -121,9 +121,9 @@ urlMap:
   # Name of the URLMap (string)
   name: "openlane-url-map"
   # Default service backend (string)
-  defaultService: ""          
+  defaultService: ""
   # Host-based routing
-  hostRules:                  
+  hostRules:
     - hosts:
         - "example.com"
       pathMatcher: "default"
@@ -160,7 +160,7 @@ forwardingRuleHttp:
   # Target proxy reference (string)
   target: ""
 
-# Global forwarding rulee
+# Global forwarding rule
 forwardingRuleHttps:
   # Whether to enable the HTTPS forwarding rule (boolean)
   enabled: true
