@@ -1,4 +1,3 @@
-
 # GCP Architecture Overview
 
 This document outlines the structure and relationships of Google Cloud resources provisioned by the Helm charts in this repository.
