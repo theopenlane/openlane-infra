@@ -8,7 +8,7 @@ chart-repos:
  - cert-manager=https://charts.jetstack.io
  - external-dns=https://kubernetes-sigs.github.io/external-dns/
  - openlane-infra=https://theopenlane.github.io/openlane-infra
-helm-extra-args: "--timeout 600s"
+helm-extra-args: "--timeout 900s"
 validate-chart-schema: false
 validate-maintainers: false
 validate-yaml: true
