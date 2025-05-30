@@ -125,11 +125,7 @@ tasks:
     desc: Add template Taskfiles to all charts
     cmds:
       - for: { var: CHARTS, as: CHART }
-        cmd: cp scripts/templates/HELM.md.gotmpl {{.CHART}}/HELM.md.gotmpl
-      - for: { var: CHARTS, as: CHART }
-        cmd: rm {{.CHART}}/README.md.gotmpl
-      - for: { var: CHARTS, as: CHART }
-        cmd: rm {{.CHART}}/README.md
+        cmd: touch {{.CHART}}/README.md
 
   docs:
     desc: Generate documentation for all charts
