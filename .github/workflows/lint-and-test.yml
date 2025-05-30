@@ -17,7 +17,10 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112 # v4.3.0
         with:
-          version: v3.10.1 # Also update in publish.yaml
+          version: v3.10.1
+
+      - name: Set up Helm Docs
+        uses: gabe565/setup-helm-docs-action@d5c35bdc9133cfbea3b671acadf50a29029e87c2 # v1.0.4
 
       - name: Set up python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
@@ -29,7 +32,6 @@ jobs:
         id: lint
         uses: helm/chart-testing-action@0d28d3144d3a25ea2cc349d6e59901c4ff469b3b # v2.7.0
         with:
-          # Note: Also update in scripts/lint.sh
           version: v3.11.0
 
       - name: List changed charts
@@ -48,8 +50,12 @@ jobs:
       - name: Run docs-testing (helm-docs)
         id: helm-docs
         run: |
-          chmod +x ./scripts/helm-docs.sh
-          ./scripts/helm-docs.sh
+          for chart in charts/*; do
+            if [[ -d "$chart" ]]; then
+              echo "Generating documentation for $chart"
+              helm-docs --chart-search-root "$chart" --output-file "$chart/HELM.md" --template-files "$chart/HELM.md.gotmpl" --skip-version-footer --sort-values-order=file
+            fi
+          done
           if [[ $(git diff --stat) != '' ]]; then
             echo -e '\033[0;31mDocumentation outdated!\033[0m ❌'
             git diff --color

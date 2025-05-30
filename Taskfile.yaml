@@ -114,3 +114,27 @@ tasks:
       - yamllint -c configs/lintconf.yaml charts/
     preconditions:
       - which yamllint
+
+  taskfiles:charts:
+    desc: Add template Taskfiles to all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: cp scripts/templates/Taskfile.yaml {{.CHART}}/Taskfile.yaml
+
+  readme:charts:
+    desc: Add template Taskfiles to all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: cp scripts/templates/HELM.md.gotmpl {{.CHART}}/HELM.md.gotmpl
+      - for: { var: CHARTS, as: CHART }
+        cmd: rm {{.CHART}}/README.md.gotmpl
+      - for: { var: CHARTS, as: CHART }
+        cmd: rm {{.CHART}}/README.md
+
+  docs:
+    desc: Generate documentation for all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm-docs --chart-search-root {{.CHART}} --output-file {{.CHART}}/HELM.md --template-files {{.CHART}}/HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+    preconditions:
+      - which helm-docs
