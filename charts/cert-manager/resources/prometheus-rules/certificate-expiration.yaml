@@ -24,4 +24,3 @@ groups:
         annotations:
           summary: '[{{ $labels.job }}] Certificate {{ $labels.name }} expired'
           message: 'Renew expirated certificate "{{ $labels.name }}" in namespace "{{ $labels.namespace }}".'
-

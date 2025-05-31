@@ -123,5 +123,3 @@ tests:
       # at day 30, Alert stopped :
       - eval_time: 720h
         alertname: PrometheusDown
-
-

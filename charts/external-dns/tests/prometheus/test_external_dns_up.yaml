@@ -162,4 +162,3 @@ tests:
       # Alert stopped:
       - eval_time: 93m
         alertname: ExternalDnsSourceErrorsAreHigh
-
