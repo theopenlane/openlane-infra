@@ -15,6 +15,6 @@ sources:
 home: https://www.theopenlane.io
 dependencies:
   - name: openlane-gcp-compute-router
-    version: "0.1.1"
+    version: 0.1.0
     repository: "https://theopenlane.github.io/openlane-infra"
     alias: gcpCloudRouter

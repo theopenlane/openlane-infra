@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://theopenlane.github.io/openlane-infra | gcpCloudRouter(openlane-gcp-compute-router) | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | gcpCloudRouter(openlane-gcp-compute-router) | 0.1.0 |
 
 ## Maintainers
 
