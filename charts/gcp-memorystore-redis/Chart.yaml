@@ -4,6 +4,7 @@ description: A Helm chart that Creates a Google Memory Store (Redis instance) th
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-memorystore
 type: application
 version: 0.1.0

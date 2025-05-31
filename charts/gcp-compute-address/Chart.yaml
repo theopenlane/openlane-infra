@@ -4,6 +4,7 @@ description: A Helm chart to provision a Compute Address via Config Connector
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-compute-address
 type: application
 version: 0.1.0

@@ -4,6 +4,7 @@ description: Deploys external-dns and its monitoring
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-external-dns
 version: 0.1.1
 dependencies:

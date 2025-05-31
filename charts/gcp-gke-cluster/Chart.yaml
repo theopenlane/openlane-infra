@@ -4,6 +4,7 @@ description: Provisions a GKE Cluster via Config Connector
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-gke-cluster
 type: application
 version: 0.1.1

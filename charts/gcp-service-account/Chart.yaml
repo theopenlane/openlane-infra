@@ -5,6 +5,7 @@ description: A Helm chart that Creates a Google Service Account and it's Key thr
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-service-account
 type: application
 version: 0.1.0

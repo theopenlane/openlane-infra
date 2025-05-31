@@ -1,6 +1,6 @@
 apiVersion: v2
 name: gcp-project-base
-description: Reusable chart for defining a GCP Project and its common resources.
+description: Reusable chart for defining a GCP Project and its common resources
 type: application
 version: 0.1.0
 appVersion: "1.0"
@@ -9,3 +9,7 @@ sources:
   - https://github.com/theopenlane/core
   - https://github.com/theopenlane/openlane-infra
 home: https://www.theopenlane.io
+maintainers:
+- email: support@theopenlane.io
+  name: Openlane
+  url: https://www.theopenlane.io

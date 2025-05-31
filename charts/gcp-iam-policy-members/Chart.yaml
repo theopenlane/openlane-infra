@@ -4,6 +4,7 @@ description: A Helm chart that Creates GCP IAM Policy Memebers through Config Co
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-iam-policy-members
 type: application
 version: 0.1.0

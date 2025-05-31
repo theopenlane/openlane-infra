@@ -4,6 +4,7 @@ description: A Helm chart to provision a Cloud NAT (ComputeRouterNAT) via Config
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-cloud-nat
 type: application
 version: 0.1.1

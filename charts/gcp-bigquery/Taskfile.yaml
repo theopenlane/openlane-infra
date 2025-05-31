@@ -42,6 +42,6 @@ tasks:
   docs:
     desc: Generate documentation
     cmds:
-      - helm-docs --output-file HELM.md --template-files HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+      - helm-docs --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
     preconditions:
       - which helm-docs

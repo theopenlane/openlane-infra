@@ -1,10 +1,8 @@
-{{ template "chart.versionBadge" .}}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
-# {{ .Name }}
+# openlane-gcp-service-account
 
-{{ template "chart.deprecationWarning" . }}
-
-{{ template "chart.homepageLine" . }}
+**Homepage:** <https://www.theopenlane.io>
 
 ## Prerequisites
 
@@ -15,17 +13,34 @@
 
 Once you've installed `task` you can simply run `task install` to get the remaining dependencies installed, assuning you're using macOS and have `brew`.
 
-{{ template "chart.requirementsSection" . }}
+## Maintainers
 
-{{ template "chart.maintainersSection" . }}
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Openlane | <support@theopenlane.io> |  |
 
 ## Description
 
-{{ template "chart.description" . }}
+A Helm chart that Creates a Google Service Account and it's Key through Config Connector
 
-{{ template "chart.sourcesSection" . }}
+## Source Code
 
-{{ template "chart.valuesSection" . }}
+* <https://github.com/theopenlane/core>
+* <https://github.com/theopenlane/openlane-infra>
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.cnrmNamespace | string | `nil | Allows to deploy in another namespace than the release one |
+| global.gcpProjectId | string | `"myprojectid"` | Google Project ID |
+| global.abandon | bool | `false` | Keep the GSA even after the kcc resource deletion |
+| name | string | `"mysa"` | Name of the service account. Will be used for the sa email creation. |
+| displayName | string | `"My SA"` | The display name for the service account. Can be updated without creating a new resource. |
+| description | string | `"Read the Bucket toto"` | A text description of the service account. Must be less than or equal to 256 UTF-8 bytes. |
+| key.create | bool | `false` |  |
+| key.importAsSecret | bool | `false` |  |
+| annotations | object | `{}` | Add annotations to the resources |
 
 ## Config Connector ressources
 
@@ -60,7 +75,7 @@ To add the chart and install the chart with with helm default values, run the fo
 
 ```bash
 helm repo add openlane-infra https://theopenlane.github.io/openlane-infra
-helm install openlane-infra/{{ .Name }}
+helm install openlane-infra/openlane-gcp-service-account
 ```
 
 ## Update documentation
@@ -100,5 +115,5 @@ task lint
 OR if you'd like to run the ct lint process by using a docker image, you can use a command like the following:
 
 ```bash
-docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/{{ .Name }} --config /charts/charts/{{ .Name }}/ct.yaml
+docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/openlane-gcp-service-account --config /charts/charts/openlane-gcp-service-account/ct.yaml
 ```

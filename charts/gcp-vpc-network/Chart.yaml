@@ -4,6 +4,7 @@ description: A Helm chart that Creates a Google VPC Network through Config Conne
 maintainers:
 - email: support@theopenlane.io
   name: Openlane
+  url: https://www.theopenlane.io
 name: openlane-gcp-vpc-network
 type: application
 version: 0.1.0
