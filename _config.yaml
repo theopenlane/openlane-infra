@@ -1,0 +1,8 @@
+title: Openlane Helm chart repo
+description: Central repository hosting helm charts for Openlane infrastructure and application deployment
+theme: minima
+url: "https://chharts.theopenlane.io/"
+repo_name: openlane-infra
+
+exclude:
+  - .gitignore
