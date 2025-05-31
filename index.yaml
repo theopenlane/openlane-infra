@@ -3,6 +3,25 @@ entries:
   gcp-project-base:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-05-31T19:17:26.685756473Z"
+    description: Reusable chart for defining a GCP Project and its common resources
+    digest: dfd582b72556989b9bde7e8f0484d987ee3301acc1b3934c858e9e707f1ef5f9
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: gcp-project-base
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - gcp-project-base-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-05-27T06:56:04.595056589Z"
     description: Reusable chart for defining a GCP Project and its common resources.
     digest: dc9b88507405981653f2cce3f3fb5bee8d301a73d68cffe6ef534fce28eac148
@@ -25,6 +44,25 @@ entries:
     - openlane-alertmanager-0.1.0.tgz
     version: 0.1.0
   openlane-argocd:
+  - apiVersion: v2
+    appVersion: 3.0.3
+    created: "2025-05-31T19:17:26.834419381Z"
+    dependencies:
+    - alias: argocd
+      name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 8.0.13
+    description: A Helm chart for Kubernetes
+    digest: 6bb397c9672125d7e515dc223b4f923b9dc5df99efc86f13008d6043977a956f
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-argocd
+    type: application
+    urls:
+    - openlane-argocd-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: 3.0.3
     created: "2025-05-24T20:35:12.810935111Z"
@@ -57,6 +95,37 @@ entries:
     - openlane-argocd-0.1.0.tgz
     version: 0.1.0
   openlane-cert-manager:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:26.986356322Z"
+    dependencies:
+    - alias: certmanager
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.17.2
+    - alias: workloadIdentity
+      name: openlane-gcp-workload-identity
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    - alias: iamPolicyMembers
+      name: openlane-gcp-iam-policy-members
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    description: A Helm chart for cert-manager
+    digest: 9e8b7b7054690ed760e6240e262f1dfb058ca1f356a5d08413cd1a21724e20c2
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-cert-manager
+    type: application
+    urls:
+    - openlane-cert-manager-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-24T20:35:12.947622481Z"
@@ -103,6 +172,36 @@ entries:
   openlane-external-dns:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:27.114395795Z"
+    dependencies:
+    - alias: externaldns
+      name: external-dns
+      repository: https://kubernetes-sigs.github.io/external-dns/
+      version: 1.16.1
+    - alias: workloadIdentity
+      name: openlane-gcp-workload-identity
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    - alias: iamPolicyMembers
+      name: openlane-gcp-iam-policy-members
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - configConnector
+      version: 0.1.0
+    description: Deploys external-dns and its monitoring
+    digest: 16f98363b79e5938b2aef54b3cff453ea625e22ede817844a5a3b64a9e2fa779
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-external-dns
+    urls:
+    - openlane-external-dns-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-24T20:35:13.088762077Z"
     dependencies:
     - alias: externaldns
@@ -145,6 +244,25 @@ entries:
   openlane-gcp-bigquery:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:27.233998657Z"
+    description: A Helm chart that Creates BigQuery resources through Config Connector
+    digest: 5c5450c24d3f985b4af267dd977583b8318e34739083b1e5f98771d726e0f36c
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-bigquery
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-bigquery-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-29T02:44:39.764788844Z"
     description: A Helm chart that Creates BigQuery resources through Config Connector
     digest: 9e7990afe1a628aea25a70451441865cebe21dbfbc94f2a3033358df21b9797b
@@ -165,6 +283,26 @@ entries:
   openlane-gcp-bootstrap:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-05-31T19:17:27.345841569Z"
+    description: Bootstrap chart for Openlane GCP infrastructure, creating folders,
+      and generating ArgoCD Applications for project deployments.
+    digest: d673417b5abe55c86175bb9a3b2fe4cb7c0c45ad37fddc01e9a145b1f71dab86
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-bootstrap
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-bootstrap-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-05-27T06:56:05.165829149Z"
     description: Bootstrap chart for OpenLane GCP infrastructure, creating folders,
       and generating ArgoCD Applications for project deployments.
@@ -175,6 +313,25 @@ entries:
     - openlane-gcp-bootstrap-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-bucket:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:27.489941432Z"
+    description: A Helm chart for creating a GCP Bucket via Config Connector
+    digest: d9ea5557c4a5833dd7fb5286a8dc5052a6056c2fc92e8233d39d6d02b2a9e45a
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-bucket
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-bucket-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:41.450003-05:00"
@@ -189,6 +346,31 @@ entries:
     - openlane-gcp-bucket-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-cloud-nat:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:27.610482522Z"
+    dependencies:
+    - alias: gcpCloudRouter
+      name: openlane-gcp-compute-router
+      repository: https://theopenlane.github.io/openlane-infra
+      version: 0.1.0
+    description: A Helm chart to provision a Cloud NAT (ComputeRouterNAT) via Config
+      Connector
+    digest: 539d9590c5b6e17fc8ff6e97e77482bbbe1570ff5b469edf2c2847e862365bf7
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-cloud-nat
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-cloud-nat-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-24T20:35:13.377961415Z"
@@ -225,6 +407,25 @@ entries:
   openlane-gcp-cloudsql:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:27.756125734Z"
+    description: A Helm chart that Creates a Google CloudSQL Instance via Config Connector
+    digest: 34847bda4480945a57020a90791e7f45c85097cbe50e0046bce1779b4d7eb5ec
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-cloudsql
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-cloudsql-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-26T18:08:36.699715017Z"
     description: A Helm chart that Creates a Google CloudSQL Instance via Config Connector
     digest: deb8975b4250cab32f34c74b8fe2488bc19c9b4c8c1f3f7fe2edb011e2514c25
@@ -237,6 +438,25 @@ entries:
     - openlane-gcp-cloudsql-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-compute-address:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:27.899325755Z"
+    description: A Helm chart to provision a Compute Address via Config Connector
+    digest: 9a8e7489e122827c2fbb1813c84b865fb6e1589dbf78ce8109157a09b98b4523
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-compute-address
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-compute-address-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:41.702252-05:00"
@@ -253,6 +473,25 @@ entries:
   openlane-gcp-compute-router:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.011295007Z"
+    description: A Helm chart to provision a Google Compute Router via Config Connector
+    digest: a5266aff531fa940049ab8289281256c99ed1dc7a09ee3626762b7b095fc8301
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-compute-router
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-compute-router-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:41.857665-05:00"
     description: A Helm chart to provision a Google Compute Router via Config Connector
     digest: 54b8481ab20a078d2b5d127a215c38e5381dc72380ee822d9d9bce5a6844a554
@@ -267,6 +506,25 @@ entries:
   openlane-gcp-dns-zone:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.135116373Z"
+    description: A Helm chart for gcp-dns-zone resource
+    digest: c2d1a27a51f1acf0dc7665e4091ea040e70d689e41ab15180ed6cce57e6d4bac
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-dns-zone
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-dns-zone-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:41.989581-05:00"
     description: A Helm chart for gcp-dns-zone resource
     digest: d0e937410bc1a0f0c6396ca66b4f3db1c294e43528b0bc68cbda8238004295d7
@@ -279,6 +537,44 @@ entries:
     - openlane-gcp-dns-zone-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-gke-cluster:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.284647203Z"
+    dependencies:
+    - alias: gcpSubnetwork
+      name: openlane-gcp-subnetwork
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - networking
+      version: 0.1.0
+    - alias: gcpVpcNetwork
+      name: openlane-gcp-vpc-network
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - networking
+      version: 0.1.0
+    - alias: gcpCloudNat
+      name: openlane-gcp-cloud-nat
+      repository: https://theopenlane.github.io/openlane-infra
+      tags:
+      - enable-nat
+      version: 0.1.1
+    description: Provisions a GKE Cluster via Config Connector
+    digest: d42d3bffd76669fd7db47b1ded0e9f15accd65ab9815c552f5b6cb95cc94e791
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-gke-cluster
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-gke-cluster-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-24T20:35:13.855890582Z"
@@ -327,6 +623,25 @@ entries:
   openlane-gcp-iam-policy-members:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.40155644Z"
+    description: A Helm chart that Creates GCP IAM Policy Members through Config Connector
+    digest: dc86a272efb5396d43a914eee62b156c781a95260b49f759a1e0308fed3c09a6
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-iam-policy-members
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-iam-policy-members-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:42.240284-05:00"
     description: A Helm chart that Creates GCP IAM Policy Memebers through Config
       Connector
@@ -340,6 +655,25 @@ entries:
     - openlane-gcp-iam-policy-members-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-kcc:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.523373179Z"
+    description: A Helm chart that manages a Config Connector GCP instance
+    digest: eff8fcfc45d5366a5d02f61e514545f7bfb90957ce112ebb40b98e929e5612c8
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-kcc
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-kcc-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-26T18:08:37.577497823Z"
@@ -356,6 +690,25 @@ entries:
   openlane-gcp-lb:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.66407585Z"
+    description: A Helm chart that Creates Loadbalancing resources via Config Connector
+    digest: a5f6450988511d593a21f6d6238b016ff78f47da481769634bf2c5f1f7d03949
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-lb
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-lb-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-26T18:08:37.720055274Z"
     description: A Helm chart that Creates Loadbalancing resources via Config Connector
     digest: 25109f477feb00452aff7fbff04a85a8741615e45988510ef0933b832127947d
@@ -368,6 +721,26 @@ entries:
     - openlane-gcp-lb-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-memorystore:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.772722103Z"
+    description: A Helm chart that Creates a Google Memory Store (Redis instance)
+      through Config Connector
+    digest: 3260e9e3a3b2c980c08863d6002d107edc265a1c6cb8fc9275bfa72c85431a92
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-memorystore
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-memorystore-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-26T18:08:37.863206789Z"
@@ -399,6 +772,26 @@ entries:
   openlane-gcp-service-account:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:28.88792194Z"
+    description: A Helm chart that Creates a Google Service Account and it's Key through
+      Config Connector
+    digest: ce024fbffa82759e74fbc6b95a00f80043b7322682fa7488dd95a680466eac22
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-service-account
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-service-account-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:42.367222-05:00"
     description: A Helm chart that Creates a Google Service Account and it's Key through
       Config Connector
@@ -412,6 +805,25 @@ entries:
     - openlane-gcp-service-account-0.1.0.tgz
     version: 0.1.0
   openlane-gcp-subnetwork:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-05-31T19:17:29.036378772Z"
+    description: Chart for compute-subnetwork resource with config connector
+    digest: a0d4c08be3af54826f4f5d80b89abba55d89c14c8fbfc46440f05661ae255447
+    home: https://www.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-subnetwork
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-subnetwork-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-22T17:31:42.49201-05:00"
@@ -429,6 +841,24 @@ entries:
   openlane-gcp-vpc-network:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:29.147787011Z"
+    description: A Helm chart that Creates a Google VPC Network through Config Connector
+    digest: 1bd5d678529af882b37060887f824e4359fd720f2cfba4e16139d2706133a37f
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-vpc-network
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-vpc-network-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:42.623492-05:00"
     description: A Helm chart that Creates a Google VPC Network through Config Connector
     digest: 90522b947b884f0eebf9791fae3d4b3f80fa52478ee54e313b52659ce9e67fb6
@@ -443,6 +873,24 @@ entries:
   openlane-gcp-workload-identity:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-05-31T19:17:29.286740539Z"
+    description: A Helm chart for managing GKE workload identity on GCP
+    digest: c4bcca7f980ac054b61a53f705ac975c7872a3e43c4236afc25cb9ea62aad6d1
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-workload-identity
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-workload-identity-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-05-22T17:31:42.758562-05:00"
     description: A Helm chart for workload identity
     digest: 85e29483ca8ddb52ac682119c4da9cd0606cb51c1acde334faba0d001a7016c2
@@ -454,4 +902,4 @@ entries:
     urls:
     - openlane-gcp-workload-identity-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-29T02:44:41.840332955Z"
+generated: "2025-05-31T19:17:29.286817442Z"
