@@ -16,8 +16,8 @@ Once you've installed `task` you can simply run `task install` to get the remain
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.jetstack.io | certmanager(cert-manager) | v1.17.2 |
-| https://theopenlane.github.io/openlane-infra | iamPolicyMembers(openlane-gcp-iam-policy-members) | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | workloadIdentity(openlane-gcp-workload-identity) | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | iamPolicyMembers(openlane-gcp-iam-policy-members) | 0.1.0 |
+| https://theopenlane.github.io/openlane-infra | workloadIdentity(openlane-gcp-workload-identity) | 0.1.0 |
 
 ## Maintainers
 

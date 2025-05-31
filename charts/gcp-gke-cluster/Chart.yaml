@@ -15,19 +15,19 @@ sources:
 home: https://www.theopenlane.io
 dependencies:
   - name: openlane-gcp-subnetwork
-    version: 0.1.1
+    version: 0.1.0
     repository: "https://theopenlane.github.io/openlane-infra"
     alias: gcpSubnetwork
     tags:
       - networking
   - name: openlane-gcp-vpc-network
-    version: 0.1.1
+    version: 0.1.0
     repository: "https://theopenlane.github.io/openlane-infra"
     alias: gcpVpcNetwork
     tags:
       - networking
   - name: openlane-gcp-cloud-nat
-    version: 0.1.2
+    version: 0.1.1
     repository: "https://theopenlane.github.io/openlane-infra"
     alias: gcpCloudNat
     tags:

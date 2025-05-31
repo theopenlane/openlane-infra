@@ -13,13 +13,13 @@ dependencies:
     repository: "https://kubernetes-sigs.github.io/external-dns/"
     alias: externaldns
   - name: openlane-gcp-workload-identity
-    version: 0.1.1
+    version: 0.1.0
     repository: "https://theopenlane.github.io/openlane-infra"
     alias: workloadIdentity
     tags:
       - configConnector
   - name: openlane-gcp-iam-policy-members
-    version: 0.1.1
+    version: 0.1.0
     repository: "https://theopenlane.github.io/openlane-infra"
     alias: iamPolicyMembers
     tags:
