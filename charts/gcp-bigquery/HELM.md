@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Openlane | <support@theopenlane.io> | <https://wwww.theopenlane.io> |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
 
 ## Description
 
@@ -50,8 +50,8 @@ A Helm chart that Creates BigQuery resources through Config Connector
 | bigqueryDataset.defaultEncryptionConfiguration | object | `{}` |  |
 | bigqueryDataset.defaultPartitionExpirationMs | string | `""` |  |
 | bigqueryDataset.defaultTableExpirationMs | string | `""` |  |
-| bigqueryDataset.description | string | `""` | user defines defination |
-| bigqueryDataset.friendlyName | string | `""` | friendly defination |
+| bigqueryDataset.description | string | `""` | user defines definition |
+| bigqueryDataset.friendlyName | string | `""` | friendly definition |
 | bigqueryDataset.isCaseInsensitive | string | `""` |  |
 | bigqueryDataset.location | string | `""` | location of the dataset |
 | bigqueryDataset.maxTimeTravelHours | string | `""` |  |
@@ -59,9 +59,9 @@ A Helm chart that Creates BigQuery resources through Config Connector
 | bigqueryDataset.resourceID | string | `""` |  |
 | bigqueryDataset.storageBillingModel | string | `""` |  |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

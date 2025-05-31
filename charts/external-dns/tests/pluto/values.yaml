@@ -7,14 +7,14 @@ global:
 prometheus:
   enabled: false
   rules:
-    enabled: false 
+    enabled: false
   serviceMonitor:
     enabled: false
   grafanaDashboard:
     enabled: false
 
 externaldns:
-  provider: 
+  provider:
     name: google
   serviceAccount:
     annotations:

@@ -159,12 +159,12 @@ clusterAutoscaling:
     minCpuPlatform:
     # -- List of scopes that are used by node pool autoprovisioning when creating node pools.
     oauthScodes:
-    - "https://www.googleapis.com/auth/devstorage.read_only"
-    - "https://www.googleapis.com/auth/logging.write"
-    - "https://www.googleapis.com/auth/monitoring"
-    - "https://www.googleapis.com/auth/service.management.readonly"
-    - "https://www.googleapis.com/auth/servicecontrol"
-    - "https://www.googleapis.com/auth/trace.append"
+      - "https://www.googleapis.com/auth/devstorage.read_only"
+      - "https://www.googleapis.com/auth/logging.write"
+      - "https://www.googleapis.com/auth/monitoring"
+      - "https://www.googleapis.com/auth/service.management.readonly"
+      - "https://www.googleapis.com/auth/servicecontrol"
+      - "https://www.googleapis.com/auth/trace.append"
     # -- Reference to a service account used by NAP when creating node pools.
     serviceAccountRef:
       # -- Allowed value: The `email` field of an `IAMServiceAccount` resource.
@@ -207,12 +207,12 @@ clusterAutoscaling:
   # Contains information about amount of some resource in the cluster. For memory, value should be in GB.
   # @defaults -- See in the values.yaml file for more information
   resourceLimits: {}
-    # - maximum: 200
-    #   minimum: 1
-    #   resourceType: cpu
-    # - maximum: 20
-    #   minimum: 4
-    #   resourceType: memory
+  # - maximum: 200
+  #   minimum: 1
+  #   resourceType: cpu
+  # - maximum: 20
+  #   minimum: 4
+  #   resourceType: memory
 
 # -- Immutable. The IP address range of the Kubernetes pods in this cluster in CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one automatically chosen or specify a /14 block in 10.0.0.0/8. This field will only work for routes-based clusters, where ip_allocation_policy is not defined.
 clusterIpv4Cidr:
@@ -220,8 +220,8 @@ clusterIpv4Cidr:
 # -- Telemetry integration for the cluster. Allowed: UNSPECIFIED, DISABLED, ENABLED, SYSTEM_ONLY.
 # For more information: documentation [here](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#type)
 clusterTelemetry:
-  # -- Type of the integration.
-  # type: ""
+# -- Type of the integration.
+# type: ""
 
 # -- Immutable. Configuration for the confidential nodes feature, which makes nodes run on confidential VMs. Warning: This configuration can't be changed (or added/removed) after cluster creation without deleting and recreating the entire cluster.
 confidentialNodes:
@@ -402,7 +402,7 @@ masterAuthorizedNetworksConfig:
     - cidrBlock: 0.0.0.0/0
       # -- Field for users to identify CIDR blocks.
       displayName: "The Internet"
-  # -- Whether master is accessbile via Google Compute Engine Public IP addresses.
+  # -- Whether master is accessible via Google Compute Engine Public IP addresses.
   gcpPublicCidrsAccessEnabled: false
 
 # -- If set, and enable_certificates=true, the GKE Workload Identity Certificates controller and node agent will be deployed in the cluster.
@@ -554,7 +554,7 @@ workloadIdentityConfig:
   workloadPool:
 
 nodePools:
-    # nodePools[0].name -- Name of the node pool
+  # nodePools[0].name -- Name of the node pool
   - name: np1
     autoscaling:
       # -- Enables nodePool autoscaling
@@ -597,10 +597,10 @@ nodePools:
       # -- A list of hardware accelerators to be attached to each node. See https://cloud.google.com/compute/docs/gpus for more information about support for GPUs.
       # @default -- See the values.yaml file for an example.
       guestAccelerator: []
-        #   # -- The number of the accelerator cards exposed to an instance.
-        # - count: 4
-        #   # -- The accelerator type resource name. List of supported accelerators [here](https://cloud.google.com/compute/docs/gpus?hl=en)
-        #   type: nvidia-tesla-t4
+      #   # -- The number of the accelerator cards exposed to an instance.
+      # - count: 4
+      #   # -- The accelerator type resource name. List of supported accelerators [here](https://cloud.google.com/compute/docs/gpus?hl=en)
+      #   type: nvidia-tesla-t4
 
       # -- Type of Image used for the node pool instances
       imageType: COS_CONTAINERD
@@ -622,8 +622,8 @@ nodePools:
         - "https://www.googleapis.com/auth/trace.append"
       # -- Network tags to apply to the node pool.
       tags: []
-        # - gke-node-pool
-        # - standard-pool
+      # - gke-node-pool
+      # - standard-pool
       serviceAccount:
         # -- Display name of the service Account used for the runner. If create=false, use the email of the Service Account
         name: np1
@@ -634,14 +634,14 @@ nodePools:
       # -- List of taints to apply to the node pool. Must contains the following : [{"effect": "<effect>", "key": "<key>", "value": "<value>"}]
       # @default -- See the values.yaml file for an example.
       taints: []
-        # - key: cloud.google.com/gke-preemptible
-        #   value: "true"
-        #   effect: NO_SCHEDULE
+      # - key: cloud.google.com/gke-preemptible
+      #   value: "true"
+      #   effect: NO_SCHEDULE
       # -- Configure the node pool with preemptible instances
       preemptible: false
-    # -- (int) The number of nodes per instance group. This field can be used to update the number of nodes per instance group but should not be used alongside autoscaling.
-    # @default -- 1
-    # nodeCount:
+      # -- (int) The number of nodes per instance group. This field can be used to update the number of nodes per instance group but should not be used alongside autoscaling.
+      # @default -- 1
+      # nodeCount:
 
 # -- Enables Bigquery Dataset for billing GKE resources
 bigquery-dataset:

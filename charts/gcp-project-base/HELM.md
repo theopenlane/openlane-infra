@@ -13,9 +13,15 @@
 
 Once you've installed `task` you can simply run `task install` to get the remaining dependencies installed, assuning you're using macOS and have `brew`.
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
+
 ## Description
 
-Reusable chart for defining a GCP Project and its common resources.
+Reusable chart for defining a GCP Project and its common resources
 
 ## Source Code
 
@@ -54,9 +60,9 @@ Reusable chart for defining a GCP Project and its common resources.
 | serviceProjects | object | `{}` |  |
 | logSinks | object | `{}` |  |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

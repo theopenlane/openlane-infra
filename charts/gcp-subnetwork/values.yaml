@@ -1,4 +1,3 @@
----
 
 global:
   # global.cnrmNamespace -- Allows to deploy in another namespace than the release one
@@ -10,7 +9,7 @@ global:
   skipUnspecifiedFields: false
   # global.gcpProjectId -- Project ID where to deploy the cluster
   gcpProjectId: "myprojectid"
-  # global.description -- subNework description (use helm tpl)
+  # global.description -- subNetwork description (use helm tpl)
   description: ""
 
 # -- The name of the resource.

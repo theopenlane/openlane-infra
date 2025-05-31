@@ -2,14 +2,10 @@ apiVersion: container.cnrm.cloud.google.com/v1beta1
 kind: ContainerCluster
 metadata:
   annotations:
-    {{- if .Values.global.abandon }}
-    cnrm.cloud.google.com/deletion-policy: abandon
-    {{- end }}
-    cnrm.cloud.google.com/remove-default-node-pool: {{ .Values.removeDefaultNodePool | quote  }}
+    cnrm.cloud.google.com/deletion-policy: {{ .Values.global.abandon | default "abandon" }}
+    cnrm.cloud.google.com/remove-default-node-pool: {{ .Values.removeDefaultNodePool | default "true"}}
     cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
-    {{- if .Values.global.skipUnspecifiedFields }}
-    cnrm.cloud.google.com/state-into-spec: absent
-    {{- end }}
+    cnrm.cloud.google.com/state-into-spec: {{ .Values.global.skipUnspecifiedFields | default "absent" }}
   labels:
     {{- include "openlane-gcp-gke-cluster.labels" . | nindent 4 }}
   name: {{ include "openlane-gcp-gke-cluster.fullname" . }}
@@ -37,7 +33,7 @@ spec:
     servicesSecondaryRangeName: {{ $sharedVpc.network.subnets.gkeServicesSecondary.name }}
     useIpAliases: true
   {{- end }}
-  
+
   networkingMode: {{ .Values.networkingMode }}
   {{- if and (.Values.clusterIpv4Cidr) (eq .Values.networkingMode "ROUTES") (not .Values.ipAllocationPolicy) }}
   clusterIpv4Cidr: {{ .Values.clusterIpv4Cidr }}
@@ -160,7 +156,7 @@ spec:
         autoUpgrade: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.autoUpgrade }}
         {{- if .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions }}
         upgradeOptions:
-          {{- range $.Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions }}        
+          {{- range $.Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions }}
           - autoUpgradeStartTime: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions.autoUpgradeStartTime }}
             description: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions.description }}
           {{- end }}
@@ -170,7 +166,7 @@ spec:
       minCpuPlatform: {{ $.Values.clusterAutoscaling.autoProvisioningDefaults.minCpuPlatform }}
       {{- end }}
       {{- if .Values.clusterAutoscaling.autoProvisioningDefaults.oauthScopes }}
-      oauthScopes: 
+      oauthScopes:
         {{- range $.Values.clusterAutoscaling.autoProvisioningDefaults.oauthScopes }}
         - {{ . }}
         {{- end }}
@@ -668,7 +664,7 @@ spec:
   {{- end }}
 
   {{- if .Values.nodeLocations }}
-  nodeLocations: 
+  nodeLocations:
     {{- range .Values.nodeLocations }}
     - {{ . }}
     {{- end }}

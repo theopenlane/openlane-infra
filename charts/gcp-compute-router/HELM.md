@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Openlane | <support@theopenlane.io> |  |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
 
 ## Description
 
@@ -54,9 +54,9 @@ A Helm chart to provision a Google Compute Router via Config Connector
 | bgp.advertisedIpRanges[0].range | string | `nil` | The IP range to advertise. The value must be a CIDR-formatted string. |
 | bgp.keepaliveInterval | int | `20` | The interval in seconds between BGP keepalive messages that are sent to the peer. Hold time is three times the interval at which keepalive messages are sent, and the hold time is the maximum number of seconds allowed to elapse between successive keepalive messages that BGP receives from a peer. BGP will use the smaller of either the local hold time value or the peer's hold time value as the hold time for the BGP connection between the two peers. If set, this value must be between 20 and 60. The default is 20. |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

@@ -13,19 +13,19 @@ This setup is designed for **highly automated, declarative infrastructure manage
 
 ## Architecture Overview
 
-### Inheritance and Structure 
+### Inheritance and Structure
 
 We implement a three-tier inheritance model for configuration. The focus of this approach is configuration inheritance, emphasizing clear separation of concerns, secure-by-default settings, and scalability for a multi-environment, multi-project GCP organization.
 
 The underlying tiers of the structured charts are:
 
-1. Bootstrap Chart (openlane-gcp-bootstrap): 
+1. Bootstrap Chart (openlane-gcp-bootstrap):
     * Defines global configurations, folders, organization-level policies, KMS resources, and acts as an orchestrator that dynamically generates ArgoCD Application resources for each specific GCP project.
 
-1. Project Chart (gcp-project): 
+1. Project Chart (gcp-project):
     * A reusable blueprint for a single GCP project. It creates the KCC Project resource, enables necessary APIs, sets up project-level IAM, and acts as a parent for specific resource charts deployed within that project.
 
-1. Resource Charts (gcp-gke-cluster, gcp-cloudsql-postgresql, etc.): 
+1. Resource Charts (gcp-gke-cluster, gcp-cloudsql-postgresql, etc.):
     * Define granular GCP resources (e.g., GKE clusters, BigQuery datasets, Storage buckets) and are deployed as sub-charts of the gcp-project chart.
 
 ### Patterns and Practices
@@ -116,17 +116,17 @@ The repository includes a custom shell script (`openlane-chart.sh`) to scaffold 
 Example usage:
 
 ```bash
-./scripts/openlane-chart.sh create 
-  --name my-new-chart 
-  --dependency-url https://charts.example.com 
-  --dependency-chart-name example-chart 
-  --dependency-chart-version 1.2.3 
+./scripts/openlane-chart.sh create
+  --name my-new-chart
+  --dependency-url https://charts.example.com
+  --dependency-chart-name example-chart
+  --dependency-chart-version 1.2.3
   --dependency-alias exchart
 ```
 
 ### Linting and Testing
 
-We use [Chart Testing](https://github.com/helm/chart-testing) to ensure our charts follow best practices. To lint a chart, run eitehr:
+We use [Chart Testing](https://github.com/helm/chart-testing) to ensure our charts follow best practices. To lint a chart, run either:
 
 ```
 task lint
@@ -164,7 +164,7 @@ sharedVPC:
     - my-service-project-2
 ```
 
-## Project and Folder Heirarchy
+## Project and Folder Hierarchy
 
 ```bash
 organization

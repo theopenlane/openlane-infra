@@ -1,4 +1,3 @@
----
 prometheus:
   # -- Enables Prometheus Operator monitoring
   enabled: false
@@ -54,7 +53,7 @@ argocd:
     keep: true
     # -- Annotations to be added to all CRDs
     annotations: {}
-    # -- Addtional labels to be added to all CRDs
+    # -- Additional labels to be added to all CRDs
     additionalLabels: {}
 
   ## Globally shared configuration
@@ -68,7 +67,7 @@ argocd:
 
     # -- Common labels for the all resources
     additionalLabels: {}
-      # app: argo-cd
+    # app: argo-cd
 
     # -- Number of old deployment ReplicaSets to retain. The rest will be garbage collected.
     revisionHistoryLimit: 3
@@ -154,26 +153,26 @@ argocd:
         type: hard
         # -- Default match expressions for node affinity
         matchExpressions: []
-          # - key: topology.kubernetes.io/zone
-          #   operator: In
-          #   values:
-          #    - antarctica-east1
-          #    - antarctica-west1
+        # - key: topology.kubernetes.io/zone
+        #   operator: In
+        #   values:
+        #    - antarctica-east1
+        #    - antarctica-west1
 
     # -- Default [TopologySpreadConstraints] rules for all components
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector of the component
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy for the all deployed Deployments
     deploymentStrategy: {}
-      # type: RollingUpdate
-      # rollingUpdate:
-      #   maxSurge: 25%
-      #   maxUnavailable: 25%
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
 
     # -- Environment variables to pass to all deployed Deployments
     env: []
@@ -514,10 +513,10 @@ argocd:
       # @default -- `{}` (See [values.yaml])
       ## Note: Public keys should be exported with `gpg --export --armor <KEY>`
       keys: {}
-        # 4AEE18F83AFDEB23: |
-        #   -----BEGIN PGP PUBLIC KEY BLOCK-----
-        #   ...
-        #   -----END PGP PUBLIC KEY BLOCK-----
+      # 4AEE18F83AFDEB23: |
+      #   -----BEGIN PGP PUBLIC KEY BLOCK-----
+      #   ...
+      #   -----END PGP PUBLIC KEY BLOCK-----
 
     # SSH known hosts for Git repositories
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#ssh-known-host-public-keys
@@ -558,10 +557,10 @@ argocd:
       # -- TLS certificates for Git repositories
       # @default -- `{}` (See [values.yaml])
       certificates: {}
-        # server.example.com: |
-        #   -----BEGIN CERTIFICATE-----
-        #   ...
-        #   -----END CERTIFICATE-----
+      # server.example.com: |
+      #   -----BEGIN CERTIFICATE-----
+      #   ...
+      #   -----END CERTIFICATE-----
 
       # -- Specifies if the argocd-tls-certs-cm configmap should be created by Helm.
       create: true
@@ -577,37 +576,37 @@ argocd:
 
       # -- Plugin yaml files to be added to argocd-cmp-cm
       plugins: {}
-        # --- First plugin
-        # my-plugin:
-        #   init:
-        #     command: [sh]
-        #     args: [-c, 'echo "Initializing..."']
-        #   generate:
-        #     command: [sh, -c]
-        #     args:
-        #       - |
-        #         echo "{\"kind\": \"ConfigMap\", \"apiVersion\": \"v1\", \"metadata\": { \"name\": \"$ARGOCD_APP_NAME\", \"namespace\": \"$ARGOCD_APP_NAMESPACE\", \"annotations\": {\"Foo\": \"$ARGOCD_ENV_FOO\", \"KubeVersion\": \"$KUBE_VERSION\", \"KubeApiVersion\": \"$KUBE_API_VERSIONS\",\"Bar\": \"baz\"}}}"
-        #   discover:
-        #     fileName: "./subdir/s*.yaml"
-        #     find:
-        #       glob: "**/Chart.yaml"
-        #       command: [sh, -c, find . -name env.yaml]
+      # --- First plugin
+      # my-plugin:
+      #   init:
+      #     command: [sh]
+      #     args: [-c, 'echo "Initializing..."']
+      #   generate:
+      #     command: [sh, -c]
+      #     args:
+      #       - |
+      #         echo "{\"kind\": \"ConfigMap\", \"apiVersion\": \"v1\", \"metadata\": { \"name\": \"$ARGOCD_APP_NAME\", \"namespace\": \"$ARGOCD_APP_NAMESPACE\", \"annotations\": {\"Foo\": \"$ARGOCD_ENV_FOO\", \"KubeVersion\": \"$KUBE_VERSION\", \"KubeApiVersion\": \"$KUBE_API_VERSIONS\",\"Bar\": \"baz\"}}}"
+      #   discover:
+      #     fileName: "./subdir/s*.yaml"
+      #     find:
+      #       glob: "**/Chart.yaml"
+      #       command: [sh, -c, find . -name env.yaml]
 
-        # --- Second plugin
-        # my-plugin2:
-        #   init:
-        #     command: [sh]
-        #     args: [-c, 'echo "Initializing..."']
-        #   generate:
-        #     command: [sh, -c]
-        #     args:
-        #       - |
-        #         echo "{\"kind\": \"ConfigMap\", \"apiVersion\": \"v1\", \"metadata\": { \"name\": \"$ARGOCD_APP_NAME\", \"namespace\": \"$ARGOCD_APP_NAMESPACE\", \"annotations\": {\"Foo\": \"$ARGOCD_ENV_FOO\", \"KubeVersion\": \"$KUBE_VERSION\", \"KubeApiVersion\": \"$KUBE_API_VERSIONS\",\"Bar\": \"baz\"}}}"
-        #   discover:
-        #     fileName: "./subdir/s*.yaml"
-        #     find:
-        #       glob: "**/Chart.yaml"
-        #       command: [sh, -c, find . -name env.yaml]
+      # --- Second plugin
+      # my-plugin2:
+      #   init:
+      #     command: [sh]
+      #     args: [-c, 'echo "Initializing..."']
+      #   generate:
+      #     command: [sh, -c]
+      #     args:
+      #       - |
+      #         echo "{\"kind\": \"ConfigMap\", \"apiVersion\": \"v1\", \"metadata\": { \"name\": \"$ARGOCD_APP_NAME\", \"namespace\": \"$ARGOCD_APP_NAMESPACE\", \"annotations\": {\"Foo\": \"$ARGOCD_ENV_FOO\", \"KubeVersion\": \"$KUBE_VERSION\", \"KubeApiVersion\": \"$KUBE_API_VERSIONS\",\"Bar\": \"baz\"}}}"
+      #   discover:
+      #     fileName: "./subdir/s*.yaml"
+      #     find:
+      #       glob: "**/Chart.yaml"
+      #       command: [sh, -c, find . -name env.yaml]
 
     # -- Provide one or multiple [external cluster credentials]
     # @default -- `{}` (See [values.yaml])
@@ -616,69 +615,69 @@ argocd:
     ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/security/#external-cluster-credentials
     ## - https://argo-cd.readthedocs.io/en/stable/user-guide/projects/#project-scoped-repositories-and-clusters
     clusterCredentials: {}
-      # mycluster:
-      #   server: https://mycluster.example.com
-      #   labels: {}
-      #   annotations: {}
-      #   config:
-      #     bearerToken: "<authentication token>"
-      #     tlsClientConfig:
-      #       insecure: false
-      #       caData: "<base64 encoded certificate>"
-      # mycluster2:
-      #   server: https://mycluster2.example.com
-      #   labels: {}
-      #   annotations: {}
-      #   namespaces: namespace1,namespace2
-      #   clusterResources: true
-      #   config:
-      #     bearerToken: "<authentication token>"
-      #     tlsClientConfig:
-      #       insecure: false
-      #       caData: "<base64 encoded certificate>"
-      # mycluster3-project-scoped:
-      #   server: https://mycluster3.example.com
-      #   labels: {}
-      #   annotations: {}
-      #   project: my-project1
-      #   config:
-      #     bearerToken: "<authentication token>"
-      #     tlsClientConfig:
-      #       insecure: false
-      #       caData: "<base64 encoded certificate>"
-      # mycluster4-sharded:
-      #   shard: 1
-      #   server: https://mycluster4.example.com
-      #   labels: {}
-      #   annotations: {}
-      #   config:
-      #     bearerToken: "<authentication token>"
-      #     tlsClientConfig:
-      #       insecure: false
-      #       caData: "<base64 encoded certificate>"
+    # mycluster:
+    #   server: https://mycluster.example.com
+    #   labels: {}
+    #   annotations: {}
+    #   config:
+    #     bearerToken: "<authentication token>"
+    #     tlsClientConfig:
+    #       insecure: false
+    #       caData: "<base64 encoded certificate>"
+    # mycluster2:
+    #   server: https://mycluster2.example.com
+    #   labels: {}
+    #   annotations: {}
+    #   namespaces: namespace1,namespace2
+    #   clusterResources: true
+    #   config:
+    #     bearerToken: "<authentication token>"
+    #     tlsClientConfig:
+    #       insecure: false
+    #       caData: "<base64 encoded certificate>"
+    # mycluster3-project-scoped:
+    #   server: https://mycluster3.example.com
+    #   labels: {}
+    #   annotations: {}
+    #   project: my-project1
+    #   config:
+    #     bearerToken: "<authentication token>"
+    #     tlsClientConfig:
+    #       insecure: false
+    #       caData: "<base64 encoded certificate>"
+    # mycluster4-sharded:
+    #   shard: 1
+    #   server: https://mycluster4.example.com
+    #   labels: {}
+    #   annotations: {}
+    #   config:
+    #     bearerToken: "<authentication token>"
+    #     tlsClientConfig:
+    #       insecure: false
+    #       caData: "<base64 encoded certificate>"
 
     # -- Repository credentials to be used as Templates for other repos
     ## Creates a secret for each key/value specified below to create repository credentials
     credentialTemplates: {}
-      # github-enterprise-creds-1:
-      #   url: https://github.com/argoproj
-      #   githubAppID: 1
-      #   githubAppInstallationID: 2
-      #   githubAppEnterpriseBaseUrl: https://ghe.example.com/api/v3
-      #   githubAppPrivateKey: |
-      #     -----BEGIN OPENSSH PRIVATE KEY-----
-      #     ...
-      #     -----END OPENSSH PRIVATE KEY-----
-      # https-creds:
-      #   url: https://github.com/argoproj
-      #   password: my-password
-      #   username: my-username
-      # ssh-creds:
-      #  url: git@github.com:argoproj-labs
-      #  sshPrivateKey: |
-      #    -----BEGIN OPENSSH PRIVATE KEY-----
-      #    ...
-      #    -----END OPENSSH PRIVATE KEY-----
+    # github-enterprise-creds-1:
+    #   url: https://github.com/argoproj
+    #   githubAppID: 1
+    #   githubAppInstallationID: 2
+    #   githubAppEnterpriseBaseUrl: https://ghe.example.com/api/v3
+    #   githubAppPrivateKey: |
+    #     -----BEGIN OPENSSH PRIVATE KEY-----
+    #     ...
+    #     -----END OPENSSH PRIVATE KEY-----
+    # https-creds:
+    #   url: https://github.com/argoproj
+    #   password: my-password
+    #   username: my-username
+    # ssh-creds:
+    #  url: git@github.com:argoproj-labs
+    #  sshPrivateKey: |
+    #    -----BEGIN OPENSSH PRIVATE KEY-----
+    #    ...
+    #    -----END OPENSSH PRIVATE KEY-----
 
     # -- Annotations to be added to `configs.credentialTemplates` Secret
     credentialTemplatesAnnotations: {}
@@ -687,18 +686,18 @@ argocd:
     ## Creates a secret for each key/value specified below to create repositories
     ## Note: the last example in the list would use a repository credential template, configured under "configs.credentialTemplates".
     repositories: {}
-      # istio-helm-repo:
-      #   url: https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts
-      #   name: istio.io
-      #   type: helm
-      # private-helm-repo:
-      #   url: https://my-private-chart-repo.internal
-      #   name: private-repo
-      #   type: helm
-      #   password: my-password
-      #   username: my-username
-      # private-repo:
-      #   url: https://github.com/argoproj/private-repo
+    # istio-helm-repo:
+    #   url: https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts
+    #   name: istio.io
+    #   type: helm
+    # private-helm-repo:
+    #   url: https://my-private-chart-repo.internal
+    #   name: private-repo
+    #   type: helm
+    #   password: my-password
+    #   username: my-username
+    # private-repo:
+    #   url: https://github.com/argoproj/private-repo
 
     # -- Annotations to be added to `configs.repositories` Secret
     repositoriesAnnotations: {}
@@ -734,9 +733,8 @@ argocd:
       ## Custom secrets. Useful for injecting SSO secrets into environment variables.
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#sensitive-data-and-sso-client-secrets
       ## Note that all values must be non-empty.
-      extra:
-        {}
-        # LDAP_PASSWORD: "mypassword"
+      extra: {}
+      # LDAP_PASSWORD: "mypassword"
 
       # -- Bcrypt hashed admin password
       ## Argo expects the password in the secret to be bcrypt hashed. You can create this hash with
@@ -759,31 +757,31 @@ argocd:
   # -- Array of extra K8s manifests to deploy
   ## Note: Supports use of custom Helm templates
   extraObjects: []
-    # - apiVersion: secrets-store.csi.x-k8s.io/v1
-    #   kind: SecretProviderClass
-    #   metadata:
-    #     name: argocd-secrets-store
-    #   spec:
-    #     provider: aws
-    #     parameters:
-    #       objects: |
-    #         - objectName: "argocd"
-    #           objectType: "secretsmanager"
-    #           jmesPath:
-    #               - path: "client_id"
-    #                 objectAlias: "client_id"
-    #               - path: "client_secret"
-    #                 objectAlias: "client_secret"
-    #     secretObjects:
-    #     - data:
-    #       - key: client_id
-    #         objectName: client_id
-    #       - key: client_secret
-    #         objectName: client_secret
-    #       secretName: argocd-secrets-store
-    #       type: Opaque
-    #       labels:
-    #         app.kubernetes.io/part-of: argocd
+  # - apiVersion: secrets-store.csi.x-k8s.io/v1
+  #   kind: SecretProviderClass
+  #   metadata:
+  #     name: argocd-secrets-store
+  #   spec:
+  #     provider: aws
+  #     parameters:
+  #       objects: |
+  #         - objectName: "argocd"
+  #           objectType: "secretsmanager"
+  #           jmesPath:
+  #               - path: "client_id"
+  #                 objectAlias: "client_id"
+  #               - path: "client_secret"
+  #                 objectAlias: "client_secret"
+  #     secretObjects:
+  #     - data:
+  #       - key: client_id
+  #         objectName: client_id
+  #       - key: client_secret
+  #         objectName: client_secret
+  #       secretName: argocd-secrets-store
+  #       type: Opaque
+  #       labels:
+  #         app.kubernetes.io/part-of: argocd
 
   ## Application controller
   controller:
@@ -944,7 +942,7 @@ argocd:
         type: RuntimeDefault
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     # Readiness probe for application controller
     ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -984,9 +982,9 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Automount API credentials for the Service Account into the pod.
     automountServiceAccountToken: true
@@ -1040,7 +1038,7 @@ argocd:
         metricRelabelings: []
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- Prometheus ServiceMonitor scheme
         scheme: ""
@@ -1059,7 +1057,7 @@ argocd:
         namespace: "" # "monitoring"
         # -- PrometheusRule selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- PrometheusRule labels
         additionalLabels: {}
@@ -1138,7 +1136,7 @@ argocd:
         metricRelabelings: []
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- Prometheus ServiceMonitor scheme
         scheme: ""
@@ -1163,7 +1161,7 @@ argocd:
       # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
       # @default -- `""` (defaults to 0 if not specified)
       minAvailable: ""
-      # -- Number of pods that are unavailble after eviction as number or percentage (eg.: 50%).
+      # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%).
       ## Has higher precedence over `dex.pdb.minAvailable`
       maxUnavailable: ""
 
@@ -1294,7 +1292,7 @@ argocd:
         type: RuntimeDefault
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     ## Probes for Dex server
     ## Supported from Dex >= 2.28.0
@@ -1386,16 +1384,16 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy to be added to the Dex server Deployment
     deploymentStrategy: {}
-      # type: RollingUpdate
-      # rollingUpdate:
-      #   maxSurge: 25%
-      #   maxUnavailable: 25%
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
 
     # DEPRECATED - Use configs.params to override
     # -- Dex log format. Either `text` or `json`
@@ -1428,7 +1426,7 @@ argocd:
       # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
       # @default -- `""` (defaults to 0 if not specified)
       minAvailable: ""
-      # -- Number of pods that are unavailble after eviction as number or percentage (eg.: 50%).
+      # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%).
       ## Has higher precedence over `redis.pdb.minAvailable`
       maxUnavailable: ""
 
@@ -1469,7 +1467,7 @@ argocd:
           type: RuntimeDefault
         capabilities:
           drop:
-          - ALL
+            - ALL
 
       ## Probes for Redis exporter (optional)
       ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -1502,12 +1500,12 @@ argocd:
 
       # -- Resource limits and requests for redis-exporter sidecar
       resources: {}
-        # limits:
-        #   cpu: 50m
-        #   memory: 64Mi
-        # requests:
-        #   cpu: 10m
-        #   memory: 32Mi
+      # limits:
+      #   cpu: 50m
+      #   memory: 64Mi
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
 
     # -- Secrets with credentials to pull images from a private registry
     # @default -- `[]` (defaults to global.imagePullSecrets)
@@ -1617,7 +1615,7 @@ argocd:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     # -- Redis service port
     servicePort: 6379
@@ -1643,9 +1641,9 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- terminationGracePeriodSeconds for container lifecycle hook
     terminationGracePeriodSeconds: 30
@@ -1701,7 +1699,7 @@ argocd:
         metricRelabelings: []
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- Prometheus ServiceMonitor scheme
         scheme: ""
@@ -1929,18 +1927,18 @@ argocd:
       targetMemoryUtilizationPercentage: 50
       # -- Configures the scaling behavior of the target in both Up and Down directions.
       behavior: {}
-        # scaleDown:
-        #  stabilizationWindowSeconds: 300
-        #  policies:
-        #   - type: Pods
-        #     value: 1
-        #     periodSeconds: 180
-        # scaleUp:
-        #   stabilizationWindowSeconds: 300
-        #   policies:
-        #   - type: Pods
-        #     value: 2
-        #     periodSeconds: 60
+      # scaleDown:
+      #  stabilizationWindowSeconds: 300
+      #  policies:
+      #   - type: Pods
+      #     value: 1
+      #     periodSeconds: 180
+      # scaleUp:
+      #   stabilizationWindowSeconds: 300
+      #   policies:
+      #   - type: Pods
+      #     value: 2
+      #     periodSeconds: 60
       # -- Configures custom HPA metrics for the Argo CD server
       # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
       metrics: []
@@ -2035,7 +2033,7 @@ argocd:
           type: RuntimeDefault
         capabilities:
           drop:
-          - ALL
+            - ALL
 
       # -- Resource limits and requests for the argocd-extensions container
       resources: {}
@@ -2147,7 +2145,7 @@ argocd:
         type: RuntimeDefault
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     ## Readiness and liveness probes for default backend
     ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -2199,16 +2197,16 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy to be added to the server Deployment
     deploymentStrategy: {}
-      # type: RollingUpdate
-      # rollingUpdate:
-      #   maxSurge: 25%
-      #   maxUnavailable: 25%
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
 
     # TLS certificate configuration via cert-manager
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/tls/#tls-certificates-used-by-argocd-server
@@ -2341,14 +2339,14 @@ argocd:
         metricRelabelings: []
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- Prometheus ServiceMonitor scheme
         scheme: ""
         # -- Prometheus ServiceMonitor tlsConfig
         tlsConfig: {}
         # -- Prometheus ServiceMonitor namespace
-        namespace: ""  # monitoring
+        namespace: "" # monitoring
         # -- Prometheus ServiceMonitor labels
         additionalLabels: {}
         # -- Prometheus ServiceMonitor annotations
@@ -2381,8 +2379,8 @@ argocd:
       # -- Additional ingress annotations
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
       annotations: {}
-        # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 
       # -- Defines which ingress controller will implement the resource
       ingressClassName: ""
@@ -2405,41 +2403,41 @@ argocd:
       # -- The list of additional hostnames to be covered by ingress record
       # @default -- `[]` (See [values.yaml])
       extraHosts: []
-        # - name: argocd.example.com
-        #   path: /
+      # - name: argocd.example.com
+      #   path: /
 
       # -- Additional ingress paths
       # @default -- `[]` (See [values.yaml])
       ## Note: Supports use of custom Helm templates
       extraPaths: []
-        # - path: /*
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: ssl-redirect
-        #       port:
-        #         name: use-annotation
+      # - path: /*
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: ssl-redirect
+      #       port:
+      #         name: use-annotation
 
       # -- Additional ingress rules
       # @default -- `[]` (See [values.yaml])
       ## Note: Supports use of custom Helm templates
       extraRules: []
-        # - http:
-        #     paths:
-        #     - path: /
-        #       pathType: Prefix
-        #       backend:
-        #         service:
-        #           name: '{{ include "argo-cd.server.fullname" . }}'
-        #           port:
-        #             name: '{{ .Values.server.service.servicePortHttpsName }}'
+      # - http:
+      #     paths:
+      #     - path: /
+      #       pathType: Prefix
+      #       backend:
+      #         service:
+      #           name: '{{ include "argo-cd.server.fullname" . }}'
+      #           port:
+      #             name: '{{ .Values.server.service.servicePortHttpsName }}'
 
       # -- Additional TLS configuration
       # @default -- `[]` (See [values.yaml])
       extraTls: []
-        # - hosts:
-        #   - argocd.example.com
-        #   secretName: your-certificate-name
+      # - hosts:
+      #   - argocd.example.com
+      #   secretName: your-certificate-name
 
       # AWS specific options for Application Load Balancer
       # Applies only when `serv.ingress.controller` is set to `aws`
@@ -2463,18 +2461,18 @@ argocd:
         # @default -- `{}` (See [values.yaml])
         ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters
         backendConfig: {}
-          # iap:
-          #  enabled: true
-          #  oauthclientCredentials:
-          #    secretName: argocd-secret
+        # iap:
+        #  enabled: true
+        #  oauthclientCredentials:
+        #    secretName: argocd-secret
 
         # -- Google [FrontendConfig] resource, for use with the GKE Ingress Controller
         # @default -- `{}` (See [values.yaml])
         ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters
         frontendConfig: {}
-          # redirectToHttps:
-          #   enabled: true
-          #   responseCodeName: RESPONSE_CODE
+        # redirectToHttps:
+        #   enabled: true
+        #   responseCodeName: RESPONSE_CODE
 
         # Managed GKE certificate for ingress hostname
         managedCertificate:
@@ -2483,7 +2481,7 @@ argocd:
           create: true
           # -- Additional domains for ManagedCertificate resource
           extraDomains: []
-            # - argocd.example.com
+          # - argocd.example.com
 
     # Dedicated gRPC ingress for ingress controllers that supports only single backend protocol per Ingress resource
     # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts
@@ -2514,41 +2512,41 @@ argocd:
       # -- The list of additional hostnames to be covered by ingress record
       # @default -- `[]` (See [values.yaml])
       extraHosts: []
-        # - name: grpc.argocd.example.com
-        #   path: /
+      # - name: grpc.argocd.example.com
+      #   path: /
 
       # -- Additional ingress paths for dedicated [gRPC-ingress]
       # @default -- `[]` (See [values.yaml])
       ## Note: Supports use of custom Helm templates
       extraPaths: []
-        # - path: /*
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: ssl-redirect
-        #       port:
-        #         name: use-annotation
+      # - path: /*
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: ssl-redirect
+      #       port:
+      #         name: use-annotation
 
       # -- Additional ingress rules
       # @default -- `[]` (See [values.yaml])
       ## Note: Supports use of custom Helm templates
       extraRules: []
-        # - http:
-        #     paths:
-        #     - path: /
-        #       pathType: Prefix
-        #       backend:
-        #         service:
-        #           name: '{{ include "argo-cd.server.fullname" . }}'
-        #           port:
-        #             name: '{{ .Values.server.service.servicePortHttpName }}'
+      # - http:
+      #     paths:
+      #     - path: /
+      #       pathType: Prefix
+      #       backend:
+      #         service:
+      #           name: '{{ include "argo-cd.server.fullname" . }}'
+      #           port:
+      #             name: '{{ .Values.server.service.servicePortHttpName }}'
 
       # -- Additional TLS configuration for dedicated [gRPC-ingress]
       # @default -- `[]` (See [values.yaml])
       extraTls: []
-        # - secretName: your-certificate-name
-        #   hosts:
-        #     - argocd.example.com
+      # - secretName: your-certificate-name
+      #   hosts:
+      #     - argocd.example.com
 
     # Create a OpenShift Route with SSL passthrough for UI and CLI
     # Consider setting 'hostname' e.g. https://argocd.apps-crc.testing/ using your Default Ingress Controller Domain
@@ -2600,18 +2598,18 @@ argocd:
       targetMemoryUtilizationPercentage: 50
       # -- Configures the scaling behavior of the target in both Up and Down directions.
       behavior: {}
-        # scaleDown:
-        #  stabilizationWindowSeconds: 300
-        #  policies:
-        #   - type: Pods
-        #     value: 1
-        #     periodSeconds: 180
-        # scaleUp:
-        #   stabilizationWindowSeconds: 300
-        #   policies:
-        #   - type: Pods
-        #     value: 2
-        #     periodSeconds: 60
+      # scaleDown:
+      #  stabilizationWindowSeconds: 300
+      #  policies:
+      #   - type: Pods
+      #     value: 1
+      #     periodSeconds: 180
+      # scaleUp:
+      #   stabilizationWindowSeconds: 300
+      #   policies:
+      #   - type: Pods
+      #     value: 2
+      #     periodSeconds: 60
       # -- Configures custom HPA metrics for the Argo CD repo server
       # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
       metrics: []
@@ -2669,46 +2667,46 @@ argocd:
     ## Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/config-management-plugins/
     ## Note: Supports use of custom Helm templates
     extraContainers: []
-      # - name: cmp-my-plugin
-      #   command:
-      #     - "/var/run/argocd/argocd-cmp-server"
-      #   image: busybox
-      #   securityContext:
-      #     runAsNonRoot: true
-      #     runAsUser: 999
-      #   volumeMounts:
-      #     - mountPath: /var/run/argocd
-      #       name: var-files
-      #     - mountPath: /home/argocd/cmp-server/plugins
-      #       name: plugins
-      #     # Remove this volumeMount if you've chosen to bake the config file into the sidecar image.
-      #     - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-      #       subPath: my-plugin.yaml
-      #       name: argocd-cmp-cm
-      #     # Starting with v2.4, do NOT mount the same tmp volume as the repo-server container. The filesystem separation helps
-      #     # mitigate path traversal attacks.
-      #     - mountPath: /tmp
-      #       name: cmp-tmp
-      # - name: cmp-my-plugin2
-      #   command:
-      #     - "/var/run/argocd/argocd-cmp-server"
-      #   image: busybox
-      #   securityContext:
-      #     runAsNonRoot: true
-      #     runAsUser: 999
-      #   volumeMounts:
-      #     - mountPath: /var/run/argocd
-      #       name: var-files
-      #     # Remove this volumeMount if you've chosen to bake the config file into the sidecar image.
-      #     - mountPath: /home/argocd/cmp-server/plugins
-      #       name: plugins
-      #     - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-      #       subPath: my-plugin2.yaml
-      #       name: argocd-cmp-cm
-      #     # Starting with v2.4, do NOT mount the same tmp volume as the repo-server container. The filesystem separation helps
-      #     # mitigate path traversal attacks.
-      #     - mountPath: /tmp
-      #       name: cmp-tmp
+    # - name: cmp-my-plugin
+    #   command:
+    #     - "/var/run/argocd/argocd-cmp-server"
+    #   image: busybox
+    #   securityContext:
+    #     runAsNonRoot: true
+    #     runAsUser: 999
+    #   volumeMounts:
+    #     - mountPath: /var/run/argocd
+    #       name: var-files
+    #     - mountPath: /home/argocd/cmp-server/plugins
+    #       name: plugins
+    #     # Remove this volumeMount if you've chosen to bake the config file into the sidecar image.
+    #     - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+    #       subPath: my-plugin.yaml
+    #       name: argocd-cmp-cm
+    #     # Starting with v2.4, do NOT mount the same tmp volume as the repo-server container. The filesystem separation helps
+    #     # mitigate path traversal attacks.
+    #     - mountPath: /tmp
+    #       name: cmp-tmp
+    # - name: cmp-my-plugin2
+    #   command:
+    #     - "/var/run/argocd/argocd-cmp-server"
+    #   image: busybox
+    #   securityContext:
+    #     runAsNonRoot: true
+    #     runAsUser: 999
+    #   volumeMounts:
+    #     - mountPath: /var/run/argocd
+    #       name: var-files
+    #     # Remove this volumeMount if you've chosen to bake the config file into the sidecar image.
+    #     - mountPath: /home/argocd/cmp-server/plugins
+    #       name: plugins
+    #     - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+    #       subPath: my-plugin2.yaml
+    #       name: argocd-cmp-cm
+    #     # Starting with v2.4, do NOT mount the same tmp volume as the repo-server container. The filesystem separation helps
+    #     # mitigate path traversal attacks.
+    #     - mountPath: /tmp
+    #       name: cmp-tmp
 
     # -- Init containers to add to the repo server pods
     initContainers: []
@@ -2780,7 +2778,7 @@ argocd:
     # -- Host Network for Repo server pods
     hostNetwork: false
 
-      # -- [DNS configuration]
+    # -- [DNS configuration]
     dnsConfig: {}
     # -- Alternative DNS policy for Repo server pods
     dnsPolicy: "ClusterFirst"
@@ -2795,7 +2793,7 @@ argocd:
         type: RuntimeDefault
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     ## Readiness and liveness probes for default backend
     ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -2843,16 +2841,16 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy to be added to the repo server Deployment
     deploymentStrategy: {}
-      # type: RollingUpdate
-      # rollingUpdate:
-      #   maxSurge: 25%
-      #   maxUnavailable: 25%
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
 
     # -- Priority class for the repo server pods
     # @default -- `""` (defaults to global.priorityClassName)
@@ -2918,7 +2916,7 @@ argocd:
         metricRelabelings: []
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- Prometheus ServiceMonitor scheme
         scheme: ""
@@ -3017,16 +3015,16 @@ argocd:
 
     # -- Environment variables to pass to the ApplicationSet controller
     extraEnv: []
-      # - name: "MY_VAR"
-      #   value: "value"
+    # - name: "MY_VAR"
+    #   value: "value"
 
     # -- envFrom to pass to the ApplicationSet controller
     # @default -- `[]` (See [values.yaml])
     extraEnvFrom: []
-      # - configMapRef:
-      #     name: config-map-name
-      # - secretRef:
-      #     name: secret-name
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
 
     # -- Additional containers to be added to the ApplicationSet controller pod
     ## Note: Supports use of custom Helm templates
@@ -3081,14 +3079,14 @@ argocd:
         metricRelabelings: []
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
 
         # -- Prometheus ServiceMonitor scheme
         scheme: ""
         # -- Prometheus ServiceMonitor tlsConfig
         tlsConfig: {}
         # -- Prometheus ServiceMonitor namespace
-        namespace: ""  # monitoring
+        namespace: "" # monitoring
         # -- Prometheus ServiceMonitor labels
         additionalLabels: {}
         # -- Prometheus ServiceMonitor annotations
@@ -3133,12 +3131,12 @@ argocd:
 
     # -- Resource limits and requests for the ApplicationSet controller pods.
     resources: {}
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
     # ApplicationSet controller container ports
     containerPorts:
@@ -3164,7 +3162,7 @@ argocd:
         type: RuntimeDefault
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     ## Probes for ApplicationSet controller (optional)
     ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -3216,16 +3214,16 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy to be added to the ApplicationSet controller Deployment
     deploymentStrategy: {}
-      # type: RollingUpdate
-      # rollingUpdate:
-      #   maxSurge: 25%
-      #   maxUnavailable: 25%
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
 
     # -- Priority class for the ApplicationSet controller pods
     # @default -- `""` (defaults to global.priorityClassName)
@@ -3301,40 +3299,40 @@ argocd:
       # -- The list of additional hostnames to be covered by ingress record
       # @default -- `[]` (See [values.yaml])
       extraHosts: []
-        # - name: argocd.example.com
-        #   path: /
+      # - name: argocd.example.com
+      #   path: /
 
       # -- Additional ingress paths
       # @default -- `[]` (See [values.yaml])
       extraPaths: []
-        # - path: /*
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: ssl-redirect
-        #       port:
-        #         name: use-annotation
+      # - path: /*
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: ssl-redirect
+      #       port:
+      #         name: use-annotation
 
       # -- Additional ingress rules
       # @default -- `[]` (See [values.yaml])
       ## Note: Supports use of custom Helm templates
       extraRules: []
-        # - http:
-        #    paths:
-        #    - path: /api/webhook
-        #      pathType: Prefix
-        #      backend:
-        #        service:
-        #          name: '{{ include "argo-cd.applicationSet.fullname" . }}'
-        #          port:
-        #            name: '{{ .Values.applicationSet.service.portName }}'
+      # - http:
+      #    paths:
+      #    - path: /api/webhook
+      #      pathType: Prefix
+      #      backend:
+      #        service:
+      #          name: '{{ include "argo-cd.applicationSet.fullname" . }}'
+      #          port:
+      #            name: '{{ .Values.applicationSet.service.portName }}'
 
       # -- Additional ingress TLS configuration
       # @default -- `[]` (See [values.yaml])
       extraTls: []
-        # - secretName: argocd-applicationset-tls
-        #   hosts:
-        #     - argocd-applicationset.example.com
+      # - secretName: argocd-applicationset-tls
+      #   hosts:
+      #     - argocd-applicationset.example.com
     # -- Enable ApplicationSet in any namespace feature
     allowAnyNamespace: false
   ## Notifications controller
@@ -3402,10 +3400,10 @@ argocd:
     # -- envFrom to pass to the notifications controller
     # @default -- `[]` (See [values.yaml])
     extraEnvFrom: []
-      # - configMapRef:
-      #     name: config-map-name
-      # - secretRef:
-      #     name: secret-name
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
 
     # -- Additional containers to be added to the notifications controller pod
     ## Note: Supports use of custom Helm templates
@@ -3424,8 +3422,8 @@ argocd:
     # -- Define user-defined context
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/templates/#defining-user-defined-context
     context: {}
-      # region: east
-      # environmentName: staging
+    # region: east
+    # environmentName: staging
 
     secret:
       # -- Whether helm chart creates notifications controller secret
@@ -3445,17 +3443,17 @@ argocd:
       ## Can be used for templates, notification services etc. Some examples given below.
       ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/
       items: {}
-        # slack-token:
-        #   # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/
+      # slack-token:
+      #   # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/
 
-        # grafana-apiKey:
-        #   # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/grafana/
+      # grafana-apiKey:
+      #   # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/grafana/
 
-        # webhooks-github-token:
+      # webhooks-github-token:
 
-        # email-username:
-        # email-password:
-          # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/email/
+      # email-username:
+      # email-password:
+      # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/email/
 
     metrics:
       # -- Enables prometheus metrics server
@@ -3478,7 +3476,7 @@ argocd:
         enabled: false
         # -- Prometheus ServiceMonitor selector
         selector: {}
-          # prometheus: kube-prometheus
+        # prometheus: kube-prometheus
         # -- Prometheus ServiceMonitor labels
         additionalLabels: {}
         # -- Prometheus ServiceMonitor annotations
@@ -3501,8 +3499,8 @@ argocd:
     # @default -- See [values.yaml]
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/
     notifiers: {}
-      # service.slack: |
-      #   token: $slack-token
+    # service.slack: |
+    #   token: $slack-token
 
     # -- Annotations to be applied to the notifications controller Deployment
     deploymentAnnotations: {}
@@ -3515,12 +3513,12 @@ argocd:
 
     # -- Resource limits and requests for the notifications controller
     resources: {}
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
     # Notification controller container ports
     containerPorts:
@@ -3542,7 +3540,7 @@ argocd:
         type: RuntimeDefault
       capabilities:
         drop:
-        - ALL
+          - ALL
 
     ## Probes for notifications controller Pods (optional)
     ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
@@ -3594,9 +3592,9 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy to be added to the notifications controller Deployment
     deploymentStrategy:
@@ -3634,274 +3632,274 @@ argocd:
     # -- Contains centrally managed global application subscriptions
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/subscriptions/
     subscriptions: []
-      # # subscription for on-sync-status-unknown trigger notifications
-      # - recipients:
-      #   - slack:test2
-      #   - email:test@gmail.com
-      #   triggers:
-      #   - on-sync-status-unknown
-      # # subscription restricted to applications with matching labels only
-      # - recipients:
-      #   - slack:test3
-      #   selector: test=true
-      #   triggers:
-      #   - on-sync-status-unknown
+    # # subscription for on-sync-status-unknown trigger notifications
+    # - recipients:
+    #   - slack:test2
+    #   - email:test@gmail.com
+    #   triggers:
+    #   - on-sync-status-unknown
+    # # subscription restricted to applications with matching labels only
+    # - recipients:
+    #   - slack:test3
+    #   selector: test=true
+    #   triggers:
+    #   - on-sync-status-unknown
 
     # -- The notification template is used to generate the notification content
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/templates/
     templates: {}
-      # template.app-deployed: |
-      #   email:
-      #     subject: New version of an application {{.app.metadata.name}} is up and running.
-      #   message: |
-      #     {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} is now running new version of deployments manifests.
-      #   slack:
-      #     attachments: |
-      #       [{
-      #         "title": "{{ .app.metadata.name}}",
-      #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      #         "color": "#18be52",
-      #         "fields": [
-      #         {
-      #           "title": "Sync Status",
-      #           "value": "{{.app.status.sync.status}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Repository",
-      #           "value": "{{.app.spec.source.repoURL}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Revision",
-      #           "value": "{{.app.status.sync.revision}}",
-      #           "short": true
-      #         }
-      #         {{range $index, $c := .app.status.conditions}}
-      #         {{if not $index}},{{end}}
-      #         {{if $index}},{{end}}
-      #         {
-      #           "title": "{{$c.type}}",
-      #           "value": "{{$c.message}}",
-      #           "short": true
-      #         }
-      #         {{end}}
-      #         ]
-      #       }]
-      # template.app-health-degraded: |
-      #   email:
-      #     subject: Application {{.app.metadata.name}} has degraded.
-      #   message: |
-      #     {{if eq .serviceType "slack"}}:exclamation:{{end}} Application {{.app.metadata.name}} has degraded.
-      #     Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
-      #   slack:
-      #     attachments: |-
-      #       [{
-      #         "title": "{{ .app.metadata.name}}",
-      #         "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      #         "color": "#f4c030",
-      #         "fields": [
-      #         {
-      #           "title": "Sync Status",
-      #           "value": "{{.app.status.sync.status}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Repository",
-      #           "value": "{{.app.spec.source.repoURL}}",
-      #           "short": true
-      #         }
-      #         {{range $index, $c := .app.status.conditions}}
-      #         {{if not $index}},{{end}}
-      #         {{if $index}},{{end}}
-      #         {
-      #           "title": "{{$c.type}}",
-      #           "value": "{{$c.message}}",
-      #           "short": true
-      #         }
-      #         {{end}}
-      #         ]
-      #       }]
-      # template.app-sync-failed: |
-      #   email:
-      #     subject: Failed to sync application {{.app.metadata.name}}.
-      #   message: |
-      #     {{if eq .serviceType "slack"}}:exclamation:{{end}}  The sync operation of application {{.app.metadata.name}} has failed at {{.app.status.operationState.finishedAt}} with the following error: {{.app.status.operationState.message}}
-      #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
-      #   slack:
-      #     attachments: |-
-      #       [{
-      #         "title": "{{ .app.metadata.name}}",
-      #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      #         "color": "#E96D76",
-      #         "fields": [
-      #         {
-      #           "title": "Sync Status",
-      #           "value": "{{.app.status.sync.status}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Repository",
-      #           "value": "{{.app.spec.source.repoURL}}",
-      #           "short": true
-      #         }
-      #         {{range $index, $c := .app.status.conditions}}
-      #         {{if not $index}},{{end}}
-      #         {{if $index}},{{end}}
-      #         {
-      #           "title": "{{$c.type}}",
-      #           "value": "{{$c.message}}",
-      #           "short": true
-      #         }
-      #         {{end}}
-      #         ]
-      #       }]
-      # template.app-sync-running: |
-      #   email:
-      #     subject: Start syncing application {{.app.metadata.name}}.
-      #   message: |
-      #     The sync operation of application {{.app.metadata.name}} has started at {{.app.status.operationState.startedAt}}.
-      #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
-      #   slack:
-      #     attachments: |-
-      #       [{
-      #         "title": "{{ .app.metadata.name}}",
-      #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      #         "color": "#0DADEA",
-      #         "fields": [
-      #         {
-      #           "title": "Sync Status",
-      #           "value": "{{.app.status.sync.status}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Repository",
-      #           "value": "{{.app.spec.source.repoURL}}",
-      #           "short": true
-      #         }
-      #         {{range $index, $c := .app.status.conditions}}
-      #         {{if not $index}},{{end}}
-      #         {{if $index}},{{end}}
-      #         {
-      #           "title": "{{$c.type}}",
-      #           "value": "{{$c.message}}",
-      #           "short": true
-      #         }
-      #         {{end}}
-      #         ]
-      #       }]
-      # template.app-sync-status-unknown: |
-      #   email:
-      #     subject: Application {{.app.metadata.name}} sync status is 'Unknown'
-      #   message: |
-      #     {{if eq .serviceType "slack"}}:exclamation:{{end}} Application {{.app.metadata.name}} sync is 'Unknown'.
-      #     Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
-      #     {{if ne .serviceType "slack"}}
-      #     {{range $c := .app.status.conditions}}
-      #         * {{$c.message}}
-      #     {{end}}
-      #     {{end}}
-      #   slack:
-      #     attachments: |-
-      #       [{
-      #         "title": "{{ .app.metadata.name}}",
-      #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      #         "color": "#E96D76",
-      #         "fields": [
-      #         {
-      #           "title": "Sync Status",
-      #           "value": "{{.app.status.sync.status}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Repository",
-      #           "value": "{{.app.spec.source.repoURL}}",
-      #           "short": true
-      #         }
-      #         {{range $index, $c := .app.status.conditions}}
-      #         {{if not $index}},{{end}}
-      #         {{if $index}},{{end}}
-      #         {
-      #           "title": "{{$c.type}}",
-      #           "value": "{{$c.message}}",
-      #           "short": true
-      #         }
-      #         {{end}}
-      #         ]
-      #       }]
-      # template.app-sync-succeeded: |
-      #   email:
-      #     subject: Application {{.app.metadata.name}} has been successfully synced.
-      #   message: |
-      #     {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
-      #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
-      #   slack:
-      #     attachments: |-
-      #       [{
-      #         "title": "{{ .app.metadata.name}}",
-      #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-      #         "color": "#18be52",
-      #         "fields": [
-      #         {
-      #           "title": "Sync Status",
-      #           "value": "{{.app.status.sync.status}}",
-      #           "short": true
-      #         },
-      #         {
-      #           "title": "Repository",
-      #           "value": "{{.app.spec.source.repoURL}}",
-      #           "short": true
-      #         }
-      #         {{range $index, $c := .app.status.conditions}}
-      #         {{if not $index}},{{end}}
-      #         {{if $index}},{{end}}
-      #         {
-      #           "title": "{{$c.type}}",
-      #           "value": "{{$c.message}}",
-      #           "short": true
-      #         }
-      #         {{end}}
-      #         ]
-      #       }]
+    # template.app-deployed: |
+    #   email:
+    #     subject: New version of an application {{.app.metadata.name}} is up and running.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} is now running new version of deployments manifests.
+    #   slack:
+    #     attachments: |
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#18be52",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Revision",
+    #           "value": "{{.app.status.sync.revision}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-health-degraded: |
+    #   email:
+    #     subject: Application {{.app.metadata.name}} has degraded.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:exclamation:{{end}} Application {{.app.metadata.name}} has degraded.
+    #     Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#f4c030",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-failed: |
+    #   email:
+    #     subject: Failed to sync application {{.app.metadata.name}}.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:exclamation:{{end}}  The sync operation of application {{.app.metadata.name}} has failed at {{.app.status.operationState.finishedAt}} with the following error: {{.app.status.operationState.message}}
+    #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#E96D76",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-running: |
+    #   email:
+    #     subject: Start syncing application {{.app.metadata.name}}.
+    #   message: |
+    #     The sync operation of application {{.app.metadata.name}} has started at {{.app.status.operationState.startedAt}}.
+    #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#0DADEA",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-status-unknown: |
+    #   email:
+    #     subject: Application {{.app.metadata.name}} sync status is 'Unknown'
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:exclamation:{{end}} Application {{.app.metadata.name}} sync is 'Unknown'.
+    #     Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    #     {{if ne .serviceType "slack"}}
+    #     {{range $c := .app.status.conditions}}
+    #         * {{$c.message}}
+    #     {{end}}
+    #     {{end}}
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#E96D76",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-succeeded: |
+    #   email:
+    #     subject: Application {{.app.metadata.name}} has been successfully synced.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
+    #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#18be52",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
 
     # -- The trigger defines the condition when the notification should be sent
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/
     triggers: {}
-      # trigger.on-deployed: |
-      #   - description: Application is synced and healthy. Triggered once per commit.
-      #     oncePer: app.status.sync.revision
-      #     send:
-      #     - app-deployed
-      #     when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
-      # trigger.on-health-degraded: |
-      #   - description: Application has degraded
-      #     send:
-      #     - app-health-degraded
-      #     when: app.status.health.status == 'Degraded'
-      # trigger.on-sync-failed: |
-      #   - description: Application syncing has failed
-      #     send:
-      #     - app-sync-failed
-      #     when: app.status.operationState.phase in ['Error', 'Failed']
-      # trigger.on-sync-running: |
-      #   - description: Application is being synced
-      #     send:
-      #     - app-sync-running
-      #     when: app.status.operationState.phase in ['Running']
-      # trigger.on-sync-status-unknown: |
-      #   - description: Application status is 'Unknown'
-      #     send:
-      #     - app-sync-status-unknown
-      #     when: app.status.sync.status == 'Unknown'
-      # trigger.on-sync-succeeded: |
-      #   - description: Application syncing has succeeded
-      #     send:
-      #     - app-sync-succeeded
-      #     when: app.status.operationState.phase in ['Succeeded']
-      #
-      # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers
-      # defaultTriggers: |
-      #   - on-sync-status-unknown
+    # trigger.on-deployed: |
+    #   - description: Application is synced and healthy. Triggered once per commit.
+    #     oncePer: app.status.sync.revision
+    #     send:
+    #     - app-deployed
+    #     when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+    # trigger.on-health-degraded: |
+    #   - description: Application has degraded
+    #     send:
+    #     - app-health-degraded
+    #     when: app.status.health.status == 'Degraded'
+    # trigger.on-sync-failed: |
+    #   - description: Application syncing has failed
+    #     send:
+    #     - app-sync-failed
+    #     when: app.status.operationState.phase in ['Error', 'Failed']
+    # trigger.on-sync-running: |
+    #   - description: Application is being synced
+    #     send:
+    #     - app-sync-running
+    #     when: app.status.operationState.phase in ['Running']
+    # trigger.on-sync-status-unknown: |
+    #   - description: Application status is 'Unknown'
+    #     send:
+    #     - app-sync-status-unknown
+    #     when: app.status.sync.status == 'Unknown'
+    # trigger.on-sync-succeeded: |
+    #   - description: Application syncing has succeeded
+    #     send:
+    #     - app-sync-succeeded
+    #     when: app.status.operationState.phase in ['Succeeded']
+    #
+    # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers
+    # defaultTriggers: |
+    #   - on-sync-status-unknown
 
   commitServer:
     # -- Enable commit server
@@ -3931,16 +3929,16 @@ argocd:
 
     # -- Environment variables to pass to the commit server
     extraEnv: []
-      # - name: "MY_VAR"
-      #   value: "value"
+    # - name: "MY_VAR"
+    #   value: "value"
 
     # -- envFrom to pass to the commit server
     # @default -- `[]` (See [values.yaml])
     extraEnvFrom: []
-      # - configMapRef:
-      #     name: config-map-name
-      # - secretRef:
-      #     name: secret-name
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
 
     # -- List of extra mounts to add (normally used with extraVolumes)
     extraVolumeMounts: []
@@ -3998,12 +3996,12 @@ argocd:
 
     # -- Resource limits and requests for the commit server pods.
     resources: {}
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
     # -- [DNS configuration]
     dnsConfig: {}
@@ -4018,7 +4016,7 @@ argocd:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
       seccompProfile:
         type: RuntimeDefault
 
@@ -4068,16 +4066,16 @@ argocd:
     ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
     ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
     topologySpreadConstraints: []
-      # - maxSkew: 1
-      #   topologyKey: topology.kubernetes.io/zone
-      #   whenUnsatisfiable: DoNotSchedule
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # -- Deployment strategy to be added to the commit server Deployment
     deploymentStrategy: {}
-      # type: RollingUpdate
-      # rollingUpdate:
-      #   maxSurge: 25%
-      #   maxUnavailable: 25%
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
 
     # -- Priority class for the commit server pods
     # @default -- `""` (defaults to global.priorityClassName)

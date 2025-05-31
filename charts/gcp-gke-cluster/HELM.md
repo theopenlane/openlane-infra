@@ -25,7 +25,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Openlane | <support@theopenlane.io> |  |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
 
 ## Description
 
@@ -209,7 +209,7 @@ Provisions a GKE Cluster via Config Connector
 | masterAuthorizedNetworksConfig.cidrBlocks | list | `[{"cidrBlock":"0.0.0.0/0","displayName":"The Internet"}]` | External networks that can access the Kubernetes cluster master through HTTPS. |
 | masterAuthorizedNetworksConfig.cidrBlocks[0] | object | `{"cidrBlock":"0.0.0.0/0","displayName":"The Internet"}` | External network that can access Kubernetes master through HTTPS. Must be specified in CIDR notation. |
 | masterAuthorizedNetworksConfig.cidrBlocks[0].displayName | string | `"The Internet"` | Field for users to identify CIDR blocks. |
-| masterAuthorizedNetworksConfig.gcpPublicCidrsAccessEnabled | bool | `false` | Whether master is accessbile via Google Compute Engine Public IP addresses. |
+| masterAuthorizedNetworksConfig.gcpPublicCidrsAccessEnabled | bool | `false` | Whether master is accessible via Google Compute Engine Public IP addresses. |
 | meshCertificates | object | `{"enableCertificates":false}` | If set, and enable_certificates=true, the GKE Workload Identity Certificates controller and node agent will be deployed in the cluster. |
 | meshCertificates.enableCertificates | bool | `false` | When enabled the GKE Workload Identity Certificates controller and node agent will be deployed in the cluster. |
 | minMasterVersion | string | `nil` | The minimum version of the master. GKE will auto-update the master to new versions, so this does not guarantee the current master version--use the read-only master_version field to obtain that. If unset, the cluster's version will be set by GKE to the version of the most recent official release (which is not necessarily the latest version). |
@@ -301,9 +301,9 @@ Provisions a GKE Cluster via Config Connector
 | nodePools[0].nodeConfig.preemptible | bool | `false` | Configure the node pool with preemptible instances |
 | bigquery-dataset | object | `{"bigqueryDataset":{"access":[],"description":"<to_set>","friendlyName":"<to_set>","location":"<to_set>","name":"<to_set>"},"enabled":false,"gcpProjectId":"<to_set>"}` | Enables Bigquery Dataset for billing GKE resources |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

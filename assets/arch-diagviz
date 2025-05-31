@@ -29,7 +29,7 @@ digraph G {
         label = "Layer 0: GitOps & Orchestration";
         graph [bgcolor="#E0FFE0", style=filled, labelloc="t", rankdir="LR", nodesep=0.7];
         node [shape=circle, fillcolor="#C8F5C8", color="#4CAF50", height=0.6, width=0.6, fixedsize=true];
-        
+
         GitRepo [label="Git Repo\n(Source of Truth)"];
         ArgoCD [label="ArgoCD\n(Reconciler)"];
         K8sClusterKCC [label="Kubernetes\n(KCC Host)"];
@@ -50,10 +50,10 @@ digraph G {
         BootstrapChart [label="openlane-gcp-bootstrap\n(Bootstrap Chart)"];
         ProjectChart [label="gcp-project\n(Project Chart)"];
         ResourceCharts [label="Resource Charts\n(GKE, BQ, Storage, SQL, Redis, DNS)"];
-        
+
         BootstrapChart -> ProjectChart [label="Defines as\nDependency", style="dotted", color="#6A5ACD", constraint=false];
         ProjectChart -> ResourceCharts [label="Defines as\nDependency", style="dotted", color="#6A5ACD", constraint=false];
-        
+
         # Connections from Git (conceptual)
         GitRepo -> BootstrapChart [label="Contains Chart Def", style="dotted", color="#000000", dir=back];
     }
@@ -84,9 +84,9 @@ digraph G {
         label = "Layer 3: GCP Resource Hierarchy (Folders & Projects)";
         graph [bgcolor="#FFCCCB", style=filled, labelloc="t", rankdir="LR", nodesep=0.5];
         node [fillcolor="#FFDDDD", color="#FF5757"]; /* Projects, Folders */
-        
+
         GCP_Organization [label="GCP Organization\n(Root Node)", shape=oval];
-        
+
         subgraph cluster_folders_groups {
             label = "Environment & Specialized Folders";
             graph [bgcolor="#FFBBBB", style=filled, randir="LR"];
@@ -95,11 +95,11 @@ digraph G {
             GlobalOrgFolder [label="openlane-org"];
             EnvFolders [label="{<Dev>Dev|<Prod>Prod}\n(e.g., openlane-org-dev)"];
             SpecializedFolders [label="App\nSharedInfra\nLogging\nBilling\nKMS"];
-            
+
             GlobalOrgFolder -> EnvFolders [label="Contains", dir=none];
             EnvFolders -> SpecializedFolders [label="Contains (per-env)", dir=none];
         }
-        
+
         subgraph cluster_project_instances {
             label = "GCP Projects (Instantiated per-env)";
             graph [bgcolor="#FFDDAA", style=filled, randir="LR"];
@@ -133,7 +133,7 @@ digraph G {
         Central_Logging_Dataset [label="Logs Dataset"];
         KMS_Keys [label="KMS Keys"];
         # ... other services like Redis, DNS Zone, etc.
-        
+
         # Links from Projects to Services
         SharedVPC_Host_Project -> VPC_Network [label="Manages"];
         Application_Project -> {GKE_Cluster, BigQuery_Dataset, GCP_Bucket, CloudSQL_Instance} [label="Manages"];
@@ -144,11 +144,11 @@ digraph G {
         VPC_Network -> GKE_Cluster [label="Provides Network", style="dotted", color="#000000"];
         KMS_Keys -> {BigQuery_Dataset, GCP_Bucket, CloudSQL_Instance} [label="Encrypts", style="dotted", color="#000000"];
     }
-    
+
     # --- Inter-Layer Connections (General Flow) ---
     # Orchestration -> Helm Blueprints -> ArgoCD Apps -> GCP Hierarchy -> GCP Services
-    
-    # Conect ArgoCD to Helm Blueprints
+
+    # Connect ArgoCD to Helm Blueprints
     BootstrapChart -> BootstrapApp [label="Blueprint for", style="dotted", color="#FFA500", constraint=false];
     ProjectChart -> ProjectApps [label="Blueprint for", style="dotted", color="#FFA500", constraint=false];
     ResourceCharts -> ProjectApps [label="Blueprint for", style="dotted", color="#FFA500", constraint=false];

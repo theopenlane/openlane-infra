@@ -23,7 +23,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Openlane | <support@theopenlane.io> |  |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
 
 ## Description
 
@@ -42,7 +42,7 @@ A Helm chart to provision a Cloud NAT (ComputeRouterNAT) via Config Connector
 | global.abandon | bool | `true` | Abandon resource if the manifests are deleted. Allow deleting a resource from config connector without deleting it from GCP |
 | global.skipUnspecifiedFields | bool | `false` | This skips populating unspecified fields into the Kubernetes resource spec. |
 | global.gcpProjectId | string | `"myprojectid"` | Project ID where to deploy the cluster |
-| global.description | string | `""` | subNework description (use helm tpl) |
+| global.description | string | `""` | subNetwork description (use helm tpl) |
 | annotations | object | `{}` | Add annotations to the Cloud NAT. |
 | name | string | `"openlane-cloud-nat"` | Name of the Compute Router. |
 | description | string | `"Cloud NAT configuration for Google Compute Router"` | A text description of the Cloud NAT. Must be less than or equal to 256 UTF-8 bytes. |
@@ -71,9 +71,9 @@ A Helm chart to provision a Cloud NAT (ComputeRouterNAT) via Config Connector
 | tcpTransitoryIdleTimeoutSec | int | `30` | Timeout (in seconds) for TCP transitory connections. Defaults to 30s if not set. |
 | udpIdleTimeoutSec | int | `30` | Timeout (in seconds) for UDP connections. Defaults to 30s if not set. |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

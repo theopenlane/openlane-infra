@@ -8,7 +8,7 @@ global:
   skipUnspecifiedFields: false
   # global.gcpProjectId -- Project ID where to deploy the cluster
   gcpProjectId: "myprojectid"
-  # global.description -- subNework description (use helm tpl)
+  # global.description -- subNetwork description (use helm tpl)
   description: ""
 
 commonAppConfig:
@@ -31,7 +31,7 @@ accessControl:
   # accessControl.createCloudIamPolicy -- Create iam policy member for the bucket through kcc, based on the `iamPolicy` list.
   createCloudIamPolicy: true
   iamPolicy:
-      # accessControl.iamPolicy[0].member -- An identifier for the member, which usually has the following form: member-type:id. For example, user:my-user@example.com. For a full list of the values that member can have, see the [Policy Binding reference](https://cloud.google.com/iam/docs/reference/rest/v1/Policy#Binding).
+    # accessControl.iamPolicy[0].member -- An identifier for the member, which usually has the following form: member-type:id. For example, user:my-user@example.com. For a full list of the values that member can have, see the [Policy Binding reference](https://cloud.google.com/iam/docs/reference/rest/v1/Policy#Binding).
     - member: serviceAccount:sa-name@${gcpProjectId?}.iam.gserviceaccount.com
       # accessControl.iamPolicy[0].role -- Name of the [role](https://cloud.google.com/storage/docs/access-control/iam-roles) to apply to the bucket
       role: roles/storage.admin
@@ -39,13 +39,13 @@ accessControl:
 # cors -- The bucket's [Cross-Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing#:~:text=Cross%2Dorigin%20resource%20sharing%20(CORS,scripts%2C%20iframes%2C%20and%20videos.) (CORS) configuration.
 # @default -- See the `values.yaml` for more details
 cors: []
-    # cors[0].maxAgeSeconds -- The value, in seconds, to return in the Access-Control-Max-Age header used in preflight responses.
+# cors[0].maxAgeSeconds -- The value, in seconds, to return in the Access-Control-Max-Age header used in preflight responses.
 # - maxAgeSeconds:
-    # cors[0].method -- The list of HTTP methods on which to include CORS response headers, (GET, OPTIONS, POST, etc) Note: "*" is permitted in the list of methods, and means "any method".
+# cors[0].method -- The list of HTTP methods on which to include CORS response headers, (GET, OPTIONS, POST, etc) Note: "*" is permitted in the list of methods, and means "any method".
 #   method: []
-    # cors[0].origin -- The list of Origins eligible to receive CORS response headers. Note: "*" is permitted in the list of origins, and means "any Origin".
+# cors[0].origin -- The list of Origins eligible to receive CORS response headers. Note: "*" is permitted in the list of origins, and means "any Origin".
 #   origin: []
-    # cors[0].responseHeader -- The list of HTTP headers other than the simple response headers to give permission for the user-agent to share across domains.
+# cors[0].responseHeader -- The list of HTTP headers other than the simple response headers to give permission for the user-agent to share across domains.
 #   responseHeader: []
 
 # defaultEventBasedHold -- Whether or not to automatically apply an [eventBasedHold](https://cloud.google.com/storage/docs/object-holds#hold-types) to new objects added to the bucket.
@@ -64,19 +64,19 @@ encryption:
 # lifecycleRule -- The bucket's lifecycle configuration. See [lifecycle management](https://cloud.google.com/storage/docs/lifecycle) for more information.
 # @default -- See the `values.yaml` for more details
 lifecycleRule: []
-    # lifecycleRule[0].action -- The lifecycle action to take.
+# lifecycleRule[0].action -- The lifecycle action to take.
 # - action:
-      # lifecycleRule[0].action.storageClass -- The new storage class when action.type is SetStorageClass. See [lifecycle actions](https://cloud.google.com/storage/docs/lifecycle#actions) for a table of supported storage class transitions.
+# lifecycleRule[0].action.storageClass -- The new storage class when action.type is SetStorageClass. See [lifecycle actions](https://cloud.google.com/storage/docs/lifecycle#actions) for a table of supported storage class transitions.
 #     storageClass:
-      # lifecycleRule[0].action.type -- Type of the action. Currently, `Delete` and `SetStorageClass` are supported.
+# lifecycleRule[0].action.type -- Type of the action. Currently, `Delete` and `SetStorageClass` are supported.
 #     type:
-    # lifecycleRule[0].condition -- The condition(s) under which the action will be taken.
+# lifecycleRule[0].condition -- The condition(s) under which the action will be taken.
 #   condition:
-      # lifecycleRule[0].condition.age -- Age of an object (in days). This condition is satisfied when an object reaches the specified age.
+# lifecycleRule[0].condition.age -- Age of an object (in days). This condition is satisfied when an object reaches the specified age.
 #     age:
-      # lifecycleRule[0].condition.createdBefore -- A date in RFC 3339 format with only the date part (for instance, "2013-01-15"). This condition is satisfied when an object is created before midnight of the specified date in UTC.
+# lifecycleRule[0].condition.createdBefore -- A date in RFC 3339 format with only the date part (for instance, "2013-01-15"). This condition is satisfied when an object is created before midnight of the specified date in UTC.
 #     createdBefore:
-      # lifecycleRule[0].condition.matchesStorageClass -- Objects having any of the storage classes specified by this condition will be matched. Values include STANDARD, NEARLINE, COLDLINE, ARCHIVE, MULTI_REGIONAL, REGIONAL, and DURABLE_REDUCED_AVAILABILITY.
+# lifecycleRule[0].condition.matchesStorageClass -- Objects having any of the storage classes specified by this condition will be matched. Values include STANDARD, NEARLINE, COLDLINE, ARCHIVE, MULTI_REGIONAL, REGIONAL, and DURABLE_REDUCED_AVAILABILITY.
 #     matchesStorageClass: []
 
 logging:

@@ -21,7 +21,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Openlane | <support@theopenlane.io> |  |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
 
 ## Description
 
@@ -47,7 +47,7 @@ A Helm chart for Kubernetes
 | argocd.crds.install | bool | `true` | Install and upgrade CRDs |
 | argocd.crds.keep | bool | `true` | Keep CRDs on chart uninstall |
 | argocd.crds.annotations | object | `{}` | Annotations to be added to all CRDs |
-| argocd.crds.additionalLabels | object | `{}` | Addtional labels to be added to all CRDs |
+| argocd.crds.additionalLabels | object | `{}` | Additional labels to be added to all CRDs |
 | argocd.global.domain | string | `"argocd.example.com"` | Default domain used by all components # Used for ingresses, certificates, SSO, notifications, etc. |
 | argocd.global.runtimeClassName | string | `""` | Runtime class name for all components |
 | argocd.global.additionalLabels | object | `{}` | Common labels for the all resources |
@@ -260,7 +260,7 @@ A Helm chart for Kubernetes
 | argocd.dex.pdb.labels | object | `{}` | Labels to be added to Dex server pdb |
 | argocd.dex.pdb.annotations | object | `{}` | Annotations to be added to Dex server pdb |
 | argocd.dex.pdb.minAvailable | string | `""` (defaults to 0 if not specified) | Number of pods that are available after eviction as number or percentage (eg.: 50%) |
-| argocd.dex.pdb.maxUnavailable | string | `""` | Number of pods that are unavailble after eviction as number or percentage (eg.: 50%). # Has higher precedence over `dex.pdb.minAvailable` |
+| argocd.dex.pdb.maxUnavailable | string | `""` | Number of pods that are unavailable after eviction as number or percentage (eg.: 50%). # Has higher precedence over `dex.pdb.minAvailable` |
 | argocd.dex.image.repository | string | `"ghcr.io/dexidp/dex"` | Dex image repository |
 | argocd.dex.image.tag | string | `"v2.43.1"` | Dex image tag |
 | argocd.dex.image.imagePullPolicy | string | `""` (defaults to global.image.imagePullPolicy) | Dex imagePullPolicy |
@@ -334,7 +334,7 @@ A Helm chart for Kubernetes
 | argocd.redis.pdb.labels | object | `{}` | Labels to be added to Redis pdb |
 | argocd.redis.pdb.annotations | object | `{}` | Annotations to be added to Redis pdb |
 | argocd.redis.pdb.minAvailable | string | `""` (defaults to 0 if not specified) | Number of pods that are available after eviction as number or percentage (eg.: 50%) |
-| argocd.redis.pdb.maxUnavailable | string | `""` | Number of pods that are unavailble after eviction as number or percentage (eg.: 50%). # Has higher precedence over `redis.pdb.minAvailable` |
+| argocd.redis.pdb.maxUnavailable | string | `""` | Number of pods that are unavailable after eviction as number or percentage (eg.: 50%). # Has higher precedence over `redis.pdb.minAvailable` |
 | argocd.redis.image.repository | string | `"public.ecr.aws/docker/library/redis"` | Redis repository |
 | argocd.redis.image.tag | string | `"8.0.2-alpine"` | Redis tag # Do not upgrade to >= 7.4.0, otherwise you are no longer using an open source version of Redis |
 | argocd.redis.image.imagePullPolicy | string | `""` (defaults to global.image.imagePullPolicy) | Redis image pull policy |
@@ -968,9 +968,9 @@ A Helm chart for Kubernetes
 | argocd.commitServer.deploymentStrategy | object | `{}` | Deployment strategy to be added to the commit server Deployment |
 | argocd.commitServer.priorityClassName | string | `""` (defaults to global.priorityClassName) | Priority class for the commit server pods |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

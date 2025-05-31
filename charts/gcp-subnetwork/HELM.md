@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Openlane | <support@theopenlane.io> |  |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
 
 ## Description
 
@@ -36,7 +36,7 @@ Chart for compute-subnetwork resource with config connector
 | global.abandon | bool | `true` | Abandon resource if the manifests are deleted. Allow deleting a resource from config connector without deleting it from GCP |
 | global.skipUnspecifiedFields | bool | `false` | This skips populating unspecified fields into the Kubernetes resource spec. |
 | global.gcpProjectId | string | `"myprojectid"` | Project ID where to deploy the cluster |
-| global.description | string | `""` | subNework description (use helm tpl) |
+| global.description | string | `""` | subNetwork description (use helm tpl) |
 | name | string | `"openlane-subnetwork"` | The name of the resource. |
 | ipCidrRange | string | `"10.0.0.0/22"` | The range of internal addresses that are owned by this subnetwork. Only IPv4 is supported. |
 | ipv6AccessType | string | `""` | The access type of IPv6 address this subnet holds. Possible values: ["EXTERNAL", "INTERNAL"]. |
@@ -50,9 +50,9 @@ Chart for compute-subnetwork resource with config connector
 | secondaryIpRange | list | `[{"ipCidrRange":"10.0.4.0/22","rangeName":"pods"},{"ipCidrRange":"10.0.8.0/22","rangeName":"services"}]` | The secondary range of the subnetwork. |
 | stackType | string | `""` | The stack type for this subnet to identify whether the IPv6 feature is enabled or not. Possible values: ["IPV4_ONLY", "IPV4_IPV6"]. |
 
-## Config Connector ressources
+## Config Connector resources
 
-This chart is either based on GCP config connector ressources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
+This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
 
 ## Installing the Chart
 

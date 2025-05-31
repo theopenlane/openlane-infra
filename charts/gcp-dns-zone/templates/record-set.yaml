@@ -2,7 +2,6 @@
 {{- $data := . -}}
 {{- $dnsRecordSet := $data.Values.dnsRecordSet -}}
 {{- range $records := .Values.dnsRecordSet }}
----
 apiVersion: dns.cnrm.cloud.google.com/v1beta1
 kind: DNSRecordSet
 metadata:
@@ -17,14 +16,14 @@ metadata:
   name: {{ .name | quote }}
   namespace: {{ include "dns-zone.namespace" $data }}
 spec:
-  name: {{ .dnsRecordName | quote }} 
-  type: {{ .type | quote }} 
-  ttl: {{ .ttl | default 300 }} 
+  name: {{ .dnsRecordName | quote }}
+  type: {{ .type | quote }}
+  ttl: {{ .ttl | default 300 }}
   managedZoneRef:
     name: {{ $data.Values.dnsManagedZone.name | quote }}
   {{- if and (eq .type "A") (.computeAddressRef) (not .computeAddresses) }}
   rrdatasRefs:
-    - name: {{ .computeAddressRef }} 
+    - name: {{ .computeAddressRef }}
       kind: ComputeAddress
   {{- else if and (eq .type "A") (.computeAddresses) }}
   rrdatas:
