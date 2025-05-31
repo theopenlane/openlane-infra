@@ -2,12 +2,12 @@ apiVersion: v2
 name: openlane-gcp-bigquery
 description: A Helm chart that Creates BigQuery resources through Config Connector
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "0.1.0"
 maintainers:
-- email: support@theopenlane.io
-  name: Openlane
-  url: https://wwww.theopenlane.io
+  - email: support@theopenlane.io
+    name: Openlane
+    url: https://www.theopenlane.io
 icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
 sources:
   - https://github.com/theopenlane/core

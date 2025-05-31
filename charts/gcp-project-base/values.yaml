@@ -1,8 +1,3 @@
-# charts/gcp-project-base/values.yaml
-# This file defines the default values for a generic GCP project.
-# Actual values for an instance of gcp-project-base will come from the ArgoCD Application definition.
-
-# Project configuration (will be populated from ArgoCD App values)
 project:
   name: "default-project"
   id: "" # Hydrated numerical project ID

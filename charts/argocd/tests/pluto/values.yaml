@@ -1,7 +1,7 @@
 prometheus:
   enabled: false
   rules:
-    enabled: false 
+    enabled: false
   serviceMonitor:
     enabled: false
   grafanaDashboard:

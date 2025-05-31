@@ -81,20 +81,6 @@ tasks:
       - minikube delete
     silent: true
 
-  install:
-    desc: Install dependencies related to this Taskfile
-    cmds:
-      - brew install helm
-      - brew install kubectl
-      - brew install kubeconform
-      - brew install kubeaudit
-      - brew install kube-score
-      - brew install helm-docs
-      - brew install chart-testing
-      - brew install yamllint
-    preconditions:
-      - which brew
-
   docker:run:
     desc: Run task inside Docker container with preinstalled CLI tools
     cmds:
@@ -114,3 +100,70 @@ tasks:
       - yamllint -c configs/lintconf.yaml charts/
     preconditions:
       - which yamllint
+
+  taskfiles:charts:
+    desc: Add template Taskfiles to all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: cp scripts/templates/Taskfile.yaml {{.CHART}}/Taskfile.yaml
+
+  copyreadme:
+    desc: Add template Taskfiles to all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: rm {{.CHART}}/README.md.gotmpl
+
+  readme:charts:
+    desc: Add template Taskfiles to all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: touch {{.CHART}}/README.md
+
+  docs:
+    desc: Generate documentation for all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+    preconditions:
+      - which helm-docs
+
+  readme:
+    desc: Generate documentation for all charts
+    cmds:
+      - for: { var: CHARTS, as: CHART }
+        cmd: helm-docs --chart-search-root {{.CHART}} --output-file=README.md --template-files=README.md.gotmpl --skip-version-footer --sort-values-order=file
+    preconditions:
+      - which helm-docs
+
+  precommit-full:
+    desc: Lint the project against all files
+    cmds:
+      - pre-commit install && pre-commit install-hooks
+      - pre-commit autoupdate
+      - pre-commit run --show-diff-on-failure --color=always --all-files
+
+  brew-install:
+    desc: Install workstation dependencies with Brew
+    cmds:
+      - task: update-brew
+      - echo "Installing {{.DEPS}} via homebrew..."
+      - brew install {{.DEPS}} {{.CLI_ARGS}}
+      - echo "Installed {{.DEPS}} via homebrew!"
+    deps:
+      - task: brew-installed
+    status:
+      - '[ -f $(brew --prefix)/bin/{{.DEPS}} ]'
+    vars:
+      DEPS: >-
+        helm kubectl kubeconform kube-score helm-docs chart-testing yamllint #magic___^_^___line
+
+  brew-installed:
+    silent: true
+    desc: check if Homebrew is installed
+    cmds:
+      - '[ -x "$(command -v brew)" ] || (echo "Homebrew is not installed, please install it from https://brew.sh" && exit 1)'
+
+  update-brew:
+    desc: Update Homebrew and upgrade all packages
+    cmds:
+      - brew update && brew upgrade && brew cleanup || true

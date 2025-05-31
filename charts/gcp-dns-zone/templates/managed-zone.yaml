@@ -2,9 +2,7 @@ apiVersion: dns.cnrm.cloud.google.com/v1beta1
 kind: DNSManagedZone
 metadata:
   annotations:
-{{- if .Values.global.abandon }}
-    cnrm.cloud.google.com/deletion-policy: abandon
-{{- end }}
+    cnrm.cloud.google.com/deletion-policy: {{ .Values.global.abandon | default "abandon" }}
 {{- if .Values.global.forceDestroy }}
     cnrm.cloud.google.com/force-destroy: "true"
 {{- end }}
@@ -25,7 +23,7 @@ spec:
     {{- if .Values.dnsManagedZone.privateVisibilityConfig.networks }}
     networks:
     {{- range .Values.dnsManagedZone.privateVisibilityConfig.networks }}
-    - networkRef: 
+    - networkRef:
         name: {{ .networkRef.name }}
         namespace: {{ .networkRef.namespace }}
         external: {{ .networkRef.external }}

@@ -11,7 +11,7 @@ privateClusterConfig:
   enabled: true
   enablePrivateEndpoint: false
   enablePrivateNodes: true
-  masterIpv4CidrBlock: "172.16.0.0/28"  # Required for private clusters
+  masterIpv4CidrBlock: "172.16.0.0/28" # Required for private clusters
   masterGlobalAccessConfig:
     enabled: false
   # privateEndpointSubnetworkRef:
@@ -45,10 +45,10 @@ gcpSubnetwork:
     name: "openlane-vpc-network"
   purpose: ""
   secondaryIpRange:
-  - ipCidrRange: "10.0.32.0/19"
-    rangeName: "clusterrange"
-  - ipCidrRange: "10.0.16.0/20"
-    rangeName: "servicesrange"
+    - ipCidrRange: "10.0.32.0/19"
+      rangeName: "clusterrange"
+    - ipCidrRange: "10.0.16.0/20"
+      rangeName: "servicesrange"
 
 gcpCloudNat:
   gcpCloudRouter:
@@ -58,7 +58,7 @@ gcpCloudNat:
     networkRef:
       name: "openlane-vpc-network"
     bgp: {}
-  
+
   name: "openlane-cloud-nat"
   region: us-central1
   routerRef:
@@ -67,12 +67,12 @@ gcpCloudNat:
   sourceSubnetworkIpRangesToNat: "LIST_OF_SUBNETWORKS"
   subnetwork:
     - sourceIpRangesToNat:
-      - LIST_OF_SECONDARY_IP_RANGES
+        - LIST_OF_SECONDARY_IP_RANGES
       subnetworkRef:
         name: "openlane-subnetwork"
       secondaryIpRangeNames:
-      - clusterrange
-      - servicesrange
+        - clusterrange
+        - servicesrange
   logConfig:
     enable: true
     filter: "ALL"
@@ -188,8 +188,8 @@ bigquery-dataset:
     friendlyName: "openlane-gke-biling-dataset"
     location: "us-central1"
     access:
-    - role: OWNER
-      userByEmail: openlane-infra-sa@openlane-dev.iam.gserviceaccount.com
-    - role: WRITER
-      userByEmail: openlane-testnode-a-sa@openlane-dev.iam.gserviceaccount.com
+      - role: OWNER
+        userByEmail: openlane-infra-sa@openlane-dev.iam.gserviceaccount.com
+      - role: WRITER
+        userByEmail: openlane-testnode-a-sa@openlane-dev.iam.gserviceaccount.com
     # - role: READER    #   groupByEmail: gke-security-groups@theopenlane.io

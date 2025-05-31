@@ -8,7 +8,7 @@ global:
   skipUnspecifiedFields: false
   # global.gcpProjectId -- Project ID where to deploy the cluster
   gcpProjectId: "myprojectid"
-  # global.description -- subNework description (use helm tpl)
+  # global.description -- subNetwork description (use helm tpl)
   description: ""
 
 # -- Add annotations to the Cloud NAT.

@@ -1,5 +1,3 @@
-# charts/openlane-gcp-bootstrap/templates/01-org-policies.yaml
-# Organization Policies (Global, applied to the entire organization)
 {{- if .Values.orgPolicies.disableServiceAccountKeyCreation }}
 apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
 kind: OrganizationPolicy
@@ -50,7 +48,7 @@ spec:
   organizationRef: { external: "organizations/{{ .Values.orgId }}" }
   constraint: gcp.resourceLocations
   listPolicy:
-    allow: 
+    allow:
     {{- with .Values.orgPolicies.resourceLocations.allowedLocations }} # Use 'with' to check if list is non-empty
     {{- range . }} # Range over the non-empty list
       - "{{ . }}"

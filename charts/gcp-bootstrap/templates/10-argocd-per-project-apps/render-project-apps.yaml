@@ -86,13 +86,13 @@
         "argoProjectName" $argoProjectNameForArgoApp
         "repoURL" $globalValues.repoURL
         "syncWave" "1"
-        "projectType" $projectType 
-        "projectConfig" $projectValuesForBaseChart 
+        "projectType" $projectType
+        "projectConfig" $projectValuesForBaseChart
         "envName" $envName
         "envCapName" $envCapName
-        "globalValues" $globalValues 
-        "gcpProjectBaseFlags" $gcpProjectBaseFlags 
-        "resourceConfigs" $resourceConfigs 
+        "globalValues" $globalValues
+        "gcpProjectBaseFlags" $gcpProjectBaseFlags
+        "resourceConfigs" $resourceConfigs
     ) | nindent 0 }}
 ---
   {{- end -}}

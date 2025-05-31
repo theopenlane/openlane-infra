@@ -2,11 +2,12 @@ apiVersion: v2
 appVersion: 0.1.0
 description: A Helm chart that Creates a Google CloudSQL Instance via Config Connector
 maintainers:
-- email: support@theopenlane.io
-  name: Openlane
+  - email: support@theopenlane.io
+    name: Openlane
+    url: https://www.theopenlane.io
 name: openlane-gcp-cloudsql
 type: application
-version: 0.1.0
+version: 0.1.1
 icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
 sources:
   - https://github.com/theopenlane/core

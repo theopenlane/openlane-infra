@@ -1,5 +1,5 @@
-{{- define "argocd.fullname" -}}     
-{{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}     
+{{- define "argocd.fullname" -}}
+{{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "call-nested" }}

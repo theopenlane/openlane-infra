@@ -9,27 +9,27 @@ AUTO_FIND="no"
 # Process a single file
 process_file() {
     local file="$1"
-    
+
     # Check if the file exists
     if [ ! -f "$file" ]; then
         echo "Skipping: '$file' not found or not a regular file"
         return
     fi
-    
+
     # Create a backup
     cp "$file" "$file.bak"
-    
+
     # Apply fixes
     if [ "$FIX_TRAILING" = "yes" ]; then
         $SED -i 's/[ \t]*$//' "$file"
     fi
-    
+
     # Fix inline comment spacing
     if [ "$FIX_COMMENTS" = "yes" ]; then
         # Fix comment spacing on non-comment lines only
         $SED -i '/^[ \t]*#/!s/\([^ \t]\)[ \t]*#/\1  #/g' "$file"
     fi
-    
+
     # Ensure file ends with a newline
     if [ "$FIX_EOL" = "yes" ]; then
         # Check if file already ends with newline
@@ -38,9 +38,9 @@ process_file() {
             echo "" >> "$file"
         fi
     fi
-    
+
     echo "Fixed: $file"
-    
+
     # Clean up backup
     rm "$file.bak"
 }
@@ -112,20 +112,20 @@ if [ "$AUTO_FIND" = "yes" ]; then
     # Auto-detect linting errors if yamllint is available
     if command -v yamllint >/dev/null 2>&1; then
         echo "Auto-finding files with lint errors..."
-        
+
         if [ -z "$PATTERN" ]; then
             # Default to common YAML files
             PATTERN="*.yaml *.yml"
         fi
-        
+
         # Find YAML files with the specific linting errors we target
         FILES=$(yamllint $PATTERN 2>/dev/null | grep -E "(comments|new-line-at-end-of-file)" | cut -d':' -f1 | sort -u)
-        
+
         if [ -z "$FILES" ]; then
             echo "No files with targetable lint errors found."
             exit 0
         fi
-        
+
         for file in $FILES; do
             process_file "$file"
         done
@@ -139,7 +139,7 @@ else
         echo "Error: No files specified. Use --pattern or --auto"
         exit 1
     fi
-    
+
     # Handle file patterns (*.yaml) or specific files
     for file in $PATTERN; do
         if [ -f "$file" ]; then

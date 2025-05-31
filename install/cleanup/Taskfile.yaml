@@ -13,7 +13,7 @@ tasks:
           echo "Aborting cleanup."
           exit 1
         fi
-        
+
         # Check if config-sync is configured
         if gcloud config-sync repos list --cluster="{{.CONFIG_CONTROLLER_NAME | default "openlane-config-controller"}}" --location="{{.GCP_REGION | default (env "GCP_REGION")}}" --project="{{.GCP_PROJECT_ID | default (env "GCP_PROJECT_ID")}}" --format="value(name)" | grep -q "${GIT_REPO_URL##*/}"; then
           echo "--> Removing Config Sync repository from Config Controller..."

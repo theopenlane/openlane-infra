@@ -16,7 +16,7 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
-      contents: write  
+      contents: write
       packages: write
     steps:
       # Checkout the repository
@@ -34,7 +34,7 @@ jobs:
         run: |
           sudo wget -qO /usr/bin/yq https://github.com/mikefarah/yq/releases/download/v4.30.2/yq_linux_amd64
           sudo chmod +x /usr/bin/yq
-      
+
       # Add dependency chart repos
       - name: Add dependency chart repos
         run: |
@@ -47,10 +47,10 @@ jobs:
       # Configure Git
       - name: Configure Git
         run: | # $GITHUB_ACTOR: last user who trigger the action
-          git config user.name "$GITHUB_ACTOR" 
+          git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      # Add Helm Repositories    
+      # Add Helm Repositories
       - name: Add Helm Repositories
         run: |
           chmod +x ./scripts/add-repos.sh
@@ -69,7 +69,7 @@ jobs:
           packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      
+
       # Push OCI Helm Chart Packages to GHCR
       - name: Login to GitHub Container Registry (GHCR)
         uses: docker/login-action@v3

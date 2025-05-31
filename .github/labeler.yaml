@@ -1,0 +1,83 @@
+gcp-bootstrap:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-bootstrap/**
+
+argocd:
+  - changed-files:
+      - any-glob-to-any-file: charts/argocd/**
+
+gcp-compute-address:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-compute-address/**
+
+gcp-gke-cluster:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-gke-cluster/**
+
+gcp-project-base:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-project-base/**
+
+gcp-workload-identity:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-workload-identity/**
+
+cert-manager:
+  - changed-files:
+      - any-glob-to-any-file: charts/cert-manager/**
+
+gcp-bucket:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-bucket/**
+
+gcp-compute-router:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-compute-router/**
+
+gcp-iam-policy-members:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-iam-policy-members/**
+
+gcp-service-account:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-service-account/**
+
+external-dns:
+  - changed-files:
+      - any-glob-to-any-file: charts/external-dns/**
+
+gcp-cloud-nat:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-cloud-nat/**
+
+gcp-config-controller:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-config-controller/**
+
+gcp-lb:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-lb/**
+
+gcp-subnetwork:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-subnetwork/**
+
+gcp-bigquery:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-bigquery/**
+
+gcp-cloudsql-postgresql:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-cloudsql-postgresql/**
+
+gcp-dns-zone:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-dns-zone/**
+
+gcp-memorystore-redis:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-memorystore-redis/**
+
+gcp-vpc-network:
+  - changed-files:
+      - any-glob-to-any-file: charts/gcp-vpc-network/**
