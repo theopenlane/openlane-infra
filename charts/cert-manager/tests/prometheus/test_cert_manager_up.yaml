@@ -44,4 +44,3 @@ tests:
       # Alert stopped:
       - eval_time: 2h
         alertname: CertManagerIsDown
-

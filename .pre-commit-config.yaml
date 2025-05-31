@@ -10,10 +10,6 @@ repos:
       - id: check-shebang-scripts-are-executable
       - id: end-of-file-fixer
       - id: mixed-line-ending
-  - repo: https://github.com/google/yamlfmt
-    rev: v0.17.0
-    hooks:
-      - id: yamlfmt
   - repo: https://github.com/crate-ci/typos
     rev: v1
     hooks:
