@@ -64,6 +64,11 @@ jobs:
             echo -e '\033[0;32mDocumentation up to date\033[0m ✔'
           fi
 
+      - name: Create kind cluster
+        if: steps.list-changed.outputs.changed == 'true'
+        uses: helm/kind-action@a1b0e391336a6ee6713a0583f8c6240d70863de3 # v1.12.0
+
       - name: Run chart-testing
         run: ct install --config configs/ct.yaml
+        shell: bash
         if: steps.list-changed.outputs.changed == 'true'
