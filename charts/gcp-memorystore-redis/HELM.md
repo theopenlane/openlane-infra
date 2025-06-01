@@ -2,7 +2,7 @@
 
 # openlane-gcp-memorystore
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 

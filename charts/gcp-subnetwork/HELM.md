@@ -2,7 +2,7 @@
 
 # openlane-gcp-subnetwork
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 

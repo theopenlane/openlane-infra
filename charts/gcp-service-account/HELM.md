@@ -2,7 +2,7 @@
 
 # openlane-gcp-service-account
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 

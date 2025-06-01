@@ -2,7 +2,7 @@
 
 # openlane-gcp-iam-policy-members
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 
