@@ -1,12 +1,16 @@
+version: 0.1.2
 apiVersion: v2
 appVersion: 0.1.0
 description: Deploys external-dns and its monitoring
+name: openlane-external-dns
 maintainers:
   - email: support@theopenlane.io
     name: Openlane
     url: https://www.theopenlane.io
-name: openlane-external-dns
-version: 0.1.2
+icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+sources:
+  - https://github.com/theopenlane/openlane-infra
+home: https://docs.theopenlane.io
 dependencies:
   - name: external-dns
     version: 1.16.1

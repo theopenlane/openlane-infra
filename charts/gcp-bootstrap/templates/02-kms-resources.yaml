@@ -19,6 +19,7 @@ metadata:
   annotations:
     cnrm.cloud.google.com/project-id: "{{ .Values.kmsProject.project.name }}"
 spec:
-  keyRingRef: { name: {{ .Values.kms.keyRingName }} }
+  keyRingRef:
+    name: {{ .Values.kms.keyRingName }}
 {{- end }}
 {{- end }}

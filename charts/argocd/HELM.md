@@ -2,6 +2,8 @@
 
 # openlane-argocd
 
+**Homepage:** <https://docs.theopenlane.io>
+
 ## Prerequisites
 
 - [Helm](https://helm.sh/docs/intro/install/)
@@ -25,17 +27,16 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart for Kubernetes
+A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
+
+## Source Code
+
+* <https://github.com/theopenlane/openlane-infra>
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| prometheus.enabled | bool | `false` | Enables Prometheus Operator monitoring |
-| prometheus.rules.enabled | bool | `true` | Enables prometheus operator rules |
-| prometheus.rules.labels | object | `{"prometheus":"prometheus-operator-prometheus"}` | Labels to affect to the Prometheus Rules |
-| prometheus.grafanaDashboard.enabled | bool | `true` | Add grafana dashboard as a configmap |
-| prometheus.grafanaDashboard.label | object | `{"grafana_dashboard":"1"}` | label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard |
 | argocd.nameOverride | string | `"argocd"` | Provide a name in place of `argocd` |
 | argocd.fullnameOverride | string | `""` | String to fully override `"argo-cd.fullname"` |
 | argocd.namespaceOverride | string | `.Release.Namespace` | Override the namespace |
@@ -48,7 +49,7 @@ A Helm chart for Kubernetes
 | argocd.crds.keep | bool | `true` | Keep CRDs on chart uninstall |
 | argocd.crds.annotations | object | `{}` | Annotations to be added to all CRDs |
 | argocd.crds.additionalLabels | object | `{}` | Additional labels to be added to all CRDs |
-| argocd.global.domain | string | `"argocd.example.com"` | Default domain used by all components # Used for ingresses, certificates, SSO, notifications, etc. |
+| argocd.global.domain | string | `"argocd.prod.theopenlane.io"` | Default domain used by all components # Used for ingresses, certificates, SSO, notifications, etc. |
 | argocd.global.runtimeClassName | string | `""` | Runtime class name for all components |
 | argocd.global.additionalLabels | object | `{}` | Common labels for the all resources |
 | argocd.global.revisionHistoryLimit | int | `3` | Number of old deployment ReplicaSets to retain. The rest will be garbage collected. |
@@ -56,13 +57,13 @@ A Helm chart for Kubernetes
 | argocd.global.image.tag | string | `""` | Overrides the global Argo CD image tag whose default is the chart appVersion |
 | argocd.global.image.imagePullPolicy | string | `"IfNotPresent"` | If defined, a imagePullPolicy applied to all Argo CD deployments |
 | argocd.global.imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
-| argocd.global.logging.format | string | `"text"` | Set the global logging format. Either: `text` or `json` |
+| argocd.global.logging.format | string | `"json"` | Set the global logging format. Either: `text` or `json` |
 | argocd.global.logging.level | string | `"info"` | Set the global logging level. One of: `debug`, `info`, `warn` or `error` |
 | argocd.global.statefulsetAnnotations | object | `{}` | Annotations for the all deployed Statefulsets |
 | argocd.global.deploymentAnnotations | object | `{}` | Annotations for the all deployed Deployments |
 | argocd.global.podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | argocd.global.podLabels | object | `{}` | Labels for the all deployed pods |
-| argocd.global.addPrometheusAnnotations | bool | `false` | Add Prometheus scrape annotations to all metrics services. This can be used as an alternative to the ServiceMonitors. |
+| argocd.global.addPrometheusAnnotations | bool | `true` | Add Prometheus scrape annotations to all metrics services. This can be used as an alternative to the ServiceMonitors. |
 | argocd.global.securityContext | object | `{}` (See [values.yaml]) | Toggle and define pod-level security context. |
 | argocd.global.hostAliases | list | `[]` | Mapping between IP and hostnames that will be injected as entries in the pod's hosts files |
 | argocd.global.dualStack.ipFamilyPolicy | string | `""` | IP family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services) |
@@ -81,14 +82,17 @@ A Helm chart for Kubernetes
 | argocd.global.certificateAnnotations | object | `{}` | Annotations for the all deployed Certificates |
 | argocd.configs.cm.create | bool | `true` | Create the argocd-cm configmap for [declarative setup] |
 | argocd.configs.cm.annotations | object | `{}` | Annotations to be added to argocd-cm configmap |
-| argocd.configs.cm."application.instanceLabelKey" | string | `"argocd.argoproj.io/instance"` | The name of tracking label used by Argo CD for resource pruning |
+| argocd.configs.cm.url | string | `"https://argocd.prod.theopenlane.io"` |  |
+| argocd.configs.cm."application.instanceLabelKey" | string | `"argo.prod.theopenlane.io/instance"` | The name of tracking label used by Argo CD for resource pruning |
+| argocd.configs.cm."help.chatUrl" | string | `"slack://channel?team=T07GY6JPX9C&id=C07HHFWK0QZ"` |  |
 | argocd.configs.cm."application.sync.impersonation.enabled" | bool | `false` | Enable control of the service account used for the sync operation (alpha) # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/app-sync-using-impersonation/ |
 | argocd.configs.cm."server.rbac.log.enforce.enable" | bool | `false` | Enable logs RBAC enforcement # Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/upgrading/2.3-2.4/#enable-logs-rbac-enforcement |
-| argocd.configs.cm."exec.enabled" | bool | `false` | Enable exec feature in Argo UI # Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac/#exec-resource |
+| argocd.configs.cm."exec.enabled" | bool | `true` | Enable exec feature in Argo UI # Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac/#exec-resource |
 | argocd.configs.cm."admin.enabled" | bool | `true` | Enable local admin user # Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user |
 | argocd.configs.cm."timeout.reconciliation" | string | `"180s"` | Timeout to discover if a new manifests version got published to the repository |
 | argocd.configs.cm."timeout.hard.reconciliation" | string | `"0s"` | Timeout to refresh application data as well as target manifests cache |
-| argocd.configs.cm."statusbadge.enabled" | bool | `false` | Enable Status Badge # Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/ |
+| argocd.configs.cm."statusbadge.enabled" | bool | `true` | Enable Status Badge # Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/ |
+| argocd.configs.cm."dex.config" | string | `"connectors:\n  - config:\n      issuer: https://accounts.google.com\n      clientID: fake\n      clientSecret: fake\n    type: oidc\n    id: google\n    name: Google\n"` |  |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.all" | string | See [values.yaml] | Ignoring status for all resources. An update will still be sent if the status update causes the health to change. |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.argoproj.io_Application" | string | See [values.yaml] | Some Application fields are generated and not related to the application updates itself # The Application itself is already watched by the controller lister, but this configuration is applied for apps of apps |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.argoproj.io_Rollout" | string | See [values.yaml] | Ignore Argo Rollouts generated fields |
@@ -106,7 +110,7 @@ A Helm chart for Kubernetes
 | argocd.configs.params."controller.self.heal.timeout.seconds" | int | `5` | Specifies timeout between application self heal attempts |
 | argocd.configs.params."controller.repo.server.timeout.seconds" | int | `60` | Repo server RPC call timeout seconds. |
 | argocd.configs.params."controller.sync.timeout.seconds" | int | `0` | Specifies the timeout after which a sync would be terminated. 0 means no timeout |
-| argocd.configs.params."server.insecure" | bool | `false` | Run server without TLS # NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template. |
+| argocd.configs.params."server.insecure" | bool | `true` | Run server without TLS # NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template. |
 | argocd.configs.params."server.basehref" | string | `"/"` | Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from / |
 | argocd.configs.params."server.rootpath" | string | `""` | Used if Argo CD is running behind reverse proxy under subpath different from / |
 | argocd.configs.params."server.staticassets" | string | `"/shared/app"` | Directory path that contains additional static assets |
@@ -122,9 +126,9 @@ A Helm chart for Kubernetes
 | argocd.configs.params."controller.ignore.normalizer.jq.timeout" | string | `"1s"` | JQ Path expression timeout # By default, the evaluation of a JQPathExpression is limited to one second. # If you encounter a "JQ patch execution timed out" error message due to a complex JQPathExpression # that requires more time to evaluate, you can extend the timeout period. |
 | argocd.configs.rbac.create | bool | `true` | Create the argocd-rbac-cm configmap with ([Argo CD RBAC policy]) definitions. If false, it is expected the configmap will be created by something else. Argo CD will not work if there is no configmap created with the name above. |
 | argocd.configs.rbac.annotations | object | `{}` | Annotations to be added to argocd-rbac-cm configmap |
-| argocd.configs.rbac."policy.default" | string | `""` | The name of the default role which Argo CD will falls back to, when authorizing API requests (optional). If omitted or empty, users may be still be able to login, but will see no apps, projects, etc... |
+| argocd.configs.rbac."policy.default" | string | `"role:basic-readonly"` | The name of the default role which Argo CD will falls back to, when authorizing API requests (optional). If omitted or empty, users may be still be able to login, but will see no apps, projects, etc... |
 | argocd.configs.rbac."policy.csv" | string | `''` (See [values.yaml]) | File containing user-defined policies and role definitions. |
-| argocd.configs.rbac.scopes | string | `"[groups]"` | OIDC scopes to examine during rbac enforcement (in addition to `sub` scope). The scope value can be a string, or a list of strings. |
+| argocd.configs.rbac.scopes | string | `"[groups, email]"` | OIDC scopes to examine during rbac enforcement (in addition to `sub` scope). The scope value can be a string, or a list of strings. |
 | argocd.configs.rbac."policy.matchMode" | string | `"glob"` | Matcher function for Casbin, `glob` for glob matcher and `regex` for regex matcher. |
 | argocd.configs.gpg.annotations | object | `{}` | Annotations to be added to argocd-gpg-keys-cm configmap |
 | argocd.configs.gpg.keys | object | `{}` (See [values.yaml]) | [GnuPG] public keys to add to the keyring # Note: Public keys should be exported with `gpg --export --armor <KEY>` |
@@ -208,9 +212,9 @@ A Helm chart for Kubernetes
 | argocd.controller.serviceAccount.annotations | object | `{}` | Annotations applied to created service account |
 | argocd.controller.serviceAccount.labels | object | `{}` | Labels applied to created service account |
 | argocd.controller.serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account |
-| argocd.controller.metrics.enabled | bool | `false` | Deploy metrics service |
+| argocd.controller.metrics.enabled | bool | `true` | Deploy metrics service |
 | argocd.controller.metrics.scrapeTimeout | string | `""` | Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used. |
-| argocd.controller.metrics.applicationLabels.enabled | bool | `false` | Enables additional labels in argocd_app_labels metric |
+| argocd.controller.metrics.applicationLabels.enabled | bool | `true` | Enables additional labels in argocd_app_labels metric |
 | argocd.controller.metrics.applicationLabels.labels | list | `[]` | Additional labels |
 | argocd.controller.metrics.service.type | string | `"ClusterIP"` | Metrics service type |
 | argocd.controller.metrics.service.clusterIP | string | `""` | Metrics service clusterIP. `None` makes a "headless service" (no virtual IP) |
@@ -241,11 +245,11 @@ A Helm chart for Kubernetes
 | argocd.dex.name | string | `"dex-server"` | Dex name |
 | argocd.dex.extraArgs | list | `[]` | Additional command line arguments to pass to the Dex server |
 | argocd.dex.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for Dex |
-| argocd.dex.metrics.enabled | bool | `false` | Deploy metrics service |
+| argocd.dex.metrics.enabled | bool | `true` | Deploy metrics service |
 | argocd.dex.metrics.service.annotations | object | `{}` | Metrics service annotations |
 | argocd.dex.metrics.service.labels | object | `{}` | Metrics service labels |
 | argocd.dex.metrics.service.portName | string | `"http-metrics"` | Metrics service port name |
-| argocd.dex.metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| argocd.dex.metrics.serviceMonitor.enabled | bool | `true` | Enable a prometheus ServiceMonitor |
 | argocd.dex.metrics.serviceMonitor.interval | string | `"30s"` | Prometheus ServiceMonitor interval |
 | argocd.dex.metrics.serviceMonitor.honorLabels | bool | `false` | When true, honorLabels preserves the metric’s labels when they collide with the target’s labels. |
 | argocd.dex.metrics.serviceMonitor.relabelings | list | `[]` | Prometheus [RelabelConfigs] to apply to samples before scraping |
@@ -419,10 +423,10 @@ A Helm chart for Kubernetes
 | argocd.redis.metrics.serviceMonitor.namespace | string | `""` | Prometheus ServiceMonitor namespace |
 | argocd.redis.metrics.serviceMonitor.additionalLabels | object | `{}` | Prometheus ServiceMonitor labels |
 | argocd.redis.metrics.serviceMonitor.annotations | object | `{}` | Prometheus ServiceMonitor annotations |
-| argocd.redis-ha.enabled | bool | `false` | Enables the Redis HA subchart and disables the custom Redis single node deployment |
+| argocd.redis-ha.enabled | bool | `true` | Enables the Redis HA subchart and disables the custom Redis single node deployment |
 | argocd.redis-ha.image.repository | string | `"public.ecr.aws/docker/library/redis"` | Redis repository |
 | argocd.redis-ha.image.tag | string | `"8.0.2-alpine"` | Redis tag # Do not upgrade to >= 7.4.0, otherwise you are no longer using an open source version of Redis |
-| argocd.redis-ha.exporter.enabled | bool | `false` | Enable Prometheus redis-exporter sidecar |
+| argocd.redis-ha.exporter.enabled | bool | `true` | Enable Prometheus redis-exporter sidecar |
 | argocd.redis-ha.exporter.image | string | `"ghcr.io/oliver006/redis_exporter"` | Repository to use for the redis-exporter |
 | argocd.redis-ha.exporter.tag | string | `"v1.69.0"` | Tag to use for the redis-exporter |
 | argocd.redis-ha.persistentVolume.enabled | bool | `false` | Configures persistence on Redis nodes |
@@ -476,7 +480,7 @@ A Helm chart for Kubernetes
 | argocd.redisSecretInit.nodeSelector | object | `{}` (defaults to global.nodeSelector) | Node selector to be added to the Redis secret-init Job |
 | argocd.redisSecretInit.tolerations | list | `[]` (defaults to global.tolerations) | Tolerations to be added to the Redis secret-init Job |
 | argocd.server.name | string | `"server"` | Argo CD server name |
-| argocd.server.replicas | int | `1` | The number of server pods to run |
+| argocd.server.replicas | int | `2` | The number of server pods to run |
 | argocd.server.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for the Argo CD server |
 | argocd.server.autoscaling.enabled | bool | `false` | Enable Horizontal Pod Autoscaler ([HPA]) for the Argo CD server |
 | argocd.server.autoscaling.minReplicas | int | `1` | Minimum number of replicas for the Argo CD server [HPA] |
@@ -573,14 +577,14 @@ A Helm chart for Kubernetes
 | argocd.server.service.externalIPs | list | `[]` | Server service external IPs |
 | argocd.server.service.externalTrafficPolicy | string | `"Cluster"` | Denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints # Ref: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip |
 | argocd.server.service.sessionAffinity | string | `"None"` | Used to maintain session affinity. Supports `ClientIP` and `None` # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies |
-| argocd.server.metrics.enabled | bool | `false` | Deploy metrics service |
+| argocd.server.metrics.enabled | bool | `true` | Deploy metrics service |
 | argocd.server.metrics.service.type | string | `"ClusterIP"` | Metrics service type |
 | argocd.server.metrics.service.clusterIP | string | `""` | Metrics service clusterIP. `None` makes a "headless service" (no virtual IP) |
 | argocd.server.metrics.service.annotations | object | `{}` | Metrics service annotations |
 | argocd.server.metrics.service.labels | object | `{}` | Metrics service labels |
 | argocd.server.metrics.service.servicePort | int | `8083` | Metrics service port |
 | argocd.server.metrics.service.portName | string | `"http-metrics"` | Metrics service port name |
-| argocd.server.metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| argocd.server.metrics.serviceMonitor.enabled | bool | `true` | Enable a prometheus ServiceMonitor |
 | argocd.server.metrics.serviceMonitor.interval | string | `"30s"` | Prometheus ServiceMonitor interval |
 | argocd.server.metrics.serviceMonitor.scrapeTimeout | string | `""` | Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used. |
 | argocd.server.metrics.serviceMonitor.honorLabels | bool | `false` | When true, honorLabels preserves the metric’s labels when they collide with the target’s labels. |
@@ -598,10 +602,10 @@ A Helm chart for Kubernetes
 | argocd.server.serviceAccount.annotations | object | `{}` | Annotations applied to created service account |
 | argocd.server.serviceAccount.labels | object | `{}` | Labels applied to created service account |
 | argocd.server.serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account |
-| argocd.server.ingress.enabled | bool | `false` | Enable an ingress resource for the Argo CD server |
-| argocd.server.ingress.controller | string | `"generic"` | Specific implementation for ingress controller. One of `generic`, `aws` or `gke` # Additional configuration might be required in related configuration sections |
+| argocd.server.ingress.enabled | bool | `true` | Enable an ingress resource for the Argo CD server |
+| argocd.server.ingress.controller | string | `"gke"` | Specific implementation for ingress controller. One of `generic`, `aws` or `gke` # Additional configuration might be required in related configuration sections |
 | argocd.server.ingress.labels | object | `{}` | Additional ingress labels |
-| argocd.server.ingress.annotations | object | `{}` | Additional ingress annotations # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough |
+| argocd.server.ingress.annotations | object | `{"kubernetes.io/ingress.global-static-ip-name":"argo","networking.gke.io/managed-certificates":"argocd","networking.gke.io/v1beta1.FrontendConfig":"argocd-frontend-config"}` | Additional ingress annotations # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough |
 | argocd.server.ingress.ingressClassName | string | `""` | Defines which ingress controller will implement the resource |
 | argocd.server.ingress.hostname | string | `""` (defaults to global.domain) | Argo CD server hostname |
 | argocd.server.ingress.path | string | `"/"` | The path to Argo CD server |
@@ -616,7 +620,7 @@ A Helm chart for Kubernetes
 | argocd.server.ingress.gke.backendConfig | object | `{}` (See [values.yaml]) | Google [BackendConfig] resource, for use with the GKE Ingress Controller # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters |
 | argocd.server.ingress.gke.frontendConfig | object | `{}` (See [values.yaml]) | Google [FrontendConfig] resource, for use with the GKE Ingress Controller # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters |
 | argocd.server.ingress.gke.managedCertificate.create | bool | `true` | Create ManagedCertificate resource and annotations for Google Load balancer # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs |
-| argocd.server.ingress.gke.managedCertificate.extraDomains | list | `[]` | Additional domains for ManagedCertificate resource |
+| argocd.server.ingress.gke.managedCertificate.extraDomains | list | `["argocd.prod.theopenlane.io"]` | Additional domains for ManagedCertificate resource |
 | argocd.server.ingressGrpc.enabled | bool | `false` | Enable an ingress resource for the Argo CD server for dedicated [gRPC-ingress] |
 | argocd.server.ingressGrpc.annotations | object | `{}` | Additional ingress annotations for dedicated [gRPC-ingress] |
 | argocd.server.ingressGrpc.labels | object | `{}` | Additional ingress labels for dedicated [gRPC-ingress] |
@@ -637,7 +641,7 @@ A Helm chart for Kubernetes
 | argocd.server.clusterRoleRules.enabled | bool | `false` | Enable custom rules for the server's ClusterRole resource |
 | argocd.server.clusterRoleRules.rules | list | `[]` | List of custom rules for the server's ClusterRole resource |
 | argocd.repoServer.name | string | `"repo-server"` | Repo server name |
-| argocd.repoServer.replicas | int | `1` | The number of repo server pods to run |
+| argocd.repoServer.replicas | int | `2` | The number of repo server pods to run |
 | argocd.repoServer.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for the repo server |
 | argocd.repoServer.autoscaling.enabled | bool | `false` | Enable Horizontal Pod Autoscaler ([HPA]) for the repo server |
 | argocd.repoServer.autoscaling.minReplicas | int | `1` | Minimum number of replicas for the repo server [HPA] |
@@ -703,14 +707,14 @@ A Helm chart for Kubernetes
 | argocd.repoServer.service.labels | object | `{}` | Repo server service labels |
 | argocd.repoServer.service.port | int | `8081` | Repo server service port |
 | argocd.repoServer.service.portName | string | `"tcp-repo-server"` | Repo server service port name |
-| argocd.repoServer.metrics.enabled | bool | `false` | Deploy metrics service |
+| argocd.repoServer.metrics.enabled | bool | `true` | Deploy metrics service |
 | argocd.repoServer.metrics.service.type | string | `"ClusterIP"` | Metrics service type |
 | argocd.repoServer.metrics.service.clusterIP | string | `""` | Metrics service clusterIP. `None` makes a "headless service" (no virtual IP) |
 | argocd.repoServer.metrics.service.annotations | object | `{}` | Metrics service annotations |
 | argocd.repoServer.metrics.service.labels | object | `{}` | Metrics service labels |
 | argocd.repoServer.metrics.service.servicePort | int | `8084` | Metrics service port |
 | argocd.repoServer.metrics.service.portName | string | `"http-metrics"` | Metrics service port name |
-| argocd.repoServer.metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| argocd.repoServer.metrics.serviceMonitor.enabled | bool | `true` | Enable a prometheus ServiceMonitor |
 | argocd.repoServer.metrics.serviceMonitor.interval | string | `"30s"` | Prometheus ServiceMonitor interval |
 | argocd.repoServer.metrics.serviceMonitor.scrapeTimeout | string | `""` | Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used. |
 | argocd.repoServer.metrics.serviceMonitor.honorLabels | bool | `false` | When true, honorLabels preserves the metric’s labels when they collide with the target’s labels. |
@@ -732,7 +736,7 @@ A Helm chart for Kubernetes
 | argocd.repoServer.serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account |
 | argocd.repoServer.rbac | list | `[]` | Repo server rbac rules |
 | argocd.applicationSet.name | string | `"applicationset-controller"` | ApplicationSet controller name string |
-| argocd.applicationSet.replicas | int | `1` | The number of ApplicationSet controller pods to run |
+| argocd.applicationSet.replicas | int | `2` | The number of ApplicationSet controller pods to run |
 | argocd.applicationSet.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for the ApplicationSet controller |
 | argocd.applicationSet.pdb.enabled | bool | `false` | Deploy a [PodDisruptionBudget] for the ApplicationSet controller |
 | argocd.applicationSet.pdb.labels | object | `{}` | Labels to be added to ApplicationSet controller pdb |
@@ -751,14 +755,14 @@ A Helm chart for Kubernetes
 | argocd.applicationSet.extraVolumeMounts | list | `[]` | List of extra mounts to add (normally used with extraVolumes) |
 | argocd.applicationSet.extraVolumes | list | `[]` | List of extra volumes to add |
 | argocd.applicationSet.emptyDir.sizeLimit | string | `""` (defaults not set if not specified i.e. no size limit) | EmptyDir size limit for applicationSet controller |
-| argocd.applicationSet.metrics.enabled | bool | `false` | Deploy metrics service |
+| argocd.applicationSet.metrics.enabled | bool | `true` | Deploy metrics service |
 | argocd.applicationSet.metrics.service.type | string | `"ClusterIP"` | Metrics service type |
 | argocd.applicationSet.metrics.service.clusterIP | string | `""` | Metrics service clusterIP. `None` makes a "headless service" (no virtual IP) |
 | argocd.applicationSet.metrics.service.annotations | object | `{}` | Metrics service annotations |
 | argocd.applicationSet.metrics.service.labels | object | `{}` | Metrics service labels |
 | argocd.applicationSet.metrics.service.servicePort | int | `8080` | Metrics service port |
 | argocd.applicationSet.metrics.service.portName | string | `"http-metrics"` | Metrics service port name |
-| argocd.applicationSet.metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| argocd.applicationSet.metrics.serviceMonitor.enabled | bool | `true` | Enable a prometheus ServiceMonitor |
 | argocd.applicationSet.metrics.serviceMonitor.interval | string | `"30s"` | Prometheus ServiceMonitor interval |
 | argocd.applicationSet.metrics.serviceMonitor.scrapeTimeout | string | `""` | Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used. |
 | argocd.applicationSet.metrics.serviceMonitor.honorLabels | bool | `false` | When true, honorLabels preserves the metric’s labels when they collide with the target’s labels. |
@@ -858,10 +862,10 @@ A Helm chart for Kubernetes
 | argocd.notifications.extraVolumes | list | `[]` | List of extra volumes to add |
 | argocd.notifications.context | object | `{}` | Define user-defined context # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/templates/#defining-user-defined-context |
 | argocd.notifications.secret.create | bool | `true` | Whether helm chart creates notifications controller secret # If true, will create a secret with the name below. Otherwise, will assume existence of a secret with that name. |
-| argocd.notifications.secret.name | string | `"argocd-notifications-secret"` | notifications controller Secret name |
+| argocd.notifications.secret.name | string | `"argocd-slack-token"` | notifications controller Secret name |
 | argocd.notifications.secret.annotations | object | `{}` | key:value pairs of annotations to be added to the secret |
 | argocd.notifications.secret.labels | object | `{}` | key:value pairs of labels to be added to the secret |
-| argocd.notifications.secret.items | object | `{}` | Generic key:value pairs to be inserted into the secret # Can be used for templates, notification services etc. Some examples given below. # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/ |
+| argocd.notifications.secret.items | object | `{"slack-token":"fake"}` | Generic key:value pairs to be inserted into the secret # Can be used for templates, notification services etc. Some examples given below. # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/ |
 | argocd.notifications.metrics.enabled | bool | `false` | Enables prometheus metrics server |
 | argocd.notifications.metrics.port | int | `9001` | Metrics port |
 | argocd.notifications.metrics.service.type | string | `"ClusterIP"` | Metrics service type |

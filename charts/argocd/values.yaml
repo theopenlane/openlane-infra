@@ -1,19 +1,3 @@
-prometheus:
-  # -- Enables Prometheus Operator monitoring
-  enabled: false
-  rules:
-    # -- Enables prometheus operator rules
-    enabled: true
-    # -- Labels to affect to the Prometheus Rules
-    labels:
-      prometheus: prometheus-operator-prometheus
-  grafanaDashboard:
-    # -- Add grafana dashboard as a configmap
-    enabled: true
-    # -- label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard
-    label:
-      grafana_dashboard: "1"
-
 # Default values for argocd.
 argocd:
   ## Argo CD configuration
@@ -26,7 +10,7 @@ argocd:
   fullnameOverride: ""
   # -- Override the namespace
   # @default -- `.Release.Namespace`
-  namespaceOverride: ""
+  namespaceOverride: "argocd"
   # -- Override the Kubernetes version, which is used to evaluate certain manifests
   kubeVersionOverride: ""
   # Override APIVersions
@@ -60,7 +44,7 @@ argocd:
   global:
     # -- Default domain used by all components
     ## Used for ingresses, certificates, SSO, notifications, etc.
-    domain: argocd.example.com
+    domain: argocd.prod.theopenlane.io
 
     # -- Runtime class name for all components
     runtimeClassName: ""
@@ -87,7 +71,7 @@ argocd:
     # Default logging options used by all components
     logging:
       # -- Set the global logging format. Either: `text` or `json`
-      format: text
+      format: json
       # -- Set the global logging level. One of: `debug`, `info`, `warn` or `error`
       level: info
 
@@ -104,7 +88,7 @@ argocd:
     podLabels: {}
 
     # -- Add Prometheus scrape annotations to all metrics services. This can be used as an alternative to the ServiceMonitors.
-    addPrometheusAnnotations: false
+    addPrometheusAnnotations: true
 
     # -- Toggle and define pod-level security context.
     # @default -- `{}` (See [values.yaml])
@@ -190,10 +174,10 @@ argocd:
 
       # -- Annotations to be added to argocd-cm configmap
       annotations: {}
-
+      url: https://argocd.prod.theopenlane.io
       # -- The name of tracking label used by Argo CD for resource pruning
-      application.instanceLabelKey: argocd.argoproj.io/instance
-
+      application.instanceLabelKey: argo.prod.theopenlane.io/instance
+      help.chatUrl: "slack://channel?team=T07GY6JPX9C&id=C07HHFWK0QZ"
       # -- Enable control of the service account used for the sync operation (alpha)
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/app-sync-using-impersonation/
       application.sync.impersonation.enabled: false
@@ -204,7 +188,7 @@ argocd:
 
       # -- Enable exec feature in Argo UI
       ## Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/rbac/#exec-resource
-      exec.enabled: false
+      exec.enabled: true
 
       # -- Enable local admin user
       ## Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
@@ -218,61 +202,17 @@ argocd:
 
       # -- Enable Status Badge
       ## Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/
-      statusbadge.enabled: false
+      statusbadge.enabled: true
 
-      # Dex configuration
-      # dex.config: |
-      #   connectors:
-      #     # GitHub example
-      #     - type: github
-      #       id: github
-      #       name: GitHub
-      #       config:
-      #         clientID: aabbccddeeff00112233
-      #         clientSecret: $dex.github.clientSecret # Alternatively $<some_K8S_secret>:dex.github.clientSecret
-      #         orgs:
-      #         - name: your-github-org
-
-      # OIDC configuration as an alternative to dex (optional).
-      # oidc.config: |
-      #   name: AzureAD
-      #   issuer: https://login.microsoftonline.com/TENANT_ID/v2.0
-      #   clientID: CLIENT_ID
-      #   clientSecret: $oidc.azuread.clientSecret
-      #   rootCA: |
-      #     -----BEGIN CERTIFICATE-----
-      #     ... encoded certificate data here ...
-      #     -----END CERTIFICATE-----
-      #   requestedIDTokenClaims:
-      #     groups:
-      #       essential: true
-      #   requestedScopes:
-      #     - openid
-      #     - profile
-      #     - email
-
-      # Extension Configuration
-      ## Ref: https://argo-cd.readthedocs.io/en/latest/developer-guide/extensions/proxy-extensions/
-      # extension.config: |
-      #   extensions:
-      #   - name: httpbin
-      #     backend:
-      #       connectionTimeout: 2s
-      #       keepAlive: 15s
-      #       idleConnectionTimeout: 60s
-      #       maxIdleConnections: 30
-      #       services:
-      #       - url: http://httpbin.org
-      #         headers:
-      #         - name: some-header
-      #           value: '$some.argocd.secret.key'
-      #         cluster:
-      #           name: some-cluster
-      #           server: https://some-cluster
-
-      ## Default configuration for ignoreResourceUpdates.
-      ## The ignoreResourceUpdates list contains K8s resource's properties that are known to be frequently updated
-      ## by controllers and operators. These resources, when watched by argo, will cause many unnecessary updates.
+      dex.config: |
+        connectors:
+          - config:
+              issuer: https://accounts.google.com
+              clientID: fake
+              clientSecret: fake
+            type: oidc
+            id: google
+            name: Google
 
       # -- Ignoring status for all resources. An update will still be sent if the status update causes the health to change.
       # @default -- See [values.yaml]
@@ -424,7 +364,7 @@ argocd:
       ## Server properties
       # -- Run server without TLS
       ## NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template.
-      server.insecure: false
+      server.insecure: true
       # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
       server.basehref: /
       # -- Used if Argo CD is running behind reverse proxy under subpath different from /
@@ -479,26 +419,19 @@ argocd:
 
       # -- The name of the default role which Argo CD will falls back to, when authorizing API requests (optional).
       # If omitted or empty, users may be still be able to login, but will see no apps, projects, etc...
-      policy.default: ''
+      policy.default: 'role:basic-readonly'
 
       # -- File containing user-defined policies and role definitions.
       # @default -- `''` (See [values.yaml])
-      policy.csv: ''
-      # Policy rules are in the form:
-      #  p, subject, resource, action, object, effect
-      # Role definitions and bindings are in the form:
-      #  g, subject, inherited-subject
-      # policy.csv: |
-      #   p, role:org-admin, applications, *, */*, allow
-      #   p, role:org-admin, clusters, get, *, allow
-      #   p, role:org-admin, repositories, *, *, allow
-      #   p, role:org-admin, logs, get, *, allow
-      #   p, role:org-admin, exec, create, */*, allow
-      #   g, your-github-org:your-team, role:org-admin
+      policy.csv: |
+        g, manderson@theopenlane.io, role:admin
+        g, sfunkhouser@theopenlane.io, role:admin
+        p, role:basic-readonly, clusters, get, *, allow
+        p, role:basic-readonly, repositories, get, *, allow
 
       # -- OIDC scopes to examine during rbac enforcement (in addition to `sub` scope).
       # The scope value can be a string, or a list of strings.
-      scopes: "[groups]"
+      scopes: "[groups, email]"
 
       # -- Matcher function for Casbin, `glob` for glob matcher and `regex` for regex matcher.
       policy.matchMode: "glob"
@@ -1004,12 +937,12 @@ argocd:
     ## Application controller metrics configuration
     metrics:
       # -- Deploy metrics service
-      enabled: false
+      enabled: true
       # -- Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used.
       scrapeTimeout: ""
       applicationLabels:
         # -- Enables additional labels in argocd_app_labels metric
-        enabled: false
+        enabled: true
         # -- Additional labels
         labels: []
       service:
@@ -1115,7 +1048,7 @@ argocd:
 
     metrics:
       # -- Deploy metrics service
-      enabled: false
+      enabled: true
       service:
         # -- Metrics service annotations
         annotations: {}
@@ -1125,7 +1058,7 @@ argocd:
         portName: http-metrics
       serviceMonitor:
         # -- Enable a prometheus ServiceMonitor
-        enabled: false
+        enabled: true
         # -- Prometheus ServiceMonitor interval
         interval: 30s
         # -- When true, honorLabels preserves the metric’s labels when they collide with the target’s labels.
@@ -1716,7 +1649,7 @@ argocd:
   # Ref: https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml
   redis-ha:
     # -- Enables the Redis HA subchart and disables the custom Redis single node deployment
-    enabled: false
+    enabled: true
     ## Redis image
     image:
       # -- Redis repository
@@ -1727,7 +1660,7 @@ argocd:
     ## Prometheus redis-exporter sidecar
     exporter:
       # -- Enable Prometheus redis-exporter sidecar
-      enabled: false
+      enabled: true
       # -- Repository to use for the redis-exporter
       image: ghcr.io/oliver006/redis_exporter
       # -- Tag to use for the redis-exporter
@@ -1907,7 +1840,7 @@ argocd:
     name: server
 
     # -- The number of server pods to run
-    replicas: 1
+    replicas: 2
 
     # -- Runtime class name for the Argo CD server
     # @default -- `""` (defaults to global.runtimeClassName)
@@ -2310,7 +2243,7 @@ argocd:
     ## Server metrics service configuration
     metrics:
       # -- Deploy metrics service
-      enabled: false
+      enabled: true
       service:
         # -- Metrics service type
         type: ClusterIP
@@ -2326,7 +2259,7 @@ argocd:
         portName: http-metrics
       serviceMonitor:
         # -- Enable a prometheus ServiceMonitor
-        enabled: false
+        enabled: true
         # -- Prometheus ServiceMonitor interval
         interval: 30s
         # -- Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used.
@@ -2370,17 +2303,18 @@ argocd:
     # Argo CD server ingress configuration
     ingress:
       # -- Enable an ingress resource for the Argo CD server
-      enabled: false
+      enabled: true
       # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
       ## Additional configuration might be required in related configuration sections
-      controller: generic
+      controller: gke
       # -- Additional ingress labels
       labels: {}
       # -- Additional ingress annotations
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
-      annotations: {}
-      # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      annotations:
+        networking.gke.io/v1beta1.FrontendConfig: argocd-frontend-config
+        kubernetes.io/ingress.global-static-ip-name: argo
+        networking.gke.io/managed-certificates: argocd
 
       # -- Defines which ingress controller will implement the resource
       ingressClassName: ""
@@ -2460,18 +2394,18 @@ argocd:
         # -- Google [BackendConfig] resource, for use with the GKE Ingress Controller
         # @default -- `{}` (See [values.yaml])
         ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters
-        backendConfig: {}
-        # iap:
-        #  enabled: true
-        #  oauthclientCredentials:
-        #    secretName: argocd-secret
+        backendConfig:
+          iap:
+           enabled: true
+         #  oauthclientCredentials:
+          #   secretName: argocd-secret
 
         # -- Google [FrontendConfig] resource, for use with the GKE Ingress Controller
         # @default -- `{}` (See [values.yaml])
         ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters
-        frontendConfig: {}
-        # redirectToHttps:
-        #   enabled: true
+        frontendConfig:
+          redirectToHttps:
+            enabled: true
         #   responseCodeName: RESPONSE_CODE
 
         # Managed GKE certificate for ingress hostname
@@ -2480,8 +2414,8 @@ argocd:
           ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
           create: true
           # -- Additional domains for ManagedCertificate resource
-          extraDomains: []
-          # - argocd.example.com
+          extraDomains:
+            - argocd.prod.theopenlane.io
 
     # Dedicated gRPC ingress for ingress controllers that supports only single backend protocol per Ingress resource
     # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts
@@ -2578,7 +2512,7 @@ argocd:
     name: repo-server
 
     # -- The number of repo server pods to run
-    replicas: 1
+    replicas: 2
 
     # -- Runtime class name for the repo server
     # @default -- `""` (defaults to global.runtimeClassName)
@@ -2887,7 +2821,7 @@ argocd:
     ## Repo server metrics service configuration
     metrics:
       # -- Deploy metrics service
-      enabled: false
+      enabled: true
       service:
         # -- Metrics service type
         type: ClusterIP
@@ -2903,7 +2837,7 @@ argocd:
         portName: http-metrics
       serviceMonitor:
         # -- Enable a prometheus ServiceMonitor
-        enabled: false
+        enabled: true
         # -- Prometheus ServiceMonitor interval
         interval: 30s
         # -- Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used.
@@ -2972,7 +2906,7 @@ argocd:
     name: applicationset-controller
 
     # -- The number of ApplicationSet controller pods to run
-    replicas: 1
+    replicas: 2
 
     # -- Runtime class name for the ApplicationSet controller
     # @default -- `""` (defaults to global.runtimeClassName)
@@ -3050,7 +2984,7 @@ argocd:
     ## Metrics service configuration
     metrics:
       # -- Deploy metrics service
-      enabled: false
+      enabled: true
       service:
         # -- Metrics service type
         type: ClusterIP
@@ -3066,7 +3000,7 @@ argocd:
         portName: http-metrics
       serviceMonitor:
         # -- Enable a prometheus ServiceMonitor
-        enabled: false
+        enabled: true
         # -- Prometheus ServiceMonitor interval
         interval: 30s
         # -- Prometheus ServiceMonitor scrapeTimeout. If empty, Prometheus uses the global scrape timeout unless it is less than the target's scrape interval value in which the latter is used.
@@ -3431,7 +3365,7 @@ argocd:
       create: true
 
       # -- notifications controller Secret name
-      name: "argocd-notifications-secret"
+      name: "argocd-slack-token"
 
       # -- key:value pairs of annotations to be added to the secret
       annotations: {}
@@ -3442,8 +3376,8 @@ argocd:
       # -- Generic key:value pairs to be inserted into the secret
       ## Can be used for templates, notification services etc. Some examples given below.
       ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/
-      items: {}
-      # slack-token:
+      items:
+        slack-token: fake
       #   # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/
 
       # grafana-apiKey:
@@ -3498,9 +3432,10 @@ argocd:
     # -- Configures notification services such as slack, email or custom webhook
     # @default -- See [values.yaml]
     ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/
-    notifiers: {}
-    # service.slack: |
-    #   token: $slack-token
+    notifiers:
+      service.slack: |
+        token: $argocd-slack-token
+        icon: "https://branding.cncf.io/img/projects/argo/icon/color/argo-icon-color.svg"
 
     # -- Annotations to be applied to the notifications controller Deployment
     deploymentAnnotations: {}

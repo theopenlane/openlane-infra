@@ -237,6 +237,7 @@ else
     --resource-locations "$GCP_REGION" \
     --channel "regular" \
     --full-management \
+    --enable-dns-access \
     --async # Run in background to continue with IAM setup
   log_info "Config Controller creation initiated. This may take 15-20 minutes."
 fi

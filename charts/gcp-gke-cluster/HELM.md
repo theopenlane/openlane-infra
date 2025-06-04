@@ -2,7 +2,7 @@
 
 # openlane-gcp-gke-cluster
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 

@@ -17,6 +17,6 @@
 
 {{/* Returns the K8s namespace name for this GCP Project's KCC Name. */}}
 {{- define "gcp-project-base.k8sNamespace" -}}
-{{- $projectKccName := .Values.project.name -}}
+{{- $projectKccName := $.Values.project.name -}}
 {{- printf "%s-ns" ($projectKccName | replace "-" "" | lower) -}}
 {{- end -}}

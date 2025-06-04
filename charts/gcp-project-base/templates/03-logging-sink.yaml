@@ -1,10 +1,9 @@
 # charts/gcp-project-base/templates/05-logging-sinks.yaml
-{{- if .Values.isLoggingProject }}
+{{- if .Values.isSignalsProject }}
 apiVersion: bigquery.cnrm.cloud.google.com/v1beta1
 kind: BigQueryDataset
 metadata:
   name: {{ .Values.logSinks.orgAudit.destinationDatasetName }}
-  namespace: {{ include "gcp-project-base.k8sNamespace" . }}
   annotations:
     cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
 spec:
@@ -15,7 +14,6 @@ apiVersion: storage.cnrm.cloud.google.com/v1beta1
 kind: StorageBucket
 metadata:
   name: {{ .Values.logSinks.orgAudit.destinationBucketName }}
-  namespace: {{ include "gcp-project-base.k8sNamespace" . }}
   annotations:
     cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
 spec:
@@ -29,7 +27,6 @@ apiVersion: logging.cnrm.cloud.google.com/v1beta1
 kind: LoggingLogSink
 metadata:
   name: org-audit-logs-to-bq-global # This sink collects logs from the entire organization
-  namespace: config-connector # Must be in config-connector namespace for org-level scope
   annotations:
     cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
@@ -56,7 +53,6 @@ apiVersion: logging.cnrm.cloud.google.com/v1beta1
 kind: LoggingLogSink
 metadata:
   name: project-logs-to-bucket # This sink collects logs from the current project
-  namespace: {{ include "gcp-project-base.k8sNamespace" . }}
   annotations:
     cnrm.cloud.google.com/project-id: {{ .Values.project.name }}
 spec:

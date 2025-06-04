@@ -1,13 +1,17 @@
+version: 0.1.2
 apiVersion: v2
 appVersion: 3.0.3
-description: A Helm chart for Kubernetes
+description: A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
+name: openlane-argocd
+type: application
 maintainers:
   - email: support@theopenlane.io
     name: Openlane
     url: https://www.theopenlane.io
-name: openlane-argocd
-type: application
-version: 0.1.2
+icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+sources:
+  - https://github.com/theopenlane/openlane-infra
+home: https://docs.theopenlane.io
 dependencies:
   - name: argo-cd
     version: 8.0.13

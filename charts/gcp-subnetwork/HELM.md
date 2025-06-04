@@ -2,7 +2,7 @@
 
 # openlane-gcp-subnetwork
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 
@@ -25,7 +25,6 @@ Chart for compute-subnetwork resource with config connector
 
 ## Source Code
 
-* <https://github.com/theopenlane/core>
 * <https://github.com/theopenlane/openlane-infra>
 
 ## Values

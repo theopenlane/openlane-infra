@@ -38,7 +38,7 @@
 
     {{- $gcpProjectBaseFlags := dict -}}
     {{- if eq $projectType "sharedVpcHost" }}{{- $_ := set $gcpProjectBaseFlags "isSharedVpcHost" true -}}{{- end -}}
-    {{- if eq $projectType "loggingProject" }}{{- $_ := set $gcpProjectBaseFlags "isLoggingProject" true -}}{{- end -}}
+    {{- if eq $projectType "signalsProject" }}{{- $_ := set $gcpProjectBaseFlags "isSignalsProject" true -}}{{- end -}}
     {{- if eq $projectType "kmsProject" }}{{- $_ := set $gcpProjectBaseFlags "isKmsProject" true -}}{{- end -}}
 
     {{- $resourceConfigs := dict -}}

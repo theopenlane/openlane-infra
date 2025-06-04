@@ -2,7 +2,7 @@
 
 # openlane-gcp-bootstrap
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 
@@ -25,7 +25,6 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 
 ## Source Code
 
-* <https://github.com/theopenlane/core>
 * <https://github.com/theopenlane/openlane-infra>
 
 ## Values
@@ -77,17 +76,6 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 | commonAppConfig.dnsZone.enabled | bool | `false` |  |
 | commonAppConfig.dnsZone.name | string | `"default-zone"` |  |
 | commonAppConfig.dnsZone.domainName | string | `"default.com."` |  |
-| commonAppConfig.enableAPIs[0] | string | `"compute.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[1] | string | `"servicenetworking.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[2] | string | `"iam.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[3] | string | `"container.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[4] | string | `"cloudresourcemanager.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[5] | string | `"dns.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[6] | string | `"cloudkms.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[7] | string | `"sqladmin.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[8] | string | `"redis.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[9] | string | `"logging.googleapis.com"` |  |
-| commonAppConfig.enableAPIs[10] | string | `"monitoring.googleapis.com"` |  |
 | sharedVpcHost.enabled | bool | `true` |  |
 | sharedVpcHost.project.name | string | `"shared-vpc"` |  |
 | sharedVpcHost.project.gcpProjectName | string | `"shared-vpc"` |  |
@@ -109,7 +97,7 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 | sharedVpcHost.firewallRules.allowIAPSsh.ports.protocol | string | `"tcp"` |  |
 | sharedVpcHost.firewallRules.allowIAPSsh.ports.ports[0] | string | `"22"` |  |
 | sharedVpcHost.serviceProjects | list | `[]` |  |
-| appProject.enabled | bool | `true` |  |
+| appProject.enabled | bool | `false` |  |
 | appProject.project.name | string | `"openlane-app"` |  |
 | appProject.project.gcpProjectName | string | `"Openlane Application"` |  |
 | appProject.project.id | string | `""` |  |
@@ -119,13 +107,13 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 | appProject.cloudsql | object | `{}` |  |
 | appProject.memorystore | object | `{}` |  |
 | appProject.dnsZone | object | `{}` |  |
-| loggingProject.enabled | bool | `true` |  |
-| loggingProject.project.name | string | `"openlane-logs"` |  |
-| loggingProject.project.gcpProjectName | string | `"Openlane Central Logging"` |  |
-| loggingProject.project.id | string | `""` |  |
-| loggingProject.logSinks.orgAudit.enabled | bool | `true` |  |
-| loggingProject.logSinks.orgAudit.destinationBucketName | string | `"openlane-central-logs-bucket"` |  |
-| loggingProject.logSinks.orgAudit.destinationDatasetName | string | `"openlane_central_logs_dataset"` |  |
+| signalsProject.enabled | bool | `false` |  |
+| signalsProject.project.name | string | `"openlane-logs"` |  |
+| signalsProject.project.gcpProjectName | string | `"Openlane Central Logging"` |  |
+| signalsProject.project.id | string | `""` |  |
+| signalsProject.logSinks.orgAudit.enabled | bool | `true` |  |
+| signalsProject.logSinks.orgAudit.destinationBucketName | string | `"openlane-central-logs-bucket"` |  |
+| signalsProject.logSinks.orgAudit.destinationDatasetName | string | `"openlane_central_logs_dataset"` |  |
 | billingProject.enabled | bool | `true` |  |
 | billingProject.project.name | string | `"openlane-billing"` |  |
 | billingProject.project.gcpProjectName | string | `"Openlane Billing Admin"` |  |
@@ -134,10 +122,6 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 | kmsProject.project.name | string | `"openlane-kms"` |  |
 | kmsProject.project.gcpProjectName | string | `"Openlane Central KMS"` |  |
 | kmsProject.project.id | string | `""` |  |
-| sharedInfrastructureProject.enabled | bool | `true` |  |
-| sharedInfrastructureProject.project.name | string | `"openlane-shared-infra"` |  |
-| sharedInfrastructureProject.project.gcpProjectName | string | `"Openlane Shared Infrastructure"` |  |
-| sharedInfrastructureProject.project.id | string | `""` |  |
 | bootstrapProject.enabled | bool | `true` |  |
 | bootstrapProject.project.name | string | `"openlane-misc"` |  |
 | bootstrapProject.project.gcpProjectName | string | `"Openlane Bootstrap Project"` |  |
@@ -197,32 +181,37 @@ Bootstrap chart for Openlane GCP infrastructure, creating folders, and generatin
 | projects.common-shared-kms.parentType | string | `"folder"` |  |
 | projects.common-shared-kms.parent | string | `"common"` |  |
 | projects.common-shared-kms.id | string | `""` |  |
-| projects.common-shared-kms.type | string | `"sharedInfrastructureProject"` |  |
-| projects.common-shared-secrets.displayName | string | `"common-shared-secrets"` |  |
-| projects.common-shared-secrets.parentType | string | `"folder"` |  |
-| projects.common-shared-secrets.parent | string | `"common"` |  |
-| projects.common-shared-secrets.id | string | `""` |  |
-| projects.common-shared-secrets.type | string | `"sharedInfrastructureProject"` |  |
+| projects.common-shared-kms.type | string | `"kmsProject"` |  |
+| projects.common-shared-kms.apis[0] | string | `"cloudkms.googleapis.com"` |  |
+| projects.common-shared-kms.apis[1] | string | `"iam.googleapis.com"` |  |
+| projects.common-shared-kms.apis[2] | string | `"cloudresourcemanager.googleapis.com"` |  |
+| projects.common-shared-kms.apis[3] | string | `"storage.googleapis.com"` |  |
 | projects.common-shared-network-project.displayName | string | `"common-shared-network-project"` |  |
 | projects.common-shared-network-project.parentType | string | `"folder"` |  |
 | projects.common-shared-network-project.parent | string | `"common"` |  |
 | projects.common-shared-network-project.id | string | `""` |  |
 | projects.common-shared-network-project.type | string | `"sharedVpcHost"` |  |
-| projects.common-shared-logging.displayName | string | `"common-shared-logging"` |  |
-| projects.common-shared-logging.parentType | string | `"folder"` |  |
-| projects.common-shared-logging.parent | string | `"common"` |  |
-| projects.common-shared-logging.id | string | `""` |  |
-| projects.common-shared-logging.type | string | `"loggingProject"` |  |
-| projects.common-shared-monitoring.displayName | string | `"common-shared-monitoring"` |  |
-| projects.common-shared-monitoring.parentType | string | `"folder"` |  |
-| projects.common-shared-monitoring.parent | string | `"common"` |  |
-| projects.common-shared-monitoring.id | string | `""` |  |
-| projects.common-shared-monitoring.type | string | `"loggingProject"` |  |
+| projects.common-shared-network-project.apis[0] | string | `"compute.googleapis.com"` |  |
+| projects.common-shared-network-project.apis[1] | string | `"servicenetworking.googleapis.com"` |  |
+| projects.common-shared-network-project.apis[2] | string | `"dns.googleapis.com"` |  |
+| projects.common-shared-signals.displayName | string | `"common-shared-signals"` |  |
+| projects.common-shared-signals.parentType | string | `"folder"` |  |
+| projects.common-shared-signals.parent | string | `"common"` |  |
+| projects.common-shared-signals.id | string | `""` |  |
+| projects.common-shared-signals.type | string | `"signalsProject"` |  |
+| projects.common-shared-signals.apis[0] | string | `"logging.googleapis.com"` |  |
+| projects.common-shared-signals.apis[1] | string | `"cloudresourcemanager.googleapis.com"` |  |
+| projects.common-shared-signals.apis[2] | string | `"monitoring.googleapis.com"` |  |
+| projects.common-shared-signals.apis[3] | string | `"metrics.googleapis.com"` |  |
 | projects.common-billing-project.displayName | string | `"common-billing-project"` |  |
 | projects.common-billing-project.parentType | string | `"folder"` |  |
 | projects.common-billing-project.parent | string | `"common"` |  |
 | projects.common-billing-project.id | string | `""` |  |
 | projects.common-billing-project.type | string | `"billingProject"` |  |
+| projects.common-billing-project.apis[0] | string | `"cloudresourcemanager.googleapis.com"` |  |
+| projects.common-billing-project.apis[1] | string | `"cloudbilling.googleapis.com"` |  |
+| projects.common-billing-project.apis[2] | string | `"iam.googleapis.com"` |  |
+| projects.common-billing-project.apis[3] | string | `"serviceusage.googleapis.com"` |  |
 
 ## Config Connector resources
 

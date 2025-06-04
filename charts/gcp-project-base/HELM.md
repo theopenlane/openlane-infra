@@ -2,7 +2,7 @@
 
 # gcp-project-base
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 
@@ -12,6 +12,24 @@
 - [task](https://taskfile.dev/)
 
 Once you've installed `task` you can simply run `task install` to get the remaining dependencies installed, assuning you're using macOS and have `brew`.
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-bucket | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-cloud-nat | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | gcpCloudNat(openlane-gcp-cloud-nat) | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-cloudsql | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-dns-zone | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-gke-cluster | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-lb | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-memorystore | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-service-account | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | gcpSubnetwork(openlane-gcp-subnetwork) | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | gcpVpcNetwork(openlane-gcp-vpc-network) | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-vpc-network | 0.1.1 |
+| https://theopenlane.github.io/openlane-infra | openlane-gcp-workload-identity | 0.1.1 |
 
 ## Maintainers
 
@@ -25,7 +43,6 @@ Reusable chart for defining a GCP Project and its common resources
 
 ## Source Code
 
-* <https://github.com/theopenlane/core>
 * <https://github.com/theopenlane/openlane-infra>
 
 ## Values
@@ -46,7 +63,7 @@ Reusable chart for defining a GCP Project and its common resources
 | envName | string | `"default"` |  |
 | envCapitalizedName | string | `"Default"` |  |
 | isSharedVpcHost | bool | `false` |  |
-| isLoggingProject | bool | `false` |  |
+| isSignalsProject | bool | `false` |  |
 | sharedVpcHostDev | object | `{}` |  |
 | sharedVpcHostProd | object | `{}` |  |
 | gkeCluster.enabled | bool | `false` |  |

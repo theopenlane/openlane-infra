@@ -2,7 +2,7 @@
 
 # openlane-gcp-bigquery
 
-**Homepage:** <https://www.theopenlane.io>
+**Homepage:** <https://docs.theopenlane.io>
 
 ## Prerequisites
 
@@ -25,7 +25,6 @@ A Helm chart that Creates BigQuery resources through Config Connector
 
 ## Source Code
 
-* <https://github.com/theopenlane/core>
 * <https://github.com/theopenlane/openlane-infra>
 
 ## Values

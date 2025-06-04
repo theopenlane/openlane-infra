@@ -51,7 +51,7 @@ sharedVpcHost:
 appProject:
   enabled: true
 
-loggingProject:
+signalsProject:
   enabled: true
   logSinks:
     orgAudit:
@@ -63,9 +63,6 @@ billingProject:
   enabled: true
 
 kmsProject:
-  enabled: true
-
-sharedInfrastructureProject:
   enabled: true
 
 bootstrapProject:
@@ -186,41 +183,81 @@ projects:
     parent: bootstrap
     id: ''
     type: bootstrapProject
+    project:
+      name: "dev-bootstrap-project"
+      gcpProjectName: "dev-bootstrap-project"
+    apis:
+      - iam.googleapis.com
+      - serviceusage.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - dns.googleapis.com
+      - compute.googleapis.com
+      - container.googleapis.com
+      - storage.googleapis.com
+      - artifactregistry.googleapis.com
+      - anthosidentityservice.googleapis.com
+      - anthosgke.googleapis.com
+      - autoscaling.googleapis.com
+      - anthosconfigmanagement.googleapis.com
+      - bigquerymigration.googleapis.com
   dev-shared-network-project:
     displayName: dev-shared-network-project
     parent: dev-networking
     id: ''
     type: sharedVpcHost
+    project:
+      name: "dev-bootstrap-project"
+      gcpProjectName: "dev-bootstrap-project"
+    apis:
+      - compute.googleapis.com
+      - servicenetworking.googleapis.com
+      - dns.googleapis.com
   dev-shared-kms:
     displayName: dev-shared-kms-project
     parent: dev-sharedInfra
     id: ''
     type: kmsProject
-  dev-shared-secrets:
-    displayName: dev-shared-secrets-project
-    parent: dev-sharedInfra
-    id: ''
-    type: sharedInfrastructureProject
-  dev-signals-logging:
-    displayName: dev-signals-logging-project
+    project:
+      name: "dev-bootstrap-project"
+      gcpProjectName: "dev-bootstrap-project"
+    apis:
+      - cloudkms.googleapis.com
+      - iam.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - storage.googleapis.com
+  dev-signals:
+    displayName: dev-signals-project
     parent: dev-signals
     id: ''
-    type: loggingProject
-  dev-signals-monitoring:
-    displayName: dev-signals-monitoring-project
-    parent: dev-signals
-    id: ''
-    type: loggingProject
+    type: signalsProject
+    project:
+      name: "dev-bootstrap-project"
+      gcpProjectName: "dev-bootstrap-project"
+    apis:
+      - logging.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - monitoring.googleapis.com
+      - cloudbilling.googleapis.com
   dev-billing-project:
     displayName: dev-billing-project-project
     parent: dev-billing
     id: ''
     type: billingProject
+    project:
+      name: "dev-bootstrap-project"
+      gcpProjectName: "dev-bootstrap-project"
+    apis:
+      - iam.googleapis.com
+      - serviceusage.googleapis.com
+      - cloudbilling.googleapis.com
   dev-apps-project:
     displayName: dev-apps-project-project
     parent: dev-apps
     id: ''
     type: appProject
+    project:
+      name: "dev-bootstrap-project"
+      gcpProjectName: "dev-bootstrap-project"
     gkeCluster:
       enabled: true
       name: "dev-app-gke"
@@ -240,3 +277,12 @@ projects:
       enabled: true
       name: "openlane-dev-zone"
       domainName: "dev.openlane.com."
+    apis:
+      - container.googleapis.com
+      - bigquery.googleapis.com
+      - storage.googleapis.com
+      - sqladmin.googleapis.com
+      - redis.googleapis.com
+      - dns.googleapis.com
+      - secretmanager.googleapis.com
+      - cloudkms.googleapis.com

@@ -3,12 +3,8 @@ kind: DNSManagedZone
 metadata:
   annotations:
     cnrm.cloud.google.com/deletion-policy: {{ .Values.global.abandon | default "abandon" }}
-{{- if .Values.global.forceDestroy }}
-    cnrm.cloud.google.com/force-destroy: "true"
-{{- end }}
-{{- if .Values.global.skipUnspecifiedFields }}
-    cnrm.cloud.google.com/state-into-spec: absent
-{{- end }}
+    cnrm.cloud.google.com/force-destroy: {{ .Values.global.forceDestroy | default "false" }}
+    cnrm.cloud.google.com/state-into-spec: {{ .Values.global.skipUnspecifiedFields | default "absent"}}
     cnrm.cloud.google.com/project-id: {{ .Values.global.gcpProjectId | quote }}
   labels:
     {{- include "dns-zone.labels" . | nindent 4 }}
