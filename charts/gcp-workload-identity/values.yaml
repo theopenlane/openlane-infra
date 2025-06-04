@@ -6,7 +6,7 @@ global:
     # Creates the Google Service Account
     create: true
     # Name of the google service account
-    name: wi-k8s
+    name: ol
     # Project Id hosting the google service account.
     project: ""
 

@@ -5,10 +5,6 @@ metadata:
   name: {{ include "gcp-bootstrap.folderKccName" (dict "folderKey" $folderKey) }}
   namespace: config-connector
   annotations:
-    cnrm.cloud.google.com/organization-id: "{{ $.Values.orgId }}"
-    {{- if $folderConfig.id }}
-    cnrm.cloud.google.com/folder-id: "{{ $folderConfig.id }}"
-    {{- end }}
     argocd.argocd.io/sync-wave: "0"
 spec:
   displayName: {{ $folderConfig.displayName | quote }}

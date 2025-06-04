@@ -69,18 +69,6 @@ commonAppConfig:
     enabled: false
     name: "default-zone"
     domainName: "default.com."
-  enableAPIs:
-  - compute.googleapis.com
-  - servicenetworking.googleapis.com
-  - iam.googleapis.com
-  - container.googleapis.com
-  - cloudresourcemanager.googleapis.com
-  - dns.googleapis.com
-  - cloudkms.googleapis.com
-  - sqladmin.googleapis.com
-  - redis.googleapis.com
-  - logging.googleapis.com
-  - monitoring.googleapis.com
 
 # --- PROJECT TYPE BLUEPRINTS ---
 sharedVpcHost:
@@ -120,7 +108,7 @@ sharedVpcHost:
   serviceProjects: []
 
 appProject:
-  enabled: true
+  enabled: false
   project:
     name: "openlane-app"
     gcpProjectName: "Openlane Application"
@@ -132,8 +120,8 @@ appProject:
   memorystore: {}
   dnsZone: {}
 
-loggingProject:
-  enabled: true
+signalsProject:
+  enabled: false
   project:
     name: "openlane-logs"
     gcpProjectName: "Openlane Central Logging"
@@ -156,13 +144,6 @@ kmsProject:
   project:
     name: "openlane-kms"
     gcpProjectName: "Openlane Central KMS"
-    id: ""
-
-sharedInfrastructureProject:
-  enabled: true
-  project:
-    name: "openlane-shared-infra"
-    gcpProjectName: "Openlane Shared Infrastructure"
     id: ""
 
 bootstrapProject:
@@ -236,34 +217,41 @@ projects:
     parentType: folder
     parent: common
     id: ''
-    type: sharedInfrastructureProject
-  common-shared-secrets:
-    displayName: common-shared-secrets
-    parentType: folder
-    parent: common
-    id: ''
-    type: sharedInfrastructureProject
+    type: kmsProject
+    apis:
+    - cloudkms.googleapis.com
+    - iam.googleapis.com
+    - cloudresourcemanager.googleapis.com
+    - storage.googleapis.com
   common-shared-network-project:
     displayName: common-shared-network-project
     parentType: folder
     parent: common
     id: ''
     type: sharedVpcHost
-  common-shared-logging:
-    displayName: common-shared-logging
+    apis:
+    - compute.googleapis.com
+    - servicenetworking.googleapis.com
+    - dns.googleapis.com
+  common-shared-signals:
+    displayName: common-shared-signals
     parentType: folder
     parent: common
     id: ''
-    type: loggingProject
-  common-shared-monitoring:
-    displayName: common-shared-monitoring
-    parentType: folder
-    parent: common
-    id: ''
-    type: loggingProject
+    type: signalsProject
+    apis:
+    - logging.googleapis.com
+    - cloudresourcemanager.googleapis.com
+    - monitoring.googleapis.com
+    - metrics.googleapis.com
   common-billing-project:
     displayName: common-billing-project
     parentType: folder
     parent: common
     id: ''
     type: billingProject
+    apis:
+    - cloudresourcemanager.googleapis.com
+    - cloudbilling.googleapis.com
+    - iam.googleapis.com
+    - serviceusage.googleapis.com

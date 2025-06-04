@@ -117,7 +117,7 @@ spec:
           {{- end }}
         {{- end }}
         isSharedVpcHost: {{ $gcpProjectBaseFlags.isSharedVpcHost | default false | toYaml | nindent 10 }}
-        isLoggingProject: {{ $gcpProjectBaseFlags.isLoggingProject | default false | toYaml | nindent 10 }}
+        isSignalsProject: {{ $gcpProjectBaseFlags.isSignalsProject | default false | toYaml | nindent 10 }}
         isKmsProject: {{ $gcpProjectBaseFlags.isKmsProject | default false | toYaml | nindent 10 }}
 {{- if $resourceConfigs }}
 {{- range $resourceKey, $resourceVal := $resourceConfigs }}

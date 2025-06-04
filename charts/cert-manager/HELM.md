@@ -2,6 +2,8 @@
 
 # openlane-cert-manager
 
+**Homepage:** <https://docs.theopenlane.io>
+
 ## Prerequisites
 
 - [Helm](https://helm.sh/docs/intro/install/)
@@ -27,7 +29,11 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart for cert-manager
+A Helm chart to deploy cert-manager on GKE clusters using Config Connector for Openlane
+
+## Source Code
+
+* <https://github.com/theopenlane/openlane-infra>
 
 ## Values
 

@@ -17,7 +17,7 @@ envCapitalizedName: "Default"
 
 # Flags & specific configurations
 isSharedVpcHost: false # If true, deploy Shared VPC network components via conditional templates
-isLoggingProject: false # If true, deploy log sinks via conditional templates
+isSignalsProject: false # If true, deploy log sinks via conditional templates
 
 # Shared VPC context for this environment (relevant portions for project's use)
 sharedVpcHostDev: {}
@@ -44,4 +44,4 @@ dnsZone:
 network: {} # Will be populated if isSharedVpcHost is true
 firewallRules: {} # Will be populated if isSharedVpcHost is true
 serviceProjects: {} # Will be populated if isSharedVpcHost is true
-logSinks: {} # Will be populated if isLoggingProject is true
+logSinks: {} # Will be populated if isSignalsProject is true

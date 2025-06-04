@@ -1,23 +1,20 @@
 # charts/gcp-project-base/templates/04-shared-vpc-network-users.yaml
 {{- if .Values.isSharedVpcHost }}
-{{- range $key, $serviceProject := .Values.serviceProjects }}
-{{- if $serviceProject.enabled }}
+{{- range $serviceProject := .Values.serviceProjects }}
 apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
 kind: IAMPolicyMember
 metadata:
   # Name this KCC IAM resource uniquely, e.g., hostprojectname-serviceprojectname-network-user
-  name: {{ $.Values.project.name | kebabcase }}-{{ $serviceProject.name | kebabcase }}-network-user
-  namespace: {{ include "gcp-project-base.k8sNamespace" . }} # Managed in this project's K8s namespace
+  name: {{ $.Values.project.name }}-{{ $serviceProject }}-network-user
   annotations:
     cnrm.cloud.google.com/project-id: {{ $.Values.project.name }} # Link to this project's GCP ID
 spec:
   # Member is the Service Management SA from the service project numerical ID
-  member: "serviceAccount:service-{{ $serviceProject.id }}@gcp-sa-servicemanagement.iam.gserviceaccount.com"
+  member: "serviceAccount:service-{{ $serviceProject }}@gcp-sa-servicemanagement.iam.gserviceaccount.com"
   role: roles/compute.networkUser
   resourceRef:
     kind: Project
     name: {{ $.Values.project.name }} # Apply to this project (the host project)
 ---
-{{- end }}
 {{- end }}
 {{- end }}

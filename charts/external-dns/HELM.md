@@ -2,6 +2,8 @@
 
 # openlane-external-dns
 
+**Homepage:** <https://docs.theopenlane.io>
+
 ## Prerequisites
 
 - [Helm](https://helm.sh/docs/intro/install/)
@@ -28,6 +30,10 @@ Once you've installed `task` you can simply run `task install` to get the remain
 ## Description
 
 Deploys external-dns and its monitoring
+
+## Source Code
+
+* <https://github.com/theopenlane/openlane-infra>
 
 ## Values
 

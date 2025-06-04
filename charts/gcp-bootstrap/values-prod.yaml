@@ -128,7 +128,7 @@ sharedVpcHost:
 appProject:
   enabled: true
 
-loggingProject:
+signalsProject:
   enabled: true
   logSinks:
     orgAudit:
@@ -140,9 +140,6 @@ billingProject:
   enabled: true
 
 kmsProject:
-  enabled: true
-
-sharedInfrastructureProject:
   enabled: true
 
 bootstrapProject:
@@ -231,12 +228,6 @@ folders:
     parent: prod-root
     id: ""
     billingAccountRef: "01AC20-2CEAE3-8BB367"
-  prod-sharedInfra:
-    displayName: sharedInfra
-    parentType: folder
-    parent: prod-root
-    id: ""
-    billingAccountRef: "01AC20-2CEAE3-8BB367"
   prod-signals:
     displayName: signals
     parentType: folder
@@ -261,52 +252,100 @@ projects:
   prod-bootstrap-project:
     displayName: prod-bootstrap-project
     parent: bootstrap
+    parentType: folder
     id: ''
     type: bootstrapProject
+    project:
+      name: "prod-bootstrap-project"
+      gcpProjectName: "prod-bootstrap-project"
+    apis:
+      - iam.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - dns.googleapis.com
+      - compute.googleapis.com
+      - servicenetworking.googleapis.com
+      - container.googleapis.com
+      - storage.googleapis.com
+      - artifactregistry.googleapis.com
+      - anthosidentityservice.googleapis.com
+      - anthosgke.googleapis.com
+      - autoscaling.googleapis.com
+      - anthosconfigmanagement.googleapis.com
+      - configconnector.cnrm.cloud.google.com/v1beta1
   prod-shared-network-project:
     displayName: prod-shared-network-project
     parent: prod-networking
+    parentType: folder
     id: ''
     type: sharedVpcHost
-    project: # Instance specific GCP Project ID / Display Name
-      name: "openlane-prod-network-project"
-      gcpProjectName: "openlane-prod-network-project"
+    project:
+      name: "prod-network-project"
+      gcpProjectName: "prod-network-project"
+    apis:
+      - compute.googleapis.com
+      - servicenetworking.googleapis.com
+      - container.googleapis.com
+      - dns.googleapis.com
+      - iam.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - logging.googleapis.com
+      - monitoring.googleapis.com
+      - networkmanagement.googleapis.com
   prod-shared-kms:
     displayName: prod-shared-kms
     parent: prod-sharedInfra
+    parentType: folder
     id: ''
     type: kmsProject
-  prod-shared-secrets:
-    displayName: prod-shared-secrets
-    parent: prod-sharedInfra
-    id: ''
-    type: sharedInfrastructureProject
-  prod-signals-logging:
-    displayName: prod-signals-logging
+    project:
+      name: "prod-kms-project"
+      gcpProjectName: "prod-kms-project"
+    apis:
+      - cloudkms.googleapis.com
+      - iam.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - logging.googleapis.com
+      - monitoring.googleapis.com
+  prod-signals:
+    displayName: prod-signals
     parent: prod-signals
+    parentType: folder
     id: ''
-    type: loggingProject
-  prod-signals-monitoring:
-    displayName: prod-signals-monitoring
-    parent: prod-signals
-    id: ''
-    type: loggingProject
+    type: signalsProject
+    project:
+      name: "prod-signals-project"
+      gcpProjectName: "prod-signals-project"
+    apis:
+      - logging.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - monitoring.googleapis.com
+      - metrics.googleapis.com
+      - cloudtrace.googleapis.com
+      - cloudasset.googleapis.com
   prod-billing-project:
     displayName: prod-billing-project
     parent: prod-billing
+    parentType: folder
     id: ''
     type: billingProject
-    project: # Instance specific GCP Project ID / Display Name
-      name: "openlane-prod-billing-project"
-      gcpProjectName: "openlane-prod-billing-project"
+    project:
+      name: "prod-billing-project"
+      gcpProjectName: "prod-billing-project"
+    apis:
+      - cloudbilling.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - iam.googleapis.com
+      - logging.googleapis.com
+      - monitoring.googleapis.com
   prod-apps-project:
     displayName: prod-apps-project
     parent: prod-apps
+    parentType: folder
     id: ''
     type: appProject
-    project: # Instance specific GCP Project ID / Display Name
-      name: "openlane-prod-app-project"
-      gcpProjectName: "openlane-prod-app-project"
+    project:
+      name: "prod-app-project"
+      gcpProjectName: "prod-app-project"
     gkeCluster:
       enabled: true
       name: "prod-app-gke"
@@ -326,3 +365,14 @@ projects:
       enabled: true
       name: "prod-app-dnszone"
       domainName: "app.prod.openlane.com."
+    apis:
+      - container.googleapis.com
+      - cloudsql.googleapis.com
+      - storage.googleapis.com
+      - bigquery.googleapis.com
+      - redis.googleapis.com
+      - dns.googleapis.com
+      - iam.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - logging.googleapis.com
+      - monitoring.googleapis.com

@@ -1,13 +1,17 @@
+version: 0.1.2
+name: openlane-cert-manager
 apiVersion: v2
 appVersion: 0.1.0
-description: A Helm chart for cert-manager
+description: A Helm chart to deploy cert-manager on GKE clusters using Config Connector for Openlane
+type: application
 maintainers:
   - email: support@theopenlane.io
     name: Openlane
     url: https://www.theopenlane.io
-name: openlane-cert-manager
-type: application
-version: 0.1.2
+icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+sources:
+  - https://github.com/theopenlane/openlane-infra
+home: https://docs.theopenlane.io
 dependencies:
   - name: cert-manager
     version: "v1.17.2"

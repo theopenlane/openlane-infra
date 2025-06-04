@@ -4,9 +4,11 @@ kind: OrganizationPolicy
 metadata:
   name: org-disable-service-account-key-creation
   namespace: config-connector
-  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
-  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  organizationRef:
+    external: "organizations/{{ .Values.orgId }}"
   constraint: iam.disableServiceAccountKeyCreation
   booleanPolicy: { enforced: true }
 ---
@@ -17,11 +19,14 @@ kind: OrganizationPolicy
 metadata:
   name: org-skip-default-network-creation
   namespace: config-connector
-  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
-  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  organizationRef:
+    external: "organizations/{{ .Values.orgId }}"
   constraint: compute.skipDefaultNetworkCreation
-  booleanPolicy: { enforced: true }
+  booleanPolicy:
+    enforced: true
 ---
 {{- end }}
 {{- if .Values.orgPolicies.disableSerialPortAccess }}
@@ -30,11 +35,14 @@ kind: OrganizationPolicy
 metadata:
   name: org-disable-serial-port-access
   namespace: config-connector
-  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
-  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  organizationRef:
+    external: "organizations/{{ .Values.orgId }}"
   constraint: compute.disableSerialPortAccess
-  booleanPolicy: { enforced: true }
+  booleanPolicy:
+    enforced: true
 ---
 {{- end }}
 {{- if .Values.orgPolicies.resourceLocations.enabled }}
@@ -43,9 +51,11 @@ kind: OrganizationPolicy
 metadata:
   name: org-restrict-resource-locations
   namespace: config-connector
-  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
-  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  organizationRef:
+    external: "organizations/{{ .Values.orgId }}"
   constraint: gcp.resourceLocations
   listPolicy:
     allow:
@@ -64,11 +74,14 @@ kind: OrganizationPolicy
 metadata:
   name: org-no-vm-external-ip-access
   namespace: config-connector
-  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
-  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  organizationRef:
+    external: "organizations/{{ .Values.orgId }}"
   constraint: compute.vmExternalIpAccess
-  booleanPolicy: { enforced: true }
+  booleanPolicy:
+    enforced: true
 ---
 {{- end }}
 {{- if .Values.orgPolicies.gkePrivateCluster.enabled }}
@@ -77,9 +90,12 @@ kind: OrganizationPolicy
 metadata:
   name: org-enforce-gke-private-cluster
   namespace: config-connector
-  annotations: { cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}" }
+  annotations:
+    cnrm.cloud.google.com/organization-id: "{{ .Values.orgId }}"
 spec:
-  organizationRef: { external: "organizations/{{ .Values.orgId }}" }
+  organizationRef:
+    external: "organizations/{{ .Values.orgId }}"
   constraint: container.setPrivateCluster
-  booleanPolicy: { enforced: true }
+  booleanPolicy:
+    enforced: true
 {{- end }}

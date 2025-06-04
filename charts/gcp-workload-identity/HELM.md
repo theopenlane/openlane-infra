@@ -31,7 +31,7 @@ A Helm chart for managing GKE workload identity on GCP
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.gcpProjectId | string | `"myprojectid"` | Google Project ID of the Kubernetes Cluster hosting the service Account |
-| global.gsa | object | `{"create":true,"name":"wi-k8s","project":""}` | Name of the Google Service Account |
+| global.gsa | object | `{"create":true,"name":"ol","project":""}` | Name of the Google Service Account |
 | global.cnrmNamespace | string | `""` | Allows to deploy in another namespace than the release one |
 | global.abandon | bool | `false` | Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources) |
 | global.ksa.namespace | string | `""` | Kubernetes Service Account namespace. Overrides the Release Namespace |

@@ -1,0 +1,107 @@
+project:
+  apis:
+  - container.googleapis.com
+  - bigquery.googleapis.com
+  - storage.googleapis.com
+  - sqladmin.googleapis.com
+  - redis.googleapis.com
+  - dns.googleapis.com
+  - secretmanager.googleapis.com
+  - cloudkms.googleapis.com
+  displayName: dev-apps-project-project (Dev)
+  folderRef: folders/dev-apps
+  gcpProjectName: Openlane Application
+  id: ""
+  name: openlane-app-dev
+orgId: "319013011373"
+billingAccountId: "01AC20-2CEAE3-8BB367"
+primaryRegion: "us-central1"
+kms:
+  enabled: true
+  keyName: openlane-default-key
+  keyRingName: openlane-default-keyring
+  location: us-central1
+commonAppConfig:
+  bigquery:
+    cmekEnabled: false
+    enabled: false
+    location: us-central1
+  cloudsql:
+    cmekEnabled: false
+    enabled: false
+    instanceName: default-sql
+    tier: db-f1-micro
+    version: POSTGRES_14
+  dnsZone:
+    domainName: default.com.
+    enabled: false
+    name: default-zone
+  gkeCluster:
+    enabled: false
+    machineType: e2-medium
+    masterAuthorizedNetworksConfig:
+      cidrBlocks: []
+      enabled: false
+    nodeCount: 1
+    nodePools:
+    - machineType: e2-medium
+      name: default-dev-pool
+      nodeCount: 1
+    workloadIdentityEnabled: true
+  memorystore:
+    enabled: false
+    instanceName: default-redis
+    memorySizeGb: 1
+    tier: BASIC
+  primaryRegion: us-central1
+  storage:
+    cmekEnabled: false
+    enabled: false
+    location: us-central1
+envName: "dev"
+envCapitalizedName: "Dev"
+sharedVpcHostProjectId: "shared-vpc-dev"
+isSharedVpcHost:
+  false
+isSignalsProject:
+  false
+isKmsProject:
+  false
+bigquery:
+  cmekEnabled: false
+  enabled: true
+  location: us-central1
+  name: dev-app-bq-dataset
+cloudsql:
+  cmekEnabled: false
+  enabled: true
+  instanceName: default-sql
+  tier: db-f1-micro
+  version: POSTGRES_14
+dnsZone:
+  domainName: default.com.
+  enabled: true
+  name: default-zone
+gkeCluster:
+  enabled: true
+  machineType: e2-medium
+  masterAuthorizedNetworksConfig:
+    cidrBlocks: []
+    enabled: false
+  name: dev-app-gke
+  nodeCount: 1
+  nodePools:
+  - machineType: e2-medium
+    name: default-dev-pool
+    nodeCount: 1
+  workloadIdentityEnabled: true
+memorystore:
+  enabled: true
+  instanceName: default-redis
+  memorySizeGb: 1
+  tier: BASIC
+storage:
+  cmekEnabled: false
+  enabled: true
+  location: us-central1
+  name: dev-app-bucket

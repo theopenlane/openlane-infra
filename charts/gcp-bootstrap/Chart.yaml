@@ -6,7 +6,6 @@ version: 0.1.1
 appVersion: "1.0"
 icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
 sources:
-  - https://github.com/theopenlane/core
   - https://github.com/theopenlane/openlane-infra
 home: https://docs.theopenlane.io
 maintainers:

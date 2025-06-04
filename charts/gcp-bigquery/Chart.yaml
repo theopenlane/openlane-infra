@@ -10,6 +10,5 @@ maintainers:
     url: https://www.theopenlane.io
 icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
 sources:
-  - https://github.com/theopenlane/core
   - https://github.com/theopenlane/openlane-infra
 home: https://docs.theopenlane.io

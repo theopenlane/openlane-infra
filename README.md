@@ -93,14 +93,16 @@ This repository organizes GCP infrastructure definitions using Helm charts. Each
 Before you begin, ensure you have the following:
 
 1.  **GCP Account and Project:** A GCP project where you have `owner` or equivalent permissions. This project will implicitly become your "management" project, hosting the Config Controller.
-2.  **GCP Billing Account:** A billing account linked to your GCP project.
-3.  **Local Tools:**
+1.  **GCP Billing Account:** A billing account linked to your GCP project.
+1.  **Local Tools:**
     *   `gcloud CLI`: Authenticated and configured
     *   `helm`: For linting/templating charts
-    *   `kubectl`: For interacting with Kubernetes clusters
+    *   `kubectl`: For interacting with Kubernetes clusters - preferred installation is via gcloud `gcloud components install kubectl`
     *   `go-task`: The task runner used in this project
-    *   **Clone this repository:** `git clone https://github.com/theopenlane/openlane-infra.git` and `cd openlane-infra`.
-4.  **Git Repository for Config Sync:** This repository should be accessible by Config Sync. If it's private, you'll need to follow GCP's documentation to configure authentication. For a public repo, no extra steps are needed.
+1.  **Optional, but recommended local tools**
+    *    `nomos`: Once you have gcloud installed, you can install `nomos` via `gcloud components install nomos`
+    *    `auth-plugin`: `gcloud components install gke-gcloud-auth-plugin`
+    *    `shell completion`: `echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc`
 
 ## Chart Scaffolding
 
