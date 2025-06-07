@@ -10,7 +10,7 @@ dependencies:
   version: 0.1.1
 - name: openlane-gcp-gke-cluster
   repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.1
+  version: 0.1.2
 - name: openlane-gcp-vpc-network
   repository: https://theopenlane.github.io/openlane-infra
   version: 0.1.1
@@ -22,7 +22,7 @@ dependencies:
   version: 0.1.1
 - name: openlane-gcp-cloud-nat
   repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.1
+  version: 0.1.2
 - name: openlane-gcp-service-account
   repository: https://theopenlane.github.io/openlane-infra
   version: 0.1.1
@@ -37,6 +37,6 @@ dependencies:
   version: 0.1.1
 - name: openlane-gcp-cloud-nat
   repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.1
-digest: sha256:91f57ea9aa39ac716937b83a88ccf66ff8d009d2121dde8a38a07f365ceccde6
-generated: "2025-06-04T10:55:32.284454-05:00"
+  version: 0.1.2
+digest: sha256:120183ef507a7e78f965c85d01c01e00962ad9bf61cadd671274be56751367e7
+generated: "2025-06-07T05:15:11.208419316Z"
