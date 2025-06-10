@@ -44,7 +44,6 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.imagePullSecrets | list | `[]` |  |
 | openfga.nameOverride | string | `""` |  |
 | openfga.fullnameOverride | string | `""` |  |
-| openfga.commonLabels | object | `{}` |  |
 | openfga.serviceAccount.create | bool | `true` |  |
 | openfga.serviceAccount.annotations | object | `{}` |  |
 | openfga.serviceAccount.name | string | `""` |  |
@@ -84,32 +83,13 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.service.annotations | object | `{}` |  |
 | openfga.service.type | string | `"ClusterIP"` |  |
 | openfga.service.port | int | `8080` |  |
-| openfga.telemetry.trace.enabled | bool | `false` |  |
-| openfga.telemetry.trace.otlp.endpoint | string | `nil` |  |
-| openfga.telemetry.trace.otlp.tls.enabled | bool | `false` |  |
-| openfga.telemetry.trace.sampleRatio | string | `nil` |  |
-| openfga.telemetry.metrics.enabled | bool | `true` |  |
-| openfga.telemetry.metrics.serviceMonitor.enabled | bool | `false` |  |
-| openfga.telemetry.metrics.serviceMonitor.additionalLabels | object | `{}` |  |
-| openfga.telemetry.metrics.serviceMonitor.annotations | object | `{}` |  |
-| openfga.telemetry.metrics.serviceMonitor.jobLabel | string | `"app.kubernetes.io/name"` |  |
-| openfga.telemetry.metrics.serviceMonitor.namespace | string | `"openfga"` |  |
-| openfga.telemetry.metrics.serviceMonitor.namespaceSelector | object | `{}` |  |
-| openfga.telemetry.metrics.serviceMonitor.scrapeInterval | string | `"30s"` |  |
-| openfga.telemetry.metrics.serviceMonitor.scrapeTimeout | string | `"10s"` |  |
-| openfga.telemetry.metrics.serviceMonitor.targetLabels | list | `[]` |  |
-| openfga.telemetry.metrics.serviceMonitor.relabelings | list | `[]` |  |
-| openfga.telemetry.metrics.serviceMonitor.metricRelabelings | list | `[]` |  |
-| openfga.telemetry.metrics.addr | string | `"0.0.0.0:2112"` |  |
-| openfga.telemetry.metrics.enableRPCHistograms | string | `nil` |  |
-| openfga.telemetry.metrics.podAnnotations."prometheus.io/scrape" | string | `"true"` |  |
-| openfga.telemetry.metrics.podAnnotations."prometheus.io/port" | string | `"{{ .Values.containerPorts.prometheus }}"` |  |
+| openfga.service.metrics.enabled | bool | `true` |  |
 | openfga.datastore.engine | string | `"postgres"` |  |
 | openfga.datastore.existingSecret | string | `"cloudsql-credentials"` |  |
 | openfga.datastore.secretKeys.uriKey | string | `"uri"` |  |
 | openfga.datastore.maxCacheSize | string | `nil` |  |
-| openfga.datastore.maxOpenConns | string | `nil` |  |
-| openfga.datastore.maxIdleConns | string | `nil` |  |
+| openfga.datastore.maxOpenConns | int | `240` |  |
+| openfga.datastore.maxIdleConns | int | `200` |  |
 | openfga.datastore.connMaxIdleTime | string | `nil` |  |
 | openfga.datastore.connMaxLifetime | string | `nil` |  |
 | openfga.datastore.applyMigrations | bool | `true` |  |
@@ -134,9 +114,9 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.http.upstreamTimeout | string | `nil` |  |
 | openfga.http.corsAllowedOrigins[0] | string | `"*"` |  |
 | openfga.http.corsAllowedHeaders[0] | string | `"*"` |  |
-| openfga.authn.method | string | `nil` |  |
+| openfga.authn.method | string | `"preshared"` |  |
 | openfga.authn.preshared.keys | list | `[]` |  |
-| openfga.authn.preshared.keysSecret | string | `nil` |  |
+| openfga.authn.preshared.keysSecret | string | `"preshared-keys"` |  |
 | openfga.authn.oidc.audience | string | `nil` |  |
 | openfga.authn.oidc.issuer | string | `nil` |  |
 | openfga.playground.enabled | bool | `true` |  |
@@ -146,9 +126,9 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.log.level | string | `"info"` |  |
 | openfga.log.format | string | `"json"` |  |
 | openfga.log.timestampFormat | string | `"Unix"` |  |
-| openfga.checkQueryCache.enabled | bool | `false` |  |
+| openfga.checkQueryCache.enabled | bool | `true` |  |
 | openfga.checkQueryCache.limit | string | `nil` |  |
-| openfga.checkQueryCache.ttl | string | `nil` |  |
+| openfga.checkQueryCache.ttl | string | `"30s"` |  |
 | openfga.experimentals | list | `[]` |  |
 | openfga.maxTuplesPerWrite | string | `nil` |  |
 | openfga.maxTypesPerAuthorizationModel | string | `nil` |  |
@@ -160,9 +140,9 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.resolveNodeLimit | string | `nil` |  |
 | openfga.resolveNodeBreadthLimit | string | `nil` |  |
 | openfga.listObjectsDeadline | string | `nil` |  |
-| openfga.listObjectsMaxResults | string | `nil` |  |
+| openfga.listObjectsMaxResults | int | `10000` |  |
 | openfga.listUsersDeadline | string | `nil` |  |
-| openfga.listUsersMaxResults | string | `nil` |  |
+| openfga.listUsersMaxResults | int | `10000` |  |
 | openfga.requestTimeout | string | `nil` |  |
 | openfga.requestDurationDatastoreQueryCountBuckets[0] | int | `50` |  |
 | openfga.requestDurationDatastoreQueryCountBuckets[1] | int | `200` |  |
@@ -197,7 +177,6 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.migrate.timeout | string | `nil` |  |
 | openfga.testPodSpec | object | `{}` |  |
 | openfga.testContainerSpec | object | `{}` |  |
-| openfga.extraObjects | list | `[]` | Array of extra K8s manifests to deploy # Note: Supports use of custom Helm templates |
 
 ## Config Connector resources
 
