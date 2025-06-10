@@ -1,7 +1,7 @@
 global:
   gcpProjectId: ""
   # global.cnrmNamespace -- Allows to deploy in another namespace than the release one
-  cnrmNamespace: "cnrm-system"
+  cnrmNamespace: ""
   # global.abandon -- Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources)
   abandon: false
 
@@ -343,12 +343,12 @@ tags:
 iamPolicyMembers:
   members:
     - name: "external-dns-gsa"
-      member: ""
+      member: "serviceAccount:prod-gke-central1@prod-apps-project.iam.gserviceaccount.com"
       # -- Roles to apply to external-dns google service account
       role: "roles/dns.admin"
       resourceRef:
         kind: Project
-        external: ""
+        external: "prod-apps-project"
 
 workloadIdentity:
   global:
@@ -357,9 +357,9 @@ workloadIdentity:
       # Creates the Google Service Account
       create: true
       # Name of the google service account
-      name: wi-k8s
+      name: prod-gke-central1
       # Project Id hosting the google service account.
-      project: ""
+      project: "prod-apps-project"
 
     ksa:
       # global.ksa.namespace -- Kubernetes Service Account namespace. Overrides the Release Namespace

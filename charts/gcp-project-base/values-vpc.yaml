@@ -3,11 +3,11 @@ project:
   - compute.googleapis.com
   - servicenetworking.googleapis.com
   - dns.googleapis.com
-  displayName: common-shared-network-project (Dev)
-  folderRef: folders/common
-  gcpProjectName: shared-vpc
-  id: ""
-  name: shared-vpc-dev
+  displayName: prod-apps-project
+  folderRef: folders/prod-apps
+  gcpProjectName: prod-apps-project
+  id: "323616316362"
+  name: prod-apps-project
 orgId: "319013011373"
 billingAccountId: "01AC20-2CEAE3-8BB367"
 primaryRegion: "us-central1"
@@ -53,9 +53,9 @@ commonAppConfig:
     cmekEnabled: false
     enabled: false
     location: us-central1
-envName: "dev"
-envCapitalizedName: "Dev"
-sharedVpcHostProjectId: "shared-vpc-dev"
+envName: "prod"
+envCapitalizedName: "prod"
+sharedVpcHostProjectId: "prod-apps-project"
 isSharedVpcHost:
   true
 isSignalsProject:
@@ -87,46 +87,33 @@ firewallRules:
     - 35.235.240.0/20
     targetTags:
     - ssh-via-iap
-gkeCluster:
-  enabled: false
-  machineType: e2-medium
-  masterAuthorizedNetworksConfig:
-    cidrBlocks: []
-    enabled: false
-  nodeCount: 1
-  nodePools:
-  - machineType: e2-medium
-    name: default-dev-pool
-    nodeCount: 1
-  workloadIdentityEnabled: true
 memorystore:
   enabled: false
   instanceName: default-redis
   memorySizeGb: 1
   tier: BASIC
 network:
-  name: shared-vpc-dev
+  name: prod-shared-vpc
   subnets:
     gkePodsSecondary:
       ipCidrRange: 10.0.32.0/16
       name: gke-pods
     gkePrimary:
-      ipCidrRange: 10.0.0.0/20
-      name: gke-primary-dev
+      ipCidrRange: 10.1.0.0/20
+      name: gke-primary-prod
       privateIpGoogleAccess: true
       secondaryIpRanges:
-      - ipCidrRange: 10.0.32.0/16
-        rangeName: gke-pods-dev
-      - ipCidrRange: 10.0.16.0/20
-        rangeName: gke-services-dev
+        - ipCidrRange: 10.1.32.0/16
+          rangeName: gke-pods-prod
+        - ipCidrRange: 10.1.16.0/20
+          rangeName: gke-services-prod
     gkeServicesSecondary:
       ipCidrRange: 10.0.16.0/20
       name: gke-services
     internalApps:
-      ipCidrRange: 10.0.48.0/20
-      name: internal-apps-dev
+      ipCidrRange: 10.1.48.0/20
+      name: prod-apps-subnet-primary
       privateIpGoogleAccess: true
-      rivateIpGoogleAccess: true
 serviceProjects:
   - dev-apps-project
   - dev-signals-logging

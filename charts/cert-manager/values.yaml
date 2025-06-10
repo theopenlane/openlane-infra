@@ -1,8 +1,8 @@
 global:
   # global.gcpProjectId -- Google Project ID of the Kubernetes Cluster hosting the service Account
-  gcpProjectId: ""
+  gcpProjectId: "prod-apps-project"
   # global.cnrmNamespace -- Allows to deploy in another namespace than the release one
-  cnrmNamespace: ""
+  cnrmNamespace: "config-control"
   # global.abandon -- Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources)
   abandon: false
 
@@ -86,7 +86,7 @@ certmanager:
 
   # This option is equivalent to setting crds.enabled=true and crds.keep=true.
   # Deprecated: use crds.enabled and crds.keep instead.
-  installCRDs: false
+  installCRDs: true
 
   crds:
     # This option decides if the CRDs should be installed
@@ -525,7 +525,7 @@ certmanager:
 
     servicemonitor:
       # Create a ServiceMonitor to add cert-manager to Prometheus.
-      enabled: false
+      enabled: true
 
       # The namespace that the service monitor should live in, defaults
       # to the cert-manager namespace.

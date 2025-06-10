@@ -5,36 +5,41 @@ kind: ComputeNetwork
 metadata:
   # Resource name (e.g., openlane-shared-vpc-dev) as defined in network.name
   name: {{ .Values.network.name }}
+  namespace: config-control
   annotations:
     cnrm.cloud.google.com/project-id: {{ .Values.project.name }} # Link to this project's GCP ID
 spec:
   autoCreateSubnetworks: false
   routingMode: GLOBAL
 ---
-{{- range .Values.network.subnets }}
+{{- range $key, $subnet := .Values.network.subnets }}
+{{- if (and (hasKey $subnet "name") (hasKey $subnet "ipCidrRange")) }}
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeSubnetwork
 metadata:
-  name: {{ .name }} # Subnet name (e.g., gke-primary-dev)
+  name: {{ $subnet.name }}
+  namespace: config-control
   annotations:
     cnrm.cloud.google.com/project-id: {{ $.Values.project.name }}
 spec:
-  ipCidrRange: {{ .ipCidrRange }}
+  ipCidrRange: {{ $subnet.ipCidrRange }}
   region: {{ $.Values.primaryRegion }} # Region from top-level values
-  networkRef: { name: {{ $.Values.network.name }} } # Reference the network created above
-  privateIpGoogleAccess: {{ .privateIpGoogleAccess | default true }} # Default true
-  {{- if .secondaryIpRange }}
+  networkRef:
+    name: {{ $.Values.network.name }} # Reference the network created above
+  privateIpGoogleAccess: {{ $subnet.privateIpGoogleAccess | default true }} # Default true
+{{- if $subnet.secondaryIpRanges }}
   secondaryIpRange:
-  {{- range .secondaryIpRange }}
+  {{- range $subnet.secondaryIpRanges }}
     - ipCidrRange: {{ .ipCidrRange }}
       rangeName: {{ .rangeName }}
   {{- end }}
-  {{- end }}
+{{- end }}
   logConfig: # VPC Flow logs for this subnet
     enable: true
     flowSampling: 0.5
     aggregationInterval: INTERVAL_5_SEC
     metadata: INCLUDE_ALL_METADATA
 ---
+{{- end }}
 {{- end }}
 {{- end }}

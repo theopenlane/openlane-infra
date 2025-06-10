@@ -1,14 +1,14 @@
 project:
-  name: "default-project"
-  id: "" # Hydrated numerical project ID
+  name: "prod-apps-project"
+  id: "323616316362" # Hydrated numerical project ID
   gcpProjectName: "Default GCP Project"
-  folderRef: "folders/default-folder-id" # Placeholder
+  folderRef: "folders/prod-apps" # Placeholder
   apis: []
 
 # Contextual information passed from the bootstrap chart
 orgId: "OVERWRITE_ME"
 billingAccountId: "OVERWRITE_ME"
-primaryRegion: "us-east4"
+primaryRegion: "us-central1"
 commonAppConfig: {} # Passed for resource defaults
 folders: {} # Passed for folder IDs reference
 kms: {} # Passed for KMS reference
@@ -45,3 +45,5 @@ network: {} # Will be populated if isSharedVpcHost is true
 firewallRules: {} # Will be populated if isSharedVpcHost is true
 serviceProjects: {} # Will be populated if isSharedVpcHost is true
 logSinks: {} # Will be populated if isSignalsProject is true
+
+gcpCloudRouter: {}

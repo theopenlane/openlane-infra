@@ -6,6 +6,7 @@ kind: IAMPolicyMember
 metadata:
   # Name this KCC IAM resource uniquely, e.g., hostprojectname-serviceprojectname-network-user
   name: {{ $.Values.project.name }}-{{ $serviceProject }}-network-user
+  namespace: config-control
   annotations:
     cnrm.cloud.google.com/project-id: {{ $.Values.project.name }} # Link to this project's GCP ID
 spec:

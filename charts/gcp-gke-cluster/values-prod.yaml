@@ -1,0 +1,190 @@
+addonsConfig:
+  dnsCacheConfig:
+    enabled: true
+  gcePersistentDiskCsiDriverConfig:
+    enabled: true
+  gcpFilestoreCsiDriverConfig:
+    enabled: true
+  gcsFuseCsiDriverConfig:
+    enabled: true
+  gkeBackupAgentConfig:
+    enabled: true
+  horizontalPodAutoscaling:
+    disabled: true
+  httpLoadBalancing:
+    disabled: false
+  networkPolicyConfig:
+    disabled: false
+clusterAutoscaling:
+  autoProvisioningDefaults:
+    diskSize: 100
+    imageType: COS_CONTAINERD
+    management:
+      autoRepair: true
+      autoUpgrade: true
+    oauthScopes:
+    - https://www.googleapis.com/auth/userinfo.email
+    - https://www.googleapis.com/auth/cloud-platform
+    - https://www.googleapis.com/auth/devstorage.read_only
+    - https://www.googleapis.com/auth/logging.write
+    - https://www.googleapis.com/auth/monitoring
+    - https://www.googleapis.com/auth/service.management.readonly
+    - https://www.googleapis.com/auth/servicecontrol
+    - https://www.googleapis.com/auth/trace.append
+    serviceAccountRef:
+      external: prod-gke-central1@prod-apps-project.iam.gserviceaccount.com
+    upgradeSettings:
+      maxSurge: 1
+      strategy: SURGE
+  autoscalingProfile: OPTIMIZE_UTILIZATION
+  enabled: true
+  resourceLimits:
+  - maximum: 1000000000
+    resourceType: cpu
+  - maximum: 1000000000
+    resourceType: memory
+  - maximum: 1000000000
+    resourceType: nvidia-tesla-t4
+  - maximum: 1000000000
+    resourceType: nvidia-tesla-a100
+clusterTelemetry:
+  type: ENABLED
+databaseEncryption:
+  state: DECRYPTED
+datapathProvider: ADVANCED_DATAPATH
+defaultMaxPodsPerNode: 110
+defaultSnatStatus:
+  disabled: false
+dnsConfig:
+  clusterDns: CLOUD_DNS
+  clusterDnsDomain: cluster.local
+  clusterDnsScope: CLUSTER_SCOPE
+enableAutopilot: true
+enableIntranodeVisibility: true
+enableShieldedNodes: true
+gatewayApiConfig:
+  channel: CHANNEL_STANDARD
+ipAllocationPolicy:
+  clusterSecondaryRangeName: gke-pods-prod
+  podCidrOverprovisionConfig:
+    disabled: false
+  servicesIpv4CidrBlock: 192.168.64.0/18
+  servicesSecondaryRangeName: gke-services-prod
+  stackType: IPV4
+location: us-central1
+loggingConfig:
+  enableComponents:
+  - SYSTEM_COMPONENTS
+  - WORKLOADS
+loggingService: logging.googleapis.com/kubernetes
+maintenancePolicy:
+  dailyMaintenanceWindow:
+    duration: PT4H0M0S
+    startTime: "05:00"
+masterAuth:
+  clientCertificateConfig:
+    issueClientCertificate: false
+monitoringConfig:
+  advancedDatapathObservabilityConfig:
+  - enableMetrics: true
+  enableComponents:
+  - SYSTEM_COMPONENTS
+  - DEPLOYMENT
+  - STATEFULSET
+  - JOBSET
+  - STORAGE
+  - HPA
+  - POD
+  - DAEMONSET
+  - CADVISOR
+  - KUBELET
+  - DCGM
+  managedPrometheus:
+    enabled: true
+monitoringService: monitoring.googleapis.com/kubernetes
+networkPolicy:
+  enabled: false
+  provider: PROVIDER_UNSPECIFIED
+networkRef:
+  external: projects/prod-apps-project/global/networks/prod-shared-vpc
+networkingMode: VPC_NATIVE
+nodeConfig:
+  diskSizeGb: 100
+  diskType: pd-balanced
+  gvnic:
+    enabled: true
+  imageType: COS_CONTAINERD
+  loggingVariant: DEFAULT
+  machineType: e2-standard-4
+  metadata:
+    disable-legacy-endpoints: "true"
+  oauthScopes:
+  - https://www.googleapis.com/auth/userinfo.email
+  - https://www.googleapis.com/auth/cloud-platform
+  - https://www.googleapis.com/auth/devstorage.read_only
+  - https://www.googleapis.com/auth/logging.write
+  - https://www.googleapis.com/auth/monitoring
+  - https://www.googleapis.com/auth/service.management.readonly
+  - https://www.googleapis.com/auth/servicecontrol
+  - https://www.googleapis.com/auth/trace.append
+  reservationAffinity:
+    consumeReservationType: NO_RESERVATION
+  resourceLabels:
+    goog-gke-node-pool-provisioning-model: on-demand
+  serviceAccountRef:
+    external: prod-gke-central1@prod-apps-project.iam.gserviceaccount.com
+  shieldedInstanceConfig:
+    enableIntegrityMonitoring: true
+    enableSecureBoot: true
+  tags:
+  - egress-inet
+  taint:
+  - effect: NO_SCHEDULE
+    key: cloud.google.com/gke-quick-remove
+    value: "true"
+  workloadMetadataConfig:
+    mode: GKE_METADATA
+    nodeMetadata: GKE_METADATA_SERVER
+nodeLocations:
+- us-central1-b
+- us-central1-c
+- us-central1-f
+nodePoolAutoConfig:
+  networkTags:
+    tags:
+    - egress-inet
+nodePoolDefaults:
+  nodeConfigDefaults:
+    gcfsConfig:
+      enabled: true
+    loggingVariant: DEFAULT
+nodeVersion: 1.32.3-gke.1785003
+notificationConfig:
+  pubsub:
+    enabled: true
+    topicRef:
+      external: projects/prod-apps-project/topics/gke-notifications
+podSecurityPolicyConfig:
+  enabled: false
+privateClusterConfig:
+  enablePrivateNodes: true
+  masterGlobalAccessConfig:
+    enabled: true
+protectConfig:
+  workloadConfig:
+    auditMode: ADVANCED
+  workloadVulnerabilityMode: ADVANCED
+releaseChannel:
+  channel: REGULAR
+resourceID: general-cluster
+securityPostureConfig:
+  mode: ADVANCED
+  vulnerabilityMode: VULNERABILITY_ADVANCED
+serviceExternalIpsConfig:
+  enabled: false
+subnetworkRef:
+  external: projects/prod-apps-project/regions/us-central1/subnetworks/gke-primary-prod
+verticalPodAutoscaling:
+  enabled: true
+workloadIdentityConfig:
+  workloadPool: prod-apps-project.svc.id.goog
