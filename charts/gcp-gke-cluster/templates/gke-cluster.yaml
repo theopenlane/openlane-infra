@@ -130,7 +130,7 @@ spec:
     evaluationMode: {{ .Values.binaryAuthorization.evaluationMode }}
     {{- end }}
   {{- end }}
-  {{- if or .Values.enableAutopilot .Values.clusterAutoscaling.enabled }}
+  {{- if .Values.clusterAutoscaling.enabled }}
   clusterAutoscaling:
     {{- if .Values.clusterAutoscaling.autoProvisioningDefaults }}
     autoProvisioningDefaults:
@@ -152,15 +152,15 @@ spec:
       {{- end }}
       {{- if .Values.clusterAutoscaling.autoProvisioningDefaults.management }}
       management:
-        autoRepair: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.autoRepair }}
-        autoUpgrade: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.autoUpgrade }}
+        autoRepair: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.autoRepair | default true }}
+        autoUpgrade: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.autoUpgrade | default true }}
         {{- if .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions }}
         upgradeOptions:
-          {{- range $.Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions }}
-          - autoUpgradeStartTime: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions.autoUpgradeStartTime }}
-            description: {{ .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions.description }}
+            {{- with .Values.clusterAutoscaling.autoProvisioningDefaults.management.upgradeOptions }}
+            autoUpgradeStartTime: {{ .autoUpgradeStartTime | default "05:00" }}
+            {{- end }}
+            description: {{ .description }}
           {{- end }}
-        {{- end }}
       {{- end }}
       {{- if .Values.clusterAutoscaling.autoProvisioningDefaults.minCpuPlatform }}
       minCpuPlatform: {{ $.Values.clusterAutoscaling.autoProvisioningDefaults.minCpuPlatform }}

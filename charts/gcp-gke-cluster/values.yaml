@@ -152,7 +152,7 @@ clusterAutoscaling:
       # -- Specifies the AutoUpgradeOptions for the node pool.
       upgradeOptions:
         # -- This field is set when upgrades are about to commence with the approximate start time for the upgrades, in RFC3339 text format.
-        - autoUpgradeStartTime:
+        - autoUpgradeStartTime: "05:00"
           # -- This field is set when upgrades are about to commence with the description of the upgrade.
           description:
     # -- Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform. Applicable values are the friendly names of CPU platforms, such as Intel Haswell.
@@ -257,7 +257,7 @@ defaultSnatStatus:
 
 
 # -- Immutable. Enable Autopilot for this cluster.
-enableAutopilot: false
+enableAutopilot: true
 
 # -- DEPRECATED. Deprecated in favor of binary_authorization. Enable Binary Authorization for this cluster. If enabled, all container images will be validated by Google Binary Authorization.
 enableBinaryAuthorization: false

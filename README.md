@@ -211,3 +211,12 @@ organization
     └── apps (folder)
         └── dev-apps-project
 ```
+
+## GCP Notes
+
+To get nodes of a specific type or performance you need to annotate your deployment
+
+```yaml
+cloud.google.com/compute-class: "COMPUTE_CLASS"
+kubernetes.io/arch: ARCHITECTURE # if you want a specifc CPU architecture
+```

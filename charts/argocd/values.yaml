@@ -208,8 +208,8 @@ argocd:
         connectors:
           - config:
               issuer: https://accounts.google.com
-              clientID: fake
-              clientSecret: fake
+              clientID: 45405492545-hmp5maiel88eebgk1d7h3vfa2siboak4.apps.googleusercontent.com
+              clientSecret: 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
             type: oidc
             id: google
             name: Google
@@ -672,7 +672,7 @@ argocd:
       # -- Bcrypt hashed admin password
       ## Argo expects the password in the secret to be bcrypt hashed. You can create this hash with
       ## `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'`
-      argocdServerAdminPassword: ""
+      argocdServerAdminPassword: "$2a$10$xQJJ7NlHci89bbATu9XLDu19KMnMAQkQfp6jZ/rC3IkBTNcRsVwwa"
       # -- Admin password modification time. Eg. `"2006-01-02T15:04:05Z"`
       # @default -- `""` (defaults to current time)
       argocdServerAdminPasswordMtime: ""
@@ -1366,10 +1366,10 @@ argocd:
     ## Redis image
     image:
       # -- Redis repository
-      repository: public.ecr.aws/docker/library/redis
+      repository: ecr-public.aws.com/docker/library/redis
       # -- Redis tag
       ## Do not upgrade to >= 7.4.0, otherwise you are no longer using an open source version of Redis
-      tag: 8.0.2-alpine
+      tag: 7.2.8-alpine
       # -- Redis image pull policy
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
@@ -1649,7 +1649,7 @@ argocd:
   # Ref: https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml
   redis-ha:
     # -- Enables the Redis HA subchart and disables the custom Redis single node deployment
-    enabled: true
+    enabled: false
     ## Redis image
     image:
       # -- Redis repository
@@ -1840,7 +1840,7 @@ argocd:
     name: server
 
     # -- The number of server pods to run
-    replicas: 2
+    replicas: 1
 
     # -- Runtime class name for the Argo CD server
     # @default -- `""` (defaults to global.runtimeClassName)
@@ -1932,7 +1932,7 @@ argocd:
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#the-extensions-resource
     extensions:
       # -- Enable support for Argo CD extensions
-      enabled: false
+      enabled: true
 
       ## Argo CD extension installer image
       image:
@@ -2032,7 +2032,7 @@ argocd:
     emptyDir:
       # -- EmptyDir size limit for the Argo CD server
       # @default -- `""` (defaults not set if not specified i.e. no size limit)
-      sizeLimit: ""
+      sizeLimit: "10Gi"
       # sizeLimit: "1Gi"
 
     # -- Annotations to be added to server Deployment
@@ -2312,12 +2312,10 @@ argocd:
       # -- Additional ingress annotations
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
       annotations:
-        networking.gke.io/v1beta1.FrontendConfig: argocd-frontend-config
-        kubernetes.io/ingress.global-static-ip-name: argo
-        networking.gke.io/managed-certificates: argocd
+        kubernetes.io/ingress.global-static-ip-name: prod-ingress-lb-ip
 
       # -- Defines which ingress controller will implement the resource
-      ingressClassName: ""
+      ingressClassName: "gce"
 
       # -- Argo CD server hostname
       # @default -- `""` (defaults to global.domain)
@@ -2332,7 +2330,7 @@ argocd:
       # -- Enable TLS configuration for the hostname defined at `server.ingress.hostname`
       ## TLS certificate will be retrieved from a TLS secret `argocd-server-tls`
       ## You can create this secret via `certificate` or `certificateSecret` option
-      tls: false
+      tls: true
 
       # -- The list of additional hostnames to be covered by ingress record
       # @default -- `[]` (See [values.yaml])
@@ -2369,9 +2367,6 @@ argocd:
       # -- Additional TLS configuration
       # @default -- `[]` (See [values.yaml])
       extraTls: []
-      # - hosts:
-      #   - argocd.example.com
-      #   secretName: your-certificate-name
 
       # AWS specific options for Application Load Balancer
       # Applies only when `serv.ingress.controller` is set to `aws`
@@ -2512,7 +2507,7 @@ argocd:
     name: repo-server
 
     # -- The number of repo server pods to run
-    replicas: 2
+    replicas: 1
 
     # -- Runtime class name for the repo server
     # @default -- `""` (defaults to global.runtimeClassName)
@@ -2645,32 +2640,7 @@ argocd:
     # -- Init containers to add to the repo server pods
     initContainers: []
 
-    # -- Additional volumeMounts to the repo server main container
-    volumeMounts: []
 
-    # -- Additional volumes to the repo server pod
-    volumes: []
-    #  - name: argocd-cmp-cm
-    #    configMap:
-    #      name: argocd-cmp-cm
-    #  - name: cmp-tmp
-    #    emptyDir: {}
-
-    # -- Volumes to be used in replacement of emptydir on default volumes
-    existingVolumes: {}
-    #  gpgKeyring:
-    #    persistentVolumeClaim:
-    #      claimName: pvc-argocd-repo-server-keyring
-    #  helmWorkingDir:
-    #    persistentVolumeClaim:
-    #      claimName: pvc-argocd-repo-server-workdir
-    #  tmp:
-    #    persistentVolumeClaim:
-    #      claimName: pvc-argocd-repo-server-tmp
-    #  varFiles:
-    #    persistentVolumeClaim:
-    #      claimName: pvc-argocd-repo-server-varfiles
-    #  plugins:
     #    persistentVolumeClaim:
     #      claimName: pvc-argocd-repo-server-plugins
 
@@ -2678,7 +2648,7 @@ argocd:
     emptyDir:
       # -- EmptyDir size limit for repo server
       # @default -- `""` (defaults not set if not specified i.e. no size limit)
-      sizeLimit: ""
+      sizeLimit: "10Gi"
       # sizeLimit: "1Gi"
 
     # -- Toggle the usage of a ephemeral Helm working directory
@@ -2881,7 +2851,7 @@ argocd:
       # -- Create repo server service account
       create: true
       # -- Repo server service account name
-      name: "" # "argocd-repo-server"
+      name: "argocd-repo-server" # "argocd-repo-server"
       # -- Annotations applied to created service account
       annotations: {}
       # -- Labels applied to created service account
@@ -2890,15 +2860,15 @@ argocd:
       automountServiceAccountToken: true
 
     # -- Repo server rbac rules
-    rbac: []
-    #   - apiGroups:
-    #     - argoproj.io
-    #     resources:
-    #     - applications
-    #     verbs:
-    #     - get
-    #     - list
-    #     - watch
+    rbac:
+     - apiGroups:
+       - argoproj.io
+       resources:
+       - applications
+       verbs:
+       - get
+       - list
+       - watch
 
   ## ApplicationSet controller
   applicationSet:
@@ -2906,7 +2876,7 @@ argocd:
     name: applicationset-controller
 
     # -- The number of ApplicationSet controller pods to run
-    replicas: 2
+    replicas: 1
 
     # -- Runtime class name for the ApplicationSet controller
     # @default -- `""` (defaults to global.runtimeClassName)

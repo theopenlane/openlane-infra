@@ -1,0 +1,9 @@
+apiVersion: pubsub.cnrm.cloud.google.com/v1beta1
+kind: PubSubTopic
+metadata:
+  name: gke-notifications
+  namespace: config-control # Change if you use a different KCC namespace
+  annotations:
+    cnrm.cloud.google.com/project-id: prod-apps-project # Set to your GCP project ID
+spec:
+  # Add any additional spec fields if needed
