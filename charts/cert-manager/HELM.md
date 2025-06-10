@@ -39,11 +39,6 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.gcpProjectId | string | `"prod-apps-project"` | Google Project ID of the Kubernetes Cluster hosting the service Account |
-| global.cnrmNamespace | string | `"config-control"` | Allows to deploy in another namespace than the release one |
-| global.abandon | bool | `false` | Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources) |
-| grafanaDashboard.enabled | bool | `true` | Add grafana dashboard as a configmap |
-| grafanaDashboard.label | object | `{"grafana_dashboard":"1"}` | label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard |
 | certmanager.global.imagePullSecrets | list | `[]` |  |
 | certmanager.global.commonLabels | object | `{}` |  |
 | certmanager.global.priorityClassName | string | `""` |  |

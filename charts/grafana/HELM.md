@@ -60,8 +60,6 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"your-gcp-project-id"` |  |
 | grafana.ingress.enabled | bool | `true` |  |
 | grafana.ingress.ingressClassName | string | `"nginx"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/auth-signin" | string | `"https://grafana.theopenlane.io/oauth2/start"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/auth-url" | string | `"https://grafana.theopenlane.io/oauth2/auth"` |  |
 | grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
 | grafana.ingress.hosts[0] | string | `"grafana.theopenlane.io"` |  |
 | grafana.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.io"` |  |

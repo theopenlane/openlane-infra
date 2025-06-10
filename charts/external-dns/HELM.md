@@ -39,14 +39,6 @@ Deploys external-dns and its monitoring
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.gcpProjectId | string | `""` |  |
-| global.cnrmNamespace | string | `""` | Allows to deploy in another namespace than the release one |
-| global.abandon | bool | `false` | Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources) |
-| prometheus.enabled | bool | `false` | Enables Prometheus Operator monitoring |
-| prometheus.rules.enabled | bool | `true` | Enables prometheus operator rules |
-| prometheus.rules.labels | object | `{"prometheus":"prometheus-operator-prometheus"}` | Labels to affect to the Prometheus Rules |
-| prometheus.grafanaDashboard.enabled | bool | `true` | Add grafana dashboard as a configmap |
-| prometheus.grafanaDashboard.label | object | `{"grafana_dashboard":"1"}` | label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard |
 | externaldns.global.imagePullSecrets | list | `[]` | Global image pull secrets. |
 | externaldns.image.repository | string | `"registry.k8s.io/external-dns/external-dns"` | Image repository for the `external-dns` container. |
 | externaldns.image.tag | string | `nil` | Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set. |
