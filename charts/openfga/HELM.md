@@ -191,9 +191,8 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | migrate.extraVolumeMounts | list | `[]` |  |
 | migrate.extraInitContainers | list | `[]` |  |
 | migrate.sidecars | list | `[]` |  |
-| migrate.annotations."helm.sh/hook" | string | `"post-install, post-upgrade, post-rollback, post-delete"` |  |
-| migrate.annotations."helm.sh/hook-weight" | string | `"-5"` |  |
-| migrate.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation"` |  |
+| migrate.annotations."helm.sh/hook" | string | `"post-install, post-upgrade, post-rollback"` |  |
+| migrate.annotations."argocd.argoproj.io/sync-wave" | string | `"0"` |  |
 | migrate.labels | object | `{}` |  |
 | migrate.timeout | string | `nil` |  |
 | testPodSpec | object | `{}` |  |
