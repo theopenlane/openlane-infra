@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openlane-app
+  namespace: openlane
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openlane-app
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+        - name: openlane-app
+          args:
+            - serve
+          envFrom:
+            - secretRef:
+                name: openlane-app-secret
+          image: ghcr.io/theopenlane/core:v0.17.0
+          imagePullPolicy: Always
+          startupProbe:
+            failureThreshold: 1
+            initialDelaySeconds: 0
+            periodSeconds: 240
+            tcpSocket:
+              port: 17608
+            timeoutSeconds: 240
+          ports:
+            - containerPort: 17608
+              protocol: TCP
+              name: http
+            - containerPort: 17609
+              protocol: TCP
+              name: metrics
+      restartPolicy: Always
