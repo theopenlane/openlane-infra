@@ -74,7 +74,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | processPushSecret | bool | `true` | if true, the operator will process push secret. Else, it will ignore them. |
 | createOperator | bool | `true` | Specifies whether an external secret operator deployment be created. |
 | concurrent | int | `1` | Specifies the number of concurrent ExternalSecret Reconciles external-secret executes at a time. |
-| log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the External Secrets Operator |
+| log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifies Log Params to the External Secrets Operator |
 | service.ipFamilyPolicy | string | `""` | Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services) |
 | service.ipFamilies | list | `[]` | Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6. |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
@@ -129,10 +129,10 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | hostNetwork | bool | `false` | Run the controller on the host network |
 | webhook.annotations | object | `{}` | Annotations to place on validating webhook configuration. |
 | webhook.create | bool | `true` | Specifies whether a webhook deployment be created. If set to false, crds.conversion.enabled should also be set to false otherwise the kubeapi will be hammered because the conversion is looking for a webhook endpoint. |
-| webhook.certCheckInterval | string | `"5m"` | Specifices the time to check if the cert is valid |
-| webhook.lookaheadInterval | string | `""` | Specifices the lookaheadInterval for certificate validity |
+| webhook.certCheckInterval | string | `"5m"` | Specifies the time to check if the cert is valid |
+| webhook.lookaheadInterval | string | `""` | Specifies the lookaheadInterval for certificate validity |
 | webhook.replicaCount | int | `1` |  |
-| webhook.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
+| webhook.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifies Log Params to the Webhook |
 | webhook.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | webhook.certDir | string | `"/tmp/certs"` |  |
 | webhook.failurePolicy | string | `"Fail"` | Specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore |
@@ -197,7 +197,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | certController.create | bool | `true` | Specifies whether a certificate controller deployment be created. |
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
-| certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Certificate Controller |
+| certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifies Log Params to the Certificate Controller |
 | certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | certController.image.repository | string | `"oci.external-secrets.io/external-secrets/external-secrets"` |  |
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |

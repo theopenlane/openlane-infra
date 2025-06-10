@@ -1,6 +1,6 @@
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-# openlane-server
+# openlane
 
 **Homepage:** <https://docs.theopenlane.io>
 
@@ -219,7 +219,7 @@ To add the chart and install the chart with with helm default values, run the fo
 
 ```bash
 helm repo add openlane-infra https://theopenlane.github.io/openlane-infra
-helm install openlane-infra/openlane-server
+helm install openlane-infra/openlane
 ```
 
 ## Update documentation
@@ -259,5 +259,5 @@ task lint
 OR if you'd like to run the ct lint process by using a docker image, you can use a command like the following:
 
 ```bash
-docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/openlane-server --config /charts/charts/openlane-server/ct.yaml
+docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/openlane --config /charts/charts/openlane/ct.yaml
 ```

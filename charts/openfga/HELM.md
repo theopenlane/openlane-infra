@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://openfga.github.io/helm-charts | openFGA(openfga) | 0.2.30 |
+| https://openfga.github.io/helm-charts | openFGA(openfga) | 0.2.31 |
 
 ## Maintainers
 
@@ -43,7 +43,7 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
-| fullnameOverride | string | `""` |  |
+| fullnameOverride | string | `"openfga"` |  |
 | commonLabels | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.annotations | object | `{}` |  |
@@ -89,11 +89,11 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | telemetry.trace.otlp.tls.enabled | bool | `false` |  |
 | telemetry.trace.sampleRatio | string | `nil` |  |
 | telemetry.metrics.enabled | bool | `true` |  |
-| telemetry.metrics.serviceMonitor.enabled | bool | `false` |  |
+| telemetry.metrics.serviceMonitor.enabled | bool | `true` |  |
 | telemetry.metrics.serviceMonitor.additionalLabels | object | `{}` |  |
 | telemetry.metrics.serviceMonitor.annotations | object | `{}` |  |
 | telemetry.metrics.serviceMonitor.jobLabel | string | `"app.kubernetes.io/name"` |  |
-| telemetry.metrics.serviceMonitor.namespace | string | `""` |  |
+| telemetry.metrics.serviceMonitor.namespace | string | `"openfga"` |  |
 | telemetry.metrics.serviceMonitor.namespaceSelector | object | `{}` |  |
 | telemetry.metrics.serviceMonitor.scrapeInterval | string | `"30s"` |  |
 | telemetry.metrics.serviceMonitor.scrapeTimeout | string | `"10s"` |  |
@@ -104,15 +104,9 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | telemetry.metrics.enableRPCHistograms | string | `nil` |  |
 | telemetry.metrics.podAnnotations."prometheus.io/scrape" | string | `"true"` |  |
 | telemetry.metrics.podAnnotations."prometheus.io/port" | string | `"{{ .Values.containerPorts.prometheus }}"` |  |
-| datastore.engine | string | `"memory"` |  |
-| datastore.uri | string | `nil` |  |
-| datastore.uriSecret | string | `nil` |  |
-| datastore.username | string | `nil` |  |
-| datastore.password | string | `nil` |  |
-| datastore.existingSecret | string | `nil` |  |
-| datastore.secretKeys.uriKey | string | `nil` |  |
-| datastore.secretKeys.usernameKey | string | `nil` |  |
-| datastore.secretKeys.passwordKey | string | `nil` |  |
+| datastore.engine | string | `"postgres"` |  |
+| datastore.existingSecret | string | `"cloudsql-credentials"` |  |
+| datastore.secretKeys.uriKey | string | `"uri"` |  |
 | datastore.maxCacheSize | string | `nil` |  |
 | datastore.maxOpenConns | string | `nil` |  |
 | datastore.maxIdleConns | string | `nil` |  |
