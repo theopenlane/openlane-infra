@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prod-openlane-app
+  namespace: openlane
+  annotations:
+    ingressClassName: "gce"
+    networking.gke.io/managed-certificates: "prod-openlane-certificate"
+    kubernetes.io/ingress.global-static-ip-name: "prod-ingress-lb-ip"
+    kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: "prod-argocd-server"
+spec:
+  ingressClassName: "gce"
+  defaultBackend:
+    service:
+      name: prod-openlane
+      port:
+        number: 80
+  rules:
+    - host: api.prod.theopenlane.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: prod-openlane
+                port:
+                  number: 80
+  tls:
+    - hosts:
+      - api.prod.theopenlane.io
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: prod-openlane
+  namespace: openlane
+spec:
+  redirectToHttps:
+    enabled: true
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: prod-openlane
+  namespace: openlane
+spec:
+  iap:
+    enabled: true
