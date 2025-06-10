@@ -1,193 +1,277 @@
-replicaCount: 1
-image:
-  repository: us-west1-docker.pkg.dev/neural-vista-433523-c1/openlane/openlane
-  tag: "sha256:f77d88975d7be13c7cd90c70e882e227b5a2a6a64e1eef5561500a8b72325a0a"
-  pullPolicy: IfNotPresent
-serviceAccountName: prod-gke-central1@prod-apps-project.iam.gserviceaccount.com
-existingSecret: ""
-secret:
-  create: false
-  name: openlane-app-secret
-  annotations: {}
-secretEnv:
-  CORE_DB_PRIMARYDBSOURCE: ""
-  CORE_JOBQUEUE_CONNECTIONURI: ""
-  OPENFGA_DATASTORE_URI: ""
-  RIVERBOAT_RIVER_DATABASEHOST: ""
-  RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_TOKEN: ""
-  CORE_AUTHZ_CREDENTIALS_APITOKEN: ""
-  OPENFGA_AUTHN_PRESHARED_KEYS: ""
-  CORE_SESSIONS_SIGNINGKEY: ""
-  CORE_SESSIONS_ENCRYPTIONKEY: ""
-  CORE_OBJECTSTORAGE_ACCESSKEY: ""
-  CORE_OBJECTSTORAGE_SECRETKEY: ""
-  CORE_SUBSCRIPTION_PRIVATESTRIPEKEY: ""
-  CORE_SUBSCRIPTION_STRIPEWEBHOOKSECRET: ""
-  CORE_AUTH_PROVIDERS_GOOGLE_CLIENTSECRET: ""
-  CORE_AUTH_PROVIDERS_GITHUB_CLIENTSECRET: ""
-  CORE_TOTP_SECRET: ""
-cloudsql:
-  enabled: true
-  instanceSecret: "cloudsql-credentials"
-service:
-  type: ClusterIP
-  port: 80
-ingress:
-  enabled: true
-  className: "gce"
-  annotations: {}
-  hosts:
-    - host: api.example.com
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
-auth:
-  token:
-    refreshAudience: https://api.theopenlane.io
-    issuer: https://api.theopenlane.io
-    kid: 16FFBS79AZ12168N0RAW3CEAGG
-    jwksEndpoint: https://api.theopenlane.io/.well-known/jwks.json
-    generateKeys: "true"
-    audience: https://api.theopenlane.io
-  authz:
-    hostUrl: http://localhost:8080
-    createNewModel: "true"
-    credentialsApiToken: ""
-    modelFile: fga/model/model.fga
-  sessions:
-    signingKey: ""
-    encryptionKey: ""
-    domain: .theopenlane.io
-  providers:
-    google:
-      redirectURL: /v1/google/callback
-      clientID: 45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com
-      clientSecret: ""
-      clientEndpoint: https://api.theopenlane.io
-    github:
-      redirectURL: /v1/github/callback
-      clientID: Ov23liFCzRTms6uIou68
-      clientSecret: ""
-      clientEndpoint: https://api.theopenlane.io
-    webauthn:
-      requestOrigins: https://console.theopenlane.io
-      relyingPartyID: theopenlane.io
-  totp:
-    issuer: theopenlane.io
-    secret: ""
-db:
-  runMigrations: "true"
-  driverName: pgx
-  migrationProvider: goose
-  primaryDbSource: ""
-  jobQueueConnectionUri: ""
-  enableHistory: "true"
-  databasename: openlane
-objectStorage:
-  provider: s3
-  region: us-west-2
-  accessKey: ""
-  secretKey: ""
-  defaultBucket: openlane-us-west
-subscription:
-  enabled: "true"
-  publicStripeKey: ""
-  privateStripeKey: ""
-  stripeBillingPortalSuccessUrl: https://console.theopenlane.io/organization-settings/billing
-  stripeWebhookSecret: ""
-email:
-  companyName: Openlane
-  templatesPath: brandedtemplates
-  companyAddress: "5150 Broadway St \u00b7 San Antonio \u00b7 TX 78209"
-  corporation: "theopenlane Inc."
-  fromEmail: no-reply@mail.theopenlane.io
-  supportEmail: support@theopenlane.io
-  urls:
-    root: https://www.theopenlane.io
-    product: https://console.theopenlane.io
-    docs: https://docs.theopenlane.io
-    verify: https://console.theopenlane.io/verify
-    invite: https://console.theopenlane.io/invite
-    reset: https://console.theopenlane.io/password-reset
-    verifySubscriber: https://console.theopenlane.io/subscriber-verify
-riverboat:
+# Global configuration used across templates
+global:
+  # Primary domain for the Openlane API. When specific fields are left empty,
+  # this value is used to build URLs such as token issuers or ingress hosts.
+  apiDomain: api.example.com
+
+openlane:
+  # Number of API replicas to run
+  replicaCount: 1
   image:
-    repository: ghcr.io/theopenlane/riverboat
-    tag: latest
+    # Container image repository
+    repository: us-west1-docker.pkg.dev/neural-vista-433523-c1/openlane/openlane
+    # Image tag to deploy
+    tag: "sha256:f77d88975d7be13c7cd90c70e882e227b5a2a6a64e1eef5561500a8b72325a0a"
+    # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
-  riverDatabaseHost: ""
-  workers:
-    emailWorker:
-      configDevMode: "false"
-      configToken: ""
-      configFromEmail: no-reply@mail.theopenlane.io
-geodetic:
-  enabled: "false"
-server:
-  corsAllowOrigins: "https://console.theopenlane.io,https://www.theopenlane.io,https://studio.apollographql.com,https://docs.theopenlane.io"
-  debug: "false"
-  metricsPort: ":17609"
-  complexityLimit: "200"
-  tls:
-    enabled: false
-    certFile: server.crt
-    certKey: server.key
-    autoCert: false
-  cors:
+  # Service account used by the API pods
+  serviceAccountName: prod-gke-central1@prod-apps-project.iam.gserviceaccount.com
+  # Name of an existing secret with configuration
+  existingSecret: ""
+  secret:
+    # Whether to create the secret resource
+    create: false
+    # Name for the generated secret
+    name: openlane-app-secret
+    # Optional annotations for the secret
+    annotations: {}
+  # Secrets injected as environment variables
+  secretEnv:
+    # connection string to the primary database
+    CORE_DB_PRIMARYDBSOURCE: ""
+    # redis or other job queue URI
+    CORE_JOBQUEUE_CONNECTIONURI: ""
+    # data store for OpenFGA
+    OPENFGA_DATASTORE_URI: ""
+    # riverboat DB host
+    RIVERBOAT_RIVER_DATABASEHOST: ""
+    # email worker auth token
+    RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_TOKEN: ""
+    # API token for authz service
+    CORE_AUTHZ_CREDENTIALS_APITOKEN: ""
+    # pre-shared keys for OpenFGA auth
+    OPENFGA_AUTHN_PRESHARED_KEYS: ""
+    # HMAC signing key for sessions
+    CORE_SESSIONS_SIGNINGKEY: ""
+    # encryption key for session cookies
+    CORE_SESSIONS_ENCRYPTIONKEY: ""
+    # S3 access key
+    CORE_OBJECTSTORAGE_ACCESSKEY: ""
+    # S3 secret key
+    CORE_OBJECTSTORAGE_SECRETKEY: ""
+    # Stripe private API key
+    CORE_SUBSCRIPTION_PRIVATESTRIPEKEY: ""
+    # Stripe webhook secret
+    CORE_SUBSCRIPTION_STRIPEWEBHOOKSECRET: ""
+    # Google OAuth client secret
+    CORE_AUTH_PROVIDERS_GOOGLE_CLIENTSECRET: ""
+    # GitHub OAuth client secret
+    CORE_AUTH_PROVIDERS_GITHUB_CLIENTSECRET: ""
+    # master key for TOTP generation
+    CORE_TOTP_SECRET: ""
+  cloudsql:
+    # Enable Google Cloud SQL proxy sidecar
     enabled: true
-    prefixes: ""
-    allowOrigins: ""
-    cookieInsecure: ""
-  secure:
+    # Name of the secret containing Cloud SQL credentials
+    instanceSecret: "cloudsql-credentials"
+  service:
+    # Kubernetes Service type
+    type: ClusterIP
+    # Port the API is exposed on
+    port: 80
+  ingress:
     enabled: true
-    xssprotection: "1; mode=block"
-    contenttypenosniff: nosniff
-    xframeoptions: SAMEORIGIN
-    hstspreloadenabled: false
-    hstsmaxage: 31536000
-    contentsecuritypolicy: "default-src 'self'"
-    referrerpolicy: same-origin
-    cspreportonly: false
-  redirects:
-    enabled: true
-    redirects: ""
-    code: ""
-  cacheControl:
-    enabled: true
-    noCacheHeaders: ""
-    etagHeaders: ""
-  mime:
-    enabled: true
-    mimeTypesFile: ""
-    defaultContentType: application/data
-  graphPool:
-    maxWorkers: 100
-  enableGraphExtensions: true
-  maxResultLimit: 100
-openfga:
-  datastoreEngine: postgres
-  datastoreUri: ""
-  presharedKeys: ""
-  authnMethod: preshared
-  listUsersMaxResults: "10000"
-  datastoreMaxOpenConns: "240"
-  logFormat: json
-  checkQueryCacheEnabled: "true"
-  maxConcurrentChecksPerBatchCheck: "500"
-  maxChecksPerBatchCheck: "500"
-  listObjectsDeadline: 5s
-  listObjectsMaxResults: "10000"
-  datastoreMaxIdleConns: "200"
-  datastoreMetricsEnabled: "true"
-  metricsEnabled: "true"
-  checkIteratorCacheEnabled: "true"
-  checkQueryCacheTTL: 30s
-  cacheControllerEnabled: "true"
-  cacheControllerTTL: 30s
-  requestTimeout: 5s
-features:
-  dbxEnabled: "false"
-api:
-  # Additional annotations to apply to the main ConfigMap
-  commonAnnotations: {}
+    className: "gce"
+    annotations: {}
+    hosts:
+      # When host is empty the global.apiDomain value will be used
+      - host: ""
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+  auth:
+    token:
+      # Audience used in refresh tokens. Defaults to the global.apiDomain when empty
+      refreshAudience: ""
+      # Token issuer URL; when unset defaults to https://<global.apiDomain>
+      issuer: ""
+      kid: 16FFBS79AZ12168N0RAW3CEAGG
+      # JWKS endpoint used to validate tokens. Defaults to
+      # https://<global.apiDomain>/.well-known/jwks.json when empty
+      jwksEndpoint: ""
+      generateKeys: "true"
+      # Access token audience. Defaults to https://<global.apiDomain>
+      audience: ""
+    authz:
+      hostUrl: http://localhost:8080
+      createNewModel: "true"
+      credentialsApiToken: ""
+      modelFile: fga/model/model.fga
+    sessions:
+      signingKey: ""
+      encryptionKey: ""
+      domain: .theopenlane.io
+    providers:
+      google:
+        redirectURL: /v1/google/callback
+        clientID: 45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com
+        clientSecret: ""
+        # OAuth callback domain for Google. Defaults to https://<global.apiDomain>
+        clientEndpoint: ""
+      github:
+        redirectURL: /v1/github/callback
+        clientID: Ov23liFCzRTms6uIou68
+        clientSecret: ""
+        # OAuth callback domain for GitHub. Defaults to https://<global.apiDomain>
+        clientEndpoint: ""
+      webauthn:
+        requestOrigins: https://console.theopenlane.io
+        relyingPartyID: theopenlane.io
+    totp:
+      issuer: theopenlane.io
+      secret: ""
+  db:
+    # Run database schema migrations on startup
+    runMigrations: "true"
+    # Database driver to use
+    driverName: pgx
+    # Tool used for applying migrations
+    migrationProvider: goose
+    # Connection string for the primary database
+    primaryDbSource: ""
+    # URI for the background job queue
+    jobQueueConnectionUri: ""
+    # Keep history tables in the database
+    enableHistory: "true"
+    # Name of the database schema
+    databasename: openlane
+  objectStorage:
+    # Provider used for storing user data
+    provider: s3
+    # Region in the provider
+    region: us-west-2
+    # Access credentials for object storage
+    accessKey: ""
+    secretKey: ""
+    # Default bucket name
+    defaultBucket: openlane-us-west
+  subscription:
+    # Enable subscription features
+    enabled: "true"
+    # Public Stripe key for client integrations
+    publicStripeKey: ""
+    # Private Stripe key for server interactions
+    privateStripeKey: ""
+    # URL users are redirected to after managing billing
+    stripeBillingPortalSuccessUrl: https://console.theopenlane.io/organization-settings/billing
+    # Webhook secret to verify Stripe callbacks
+    stripeWebhookSecret: ""
+  email:
+    # Company name used in notification templates
+    companyName: Openlane
+    # Path inside the container for email templates
+    templatesPath: brandedtemplates
+    # Physical mailing address shown in emails
+    companyAddress: "5150 Broadway St \u00b7 San Antonio \u00b7 TX 78209"
+    # Legal corporation name
+    corporation: "theopenlane Inc."
+    # Default from address for outbound mail
+    fromEmail: no-reply@mail.theopenlane.io
+    # Support contact address
+    supportEmail: support@theopenlane.io
+    urls:
+      root: https://www.theopenlane.io
+      product: https://console.theopenlane.io
+      docs: https://docs.theopenlane.io
+      verify: https://console.theopenlane.io/verify
+      invite: https://console.theopenlane.io/invite
+      reset: https://console.theopenlane.io/password-reset
+      verifySubscriber: https://console.theopenlane.io/subscriber-verify
+  riverboat:
+    image:
+      # Repository for the riverboat worker image
+      repository: ghcr.io/theopenlane/riverboat
+      tag: latest
+      pullPolicy: IfNotPresent
+    # Hostname for the riverboat database
+    riverDatabaseHost: ""
+    workers:
+      emailWorker:
+        # enable developer mode
+        configDevMode: "false"
+        # token used by the worker
+        configToken: ""
+        configFromEmail: no-reply@mail.theopenlane.io
+  geodetic:
+    # Enable geodetic service deployment
+    enabled: "false"
+  server:
+    # Allowed origins for CORS requests
+    corsAllowOrigins: "https://console.theopenlane.io,https://www.theopenlane.io,https://studio.apollographql.com,https://docs.theopenlane.io"
+    # Enable debug logging
+    debug: "false"
+    # Port for the metrics endpoint
+    metricsPort: ":17609"
+    # Maximum complexity for GraphQL queries
+    complexityLimit: "200"
+    tls:
+      enabled: false
+      certFile: server.crt
+      certKey: server.key
+      autoCert: false
+    cors:
+      enabled: true
+      prefixes: ""
+      allowOrigins: ""
+      cookieInsecure: ""
+    secure:
+      enabled: true
+      xssprotection: "1; mode=block"
+      contenttypenosniff: nosniff
+      xframeoptions: SAMEORIGIN
+      hstspreloadenabled: false
+      hstsmaxage: 31536000
+      contentsecuritypolicy: "default-src 'self'"
+      referrerpolicy: same-origin
+      cspreportonly: false
+    redirects:
+      enabled: true
+      redirects: ""
+      code: ""
+    cacheControl:
+      enabled: true
+      noCacheHeaders: ""
+      etagHeaders: ""
+    mime:
+      enabled: true
+      mimeTypesFile: ""
+      defaultContentType: application/data
+    graphPool:
+      maxWorkers: 100
+    # Enable Openlane-specific GraphQL extensions
+    enableGraphExtensions: true
+    # Limit for query results
+    maxResultLimit: 100
+  openfga:
+    # Engine backing the authorization store
+    datastoreEngine: postgres
+    # Connection URI for the datastore
+    datastoreUri: ""
+    # Shared keys for OpenFGA authentication
+    presharedKeys: ""
+    # Authentication method to use
+    authnMethod: preshared
+    # Limits and performance tuning options
+    listUsersMaxResults: "10000"
+    datastoreMaxOpenConns: "240"
+    logFormat: json
+    checkQueryCacheEnabled: "true"
+    maxConcurrentChecksPerBatchCheck: "500"
+    maxChecksPerBatchCheck: "500"
+    listObjectsDeadline: 5s
+    listObjectsMaxResults: "10000"
+    datastoreMaxIdleConns: "200"
+    datastoreMetricsEnabled: "true"
+    metricsEnabled: "true"
+    checkIteratorCacheEnabled: "true"
+    checkQueryCacheTTL: 30s
+    cacheControllerEnabled: "true"
+    cacheControllerTTL: 30s
+    requestTimeout: 5s
+  features:
+    # enable Dropbox integration
+    dbxEnabled: "false"
+  api:
+    # Additional annotations to apply to the main ConfigMap
+    commonAnnotations: {}
