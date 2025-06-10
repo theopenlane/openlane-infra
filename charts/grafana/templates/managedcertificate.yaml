@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: prod-grafana
+  namespace: grafana
+spec:
+  domains:
+    - grafana.theopenlane.io

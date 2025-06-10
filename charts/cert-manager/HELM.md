@@ -39,8 +39,8 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.gcpProjectId | string | `""` | Google Project ID of the Kubernetes Cluster hosting the service Account |
-| global.cnrmNamespace | string | `""` | Allows to deploy in another namespace than the release one |
+| global.gcpProjectId | string | `"prod-apps-project"` | Google Project ID of the Kubernetes Cluster hosting the service Account |
+| global.cnrmNamespace | string | `"config-control"` | Allows to deploy in another namespace than the release one |
 | global.abandon | bool | `false` | Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources) |
 | grafanaDashboard.enabled | bool | `true` | Add grafana dashboard as a configmap |
 | grafanaDashboard.label | object | `{"grafana_dashboard":"1"}` | label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard |
@@ -53,7 +53,7 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 | certmanager.global.podSecurityPolicy.useAppArmor | bool | `true` |  |
 | certmanager.global.logLevel | int | `2` |  |
 | certmanager.global.leaderElection.namespace | string | `"kube-system"` |  |
-| certmanager.installCRDs | bool | `false` |  |
+| certmanager.installCRDs | bool | `true` |  |
 | certmanager.crds.enabled | bool | `true` |  |
 | certmanager.crds.keep | bool | `true` |  |
 | certmanager.replicaCount | int | `1` |  |
@@ -99,7 +99,7 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 | certmanager.livenessProbe.failureThreshold | int | `8` |  |
 | certmanager.enableServiceLinks | bool | `false` |  |
 | certmanager.prometheus.enabled | bool | `true` |  |
-| certmanager.prometheus.servicemonitor.enabled | bool | `false` |  |
+| certmanager.prometheus.servicemonitor.enabled | bool | `true` |  |
 | certmanager.prometheus.servicemonitor.prometheusInstance | string | `"default"` |  |
 | certmanager.prometheus.servicemonitor.targetPort | int | `9402` |  |
 | certmanager.prometheus.servicemonitor.path | string | `"/metrics"` |  |

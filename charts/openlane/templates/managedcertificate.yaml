@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: prod-openlane-certificate
+  namespace: openlane
+spec:
+  domains:
+    - api.prod.theopenlane.io
