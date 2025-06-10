@@ -1,25 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets
+  name: grafana
   namespace: argocd
 spec:
   project: openlane-infra
   source:
     repoURL: https://github.com/theopenlane/openlane-infra.git
     targetRevision: main
-    path: charts/eso
+    path: charts/grafana
     helm:
-      releaseName: external-secrets
+      releaseName: grafana
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: external-secrets
+    namespace: grafana
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
       - ApplyOutOfSyncOnly=true

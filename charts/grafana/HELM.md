@@ -1,6 +1,6 @@
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0](https://img.shields.io/badge/AppVersion-1.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-# gcp-project-base
+# openlane-eso
 
 **Homepage:** <https://docs.theopenlane.io>
 
@@ -17,17 +17,8 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-bucket | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-cloud-nat | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-cloudsql | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-dns-zone | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | gkeCluster(openlane-gcp-gke-cluster) | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-lb | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-memorystore | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-service-account | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-subnetwork | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-vpc-network | 0.1.1 |
-| https://theopenlane.github.io/openlane-infra | openlane-gcp-workload-identity | 0.1.1 |
+| https://grafana.github.io/helm-charts | grafana(grafana) | 9.2.2 |
+| https://oauth2-proxy.github.io/manifests | oauth2(oauth2-proxy) | 7.12.17 |
 
 ## Maintainers
 
@@ -37,7 +28,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-Reusable chart for defining a GCP Project and its common resources
+A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 
 ## Source Code
 
@@ -47,34 +38,50 @@ Reusable chart for defining a GCP Project and its common resources
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| project.name | string | `"prod-apps-project"` |  |
-| project.id | string | `"323616316362"` |  |
-| project.gcpProjectName | string | `"Default GCP Project"` |  |
-| project.folderRef | string | `"folders/prod-apps"` |  |
-| project.apis | list | `[]` |  |
-| orgId | string | `"OVERWRITE_ME"` |  |
-| billingAccountId | string | `"OVERWRITE_ME"` |  |
-| primaryRegion | string | `"us-central1"` |  |
-| commonAppConfig | object | `{}` |  |
-| folders | object | `{}` |  |
-| kms | object | `{}` |  |
-| envName | string | `"default"` |  |
-| envCapitalizedName | string | `"Default"` |  |
-| isSharedVpcHost | bool | `false` |  |
-| isSignalsProject | bool | `false` |  |
-| sharedVpcHostDev | object | `{}` |  |
-| sharedVpcHostProd | object | `{}` |  |
-| gkeCluster.enabled | bool | `false` |  |
-| bigquery.enabled | bool | `false` |  |
-| storage.enabled | bool | `false` |  |
-| cloudsql.enabled | bool | `false` |  |
-| memorystore.enabled | bool | `false` |  |
-| dnsZone.enabled | bool | `false` |  |
-| network | object | `{}` |  |
-| firewallRules | object | `{}` |  |
-| serviceProjects | object | `{}` |  |
-| logSinks | object | `{}` |  |
-| gcpCloudRouter | object | `{}` |  |
+| grafana.admin.existingSecret | string | `"grafana-admin-secret"` |  |
+| grafana.admin.userKey | string | `"admin-user"` |  |
+| grafana.admin.passwordKey | string | `"admin-password"` |  |
+| grafana."grafana.ini".auth.disable_login_form | bool | `true` |  |
+| grafana."grafana.ini".auth.disable_signout_menu | bool | `false` |  |
+| grafana."grafana.ini"."auth.proxy".enabled | bool | `true` |  |
+| grafana."grafana.ini"."auth.proxy".header_name | string | `"X-Auth-Request-Email"` |  |
+| grafana."grafana.ini"."auth.proxy".auto_sign_up | bool | `true` |  |
+| grafana."grafana.ini"."auth.proxy".sync_ttl | int | `60` |  |
+| grafana."grafana.ini"."auth.proxy".whitelist | string | `""` |  |
+| grafana."grafana.ini".server.root_url | string | `"https://grafana.theopenlane.io"` |  |
+| grafana."grafana.ini".paths.data | string | `"/var/lib/grafana/data"` |  |
+| grafana."grafana.ini".analytics.check_for_updates | bool | `false` |  |
+| grafana.datasources."datasources.yaml".apiVersion | int | `1` |  |
+| grafana.datasources."datasources.yaml".datasources[0].name | string | `"Google Cloud Monitoring"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].type | string | `"stackdriver"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].access | string | `"proxy"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].isDefault | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[0].jsonData.authenticationType | string | `"gce"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"your-gcp-project-id"` |  |
+| grafana.ingress.enabled | bool | `true` |  |
+| grafana.ingress.ingressClassName | string | `"nginx"` |  |
+| grafana.ingress.annotations."nginx.ingress.kubernetes.io/auth-signin" | string | `"https://grafana.theopenlane.io/oauth2/start"` |  |
+| grafana.ingress.annotations."nginx.ingress.kubernetes.io/auth-url" | string | `"https://grafana.theopenlane.io/oauth2/auth"` |  |
+| grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
+| grafana.ingress.hosts[0] | string | `"grafana.theopenlane.io"` |  |
+| grafana.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.io"` |  |
+| grafana.ingress.tls[0].secretName | string | `"grafana-tls"` |  |
+| grafana.persistence.enabled | bool | `true` |  |
+| grafana.persistence.size | string | `"10Gi"` |  |
+| oauth2.config.clientID | string | `"YOUR_GOOGLE_OAUTH_CLIENT_ID"` |  |
+| oauth2.config.clientSecret | string | `"YOUR_GOOGLE_OAUTH_CLIENT_SECRET"` |  |
+| oauth2.config.cookieSecret | string | `"YOUR_RANDOM_32BYTE_SECRET_BASE64"` |  |
+| oauth2.config.provider | string | `"google"` |  |
+| oauth2.config.emailDomains[0] | string | `"theopenlane.io"` |  |
+| oauth2.config.whitelistDomains[0] | string | `".theopenlane.io"` |  |
+| oauth2.config.redirectURL | string | `"https://grafana.theopenlane.io/oauth2/callback"` |  |
+| oauth2.config.upstreams[0] | string | `"http://grafana.default.svc.cluster.local:3000/"` |  |
+| oauth2.ingress.enabled | bool | `true` |  |
+| oauth2.ingress.ingressClassName | string | `"nginx"` |  |
+| oauth2.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
+| oauth2.ingress.hosts[0] | string | `"grafana.theopenlane.io"` |  |
+| oauth2.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.io"` |  |
+| oauth2.ingress.tls[0].secretName | string | `"grafana-tls"` |  |
 
 ## Config Connector resources
 
@@ -109,7 +116,7 @@ To add the chart and install the chart with with helm default values, run the fo
 
 ```bash
 helm repo add openlane-infra https://theopenlane.github.io/openlane-infra
-helm install openlane-infra/gcp-project-base
+helm install openlane-infra/openlane-eso
 ```
 
 ## Update documentation
@@ -149,5 +156,5 @@ task lint
 OR if you'd like to run the ct lint process by using a docker image, you can use a command like the following:
 
 ```bash
-docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/gcp-project-base --config /charts/charts/gcp-project-base/ct.yaml
+docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/openlane-eso --config /charts/charts/openlane-eso/ct.yaml
 ```

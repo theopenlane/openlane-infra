@@ -92,7 +92,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.configs.cm."timeout.reconciliation" | string | `"180s"` | Timeout to discover if a new manifests version got published to the repository |
 | argocd.configs.cm."timeout.hard.reconciliation" | string | `"0s"` | Timeout to refresh application data as well as target manifests cache |
 | argocd.configs.cm."statusbadge.enabled" | bool | `true` | Enable Status Badge # Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/ |
-| argocd.configs.cm."dex.config" | string | `"connectors:\n  - config:\n      issuer: https://accounts.google.com\n      clientID: fake\n      clientSecret: fake\n    type: oidc\n    id: google\n    name: Google\n"` |  |
+| argocd.configs.cm."dex.config" | string | `"connectors:\n  - config:\n      issuer: https://accounts.google.com\n      clientID: replace\n      clientSecret: replace\n    type: oidc\n    id: google\n    name: Google\n"` |  |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.all" | string | See [values.yaml] | Ignoring status for all resources. An update will still be sent if the status update causes the health to change. |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.argoproj.io_Application" | string | See [values.yaml] | Some Application fields are generated and not related to the application updates itself # The Application itself is already watched by the controller lister, but this configuration is applied for apps of apps |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.argoproj.io_Rollout" | string | See [values.yaml] | Ignore Argo Rollouts generated fields |
@@ -339,8 +339,8 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.redis.pdb.annotations | object | `{}` | Annotations to be added to Redis pdb |
 | argocd.redis.pdb.minAvailable | string | `""` (defaults to 0 if not specified) | Number of pods that are available after eviction as number or percentage (eg.: 50%) |
 | argocd.redis.pdb.maxUnavailable | string | `""` | Number of pods that are unavailable after eviction as number or percentage (eg.: 50%). # Has higher precedence over `redis.pdb.minAvailable` |
-| argocd.redis.image.repository | string | `"public.ecr.aws/docker/library/redis"` | Redis repository |
-| argocd.redis.image.tag | string | `"8.0.2-alpine"` | Redis tag # Do not upgrade to >= 7.4.0, otherwise you are no longer using an open source version of Redis |
+| argocd.redis.image.repository | string | `"ecr-public.aws.com/docker/library/redis"` | Redis repository |
+| argocd.redis.image.tag | string | `"7.2.8-alpine"` | Redis tag # Do not upgrade to >= 7.4.0, otherwise you are no longer using an open source version of Redis |
 | argocd.redis.image.imagePullPolicy | string | `""` (defaults to global.image.imagePullPolicy) | Redis image pull policy |
 | argocd.redis.exporter.enabled | bool | `false` | Enable Prometheus redis-exporter sidecar |
 | argocd.redis.exporter.env | list | `[]` | Environment variables to pass to the Redis exporter |
@@ -423,7 +423,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.redis.metrics.serviceMonitor.namespace | string | `""` | Prometheus ServiceMonitor namespace |
 | argocd.redis.metrics.serviceMonitor.additionalLabels | object | `{}` | Prometheus ServiceMonitor labels |
 | argocd.redis.metrics.serviceMonitor.annotations | object | `{}` | Prometheus ServiceMonitor annotations |
-| argocd.redis-ha.enabled | bool | `true` | Enables the Redis HA subchart and disables the custom Redis single node deployment |
+| argocd.redis-ha.enabled | bool | `false` | Enables the Redis HA subchart and disables the custom Redis single node deployment |
 | argocd.redis-ha.image.repository | string | `"public.ecr.aws/docker/library/redis"` | Redis repository |
 | argocd.redis-ha.image.tag | string | `"8.0.2-alpine"` | Redis tag # Do not upgrade to >= 7.4.0, otherwise you are no longer using an open source version of Redis |
 | argocd.redis-ha.exporter.enabled | bool | `true` | Enable Prometheus redis-exporter sidecar |
@@ -480,7 +480,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.redisSecretInit.nodeSelector | object | `{}` (defaults to global.nodeSelector) | Node selector to be added to the Redis secret-init Job |
 | argocd.redisSecretInit.tolerations | list | `[]` (defaults to global.tolerations) | Tolerations to be added to the Redis secret-init Job |
 | argocd.server.name | string | `"server"` | Argo CD server name |
-| argocd.server.replicas | int | `2` | The number of server pods to run |
+| argocd.server.replicas | int | `1` | The number of server pods to run |
 | argocd.server.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for the Argo CD server |
 | argocd.server.autoscaling.enabled | bool | `false` | Enable Horizontal Pod Autoscaler ([HPA]) for the Argo CD server |
 | argocd.server.autoscaling.minReplicas | int | `1` | Minimum number of replicas for the Argo CD server [HPA] |
@@ -502,7 +502,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.server.env | list | `[]` | Environment variables to pass to Argo CD server |
 | argocd.server.envFrom | list | `[]` (See [values.yaml]) | envFrom to pass to Argo CD server |
 | argocd.server.lifecycle | object | `{}` | Specify postStart and preStop lifecycle hooks for your argo-cd-server container |
-| argocd.server.extensions.enabled | bool | `false` | Enable support for Argo CD extensions |
+| argocd.server.extensions.enabled | bool | `true` | Enable support for Argo CD extensions |
 | argocd.server.extensions.image.repository | string | `"quay.io/argoprojlabs/argocd-extension-installer"` | Repository to use for extension installer image |
 | argocd.server.extensions.image.tag | string | `"v0.0.8"` | Tag to use for extension installer image |
 | argocd.server.extensions.image.imagePullPolicy | string | `""` (defaults to global.image.imagePullPolicy) | Image pull policy for extensions |
@@ -605,12 +605,12 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.server.ingress.enabled | bool | `true` | Enable an ingress resource for the Argo CD server |
 | argocd.server.ingress.controller | string | `"gke"` | Specific implementation for ingress controller. One of `generic`, `aws` or `gke` # Additional configuration might be required in related configuration sections |
 | argocd.server.ingress.labels | object | `{}` | Additional ingress labels |
-| argocd.server.ingress.annotations | object | `{"kubernetes.io/ingress.global-static-ip-name":"argo","networking.gke.io/managed-certificates":"argocd","networking.gke.io/v1beta1.FrontendConfig":"argocd-frontend-config"}` | Additional ingress annotations # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough |
-| argocd.server.ingress.ingressClassName | string | `""` | Defines which ingress controller will implement the resource |
+| argocd.server.ingress.annotations | object | `{"kubernetes.io/ingress.global-static-ip-name":"prod-ingress-lb-ip"}` | Additional ingress annotations # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough |
+| argocd.server.ingress.ingressClassName | string | `"gce"` | Defines which ingress controller will implement the resource |
 | argocd.server.ingress.hostname | string | `""` (defaults to global.domain) | Argo CD server hostname |
 | argocd.server.ingress.path | string | `"/"` | The path to Argo CD server |
 | argocd.server.ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
-| argocd.server.ingress.tls | bool | `false` | Enable TLS configuration for the hostname defined at `server.ingress.hostname` # TLS certificate will be retrieved from a TLS secret `argocd-server-tls` # You can create this secret via `certificate` or `certificateSecret` option |
+| argocd.server.ingress.tls | bool | `true` | Enable TLS configuration for the hostname defined at `server.ingress.hostname` # TLS certificate will be retrieved from a TLS secret `argocd-server-tls` # You can create this secret via `certificate` or `certificateSecret` option |
 | argocd.server.ingress.extraHosts | list | `[]` (See [values.yaml]) | The list of additional hostnames to be covered by ingress record |
 | argocd.server.ingress.extraPaths | list | `[]` (See [values.yaml]) | Additional ingress paths # Note: Supports use of custom Helm templates |
 | argocd.server.ingress.extraRules | list | `[]` (See [values.yaml]) | Additional ingress rules # Note: Supports use of custom Helm templates |
@@ -641,7 +641,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.server.clusterRoleRules.enabled | bool | `false` | Enable custom rules for the server's ClusterRole resource |
 | argocd.server.clusterRoleRules.rules | list | `[]` | List of custom rules for the server's ClusterRole resource |
 | argocd.repoServer.name | string | `"repo-server"` | Repo server name |
-| argocd.repoServer.replicas | int | `2` | The number of repo server pods to run |
+| argocd.repoServer.replicas | int | `1` | The number of repo server pods to run |
 | argocd.repoServer.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for the repo server |
 | argocd.repoServer.autoscaling.enabled | bool | `false` | Enable Horizontal Pod Autoscaler ([HPA]) for the repo server |
 | argocd.repoServer.autoscaling.minReplicas | int | `1` | Minimum number of replicas for the repo server [HPA] |
@@ -665,9 +665,6 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.repoServer.lifecycle | object | `{}` | Specify postStart and preStop lifecycle hooks for your argo-repo-server container |
 | argocd.repoServer.extraContainers | list | `[]` | Additional containers to be added to the repo server pod # Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/config-management-plugins/ # Note: Supports use of custom Helm templates |
 | argocd.repoServer.initContainers | list | `[]` | Init containers to add to the repo server pods |
-| argocd.repoServer.volumeMounts | list | `[]` | Additional volumeMounts to the repo server main container |
-| argocd.repoServer.volumes | list | `[]` | Additional volumes to the repo server pod |
-| argocd.repoServer.existingVolumes | object | `{}` | Volumes to be used in replacement of emptydir on default volumes |
 | argocd.repoServer.emptyDir.sizeLimit | string | `""` (defaults not set if not specified i.e. no size limit) | EmptyDir size limit for repo server |
 | argocd.repoServer.useEphemeralHelmWorkingDir | bool | `true` | Toggle the usage of a ephemeral Helm working directory |
 | argocd.repoServer.deploymentAnnotations | object | `{}` | Annotations to be added to repo server Deployment |
@@ -730,13 +727,13 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.repoServer.clusterRoleRules.rules | list | `[]` | List of custom rules for the Repo server's Cluster Role resource |
 | argocd.repoServer.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account into the pod. |
 | argocd.repoServer.serviceAccount.create | bool | `true` | Create repo server service account |
-| argocd.repoServer.serviceAccount.name | string | `""` | Repo server service account name |
+| argocd.repoServer.serviceAccount.name | string | `"argocd-repo-server"` | Repo server service account name |
 | argocd.repoServer.serviceAccount.annotations | object | `{}` | Annotations applied to created service account |
 | argocd.repoServer.serviceAccount.labels | object | `{}` | Labels applied to created service account |
 | argocd.repoServer.serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account |
-| argocd.repoServer.rbac | list | `[]` | Repo server rbac rules |
+| argocd.repoServer.rbac | list | `[{"apiGroups":["argoproj.io"],"resources":["applications"],"verbs":["get","list","watch"]}]` | Repo server rbac rules |
 | argocd.applicationSet.name | string | `"applicationset-controller"` | ApplicationSet controller name string |
-| argocd.applicationSet.replicas | int | `2` | The number of ApplicationSet controller pods to run |
+| argocd.applicationSet.replicas | int | `1` | The number of ApplicationSet controller pods to run |
 | argocd.applicationSet.runtimeClassName | string | `""` (defaults to global.runtimeClassName) | Runtime class name for the ApplicationSet controller |
 | argocd.applicationSet.pdb.enabled | bool | `false` | Deploy a [PodDisruptionBudget] for the ApplicationSet controller |
 | argocd.applicationSet.pdb.labels | object | `{}` | Labels to be added to ApplicationSet controller pdb |

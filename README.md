@@ -218,5 +218,5 @@ To get nodes of a specific type or performance you need to annotate your deploym
 
 ```yaml
 cloud.google.com/compute-class: "COMPUTE_CLASS"
-kubernetes.io/arch: ARCHITECTURE # if you want a specifc CPU architecture
+kubernetes.io/arch: ARCHITECTURE # if you want a specific CPU architecture
 ```

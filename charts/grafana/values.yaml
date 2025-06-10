@@ -1,0 +1,78 @@
+grafana:
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: admin-user
+    passwordKey: admin-password
+
+  grafana.ini:
+    auth:
+      disable_login_form: true
+      disable_signout_menu: false
+    auth.proxy:
+      enabled: true
+      header_name: X-Auth-Request-Email
+      auto_sign_up: true
+      sync_ttl: 60
+      whitelist: ""
+    server:
+      root_url: https://grafana.theopenlane.io
+    paths:
+      data: /var/lib/grafana/data
+    analytics:
+      check_for_updates: false
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Google Cloud Monitoring
+          type: stackdriver
+          access: proxy
+          isDefault: true
+          jsonData:
+            authenticationType: gce
+            defaultProject: your-gcp-project-id
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/auth-signin: https://grafana.theopenlane.io/oauth2/start
+      nginx.ingress.kubernetes.io/auth-url: https://grafana.theopenlane.io/oauth2/auth
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - grafana.theopenlane.io
+    tls:
+      - hosts:
+          - grafana.theopenlane.io
+        secretName: grafana-tls
+
+  persistence:
+    enabled: true
+    size: 10Gi
+
+oauth2:
+  config:
+    clientID: YOUR_GOOGLE_OAUTH_CLIENT_ID
+    clientSecret: YOUR_GOOGLE_OAUTH_CLIENT_SECRET
+    cookieSecret: YOUR_RANDOM_32BYTE_SECRET_BASE64
+    provider: google
+    emailDomains:
+      - theopenlane.io
+    whitelistDomains:
+      - .theopenlane.io
+    redirectURL: https://grafana.theopenlane.io/oauth2/callback
+    upstreams:
+      - http://grafana.default.svc.cluster.local:3000/
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - grafana.theopenlane.io
+    tls:
+      - hosts:
+          - grafana.theopenlane.io
+        secretName: grafana-tls

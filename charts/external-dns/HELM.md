@@ -40,7 +40,7 @@ Deploys external-dns and its monitoring
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.gcpProjectId | string | `""` |  |
-| global.cnrmNamespace | string | `"cnrm-system"` | Allows to deploy in another namespace than the release one |
+| global.cnrmNamespace | string | `""` | Allows to deploy in another namespace than the release one |
 | global.abandon | bool | `false` | Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources) |
 | prometheus.enabled | bool | `false` | Enables Prometheus Operator monitoring |
 | prometheus.rules.enabled | bool | `true` | Enables prometheus operator rules |
@@ -138,13 +138,13 @@ Deploys external-dns and its monitoring
 | externaldns.secretConfiguration.data | object | `{}` | `Secret` data. |
 | tags.configConnector | bool | `true` | Enables Config Connector features |
 | iamPolicyMembers.members[0].name | string | `"external-dns-gsa"` |  |
-| iamPolicyMembers.members[0].member | string | `""` |  |
+| iamPolicyMembers.members[0].member | string | `"serviceAccount:prod-gke-central1@prod-apps-project.iam.gserviceaccount.com"` |  |
 | iamPolicyMembers.members[0].role | string | `"roles/dns.admin"` | Roles to apply to external-dns google service account |
 | iamPolicyMembers.members[0].resourceRef.kind | string | `"Project"` |  |
-| iamPolicyMembers.members[0].resourceRef.external | string | `""` |  |
+| iamPolicyMembers.members[0].resourceRef.external | string | `"prod-apps-project"` |  |
 | workloadIdentity.global.gsa.create | bool | `true` |  |
-| workloadIdentity.global.gsa.name | string | `"wi-k8s"` |  |
-| workloadIdentity.global.gsa.project | string | `""` |  |
+| workloadIdentity.global.gsa.name | string | `"prod-gke-central1"` |  |
+| workloadIdentity.global.gsa.project | string | `"prod-apps-project"` |  |
 | workloadIdentity.global.ksa.namespace | string | `""` |  |
 | workloadIdentity.global.ksa.name | string | `"default"` |  |
 

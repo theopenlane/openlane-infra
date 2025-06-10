@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets
+  name: openlane
   namespace: argocd
 spec:
   project: openlane-infra
   source:
     repoURL: https://github.com/theopenlane/openlane-infra.git
     targetRevision: main
-    path: charts/eso
+    path: charts/openlane
     helm:
-      releaseName: external-secrets
+      releaseName: openlane
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: external-secrets
+    namespace: openlane
   syncPolicy:
     automated:
       prune: true

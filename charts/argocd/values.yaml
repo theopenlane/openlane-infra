@@ -208,8 +208,8 @@ argocd:
         connectors:
           - config:
               issuer: https://accounts.google.com
-              clientID: 45405492545-hmp5maiel88eebgk1d7h3vfa2siboak4.apps.googleusercontent.com
-              clientSecret: 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
+              clientID: replace
+              clientSecret: replace
             type: oidc
             id: google
             name: Google
@@ -672,7 +672,7 @@ argocd:
       # -- Bcrypt hashed admin password
       ## Argo expects the password in the secret to be bcrypt hashed. You can create this hash with
       ## `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'`
-      argocdServerAdminPassword: "$2a$10$xQJJ7NlHci89bbATu9XLDu19KMnMAQkQfp6jZ/rC3IkBTNcRsVwwa"
+      argocdServerAdminPassword: ""
       # -- Admin password modification time. Eg. `"2006-01-02T15:04:05Z"`
       # @default -- `""` (defaults to current time)
       argocdServerAdminPasswordMtime: ""
