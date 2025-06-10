@@ -94,7 +94,7 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.datastore.connMaxLifetime | string | `nil` |  |
 | openfga.datastore.applyMigrations | bool | `true` |  |
 | openfga.datastore.waitForMigrations | bool | `true` |  |
-| openfga.datastore.migrationType | string | `"job"` |  |
+| openfga.datastore.migrationType | string | `"initContainer"` |  |
 | openfga.datastore.migrations.resources | object | `{}` |  |
 | openfga.datastore.migrations.image.repository | string | `"groundnuty/k8s-wait-for"` |  |
 | openfga.datastore.migrations.image.pullPolicy | string | `"Always"` |  |
