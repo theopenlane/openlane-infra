@@ -9,7 +9,7 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: "prod-ingress-lb-ip"
     kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.class: "gce"
-    networking.gke.io/v1beta1.FrontendConfig: "prod-argocd-server"
+    networking.gke.io/v1beta1.FrontendConfig: "prod-openlane"
 spec:
   ingressClassName: "gce"
   defaultBackend:
