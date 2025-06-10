@@ -136,7 +136,7 @@ openfga:
       serviceMonitor:
         ## @param telemetry.metrics.serviceMonitor.enabled enable/disable installation of serviceMonitor custom resource
         ##
-        enabled: true
+        enabled: false
 
         ## @param telemetry.metrics.serviceMonitor.additionalLabels additional labels to be added to the serviceMonitor resource
         ##

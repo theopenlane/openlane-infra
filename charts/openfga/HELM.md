@@ -89,7 +89,7 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.telemetry.trace.otlp.tls.enabled | bool | `false` |  |
 | openfga.telemetry.trace.sampleRatio | string | `nil` |  |
 | openfga.telemetry.metrics.enabled | bool | `true` |  |
-| openfga.telemetry.metrics.serviceMonitor.enabled | bool | `true` |  |
+| openfga.telemetry.metrics.serviceMonitor.enabled | bool | `false` |  |
 | openfga.telemetry.metrics.serviceMonitor.additionalLabels | object | `{}` |  |
 | openfga.telemetry.metrics.serviceMonitor.annotations | object | `{}` |  |
 | openfga.telemetry.metrics.serviceMonitor.jobLabel | string | `"app.kubernetes.io/name"` |  |

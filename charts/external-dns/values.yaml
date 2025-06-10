@@ -1,27 +1,3 @@
-global:
-  gcpProjectId: ""
-  # global.cnrmNamespace -- Allows to deploy in another namespace than the release one
-  cnrmNamespace: ""
-  # global.abandon -- Activate abandon of the resources (If true, the GCP resources will be keep after deleting k8s resources)
-  abandon: false
-
-
-prometheus:
-  # -- Enables Prometheus Operator monitoring
-  enabled: false
-  rules:
-    # -- Enables prometheus operator rules
-    enabled: true
-    # -- Labels to affect to the Prometheus Rules
-    labels:
-      prometheus: prometheus-operator-prometheus
-  grafanaDashboard:
-    # -- Add grafana dashboard as a configmap
-    enabled: true
-    # -- label to apply to the config map. Used by Grafana sidecar to automatically install the dashboard
-    label:
-      grafana_dashboard: "1"
-
 
 # Default values for externaldns.
 externaldns:
