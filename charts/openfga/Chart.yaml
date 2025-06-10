@@ -15,5 +15,5 @@ home: https://docs.theopenlane.io
 dependencies:
   - name: openfga
     repository: https://openfga.github.io/helm-charts
-    alias: openFGA
+    alias: openfga
     version: 0.2.31
