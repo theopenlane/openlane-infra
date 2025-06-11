@@ -3,8 +3,11 @@ kind: Service
 metadata:
   name: prod-openlane
   namespace: openlane
+  labels:
+    {{- include "openlane.labels" . | nindent 4 }}
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   type: NodePort
   sessionAffinity: None
