@@ -3,6 +3,19 @@ kind: ManagedCertificate
 metadata:
   name: prod-openlane-certificate
   namespace: openlane
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   domains:
     - api.prod.theopenlane.io
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: prod-openlane-app-certificate
+  namespace: openlane
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  domains:
+    - api.theopenlane.io
