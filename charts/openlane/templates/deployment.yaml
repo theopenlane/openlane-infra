@@ -34,7 +34,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /livez
-              port: 17608
+              port: http
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
@@ -42,7 +42,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /ready
-              port: 17608
+              port: http
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
@@ -50,7 +50,7 @@ spec:
           startupProbe:
             httpGet:
               path: /livez
-              port: 17608
+              port: http
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 30
