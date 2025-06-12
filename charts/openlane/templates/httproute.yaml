@@ -35,9 +35,10 @@ spec:
     logConfig:
       enabled: true
     config:
+      type: HTTP
       httpHealthCheck:
-      path: /livez
-      portName: http
+        path: /livez
+        portName: http
   targetRef:
     group: ""
     kind: Service
