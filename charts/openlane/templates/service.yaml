@@ -5,12 +5,8 @@ metadata:
   namespace: openlane
   labels:
     {{- include "openlane.labels" . | nindent 4 }}
-  annotations:
-    cloud.google.com/neg: '{"ingress": true}'
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   type: NodePort
-  sessionAffinity: None
   ports:
   - name: http
     protocol: TCP
@@ -21,5 +17,4 @@ spec:
     port: 443
     targetPort: 17608
   selector:
-    app.kubernetes.io/name: openlane-app
-    app.kubernetes.io/instance: openlane-app
+    {{- include "openlane.selectorLabels" . | nindent 4 }}

@@ -92,8 +92,8 @@ openfga:
     maxIdleConns: 200
     connMaxIdleTime:
     connMaxLifetime:
-    applyMigrations: true
-    waitForMigrations: true
+    applyMigrations: false
+    waitForMigrations: false
     migrationType: initContainer
     migrations:
       resources: {}

@@ -44,7 +44,7 @@ argocd:
   global:
     # -- Default domain used by all components
     ## Used for ingresses, certificates, SSO, notifications, etc.
-    domain: argocd.prod.theopenlane.io
+    domain: argo.theopenlane.io
 
     # -- Runtime class name for all components
     runtimeClassName: ""
@@ -174,9 +174,9 @@ argocd:
 
       # -- Annotations to be added to argocd-cm configmap
       annotations: {}
-      url: https://argocd.prod.theopenlane.io
+      url: https://argo.theopenlane.io
       # -- The name of tracking label used by Argo CD for resource pruning
-      application.instanceLabelKey: argo.prod.theopenlane.io/instance
+      application.instanceLabelKey: argo.theopenlane.io/instance
       help.chatUrl: "slack://channel?team=T07GY6JPX9C&id=C07HHFWK0QZ"
       # -- Enable control of the service account used for the sync operation (alpha)
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/app-sync-using-impersonation/
@@ -208,8 +208,8 @@ argocd:
         connectors:
           - config:
               issuer: https://accounts.google.com
-              clientID: replace
-              clientSecret: replace
+              clientID: to-do-make-external-secret
+              clientSecret:
             type: oidc
             id: google
             name: Google
@@ -426,6 +426,7 @@ argocd:
       policy.csv: |
         g, manderson@theopenlane.io, role:admin
         g, sfunkhouser@theopenlane.io, role:admin
+        g, acook@theopenlane.io, role:admin
         p, role:basic-readonly, clusters, get, *, allow
         p, role:basic-readonly, repositories, get, *, allow
 
@@ -2207,7 +2208,7 @@ argocd:
       # -- Server service labels
       labels: {}
       # -- Server service type
-      type: ClusterIP
+      type: NodePort
       # -- Server service http port for NodePort service type (only if `server.service.type` is set to "NodePort")
       nodePortHttp: 30080
       # -- Server service https port for NodePort service type (only if `server.service.type` is set to "NodePort")
@@ -2303,16 +2304,15 @@ argocd:
     # Argo CD server ingress configuration
     ingress:
       # -- Enable an ingress resource for the Argo CD server
-      enabled: true
+      enabled: false
       # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
       ## Additional configuration might be required in related configuration sections
-      controller: gke
+      controller:
       # -- Additional ingress labels
       labels: {}
       # -- Additional ingress annotations
       ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
-      annotations:
-        kubernetes.io/ingress.global-static-ip-name: prod-ingress-lb-ip
+      annotations: {}
 
       # -- Defines which ingress controller will implement the resource
       ingressClassName: "gce"
@@ -2330,7 +2330,7 @@ argocd:
       # -- Enable TLS configuration for the hostname defined at `server.ingress.hostname`
       ## TLS certificate will be retrieved from a TLS secret `argocd-server-tls`
       ## You can create this secret via `certificate` or `certificateSecret` option
-      tls: true
+      tls: false
 
       # -- The list of additional hostnames to be covered by ingress record
       # @default -- `[]` (See [values.yaml])
@@ -2407,10 +2407,9 @@ argocd:
         managedCertificate:
           # -- Create ManagedCertificate resource and annotations for Google Load balancer
           ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
-          create: true
+          create: false
           # -- Additional domains for ManagedCertificate resource
           extraDomains:
-            - argocd.prod.theopenlane.io
 
     # Dedicated gRPC ingress for ingress controllers that supports only single backend protocol per Ingress resource
     # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts

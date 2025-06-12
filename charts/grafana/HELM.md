@@ -50,14 +50,14 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana."grafana.ini"."auth.proxy".whitelist | string | `""` |  |
 | grafana."grafana.ini".server.root_url | string | `"https://grafana.theopenlane.io"` |  |
 | grafana."grafana.ini".paths.data | string | `"/var/lib/grafana/data"` |  |
-| grafana."grafana.ini".analytics.check_for_updates | bool | `false` |  |
+| grafana."grafana.ini".analytics.check_for_updates | bool | `true` |  |
 | grafana.datasources."datasources.yaml".apiVersion | int | `1` |  |
 | grafana.datasources."datasources.yaml".datasources[0].name | string | `"Google Cloud Monitoring"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].type | string | `"stackdriver"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].access | string | `"proxy"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].isDefault | bool | `true` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.authenticationType | string | `"gce"` |  |
-| grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"your-gcp-project-id"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"prod-apps-project"` |  |
 | grafana.ingress.enabled | bool | `true` |  |
 | grafana.ingress.ingressClassName | string | `"nginx"` |  |
 | grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
