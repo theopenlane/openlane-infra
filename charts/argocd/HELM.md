@@ -49,7 +49,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.crds.keep | bool | `true` | Keep CRDs on chart uninstall |
 | argocd.crds.annotations | object | `{}` | Annotations to be added to all CRDs |
 | argocd.crds.additionalLabels | object | `{}` | Additional labels to be added to all CRDs |
-| argocd.global.domain | string | `"argocd.prod.theopenlane.io"` | Default domain used by all components # Used for ingresses, certificates, SSO, notifications, etc. |
+| argocd.global.domain | string | `"argo.theopenlane.io"` | Default domain used by all components # Used for ingresses, certificates, SSO, notifications, etc. |
 | argocd.global.runtimeClassName | string | `""` | Runtime class name for all components |
 | argocd.global.additionalLabels | object | `{}` | Common labels for the all resources |
 | argocd.global.revisionHistoryLimit | int | `3` | Number of old deployment ReplicaSets to retain. The rest will be garbage collected. |
@@ -82,8 +82,8 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.global.certificateAnnotations | object | `{}` | Annotations for the all deployed Certificates |
 | argocd.configs.cm.create | bool | `true` | Create the argocd-cm configmap for [declarative setup] |
 | argocd.configs.cm.annotations | object | `{}` | Annotations to be added to argocd-cm configmap |
-| argocd.configs.cm.url | string | `"https://argocd.prod.theopenlane.io"` |  |
-| argocd.configs.cm."application.instanceLabelKey" | string | `"argo.prod.theopenlane.io/instance"` | The name of tracking label used by Argo CD for resource pruning |
+| argocd.configs.cm.url | string | `"https://argo.theopenlane.io"` |  |
+| argocd.configs.cm."application.instanceLabelKey" | string | `"argo.theopenlane.io/instance"` | The name of tracking label used by Argo CD for resource pruning |
 | argocd.configs.cm."help.chatUrl" | string | `"slack://channel?team=T07GY6JPX9C&id=C07HHFWK0QZ"` |  |
 | argocd.configs.cm."application.sync.impersonation.enabled" | bool | `false` | Enable control of the service account used for the sync operation (alpha) # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/app-sync-using-impersonation/ |
 | argocd.configs.cm."server.rbac.log.enforce.enable" | bool | `false` | Enable logs RBAC enforcement # Ref: https://argo-cd.readthedocs.io/en/latest/operator-manual/upgrading/2.3-2.4/#enable-logs-rbac-enforcement |
@@ -92,7 +92,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.configs.cm."timeout.reconciliation" | string | `"180s"` | Timeout to discover if a new manifests version got published to the repository |
 | argocd.configs.cm."timeout.hard.reconciliation" | string | `"0s"` | Timeout to refresh application data as well as target manifests cache |
 | argocd.configs.cm."statusbadge.enabled" | bool | `true` | Enable Status Badge # Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/ |
-| argocd.configs.cm."dex.config" | string | `"connectors:\n  - config:\n      issuer: https://accounts.google.com\n      clientID: replace\n      clientSecret: replace\n    type: oidc\n    id: google\n    name: Google\n"` |  |
+| argocd.configs.cm."dex.config" | string | `"connectors:\n  - config:\n      issuer: https://accounts.google.com\n      clientID: to-do-make-external-secret\n      clientSecret:\n    type: oidc\n    id: google\n    name: Google\n"` |  |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.all" | string | See [values.yaml] | Ignoring status for all resources. An update will still be sent if the status update causes the health to change. |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.argoproj.io_Application" | string | See [values.yaml] | Some Application fields are generated and not related to the application updates itself # The Application itself is already watched by the controller lister, but this configuration is applied for apps of apps |
 | argocd.configs.cm."resource.customizations.ignoreResourceUpdates.argoproj.io_Rollout" | string | See [values.yaml] | Ignore Argo Rollouts generated fields |
@@ -563,7 +563,7 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.server.certificateSecret.crt | string | `""` | Certificate data |
 | argocd.server.service.annotations | object | `{}` | Server service annotations |
 | argocd.server.service.labels | object | `{}` | Server service labels |
-| argocd.server.service.type | string | `"ClusterIP"` | Server service type |
+| argocd.server.service.type | string | `"NodePort"` | Server service type |
 | argocd.server.service.nodePortHttp | int | `30080` | Server service http port for NodePort service type (only if `server.service.type` is set to "NodePort") |
 | argocd.server.service.nodePortHttps | int | `30443` | Server service https port for NodePort service type (only if `server.service.type` is set to "NodePort") |
 | argocd.server.service.servicePortHttp | int | `80` | Server service http port |
@@ -602,15 +602,15 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.server.serviceAccount.annotations | object | `{}` | Annotations applied to created service account |
 | argocd.server.serviceAccount.labels | object | `{}` | Labels applied to created service account |
 | argocd.server.serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account |
-| argocd.server.ingress.enabled | bool | `true` | Enable an ingress resource for the Argo CD server |
-| argocd.server.ingress.controller | string | `"gke"` | Specific implementation for ingress controller. One of `generic`, `aws` or `gke` # Additional configuration might be required in related configuration sections |
+| argocd.server.ingress.enabled | bool | `false` | Enable an ingress resource for the Argo CD server |
+| argocd.server.ingress.controller | string | `nil` | Specific implementation for ingress controller. One of `generic`, `aws` or `gke` # Additional configuration might be required in related configuration sections |
 | argocd.server.ingress.labels | object | `{}` | Additional ingress labels |
-| argocd.server.ingress.annotations | object | `{"kubernetes.io/ingress.global-static-ip-name":"prod-ingress-lb-ip"}` | Additional ingress annotations # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough |
+| argocd.server.ingress.annotations | object | `{}` | Additional ingress annotations # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough |
 | argocd.server.ingress.ingressClassName | string | `"gce"` | Defines which ingress controller will implement the resource |
 | argocd.server.ingress.hostname | string | `""` (defaults to global.domain) | Argo CD server hostname |
 | argocd.server.ingress.path | string | `"/"` | The path to Argo CD server |
 | argocd.server.ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
-| argocd.server.ingress.tls | bool | `true` | Enable TLS configuration for the hostname defined at `server.ingress.hostname` # TLS certificate will be retrieved from a TLS secret `argocd-server-tls` # You can create this secret via `certificate` or `certificateSecret` option |
+| argocd.server.ingress.tls | bool | `false` | Enable TLS configuration for the hostname defined at `server.ingress.hostname` # TLS certificate will be retrieved from a TLS secret `argocd-server-tls` # You can create this secret via `certificate` or `certificateSecret` option |
 | argocd.server.ingress.extraHosts | list | `[]` (See [values.yaml]) | The list of additional hostnames to be covered by ingress record |
 | argocd.server.ingress.extraPaths | list | `[]` (See [values.yaml]) | Additional ingress paths # Note: Supports use of custom Helm templates |
 | argocd.server.ingress.extraRules | list | `[]` (See [values.yaml]) | Additional ingress rules # Note: Supports use of custom Helm templates |
@@ -619,8 +619,8 @@ A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
 | argocd.server.ingress.aws.serviceType | string | `"NodePort"` | Service type for the AWS ALB gRPC service # Can be of type NodePort or ClusterIP depending on which mode you are running. # Instance mode needs type NodePort, IP mode needs type ClusterIP # Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/how-it-works/#ingress-traffic |
 | argocd.server.ingress.gke.backendConfig | object | `{}` (See [values.yaml]) | Google [BackendConfig] resource, for use with the GKE Ingress Controller # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters |
 | argocd.server.ingress.gke.frontendConfig | object | `{}` (See [values.yaml]) | Google [FrontendConfig] resource, for use with the GKE Ingress Controller # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters |
-| argocd.server.ingress.gke.managedCertificate.create | bool | `true` | Create ManagedCertificate resource and annotations for Google Load balancer # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs |
-| argocd.server.ingress.gke.managedCertificate.extraDomains | list | `["argocd.prod.theopenlane.io"]` | Additional domains for ManagedCertificate resource |
+| argocd.server.ingress.gke.managedCertificate.create | bool | `false` | Create ManagedCertificate resource and annotations for Google Load balancer # Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs |
+| argocd.server.ingress.gke.managedCertificate.extraDomains | string | `nil` | Additional domains for ManagedCertificate resource |
 | argocd.server.ingressGrpc.enabled | bool | `false` | Enable an ingress resource for the Argo CD server for dedicated [gRPC-ingress] |
 | argocd.server.ingressGrpc.annotations | object | `{}` | Additional ingress annotations for dedicated [gRPC-ingress] |
 | argocd.server.ingressGrpc.labels | object | `{}` | Additional ingress labels for dedicated [gRPC-ingress] |

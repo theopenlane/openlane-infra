@@ -1,4 +1,4 @@
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 # openlane-eso
 
@@ -92,8 +92,8 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.datastore.maxIdleConns | int | `200` |  |
 | openfga.datastore.connMaxIdleTime | string | `nil` |  |
 | openfga.datastore.connMaxLifetime | string | `nil` |  |
-| openfga.datastore.applyMigrations | bool | `true` |  |
-| openfga.datastore.waitForMigrations | bool | `true` |  |
+| openfga.datastore.applyMigrations | bool | `false` |  |
+| openfga.datastore.waitForMigrations | bool | `false` |  |
 | openfga.datastore.migrationType | string | `"initContainer"` |  |
 | openfga.datastore.migrations.resources | object | `{}` |  |
 | openfga.datastore.migrations.image.repository | string | `"groundnuty/k8s-wait-for"` |  |

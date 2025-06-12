@@ -19,7 +19,7 @@ grafana:
     paths:
       data: /var/lib/grafana/data
     analytics:
-      check_for_updates: false
+      check_for_updates: true
 
   datasources:
     datasources.yaml:
@@ -31,7 +31,7 @@ grafana:
           isDefault: true
           jsonData:
             authenticationType: gce
-            defaultProject: your-gcp-project-id
+            defaultProject: prod-apps-project
 
   ingress:
     enabled: true
