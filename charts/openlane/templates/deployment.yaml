@@ -22,7 +22,7 @@ spec:
           envFrom:
             - secretRef:
                 name: openlane-app-secret
-          image: ghcr.io/theopenlane/core:v0.17.1
+          image: ghcr.io/theopenlane/core:v0.17.3
           imagePullPolicy: Always
           ports:
             - containerPort: 17608
