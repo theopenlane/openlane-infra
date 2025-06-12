@@ -21,6 +21,3 @@ spec:
     backendRefs:
     - name: prod-openlane
       port: 80
-  healthCheckPolicy:
-    path: /livez
-    port: 80
