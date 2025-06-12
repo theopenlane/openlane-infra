@@ -28,14 +28,18 @@ metadata:
   name: openlane-healthcheck
   namespace: openlane
 spec:
+  default:
+    unhealthyThreshold: 10
+    healthyThreshold: 1
+    timeoutSec: 5
+    logConfig:
+      enabled: true
+    config:
+      httpHealthCheck:
+      path: /livez
+      portName: http
   targetRef:
     group: ""
     kind: Service
     name: prod-openlane
-  intervalSeconds: 10
-  timeoutSeconds: 5
-  unhealthyThreshold: 10
-  healthyThreshold: 1
-  httpHealthCheck:
-    path: /livez
-    portName: http
+
