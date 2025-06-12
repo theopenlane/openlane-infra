@@ -31,3 +31,26 @@ spec:
             - containerPort: 17609
               protocol: TCP
               name: metrics
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 17608
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 17608
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /ready
+              port: 17608
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 30
