@@ -49,7 +49,7 @@ spec:
             failureThreshold: 3
           startupProbe:
             httpGet:
-              path: /ready
+              path: /livez
               port: 17608
             periodSeconds: 5
             timeoutSeconds: 5
