@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-riverboatui
+  namespace: openlane
+  labels:
+    {{- include "riverboatui.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: 3
+  replicas: {{ .Values.riverboat.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "riverboatui.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "riverboatui.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - args:
+            - serve
+          envFrom:
+            - secretRef:
+                name: riverboatui-app-secret
+          image: {{ .Values.riverboatui.image.repository }}:{{ .Values.riverboatui.image.tag }}
+          imagePullPolicy: Always
+          name: riverboat-ui
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: http

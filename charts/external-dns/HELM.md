@@ -96,21 +96,21 @@ Deploys external-dns and its monitoring
 | externaldns.serviceMonitor.metricRelabelings | list | `[]` | [Metric relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply to samples before ingestion. |
 | externaldns.serviceMonitor.targetLabels | list | `[]` | Provide target labels for the `ServiceMonitor`. |
 | externaldns.logLevel | string | `"info"` | Log level. |
-| externaldns.logFormat | string | `"text"` | Log format. |
+| externaldns.logFormat | string | `"json"` | Log format. |
 | externaldns.interval | string | `"1m"` | Interval for DNS updates. |
 | externaldns.triggerLoopOnEvent | bool | `false` | If `true`, triggers run loop on create/update/delete events in addition of regular interval. |
 | externaldns.namespaced | bool | `false` | if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too). |
-| externaldns.sources | list | `["service","ingress"]` | _Kubernetes_ resources to monitor for DNS entries. |
+| externaldns.sources | list | `["service","ingress","gateway","httproute"]` | _Kubernetes_ resources to monitor for DNS entries. |
 | externaldns.policy | string | `"upsert-only"` | How DNS records are synchronized between sources and providers; available values are `sync` & `upsert-only`. |
 | externaldns.registry | string | `"txt"` | Specify the registry for storing ownership and labels. Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`. |
-| externaldns.txtOwnerId | string | `nil` | Specify an identifier for this instance of _ExternalDNS_ when using a registry other than `noop`. |
+| externaldns.txtOwnerId | string | `"external-dns"` | Specify an identifier for this instance of _ExternalDNS_ wWhen using a registry other than `noop`. |
 | externaldns.txtPrefix | string | `nil` | Specify a prefix for the domain names of TXT records created for the `txt` registry. Mutually exclusive with `txtSuffix`. |
 | externaldns.txtSuffix | string | `nil` | Specify a suffix for the domain names of TXT records created for the `txt` registry. Mutually exclusive with `txtPrefix`. |
-| externaldns.domainFilters | list | `[]` | Limit possible target zones by domain suffixes. |
+| externaldns.domainFilters | list | `["theopenlane.org"]` | Limit possible target zones by domain suffixes. |
 | externaldns.excludeDomains | list | `[]` | Intentionally exclude domains from being managed. |
 | externaldns.labelFilter | string | `nil` | Filter resources queried for endpoints by label selector |
 | externaldns.managedRecordTypes | list | `[]` | Record types to manage (default: A, AAAA, CNAME) |
-| externaldns.provider.name | string | `"aws"` | _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers). |
+| externaldns.provider.name | string | `"google"` | _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers). |
 | externaldns.provider.webhook.image.repository | string | `nil` | Image repository for the `webhook` container. |
 | externaldns.provider.webhook.image.tag | string | `nil` | Image tag for the `webhook` container. |
 | externaldns.provider.webhook.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the `webhook` container. |
@@ -123,22 +123,12 @@ Deploys external-dns and its monitoring
 | externaldns.provider.webhook.readinessProbe | object | See _values.yaml_ | [Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `webhook` container. |
 | externaldns.provider.webhook.service.port | int | `8080` | Webhook exposed HTTP port for the service. |
 | externaldns.provider.webhook.serviceMonitor | object | See _values.yaml_ | Optional [Service Monitor](https://prometheus-operator.dev/docs/operator/design/#servicemonitor) configuration for the `webhook` container. |
-| externaldns.extraArgs | list | `[]` | Extra arguments to provide to _ExternalDNS_. An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times. |
+| externaldns.extraArgs | list | `[]` | Extra arguments to provide to _ExternalDNS_. |
 | externaldns.secretConfiguration.enabled | bool | `false` | If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**). |
 | externaldns.secretConfiguration.mountPath | string | `nil` | Mount path for the `Secret`, this can be templated. |
 | externaldns.secretConfiguration.subPath | string | `nil` | Sub-path for mounting the `Secret`, this can be templated. |
 | externaldns.secretConfiguration.data | object | `{}` | `Secret` data. |
-| tags.configConnector | bool | `true` | Enables Config Connector features |
-| iamPolicyMembers.members[0].name | string | `"external-dns-gsa"` |  |
-| iamPolicyMembers.members[0].member | string | `"serviceAccount:prod-gke-central1@prod-apps-project.iam.gserviceaccount.com"` |  |
-| iamPolicyMembers.members[0].role | string | `"roles/dns.admin"` | Roles to apply to external-dns google service account |
-| iamPolicyMembers.members[0].resourceRef.kind | string | `"Project"` |  |
-| iamPolicyMembers.members[0].resourceRef.external | string | `"prod-apps-project"` |  |
-| workloadIdentity.global.gsa.create | bool | `true` |  |
-| workloadIdentity.global.gsa.name | string | `"prod-gke-central1"` |  |
-| workloadIdentity.global.gsa.project | string | `"prod-apps-project"` |  |
-| workloadIdentity.global.ksa.namespace | string | `""` |  |
-| workloadIdentity.global.ksa.name | string | `"default"` |  |
+| externaldns.enabled | bool | `nil` | No effect - reserved for use in sub-charting. |
 
 ## Config Connector resources
 

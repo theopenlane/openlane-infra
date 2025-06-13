@@ -1,10 +1,7 @@
-
-# Default values for externaldns.
-externaldns:
   # Default values for external-dns.
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
-
+externaldns:
   global:
     # -- Global image pull secrets.
     imagePullSecrets: []  # @schema item: object
@@ -197,7 +194,7 @@ externaldns:
   logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type:string; default: "info"
 
   # -- Log format.
-  logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
+  logFormat: json  # @schema enum:["text", "json"]; type:string; default: "text"
 
   # -- Interval for DNS updates.
   interval: 1m
@@ -212,6 +209,8 @@ externaldns:
   sources:
     - service
     - ingress
+    - gateway
+    - httproute
 
   # -- How DNS records are synchronized between sources and providers; available values are `sync` & `upsert-only`.
   policy: upsert-only  # @schema enum:[sync, upsert-only]; type:string; default: "upsert-only"
@@ -219,8 +218,8 @@ externaldns:
   # -- Specify the registry for storing ownership and labels.
   # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
   registry: txt  # @schema enum:[txt, aws-sd, dynamodb, noop]; default: "txt"
-  # -- (string) Specify an identifier for this instance of _ExternalDNS_ when using a registry other than `noop`.
-  txtOwnerId:  # @schema type:[string, null]; default: null
+  # -- (string) Specify an identifier for this instance of _ExternalDNS_ wWhen using a registry other than `noop`.
+  txtOwnerId: external-dns # @schema type:[string, null]; default: null
   # -- (string) Specify a prefix for the domain names of TXT records created for the `txt` registry.
   # Mutually exclusive with `txtSuffix`.
   txtPrefix:  # @schema type:[string, null]; default: null
@@ -229,7 +228,8 @@ externaldns:
   txtSuffix:  # @schema type:[string, null]; default: null
 
   # -- Limit possible target zones by domain suffixes.
-  domainFilters: []
+  domainFilters:
+    - theopenlane.org
 
   # -- Intentionally exclude domains from being managed.
   excludeDomains: []
@@ -242,7 +242,7 @@ externaldns:
 
   provider:  # @schema type: [object, string];
     # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
-    name: aws
+    name: google
     webhook:
       image:
         # -- (string) Image repository for the `webhook` container.
@@ -266,24 +266,24 @@ externaldns:
       # @default -- See _values.yaml_
       livenessProbe:
         httpGet:
-          path: /healthz  # @schema type:[string, null]; default: null
-          port: http-webhook  # @schema type:[integer,string]; default: string
-        initialDelaySeconds: 10  # @schema type:[integer, null]; default: null
-        periodSeconds: 10  # @schema type:[integer, null]; default: null
-        timeoutSeconds: 5  # @schema type:[integer, null]; default: null
-        failureThreshold: 2  # @schema type:[integer, null]; default: null
-        successThreshold: 1  # @schema type:[integer, null]; default: null
+          path: /healthz
+          port: http-webhook
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 2
+        successThreshold: 1
       # -- [Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `webhook` container.
       # @default -- See _values.yaml_
       readinessProbe:
         httpGet:
-          path: /healthz  # @schema type:[string, null]; default: null
-          port: http-webhook  # @schema type:[integer,string]; default: string
-        initialDelaySeconds: 5  # @schema type:[integer, null]; default: null
-        periodSeconds: 10  # @schema type:[integer, null]; default: null
-        timeoutSeconds: 5  # @schema type:[integer, null]; default: null
-        failureThreshold: 6  # @schema type:[integer, null]; default: null
-        successThreshold: 1  # @schema type:[integer, null]; default: null
+          path: /healthz
+          port: http-webhook
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+        successThreshold: 1
       service:
         # -- Webhook exposed HTTP port for the service.
         port: 8080
@@ -299,8 +299,7 @@ externaldns:
         relabelings: []
 
   # -- Extra arguments to provide to _ExternalDNS_.
-  # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
-  extraArgs: []  # @schema type: [array, null, object]; item: string; uniqueItems: true;
+  extraArgs: []  # @schema type: [array, null]; item: string; uniqueItems: true;
 
   secretConfiguration:
     # -- If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**).
@@ -312,33 +311,5 @@ externaldns:
     # -- `Secret` data.
     data: {}
 
-tags:
-  # -- Enables Config Connector features
-  configConnector: true
-
-iamPolicyMembers:
-  members:
-    - name: "external-dns-gsa"
-      member: "serviceAccount:prod-gke-central1@prod-apps-project.iam.gserviceaccount.com"
-      # -- Roles to apply to external-dns google service account
-      role: "roles/dns.admin"
-      resourceRef:
-        kind: Project
-        external: "prod-apps-project"
-
-workloadIdentity:
-  global:
-    # global.gsa -- Name of the Google Service Account
-    gsa:
-      # Creates the Google Service Account
-      create: true
-      # Name of the google service account
-      name: prod-gke-central1
-      # Project Id hosting the google service account.
-      project: "prod-apps-project"
-
-    ksa:
-      # global.ksa.namespace -- Kubernetes Service Account namespace. Overrides the Release Namespace
-      namespace: ""
-      # global.ksa.name -- Name of the Kubernetes Service Account
-      name: default
+  # -- (bool) No effect - reserved for use in sub-charting.
+  enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
