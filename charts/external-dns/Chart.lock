@@ -4,9 +4,9 @@ dependencies:
   version: 1.16.1
 - name: openlane-gcp-workload-identity
   repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
+  version: 0.1.1
 - name: openlane-gcp-iam-policy-members
   repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
-digest: sha256:b58ce005630b25e183c8a99de37f894162dbdb90bdd1df7661e1a5513d593d4c
-generated: "2025-05-24T15:26:22.832743-05:00"
+  version: 0.1.1
+digest: sha256:7ec6c4a010b79a95ed16d08cfc29cd0578fc57d6db3274e773397f00fd52cea0
+generated: "2025-06-13T18:34:51.008192167Z"
