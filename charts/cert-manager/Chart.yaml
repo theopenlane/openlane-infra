@@ -14,7 +14,7 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: cert-manager
-    version: "v1.17.2"
+    version: "v1.18.0"
     repository: "https://charts.jetstack.io"
     alias: certmanager
   - name: openlane-gcp-workload-identity
