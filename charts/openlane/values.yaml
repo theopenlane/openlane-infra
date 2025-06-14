@@ -268,7 +268,7 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: latest
+    tag: amd64-572-5b451092
     pullPolicy: IfNotPresent
   # Hostname for the riverboat database
   riverDatabaseHost: ""
@@ -283,7 +283,7 @@ riverboat:
 riverboatui:
   image:
     # Repository for the riverboat UI image
-    repository: ghcr.io/theopenlane/riverboat-ui
+    repository: ghcr.io/riverqueue/riverui
     tag: latest
     pullPolicy: IfNotPresent
   # Hostname for the riverboat database

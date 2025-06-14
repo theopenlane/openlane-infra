@@ -182,13 +182,13 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.api.commonAnnotations | object | `{}` |  |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"latest"` |  |
+| riverboat.image.tag | string | `"amd64-572-5b451092"` |  |
 | riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
 | riverboat.riverDatabaseHost | string | `""` |  |
 | riverboat.workers.emailWorker.configDevMode | string | `"false"` |  |
 | riverboat.workers.emailWorker.configToken | string | `""` |  |
 | riverboat.workers.emailWorker.configFromEmail | string | `"no-reply@mail.theopenlane.io"` |  |
-| riverboatui.image.repository | string | `"ghcr.io/theopenlane/riverboat-ui"` |  |
+| riverboatui.image.repository | string | `"ghcr.io/riverqueue/riverui"` |  |
 | riverboatui.image.tag | string | `"latest"` |  |
 | riverboatui.image.pullPolicy | string | `"IfNotPresent"` |  |
 | riverboatui.riverDatabaseHost | string | `""` |  |
