@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-clusterissuer
+  namespace: cert-manager
+spec:
+  acme:
+    email: support@theopenlane.io
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        cnameStrategy: Follow
+        cloudDNS:
+          project: prod-apps-project

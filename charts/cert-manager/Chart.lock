@@ -1,12 +1,6 @@
 dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
-  version: v1.17.2
-- name: openlane-gcp-workload-identity
-  repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
-- name: openlane-gcp-iam-policy-members
-  repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
-digest: sha256:41d4ea53387ba6bada0f6d6309c66cdfc15d9f2813545566e9699e657d53174d
-generated: "2025-05-24T15:26:19.280485-05:00"
+  version: v1.18.0
+digest: sha256:65e2a0a69930fdae553c1a310233a09a3fa193d445be0e1e46d7bf9e7e76314f
+generated: "2025-06-14T08:59:16.25947-05:00"
