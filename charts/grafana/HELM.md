@@ -48,7 +48,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana."grafana.ini"."auth.proxy".auto_sign_up | bool | `true` |  |
 | grafana."grafana.ini"."auth.proxy".sync_ttl | int | `60` |  |
 | grafana."grafana.ini"."auth.proxy".whitelist | string | `""` |  |
-| grafana."grafana.ini".server.root_url | string | `"https://grafana.theopenlane.io"` |  |
+| grafana."grafana.ini".server.root_url | string | `"https://grafana.theopenlane.org"` |  |
 | grafana."grafana.ini".paths.data | string | `"/var/lib/grafana/data"` |  |
 | grafana."grafana.ini".analytics.check_for_updates | bool | `true` |  |
 | grafana.datasources."datasources.yaml".apiVersion | int | `1` |  |
@@ -59,10 +59,11 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.authenticationType | string | `"gce"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"prod-apps-project"` |  |
 | grafana.ingress.enabled | bool | `true` |  |
-| grafana.ingress.ingressClassName | string | `"nginx"` |  |
+| grafana.ingress.ingressClassName | string | `"gce"` |  |
 | grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
-| grafana.ingress.hosts[0] | string | `"grafana.theopenlane.io"` |  |
-| grafana.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.io"` |  |
+| grafana.ingress.annotations."external-dns.alpha.kubernetes.io/hostname" | string | `"grafana.theopenlane.org"` |  |
+| grafana.ingress.hosts[0] | string | `"grafana.theopenlane.org"` |  |
+| grafana.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.org"` |  |
 | grafana.ingress.tls[0].secretName | string | `"grafana-tls"` |  |
 | grafana.persistence.enabled | bool | `true` |  |
 | grafana.persistence.size | string | `"10Gi"` |  |
@@ -70,15 +71,18 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | oauth2.config.clientSecret | string | `"YOUR_GOOGLE_OAUTH_CLIENT_SECRET"` |  |
 | oauth2.config.cookieSecret | string | `"YOUR_RANDOM_32BYTE_SECRET_BASE64"` |  |
 | oauth2.config.provider | string | `"google"` |  |
-| oauth2.config.emailDomains[0] | string | `"theopenlane.io"` |  |
-| oauth2.config.whitelistDomains[0] | string | `".theopenlane.io"` |  |
-| oauth2.config.redirectURL | string | `"https://grafana.theopenlane.io/oauth2/callback"` |  |
+| oauth2.config.emailDomains[0] | string | `"theopenlane.org"` |  |
+| oauth2.config.emailDomains[1] | string | `"theopenlane.io"` |  |
+| oauth2.config.whitelistDomains[0] | string | `".theopenlane.org"` |  |
+| oauth2.config.whitelistDomains[1] | string | `".theopenlane.io"` |  |
+| oauth2.config.redirectURL | string | `"https://grafana.theopenlane.org/oauth2/callback"` |  |
 | oauth2.config.upstreams[0] | string | `"http://grafana.default.svc.cluster.local:3000/"` |  |
 | oauth2.ingress.enabled | bool | `true` |  |
-| oauth2.ingress.ingressClassName | string | `"nginx"` |  |
+| oauth2.ingress.ingressClassName | string | `"gce"` |  |
 | oauth2.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
-| oauth2.ingress.hosts[0] | string | `"grafana.theopenlane.io"` |  |
-| oauth2.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.io"` |  |
+| oauth2.ingress.annotations."external-dns.alpha.kubernetes.io/hostname" | string | `"grafana.theopenlane.org"` |  |
+| oauth2.ingress.hosts[0] | string | `"grafana.theopenlane.org"` |  |
+| oauth2.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.org"` |  |
 | oauth2.ingress.tls[0].secretName | string | `"grafana-tls"` |  |
 
 ## Config Connector resources
