@@ -210,8 +210,7 @@ external-dns:
   sources:
     - service
     - ingress
-    - gateway
-    - httproute
+    - gateway-httproute
 
   # -- How DNS records are synchronized between sources and providers; available values are `sync` & `upsert-only`.
   policy: upsert-only  # @schema enum:[sync, upsert-only]; type:string; default: "upsert-only"

@@ -98,7 +98,7 @@ Deploys external-dns and its monitoring
 | external-dns.interval | string | `"1m"` | Interval for DNS updates. |
 | external-dns.triggerLoopOnEvent | bool | `false` | If `true`, triggers run loop on create/update/delete events in addition of regular interval. |
 | external-dns.namespaced | bool | `false` | if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too). |
-| external-dns.sources | list | `["service","ingress","gateway","httproute"]` | _Kubernetes_ resources to monitor for DNS entries. |
+| external-dns.sources | list | `["service","ingress","gateway-httproute"]` | _Kubernetes_ resources to monitor for DNS entries. |
 | external-dns.policy | string | `"upsert-only"` | How DNS records are synchronized between sources and providers; available values are `sync` & `upsert-only`. |
 | external-dns.registry | string | `"txt"` | Specify the registry for storing ownership and labels. Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`. |
 | external-dns.txtOwnerId | string | `"external-dns"` | Specify an identifier for this instance of _ExternalDNS_ wWhen using a registry other than `noop`. |
