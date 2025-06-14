@@ -2,7 +2,7 @@
 
   # Default values for external-dns.
   # This is a YAML-formatted file.
-externaldns:
+external-dns:
   global:
     # -- Global image pull secrets.
     imagePullSecrets: []  # @schema item: object
