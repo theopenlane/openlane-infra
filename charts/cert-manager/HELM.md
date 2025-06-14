@@ -61,7 +61,7 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 | cert-manager.namespace | string | `"cert-manager"` |  |
 | cert-manager.serviceAccount.create | bool | `true` |  |
 | cert-manager.serviceAccount.name | string | `"cert-manager"` |  |
-| cert-manager.serviceAccount.annotations | string | `"iam.gke.io/gcp-service-account=dns01-solver@prod-apps-project.iam.gserviceaccount.com"` |  |
+| cert-manager.serviceAccount.annotations."iam.gke.io/gcp-service-account" | string | `"dns01-solver@prod-apps-project.iam.gserviceaccount.com"` |  |
 | cert-manager.serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | cert-manager.enableCertificateOwnerRef | bool | `false` |  |
 | cert-manager.config | object | `{}` |  |

@@ -196,7 +196,8 @@ cert-manager:
 
     # Optional additional annotations to add to the controller's Service Account. Templates are allowed for both keys and values.
     # Example using templating:
-    annotations: "iam.gke.io/gcp-service-account=dns01-solver@prod-apps-project.iam.gserviceaccount.com"
+    annotations:
+      iam.gke.io/gcp-service-account: dns01-solver@prod-apps-project.iam.gserviceaccount.com
     #   "{{ .Chart.Name }}-helm-chart/version": "{{ .Chart.Version }}"
     # +docs:property
     # annotations: {}
