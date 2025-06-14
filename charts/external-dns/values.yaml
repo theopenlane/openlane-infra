@@ -1,6 +1,7 @@
+
+
   # Default values for external-dns.
   # This is a YAML-formatted file.
-  # Declare variables to be passed into your templates.
 externaldns:
   global:
     # -- Global image pull secrets.
@@ -67,7 +68,7 @@ externaldns:
     type: Recreate  # @schema enum:[Recreate, RollingUpdate]; type:string; default: Recreate
 
   # -- (int) Specify the number of old `ReplicaSets` to retain to allow rollback of the `Deployment``.
-  revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
+  revisionHistoryLimit: 2 # @schema type:[integer, null];minimum:0
 
   # -- Labels to add to the `Pod`.
   podLabels: {}

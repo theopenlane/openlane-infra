@@ -2,11 +2,5 @@ dependencies:
 - name: external-dns
   repository: https://kubernetes-sigs.github.io/external-dns/
   version: 1.16.1
-- name: openlane-gcp-workload-identity
-  repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
-- name: openlane-gcp-iam-policy-members
-  repository: https://theopenlane.github.io/openlane-infra
-  version: 0.1.0
-digest: sha256:b58ce005630b25e183c8a99de37f894162dbdb90bdd1df7661e1a5513d593d4c
-generated: "2025-05-24T15:26:22.832743-05:00"
+digest: sha256:a412362a9be409afa7bc588c420430373006b21c2520c8bdcf330f8a5137d560
+generated: "2025-06-14T07:41:34.11157-05:00"

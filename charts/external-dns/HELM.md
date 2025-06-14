@@ -1,4 +1,4 @@
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 # openlane-external-dns
 
@@ -18,8 +18,6 @@ Once you've installed `task` you can simply run `task install` to get the remain
 | Repository | Name | Version |
 |------------|------|---------|
 | https://kubernetes-sigs.github.io/external-dns/ | externaldns(external-dns) | 1.16.1 |
-| https://theopenlane.github.io/openlane-infra | iamPolicyMembers(openlane-gcp-iam-policy-members) | 0.1.0 |
-| https://theopenlane.github.io/openlane-infra | workloadIdentity(openlane-gcp-workload-identity) | 0.1.0 |
 
 ## Maintainers
 
@@ -61,7 +59,7 @@ Deploys external-dns and its monitoring
 | externaldns.deploymentAnnotations | object | `{}` | Annotations to add to the `Deployment`. |
 | externaldns.extraContainers | object | `{}` | Extra containers to add to the `Deployment`. |
 | externaldns.deploymentStrategy | object | `{"type":"Recreate"}` | [Deployment Strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy). |
-| externaldns.revisionHistoryLimit | int | `nil` | Specify the number of old `ReplicaSets` to retain to allow rollback of the `Deployment``. |
+| externaldns.revisionHistoryLimit | int | `2` | Specify the number of old `ReplicaSets` to retain to allow rollback of the `Deployment``. |
 | externaldns.podLabels | object | `{}` | Labels to add to the `Pod`. |
 | externaldns.podAnnotations | object | `{}` | Annotations to add to the `Pod`. |
 | externaldns.automountServiceAccountToken | bool | `true` | Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`. |
