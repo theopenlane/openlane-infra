@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes-sigs.github.io/external-dns/ | externaldns(external-dns) | 1.16.1 |
+| https://kubernetes-sigs.github.io/external-dns/ | external-dns | 1.16.1 |
 
 ## Maintainers
 
