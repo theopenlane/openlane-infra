@@ -7,7 +7,7 @@ metadata:
     {{- include "riverboatui.labels" . | nindent 4 }}
 spec:
   revisionHistoryLimit: 3
-  replicas: {{ .Values.riverboat.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       {{- include "riverboatui.selectorLabels" . | nindent 6 }}
