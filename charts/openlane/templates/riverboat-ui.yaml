@@ -17,14 +17,12 @@ spec:
         {{- include "riverboatui.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - args:
-            - serve
+          name: riverboat-ui
           envFrom:
             - secretRef:
                 name: riverboatui-app-secret
           image: {{ .Values.riverboatui.image.repository }}:{{ .Values.riverboatui.image.tag }}
           imagePullPolicy: Always
-          name: riverboat-ui
           ports:
             - containerPort: 8080
               protocol: TCP
