@@ -18,6 +18,12 @@ spec:
     spec:
       containers:
         - name: riverboat-ui
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: riverboatui-app-secret
+                  key: RIVERBOAT_RIVER_DATABASEHOST
           envFrom:
             - secretRef:
                 name: riverboatui-app-secret
