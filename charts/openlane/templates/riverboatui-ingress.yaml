@@ -20,7 +20,7 @@ spec:
               service:
                 name: prod-riverboat-ui
                 port:
-                  number: 80
+                  name: http
   tls:
    - hosts:
        - river.theopenlane.org

@@ -19,6 +19,8 @@ spec:
       containers:
         - name: riverboat-ui
           env:
+            - name: PORT
+              value: "80"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -30,6 +32,5 @@ spec:
           image: {{ .Values.riverboatui.image.repository }}:{{ .Values.riverboatui.image.tag }}
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
-              protocol: TCP
+            - containerPort: 80
               name: http
