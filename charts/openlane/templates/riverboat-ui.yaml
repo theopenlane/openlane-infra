@@ -17,7 +17,7 @@ spec:
         {{- include "riverboatui.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-          name: riverboat-ui
+        - name: riverboat-ui
           envFrom:
             - secretRef:
                 name: riverboatui-app-secret
