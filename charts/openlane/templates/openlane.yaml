@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "openlane.labels" . | nindent 4 }}
 spec:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 0
   replicas: {{ .Values.openlane.replicaCount }}
   selector:
     matchLabels:

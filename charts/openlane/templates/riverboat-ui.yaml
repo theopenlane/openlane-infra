@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "riverboatui.labels" . | nindent 4 }}
 spec:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 0
   replicas: 1
   selector:
     matchLabels:
