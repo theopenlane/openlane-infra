@@ -1,8 +1,6 @@
-
-# Default values for certmanager.
-certmanager:
   # +docs:section=Global
 
+cert-manager:
   # Default values for cert-manager.
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
@@ -36,6 +34,9 @@ certmanager:
       create: true
       # Aggregate ClusterRoles to Kubernetes default user-facing roles. For more information, see [User-facing roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles)
       aggregateClusterRoles: true
+      # To use HTTP-01 ACME challenges, cert-manager needs extra permissions to create pods.
+      # If you want to avoid this added permission and disable HTTP-01 set this value.
+      disableHTTPChallengesRole: false
 
     podSecurityPolicy:
       # Create PodSecurityPolicy for cert-manager.
@@ -50,7 +51,7 @@ certmanager:
 
     leaderElection:
       # Override the namespace used for the leader election lease.
-      namespace: "kube-system"
+      namespace: "cert-manager"
 
       # The duration that non-leader candidates will wait after observing a
       # leadership renewal until attempting to acquire leadership of a led but
@@ -72,7 +73,7 @@ certmanager:
 
   # This option is equivalent to setting crds.enabled=true and crds.keep=true.
   # Deprecated: use crds.enabled and crds.keep instead.
-  installCRDs: true
+  installCRDs: false
 
   crds:
     # This option decides if the CRDs should be installed
@@ -120,14 +121,14 @@ certmanager:
     enabled: false
 
     # This configures the minimum available pods for disruptions. It can either be set to
-    # an integer (e.g. 1) or a percentage value (e.g. 25%).
+    # an integer (e.g., 1) or a percentage value (e.g., 25%).
     # It cannot be used if `maxUnavailable` is set.
     # +docs:property
     # +docs:type=unknown
     # minAvailable: 1
 
     # This configures the maximum unavailable pods for disruptions. It can either be set to
-    # an integer (e.g. 1) or a percentage value (e.g. 25%).
+    # an integer (e.g., 1) or a percentage value (e.g., 25%).
     # it cannot be used if `minAvailable` is set.
     # +docs:property
     # +docs:type=unknown
@@ -179,7 +180,7 @@ certmanager:
   # Override the "cert-manager.name" value, which is used to annotate some of
   # the resources that are created by this Chart (using "app.kubernetes.io/name").
   # NOTE: There are some inconsistencies in the Helm chart when it comes to
-  # these annotations (some resources use eg. "cainjector.name" which resolves
+  # these annotations (some resources use, e.g., "cainjector.name" which resolves
   # to the value "cainjector").
   # +docs:property
   # nameOverride: "my-cert-manager"
@@ -191,11 +192,12 @@ certmanager:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template.
     # +docs:property
-    # name: ""
+    name: "cert-manager"
 
     # Optional additional annotations to add to the controller's Service Account. Templates are allowed for both keys and values.
     # Example using templating:
-    # annotations:
+    annotations:
+      iam.gke.io/gcp-service-account: dns01-solver@prod-apps-project.iam.gserviceaccount.com
     #   "{{ .Chart.Name }}-helm-chart/version": "{{ .Chart.Version }}"
     # +docs:property
     # annotations: {}
@@ -234,10 +236,10 @@ certmanager:
   #    kubernetesAPIBurst: 9000
   #    numberOfConcurrentWorkers: 200
   #    enableGatewayAPI: true
-  #    # Feature gates as of v1.17.0. Listed with their default values.
+  #    # Feature gates as of v1.18.0. Listed with their default values.
   #    # See https://cert-manager.io/docs/cli/controller/
   #    featureGates:
-  #      AdditionalCertificateOutputFormats: true # BETA - default=true
+  #      AdditionalCertificateOutputFormats: true # GA - default=true
   #      AllAlpha: false # ALPHA - default=false
   #      AllBeta: false # BETA - default=false
   #      ExperimentalCertificateSigningRequestControllers: false # ALPHA - default=false
@@ -249,7 +251,7 @@ certmanager:
   #      ServerSideApply: false # ALPHA - default=false
   #      StableCertificateRequestName: true # BETA - default=true
   #      UseCertificateRequestBasicConstraints: false # ALPHA - default=false
-  #      UseDomainQualifiedFinalizer: true # BETA - default=false
+  #      UseDomainQualifiedFinalizer: true # GA - default=true
   #      ValidateCAA: false # ALPHA - default=false
   #    # Configure the metrics server for TLS
   #    # See https://cert-manager.io/docs/devops-tips/prometheus-metrics/#tls
@@ -281,7 +283,7 @@ certmanager:
   # referencing these signer names will be auto-approved by cert-manager. Defaults to just
   # approving the cert-manager.io Issuer and ClusterIssuer issuers. When set to an empty
   # array, ALL issuers will be auto-approved by cert-manager. To disable the auto-approval,
-  # because eg. you are using approver-policy, you can enable 'disableAutoApproval'.
+  # because, e.g., you are using approver-policy, you can enable 'disableAutoApproval'.
   # ref: https://cert-manager.io/docs/concepts/certificaterequest/#approval
   # +docs:property
   approveSignerNames:
@@ -505,13 +507,13 @@ certmanager:
     # ServiceMonitor resource.
     # Otherwise, 'prometheus.io' annotations are added to the cert-manager and
     # cert-manager-webhook Deployments.
-    # Note that you can not enable both PodMonitor and ServiceMonitor as they are
+    # Note that you cannot enable both PodMonitor and ServiceMonitor as they are
     # mutually exclusive. Enabling both will result in an error.
     enabled: true
 
     servicemonitor:
       # Create a ServiceMonitor to add cert-manager to Prometheus.
-      enabled: true
+      enabled: false
 
       # The namespace that the service monitor should live in, defaults
       # to the cert-manager namespace.
@@ -525,7 +527,8 @@ certmanager:
 
       # The target port to set on the ServiceMonitor. This must match the port that the
       # cert-manager controller is listening on for metrics.
-      targetPort: 9402
+      # +docs:type=string,integer
+      targetPort: http-metrics
 
       # The path to scrape for metrics.
       path: /metrics
@@ -559,7 +562,7 @@ certmanager:
       # +docs:property
       endpointAdditionalProperties: {}
 
-    # Note that you can not enable both PodMonitor and ServiceMonitor as they are mutually exclusive. Enabling both will result in an error.
+    # Note that you cannot enable both PodMonitor and ServiceMonitor as they are mutually exclusive. Enabling both will result in an error.
     podmonitor:
       # Create a PodMonitor to add cert-manager to Prometheus.
       enabled: false
@@ -709,14 +712,14 @@ certmanager:
       enabled: false
 
       # This property configures the minimum available pods for disruptions. Can either be set to
-      # an integer (e.g. 1) or a percentage value (e.g. 25%).
+      # an integer (e.g., 1) or a percentage value (e.g., 25%).
       # It cannot be used if `maxUnavailable` is set.
       # +docs:property
       # +docs:type=unknown
       # minAvailable: 1
 
       # This property configures the maximum unavailable pods for disruptions. Can either be set to
-      # an integer (e.g. 1) or a percentage value (e.g. 25%).
+      # an integer (e.g., 1) or a percentage value (e.g., 25%).
       # It cannot be used if `minAvailable` is set.
       # +docs:property
       # +docs:type=unknown
@@ -1076,14 +1079,14 @@ certmanager:
       enabled: false
 
       # `minAvailable` configures the minimum available pods for disruptions. It can either be set to
-      # an integer (e.g. 1) or a percentage value (e.g. 25%).
+      # an integer (e.g., 1) or a percentage value (e.g., 25%).
       # Cannot be used if `maxUnavailable` is set.
       # +docs:property
       # +docs:type=unknown
       # minAvailable: 1
 
       # `maxUnavailable` configures the maximum unavailable pods for disruptions. It can either be set to
-      # an integer (e.g. 1) or a percentage value (e.g. 25%).
+      # an integer (e.g., 1) or a percentage value (e.g., 25%).
       # Cannot be used if `minAvailable` is set.
       # +docs:property
       # +docs:type=unknown
@@ -1273,7 +1276,7 @@ certmanager:
 
   startupapicheck:
     # Enables the startup api check.
-    enabled: true
+    enabled: false
 
     # Pod Security Context to be set on the startupapicheck component Pod.
     # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
@@ -1466,87 +1469,3 @@ certmanager:
   # for more info.
   # +docs:hidden
   enabled: true
-prometheusRules:
-  rules:
-    # -- Enables prometheus operator rules for cert-manager
-    enabled: false
-    # -- Labels to affect to the Prometheus Rules
-    labels:
-      prometheus: prometheus-operator-prometheus
-
-# -- List of issuers to create. Please read the following [documentation](https://cert-manager.io/docs/concepts/issuer/)
-# @default -- Please look at the `values.yaml` file
-issuers: []
-  ## -- Issuer name
-  # - name: issuer-0
-  ## -- Type of issuer (ClusterIssuer or Issuer)
-  #   kind: Issuer
-  ## -- Contains the spec of the issuer
-  #   spec:
-  #     acme:
-  ## -- Acme server to use
-  #       server: https://acme-staging-v02.api.letsencrypt.org/directory   # Use staging for testing purposes
-  ## -- Email to use for certificate generation and alerting
-  #       email: ""
-  #       privateKeySecretRef:
-  #         name: letsencrypt-prod
-  #       solvers:
-  #       - dns01:
-  #           clouddns:
-  ## -- Issuer GCP Project conf
-  #             project:
-  #             serviceAccountSecretRef:
-  ## -- Solver dns admin service account secret key
-  #               key: credential.json
-  ## -- Solver dns admin service account secret name
-  #               name: "clouddns-dns01"
-
-# -- Generate basic certificates
-# @default -- Please look at the `values.yaml` file
-certs: []
-  #   # -- Certificate Name
-  # - name: cert-0
-  #   # -- Certificate Namespace
-  #   namespace: default
-  #   # -- Certificate issuerRef
-  #   issuerRef: ""
-  #   # -- Kind of Issuer (Issuer or ClusterIssuer)
-  #   issuerKind: Issuer
-  #   # -- Cert DNS name
-  #   dnsnames: []
-  #   # -- Template of annotations and labels to add to generated secret.
-  #   secretTemplate:
-  #     # -- Annotations to be added to generated secret.
-  #     annotations: {}
-  #     # -- Labels to be added to generated secret.
-  #     labels: {}
-
-tags:
-  # -- Enables Config Connector features
-  configConnector: true
-
-iamPolicyMembers:
-  members:
-    - name: "cert-manager-gsa"
-      member: ""
-      # -- Roles to apply to cert-manager google service account
-      role: "roles/dns.admin"
-      resourceRef:
-        kind: Project
-        external: ""
-
-workloadIdentity:
-  global:
-    # global.gsa -- Name of the Google Service Account
-    gsa:
-      # Creates the Google Service Account
-      create: true
-      # Name of the google service account
-      name: wi-k8s
-      # Project Id hosting the google service account.
-      project: ""
-    ksa:
-      # global.ksa.namespace -- Kubernetes Service Account namespace. Overrides the Release Namespace
-      namespace: "cert-manager"
-      # global.ksa.name -- Name of the Kubernetes Service Account
-      name: wi-k8s

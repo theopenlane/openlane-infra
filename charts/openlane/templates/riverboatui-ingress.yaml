@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: riverboatui
+  namespace: openlane
+  labels:
+    {{- include "riverboatui.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/ingress.class: gce
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    external-dns.alpha.kubernetes.io/hostname: river.theopenlane.org
+spec:
+  rules:
+    - host: river.theopenlane.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: prod-riverboat-ui
+                port:
+                  name: http
+  tls:
+   - hosts:
+       - river.theopenlane.org
+     secretName: riverboatui-tls

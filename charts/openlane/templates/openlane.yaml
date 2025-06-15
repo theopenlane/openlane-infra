@@ -1,11 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}-openlane
+  namespace: openlane
   labels:
     {{- include "openlane.labels" . | nindent 4 }}
 spec:
+  revisionHistoryLimit: 0
   replicas: {{ .Values.openlane.replicaCount }}
   selector:
     matchLabels:
@@ -22,7 +23,7 @@ spec:
           envFrom:
             - secretRef:
                 name: openlane-app-secret
-          image: ghcr.io/theopenlane/core:v0.17.3
+          image: {{ .Values.openlane.image.repository }}:{{ .Values.openlane.image.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: 17608

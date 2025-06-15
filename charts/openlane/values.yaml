@@ -5,17 +5,18 @@ global:
   apiDomain: api.example.com
 
 openlane:
+  nameOverride: ""
   # Number of API replicas to run
-  replicaCount: 1
+  replicaCount: 3
   image:
     # Container image repository
-    repository: us-west1-docker.pkg.dev/neural-vista-433523-c1/openlane/openlane
+    repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "sha256:f77d88975d7be13c7cd90c70e882e227b5a2a6a64e1eef5561500a8b72325a0a"
+    tag: "v0.17.3"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
-  serviceAccountName: prod-gke-central1@prod-apps-project.iam.gserviceaccount.com
+  serviceAccountName: {}
   # Name of an existing secret with configuration
   existingSecret: ""
   secret:
@@ -178,21 +179,6 @@ openlane:
       invite: https://console.theopenlane.io/invite
       reset: https://console.theopenlane.io/password-reset
       verifySubscriber: https://console.theopenlane.io/subscriber-verify
-  riverboat:
-    image:
-      # Repository for the riverboat worker image
-      repository: ghcr.io/theopenlane/riverboat
-      tag: latest
-      pullPolicy: IfNotPresent
-    # Hostname for the riverboat database
-    riverDatabaseHost: ""
-    workers:
-      emailWorker:
-        # enable developer mode
-        configDevMode: "false"
-        # token used by the worker
-        configToken: ""
-        configFromEmail: no-reply@mail.theopenlane.io
   geodetic:
     # Enable geodetic service deployment
     enabled: "false"
@@ -275,3 +261,33 @@ openlane:
   api:
     # Additional annotations to apply to the main ConfigMap
     commonAnnotations: {}
+
+
+riverboat:
+  replicaCount: 2
+  image:
+    # Repository for the riverboat worker image
+    repository: ghcr.io/theopenlane/riverboat
+    tag: amd64-latest
+    pullPolicy: IfNotPresent
+  # Hostname for the riverboat database
+  riverDatabaseHost: ""
+  workers:
+    emailWorker:
+      # enable developer mode
+      configDevMode: "false"
+      # token used by the worker
+      configToken: ""
+      configFromEmail: no-reply@mail.theopenlane.io
+
+riverboatui:
+  image:
+    # Repository for the riverboat UI image
+    repository: ghcr.io/riverqueue/riverui
+    tag: latest
+    pullPolicy: IfNotPresent
+  # Hostname for the riverboat database
+  riverDatabaseHost: ""
+  # Port for the UI service
+  servicePort: 8080
+  secretName: riverboatui-app-secret

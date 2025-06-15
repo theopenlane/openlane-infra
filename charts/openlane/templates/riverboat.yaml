@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-riverboat
+  namespace: openlane
+  labels:
+    {{- include "riverboat.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: 0
+  replicas: {{ .Values.riverboat.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "riverboat.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "riverboat.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - args:
+            - serve
+          envFrom:
+            - secretRef:
+                name: riverboat-app-secret
+          image: {{ .Values.riverboat.image.repository }}:{{ .Values.riverboat.image.tag }}
+          imagePullPolicy: Always
+          name: riverboat

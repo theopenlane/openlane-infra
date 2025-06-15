@@ -32,11 +32,12 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.apiDomain | string | `"api.example.com"` |  |
-| openlane.replicaCount | int | `1` |  |
-| openlane.image.repository | string | `"us-west1-docker.pkg.dev/neural-vista-433523-c1/openlane/openlane"` |  |
-| openlane.image.tag | string | `"sha256:f77d88975d7be13c7cd90c70e882e227b5a2a6a64e1eef5561500a8b72325a0a"` |  |
+| openlane.nameOverride | string | `""` |  |
+| openlane.replicaCount | int | `3` |  |
+| openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
+| openlane.image.tag | string | `"v0.17.3"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
-| openlane.serviceAccountName | string | `"prod-gke-central1@prod-apps-project.iam.gserviceaccount.com"` |  |
+| openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
 | openlane.secret.create | bool | `false` |  |
 | openlane.secret.name | string | `"openlane-app-secret"` |  |
@@ -123,13 +124,6 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.email.urls.invite | string | `"https://console.theopenlane.io/invite"` |  |
 | openlane.email.urls.reset | string | `"https://console.theopenlane.io/password-reset"` |  |
 | openlane.email.urls.verifySubscriber | string | `"https://console.theopenlane.io/subscriber-verify"` |  |
-| openlane.riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| openlane.riverboat.image.tag | string | `"latest"` |  |
-| openlane.riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
-| openlane.riverboat.riverDatabaseHost | string | `""` |  |
-| openlane.riverboat.workers.emailWorker.configDevMode | string | `"false"` |  |
-| openlane.riverboat.workers.emailWorker.configToken | string | `""` |  |
-| openlane.riverboat.workers.emailWorker.configFromEmail | string | `"no-reply@mail.theopenlane.io"` |  |
 | openlane.geodetic.enabled | string | `"false"` |  |
 | openlane.server.corsAllowOrigins | string | `"https://console.theopenlane.io,https://www.theopenlane.io,https://studio.apollographql.com,https://docs.theopenlane.io"` |  |
 | openlane.server.debug | string | `"false"` |  |
@@ -186,6 +180,20 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.openfga.requestTimeout | string | `"5s"` |  |
 | openlane.features.dbxEnabled | string | `"false"` |  |
 | openlane.api.commonAnnotations | object | `{}` |  |
+| riverboat.replicaCount | int | `2` |  |
+| riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
+| riverboat.image.tag | string | `"amd64-latest"` |  |
+| riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
+| riverboat.riverDatabaseHost | string | `""` |  |
+| riverboat.workers.emailWorker.configDevMode | string | `"false"` |  |
+| riverboat.workers.emailWorker.configToken | string | `""` |  |
+| riverboat.workers.emailWorker.configFromEmail | string | `"no-reply@mail.theopenlane.io"` |  |
+| riverboatui.image.repository | string | `"ghcr.io/riverqueue/riverui"` |  |
+| riverboatui.image.tag | string | `"latest"` |  |
+| riverboatui.image.pullPolicy | string | `"IfNotPresent"` |  |
+| riverboatui.riverDatabaseHost | string | `""` |  |
+| riverboatui.servicePort | int | `8080` |  |
+| riverboatui.secretName | string | `"riverboatui-app-secret"` |  |
 
 ## Config Connector resources
 

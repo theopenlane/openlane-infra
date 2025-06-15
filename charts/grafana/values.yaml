@@ -15,7 +15,7 @@ grafana:
       sync_ttl: 60
       whitelist: ""
     server:
-      root_url: https://grafana.theopenlane.io
+      root_url: https://grafana.theopenlane.org
     paths:
       data: /var/lib/grafana/data
     analytics:
@@ -35,14 +35,15 @@ grafana:
 
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: gce
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/hostname: grafana.theopenlane.org
     hosts:
-      - grafana.theopenlane.io
+      - grafana.theopenlane.org
     tls:
       - hosts:
-          - grafana.theopenlane.io
+          - grafana.theopenlane.org
         secretName: grafana-tls
 
   persistence:
@@ -56,21 +57,24 @@ oauth2:
     cookieSecret: YOUR_RANDOM_32BYTE_SECRET_BASE64
     provider: google
     emailDomains:
+      - theopenlane.org
       - theopenlane.io
     whitelistDomains:
+      - .theopenlane.org
       - .theopenlane.io
-    redirectURL: https://grafana.theopenlane.io/oauth2/callback
+    redirectURL: https://grafana.theopenlane.org/oauth2/callback
     upstreams:
       - http://grafana.default.svc.cluster.local:3000/
 
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: gce
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/hostname: grafana.theopenlane.org
     hosts:
-      - grafana.theopenlane.io
+      - grafana.theopenlane.org
     tls:
       - hosts:
-          - grafana.theopenlane.io
+          - grafana.theopenlane.org
         secretName: grafana-tls

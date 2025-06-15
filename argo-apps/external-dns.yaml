@@ -9,13 +9,17 @@ spec:
     repoURL: https://github.com/theopenlane/openlane-infra.git
     targetRevision: main
     path: charts/external-dns
+    helm:
+      releaseName: external-dns
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: external-dns
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+#    automated: don't autosync
+#      prune: true
+#      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
