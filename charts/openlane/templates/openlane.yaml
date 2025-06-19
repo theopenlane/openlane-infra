@@ -20,7 +20,13 @@ spec:
         - name: openlane
           args:
             - serve
-#          env:
+          env:
+            - name: CORE_SUBSCRIPTION_TRIALSUBSCRIPTIONPRICEID
+              value: "price_1RbjHUR7q8Ny5Jw09vtTo1rQ"
+            - name: CORE_SUBSCRIPTION_PERSONALORGSUBSCRIPTIONPRICEID
+              value: "price_1RbjHUR7q8Ny5Jw09vtTo1rQ"
+            - name: CORE_SUBSCRIPTION_STRIPEWEBHOOKURL
+              value: "https://api.prod.openlane.com/v1/stripe/webhook"
 #            - name: CORE_SERVER_CSRFPROTECTION_ENABLED
 #              value: "false"
 #            - name: CORE_SERVER_CSRFPROTECTION_SAMESITE
