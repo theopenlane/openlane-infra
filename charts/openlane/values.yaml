@@ -7,7 +7,7 @@ global:
 openlane:
   nameOverride: ""
   # Number of API replicas to run
-  replicaCount: 3
+  replicaCount: 1
   image:
     # Container image repository
     repository: ghcr.io/theopenlane/core
