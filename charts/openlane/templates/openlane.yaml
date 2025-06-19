@@ -23,6 +23,8 @@ spec:
           env:
             - name: CORE_SERVER_CSRFPROTECTION_ENABLED
               value: "true"
+            - name: CORE_SERVER_CSRFPROTECTION_SAMESITE
+              value: "none"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
