@@ -31,8 +31,6 @@ spec:
               value: "true"
             - name: CORE_SERVER_CSRFPROTECTION_SAMESITE
               value: "Lax"
-            - name: CORE_SERVER_CSRFPROTECTION_COOKIE
-              value: "next-auth.csrf-token"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
