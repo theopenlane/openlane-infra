@@ -56,42 +56,6 @@ A Helm chart that Creates a Google VPC Network through Config Connector
 | sharedVPC.service.hostProjectRef | object | `{"external":""}` | The reference to the host project. |
 | sharedVPC.service.hostNetworkRef | object | `{"external":"openlane-network"}` | The reference to the host network in the Shared VPC Host project. |
 
-## Config Connector resources
-
-This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
-
-## Installing the Chart
-
-The charts in this repo are not generally intended to be installed directly with Helm - they are structured such that the `gcp-bootstrap` chart templates out Argo applications and helm values overrides that cascade down into the individual charts. While you can install them directly, be certain to note that most charts are structured to have their default values file, and then values which drive most of the actual config that are stubbed out in the `values.yaml` like so:
-
-```yaml
-projectId: "default-project"
-projectNumericalId: "123456789012"
-gcpProjectName: "Default Project"
-k8sNamespace: "default-ns"
-orgId: "ORG_ID_DEFAULT"
-billingAccountId: "BILLING_ID_DEFAULT"
-primaryRegion: "us-east4"
-envName: "default"
-envCapitalizedName: "Default"
-kms: {} # Passed for CMEK reference
-commonAppConfig:
-  [SUBCHART_NAME]:
-```
-
-Under the `commonAppConfig` key, you will find the subchart name, which is the name of the chart you are installing. This is where you can override the default values for that chart typically. For more information, check out the README.md in the root of the openlane-infra repository.
-
-### via Hellm
-
-This chart is available in the [openlane-infra helm repository](https://theopenlane.github.io/openlane-infra).
-
-To add the chart and install the chart with with helm default values, run the following command:
-
-```bash
-helm repo add openlane-infra https://theopenlane.github.io/openlane-infra
-helm install openlane-infra/openlane-gcp-vpc-network
-```
-
 ## Update documentation
 
 Each of the charts in this repository has a `README.md` which contains chart-specific instructions or information (non-templated information) and additionally a `HELM.md`. This allows all the benefits of templating to be used in the `HELM.md` while still allowing for chart-specific documentation to be added and not be overridden. The general goal is that all the charts share the same templating configuration so that global functionality / updates can be made and applied to all charts rather than individually managing each chart's documentation via the templating mechanisms.

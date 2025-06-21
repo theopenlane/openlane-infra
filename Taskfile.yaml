@@ -101,37 +101,17 @@ tasks:
     preconditions:
       - which yamllint
 
-  taskfiles:charts:
-    desc: Add template Taskfiles to all charts
+  helmdocstemplate:
+    desc: Add template helm docs to all charts
     cmds:
       - for: { var: CHARTS, as: CHART }
-        cmd: cp scripts/templates/Taskfile.yaml {{.CHART}}/Taskfile.yaml
-
-  copyreadme:
-    desc: Add template Taskfiles to all charts
-    cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: rm {{.CHART}}/README.md.gotmpl
-
-  readme:charts:
-    desc: Add template Taskfiles to all charts
-    cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: touch {{.CHART}}/README.md
+        cmd: cp scripts/templates/HELM.md.gotmpl {{.CHART}}/HELM.md.gotmpl
 
   docs:
     desc: Generate documentation for all charts
     cmds:
       - for: { var: CHARTS, as: CHART }
         cmd: helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
-    preconditions:
-      - which helm-docs
-
-  readme:
-    desc: Generate documentation for all charts
-    cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: helm-docs --chart-search-root {{.CHART}} --output-file=README.md --template-files=README.md.gotmpl --skip-version-footer --sort-values-order=file
     preconditions:
       - which helm-docs
 
