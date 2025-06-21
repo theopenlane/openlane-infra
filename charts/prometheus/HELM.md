@@ -1,6 +1,6 @@
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-# openlane-gcp-bigquery
+# openlane-prometheus-crds
 
 **Homepage:** <https://docs.theopenlane.io>
 
@@ -13,6 +13,12 @@
 
 Once you've installed `task` you can simply run `task install` to get the remaining dependencies installed, assuning you're using macOS and have `brew`.
 
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://prometheus-community.github.io/helm-charts | prometheus-operator-crds | 21.0.0 |
+
 ## Maintainers
 
 | Name | Email | Url |
@@ -21,7 +27,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart that Creates BigQuery resources through Config Connector
+Install only the Prometheus Operator CRDs on GKE clusters for Openlane
 
 ## Source Code
 
@@ -31,32 +37,17 @@ A Helm chart that Creates BigQuery resources through Config Connector
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.cnrmNamespace | string | `nil` | Allows to deploy in another namespace than the release one |
-| global.gcpProjectId | string | `"myprojectid"` | Google Project ID |
-| global.deletion_policy | string | `"abandon"` | Keep the VPC even after the kcc resource deletion. |
-| bigqueryDataset.delete_contents_on_destroy | string | `"false"` |  |
-| bigqueryDataset.name | string | `"openlane-bigquery"` | name of the Dataset |
-| bigqueryDataset.namespace | string | `"cnrm-gcp-dev"` |  |
-| bigqueryDataset.access[0].dataset | object | `{}` |  |
-| bigqueryDataset.access[0].domain | string | `""` |  |
-| bigqueryDataset.access[0].groupByEmail | string | `""` |  |
-| bigqueryDataset.access[0].role | string | `""` | roles list for roles writer/reader/admin |
-| bigqueryDataset.access[0].routine | object | `{}` |  |
-| bigqueryDataset.access[0].specialGroup | string | `""` |  |
-| bigqueryDataset.access[0].userByEmail | string | `""` | email id for the gke serviceaccount |
-| bigqueryDataset.access[0].view | object | `{}` |  |
-| bigqueryDataset.defaultCollation | string | `""` |  |
-| bigqueryDataset.defaultEncryptionConfiguration | object | `{}` |  |
-| bigqueryDataset.defaultPartitionExpirationMs | string | `""` |  |
-| bigqueryDataset.defaultTableExpirationMs | string | `""` |  |
-| bigqueryDataset.description | string | `""` | user defines definition |
-| bigqueryDataset.friendlyName | string | `""` | friendly definition |
-| bigqueryDataset.isCaseInsensitive | string | `""` |  |
-| bigqueryDataset.location | string | `""` | location of the dataset |
-| bigqueryDataset.maxTimeTravelHours | string | `""` |  |
-| bigqueryDataset.projectRef | object | `{}` |  |
-| bigqueryDataset.resourceID | string | `""` |  |
-| bigqueryDataset.storageBillingModel | string | `""` |  |
+| prometheus-operator-crds.crds.annotations | object | `{}` |  |
+| prometheus-operator-crds.crds.alertmanagerconfigs.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.alertmanagers.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.podmonitors.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.probes.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.prometheusagents.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.prometheuses.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.prometheusrules.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.scrapeconfigs.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.servicemonitors.enabled | bool | `true` |  |
+| prometheus-operator-crds.crds.thanosrulers.enabled | bool | `true` |  |
 
 ## Update documentation
 
@@ -95,5 +86,5 @@ task lint
 OR if you'd like to run the ct lint process by using a docker image, you can use a command like the following:
 
 ```bash
-docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/openlane-gcp-bigquery --config /charts/charts/openlane-gcp-bigquery/ct.yaml
+docker run --rm -it -w /charts -v $(pwd)/../../:/charts quay.io/helmpack/chart-testing:v3.12.0 ct lint --charts /charts/charts/openlane-prometheus-crds --config /charts/charts/openlane-prometheus-crds/ct.yaml
 ```

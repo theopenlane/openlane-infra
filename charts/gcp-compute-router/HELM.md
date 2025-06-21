@@ -54,42 +54,6 @@ A Helm chart to provision a Google Compute Router via Config Connector
 | bgp.advertisedIpRanges[0].range | string | `nil` | The IP range to advertise. The value must be a CIDR-formatted string. |
 | bgp.keepaliveInterval | int | `20` | The interval in seconds between BGP keepalive messages that are sent to the peer. Hold time is three times the interval at which keepalive messages are sent, and the hold time is the maximum number of seconds allowed to elapse between successive keepalive messages that BGP receives from a peer. BGP will use the smaller of either the local hold time value or the peer's hold time value as the hold time for the BGP connection between the two peers. If set, this value must be between 20 and 60. The default is 20. |
 
-## Config Connector resources
-
-This chart is either based on GCP config connector resources, or assumes it will be consumed by Config Connector. All KCC (Kubernetes Config Connector) CRDs are available on [gcp documentation](https://cloud.google.com/config-connector/docs/reference/overview).
-
-## Installing the Chart
-
-The charts in this repo are not generally intended to be installed directly with Helm - they are structured such that the `gcp-bootstrap` chart templates out Argo applications and helm values overrides that cascade down into the individual charts. While you can install them directly, be certain to note that most charts are structured to have their default values file, and then values which drive most of the actual config that are stubbed out in the `values.yaml` like so:
-
-```yaml
-projectId: "default-project"
-projectNumericalId: "123456789012"
-gcpProjectName: "Default Project"
-k8sNamespace: "default-ns"
-orgId: "ORG_ID_DEFAULT"
-billingAccountId: "BILLING_ID_DEFAULT"
-primaryRegion: "us-east4"
-envName: "default"
-envCapitalizedName: "Default"
-kms: {} # Passed for CMEK reference
-commonAppConfig:
-  [SUBCHART_NAME]:
-```
-
-Under the `commonAppConfig` key, you will find the subchart name, which is the name of the chart you are installing. This is where you can override the default values for that chart typically. For more information, check out the README.md in the root of the openlane-infra repository.
-
-### via Hellm
-
-This chart is available in the [openlane-infra helm repository](https://theopenlane.github.io/openlane-infra).
-
-To add the chart and install the chart with with helm default values, run the following command:
-
-```bash
-helm repo add openlane-infra https://theopenlane.github.io/openlane-infra
-helm install openlane-infra/openlane-gcp-compute-router
-```
-
 ## Update documentation
 
 Each of the charts in this repository has a `README.md` which contains chart-specific instructions or information (non-templated information) and additionally a `HELM.md`. This allows all the benefits of templating to be used in the `HELM.md` while still allowing for chart-specific documentation to be added and not be overridden. The general goal is that all the charts share the same templating configuration so that global functionality / updates can be made and applied to all charts rather than individually managing each chart's documentation via the templating mechanisms.

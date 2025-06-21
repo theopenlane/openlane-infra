@@ -1,8 +1,8 @@
-version: 0.1.2
+version: 0.1.0
 apiVersion: v2
-appVersion: 3.0.3
-description: A Helm chart to deploy ArgoCD via Config Connector on GKE clusters for Openlane
-name: openlane-argocd
+appVersion: 1.0.0
+description: Install only the Prometheus Operator CRDs on GKE clusters for Openlane
+name: openlane-prometheus-crds
 type: application
 maintainers:
   - email: support@theopenlane.io
@@ -13,7 +13,6 @@ sources:
   - https://github.com/theopenlane/openlane-infra
 home: https://docs.theopenlane.io
 dependencies:
-  - name: argo-cd
-    version: 8.0.13
-    repository: "https://argoproj.github.io/argo-helm"
-    alias: argocd
+  - name: prometheus-operator-crds
+    version: 21.0.0
+    repository: https://prometheus-community.github.io/helm-charts

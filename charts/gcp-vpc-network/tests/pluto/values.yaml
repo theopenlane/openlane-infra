@@ -1,9 +1,0 @@
-global:
-  gcpProjectId: openlane-dev
-
-name: openlane-vpc
-description: "VPC Network for OPENLANE infrastructure"
-
-routingMode: "GLOBAL"
-autoCreateSubnetworks: true
-deleteDefaultRoutesOnCreate: true

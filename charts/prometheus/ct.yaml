@@ -3,5 +3,5 @@ chart-dirs:
   - charts
 helm-extra-args: --timeout=500
 chart-repos:
-  - argo-cd=https://argoproj.github.io/argo-helm
+  - prometheus-community=https://prometheus-community.github.io/helm-charts
 check-version-increment: true
