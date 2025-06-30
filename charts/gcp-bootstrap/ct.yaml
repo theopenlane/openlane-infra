@@ -1,5 +1,0 @@
-remote: origin
-chart-dirs:
-  - charts
-helm-extra-args: --timeout=500
-check-version-increment: true
