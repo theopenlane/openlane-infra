@@ -7,12 +7,12 @@ global:
 openlane:
   nameOverride: ""
   # Number of API replicas to run
-  replicaCount: 3
+  replicaCount: 1
   image:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.17.3"
+    tag: "v0.20.3"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
