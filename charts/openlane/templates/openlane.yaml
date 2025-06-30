@@ -35,7 +35,7 @@ spec:
             - name: CORE_SERVER_CSRFPROTECTION_SAMESITE
               value: "None"
             - name: CORE_EMAIL_TEMPLATESPATH
-              value: "brandedtemplates"
+              value: "/brandedemails"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
