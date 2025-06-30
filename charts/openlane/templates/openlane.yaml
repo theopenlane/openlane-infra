@@ -16,6 +16,7 @@ spec:
       labels:
         {{- include "openlane.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: openlane-gke-deployment-sa
       containers:
         - name: openlane
           args:
