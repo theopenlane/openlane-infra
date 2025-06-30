@@ -81,3 +81,4 @@ spec:
             readOnly: true
             volumeAttributes:
               bucketName: "branded-emails-bucket"
+              mountOptions: "implicit-dirs"
