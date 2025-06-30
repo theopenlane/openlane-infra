@@ -4,7 +4,7 @@ metadata:
   name: openlane-gke-deployment-sa
   namespace: openlane
   annotations:
-    iam.gke.io/gcp-service-account: openlane-gke-deployment-sa@yprod-apps-project.iam.gserviceaccount.com
+    iam.gke.io/gcp-service-account: openlane-gke-deployment-sa@prod-apps-project.iam.gserviceaccount.com
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
