@@ -6,7 +6,6 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: detect-private-key
-        exclude: charts/argocd/values.yaml
       - id: check-shebang-scripts-are-executable
       - id: end-of-file-fixer
       - id: mixed-line-ending
@@ -14,13 +13,3 @@ repos:
     rev: v1
     hooks:
       - id: typos
-  - repo: https://github.com/norwoodj/helm-docs
-    rev: v1.14.2
-    hooks:
-      - id: helm-docs
-        args:
-          - --chart-search-root=charts
-          - --template-files=HELM.md.gotmpl
-          - --output-file=HELM.md
-          - --sort-values-order=file
-          - --skip-version-footer
