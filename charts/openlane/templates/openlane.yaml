@@ -36,6 +36,8 @@ spec:
               value: "None"
             - name: "CORE_SERVER_CSRFPROTECTION_COOKIEDOMAIN"
               value: ".theopenlane.io"
+            - name: CORE_SESSIONS_SAMESITE
+              value: "None"
             - name: CORE_EMAIL_TEMPLATESPATH
               value: "/brandedemails"
           envFrom:
