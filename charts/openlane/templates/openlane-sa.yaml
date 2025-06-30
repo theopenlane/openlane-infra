@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: openlane-gke-deployment-sa
+  namespace: openlane
+  annotations:
+    iam.gke.io/gcp-service-account: openlane-gke-deployment-sa@yprod-apps-project.iam.gserviceaccount.com
