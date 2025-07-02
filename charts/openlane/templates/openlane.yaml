@@ -34,6 +34,16 @@ spec:
               value: "true"
             - name: CORE_SERVER_CSRFPROTECTION_SAMESITE
               value: "None"
+            - name: CORE_SERVER_CSRFPROTECTION_COOKIEDOMAIN
+              value: .theopenlane.io
+            - name: CORE_SESSIONS_SAMESITE
+              value: None
+            - name: CORE_EMAIL_TEMPLATESPATH
+              value: /brandedemails
+            - name: CORE_KEYWATCHER_ENABLED
+              value: "true"
+            - name: CORE_KEYWATCHER_KEYDIR
+              value: /keys
           envFrom:
             - secretRef:
                 name: openlane-app-secret
@@ -74,6 +84,9 @@ spec:
             - name: brandedemails-volume
               mountPath: /brandedemails
               readOnly: true
+            - name: token-keys
+              mountPath: /keys
+              readOnly: true
       volumes:
         - name: brandedemails-volume
           csi:
@@ -82,3 +95,11 @@ spec:
             volumeAttributes:
               bucketName: "branded-emails-bucket"
               mountOptions: "implicit-dirs"
+        - name: token-keys
+          secret:
+            secretName: token-keys
+            items:
+              - key: tls.key
+                path: token-private.pem
+              - key: tls.crt
+                path: token-public.pem
