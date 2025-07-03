@@ -100,6 +100,4 @@ spec:
             secretName: token-keys
             items:
               - key: tls.key
-                path: token-private.pem
-              - key: tls.crt
-                path: token-public.pem
+                path: 01JZ6M4SGPSBJY8ENJ53PG7GYS.pem
