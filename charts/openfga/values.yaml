@@ -88,8 +88,8 @@ openfga:
     secretKeys:
       uriKey: uri
     maxCacheSize:
-    maxOpenConns: 60
-    maxIdleConns: 50
+    maxOpenConns: 240
+    maxIdleConns: 200
     connMaxIdleTime:
     connMaxLifetime:
     applyMigrations: false
