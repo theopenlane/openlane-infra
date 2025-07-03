@@ -156,7 +156,9 @@ openfga:
     limit:
     ttl: 30s
 
-  experimentals: []
+  experimentals:
+    enableCheckCache: true
+    enableCheckOptimizations: true
 
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
@@ -167,11 +169,11 @@ openfga:
   changelogHorizonOffset:
   resolveNodeLimit:
   resolveNodeBreadthLimit:
-  listObjectsDeadline:
+  listObjectsDeadline: 5s
   listObjectsMaxResults: 10000
-  listUsersDeadline:
+  listUsersDeadline: 5s
   listUsersMaxResults: 10000
-  requestTimeout:
+  requestTimeout: 5s
   requestDurationDatastoreQueryCountBuckets: [50, 200]
   allowWriting1_0Models:
   allowEvaluating1_0Models:
