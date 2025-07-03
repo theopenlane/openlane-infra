@@ -89,7 +89,7 @@ openfga:
       uriKey: uri
     maxCacheSize:
     maxOpenConns: 8
-    maxIdleConns: 2
+    maxIdleConns: 8
     connMaxIdleTime:
     connMaxLifetime:
     applyMigrations: false
