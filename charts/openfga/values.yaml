@@ -157,8 +157,10 @@ openfga:
     ttl: 30s
 
   experimentals:
-    - enableCheckCache
-    - enableCheckOptimizations
+    - check-query-cache
+    - enable-list-users
+    - enable-check-optimizations
+    - list-objects	
 
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
