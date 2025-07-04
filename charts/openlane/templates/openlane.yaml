@@ -45,7 +45,7 @@ spec:
             - name: CORE_KEYWATCHER_KEYDIR
               value: /keys
             - name: CORE_SERVER_GRAPHPOOL_MAXWORKERS
-              value: "300"
+              value: "500"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
