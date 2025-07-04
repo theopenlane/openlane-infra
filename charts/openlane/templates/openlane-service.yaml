@@ -5,6 +5,8 @@ metadata:
   namespace: openlane
   labels:
     {{- include "openlane.labels" . | nindent 4 }}
+  annotations:
+    cloud.google.com/backend-config: '{"http": "openlane-backendconfig"}'
 spec:
   type: NodePort
   ports:
