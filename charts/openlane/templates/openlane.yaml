@@ -45,7 +45,11 @@ spec:
             - name: CORE_KEYWATCHER_KEYDIR
               value: /keys
             - name: CORE_SERVER_GRAPHPOOL_MAXWORKERS
-              value: '100'
+              value: '200'
+            - name: CORE_DB_MAXCONNECTIONS
+              value: '8'
+            - name: CORE_DB_MAXIDLECONNECTIONS
+              value: '8'
           envFrom:
             - secretRef:
                 name: openlane-app-secret
