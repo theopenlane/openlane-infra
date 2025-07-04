@@ -139,7 +139,7 @@ openfga:
       issuer:
 
   playground:
-    enabled: true
+    enabled: false
     port: 3000
 
   profiler:
@@ -147,14 +147,14 @@ openfga:
     addr: 0.0.0.0:3001
 
   log:
-    level: info
+    level: warn
     format: json
     timestampFormat: Unix
 
   checkQueryCache:
     enabled: true
     limit:
-    ttl: 30s
+    ttl: 60s
 
   experimentals:
     - enable-check-optimizations
@@ -169,9 +169,9 @@ openfga:
   resolveNodeLimit:
   resolveNodeBreadthLimit:
   listObjectsDeadline: 5s
-  listObjectsMaxResults: 10000
+  listObjectsMaxResults: 1000
   listUsersDeadline: 5s
-  listUsersMaxResults: 10000
+  listUsersMaxResults: 1000
   requestTimeout: 5s
   requestDurationDatastoreQueryCountBuckets: [50, 200]
   allowWriting1_0Models:
