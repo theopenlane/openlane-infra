@@ -162,9 +162,9 @@ openfga:
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
   maxAuthorizationModelSizeInBytes:
-  maxConcurrentReadsForCheck:
-  maxConcurrentReadsForListObjects:
-  maxConcurrentReadsForListUsers:
+  maxConcurrentReadsForCheck: 50
+  maxConcurrentReadsForListObjects: 10
+  maxConcurrentReadsForListUsers: 10
   changelogHorizonOffset:
   resolveNodeLimit:
   resolveNodeBreadthLimit:
