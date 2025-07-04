@@ -60,6 +60,8 @@ openlane:
     CORE_AUTH_PROVIDERS_GITHUB_CLIENTSECRET: ""
     # master key for TOTP generation
     CORE_TOTP_SECRET: ""
+    # slack webhook URL for notifications
+    CORE_SLACK_WEBHOOKURL: ""
   cloudsql:
     # Enable Google Cloud SQL proxy sidecar
     enabled: true
