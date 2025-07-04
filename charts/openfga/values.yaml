@@ -162,6 +162,7 @@ openfga:
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
   maxAuthorizationModelSizeInBytes:
+  maxConcurrentChecksPerBatchCheck: 500
   maxConcurrentReadsForCheck: 50
   maxConcurrentReadsForListObjects: 10
   maxConcurrentReadsForListUsers: 10
