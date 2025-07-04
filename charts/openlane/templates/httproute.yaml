@@ -21,6 +21,8 @@ spec:
     backendRefs:
     - name: prod-openlane
       port: 80
+      kind: Service
+      group: ""
     timeouts:
       request: 60s
       backendRequest: 60s
