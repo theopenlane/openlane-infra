@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "openlane.labels" . | nindent 4 }}
   annotations:
-    cloud.google.com/backend-config: '{"80":"openlane-backendconfig","443":"openlane-backendconfig"}'
+    cloud.google.com/backend-config: '{"default": "openlane-backendconfig"}'
 spec:
   type: NodePort
   ports:
