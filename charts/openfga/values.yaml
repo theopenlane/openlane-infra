@@ -88,8 +88,8 @@ openfga:
     secretKeys:
       uriKey: uri
     maxCacheSize:
-    maxOpenConns: 8
-    maxIdleConns: 8
+    maxOpenConns: 15
+    maxIdleConns: 15
     connMaxIdleTime:
     connMaxLifetime:
     applyMigrations: false
@@ -162,9 +162,9 @@ openfga:
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
   maxAuthorizationModelSizeInBytes:
-  maxConcurrentReadsForCheck: 50
-  maxConcurrentReadsForListObjects: 10
-  maxConcurrentReadsForListUsers: 10
+  maxConcurrentReadsForCheck: 100
+  maxConcurrentReadsForListObjects: 100
+  maxConcurrentReadsForListUsers: 100
   changelogHorizonOffset:
   resolveNodeLimit:
   resolveNodeBreadthLimit:
