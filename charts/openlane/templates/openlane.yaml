@@ -52,6 +52,8 @@ spec:
               value: '8'
             - name: CORE_DB_MAXIDLECONNECTIONS
               value: '8'
+            - name: CORE_DB_DEBUG
+              value: "true"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
