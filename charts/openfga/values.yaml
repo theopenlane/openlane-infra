@@ -147,7 +147,7 @@ openfga:
     addr: 0.0.0.0:3001
 
   log:
-    level: warn
+    level: info
     format: json
     timestampFormat: Unix
 
