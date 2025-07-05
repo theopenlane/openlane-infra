@@ -22,7 +22,7 @@ spec:
       containers:
         - name: openlane
           args:
-            - serve
+            - serve --debug
           env:
             - name: CORE_SUBSCRIPTION_TRIALSUBSCRIPTIONPRICEID
               value: "price_1RbrmsR7q8Ny5Jw0iFHsf5Vv"
