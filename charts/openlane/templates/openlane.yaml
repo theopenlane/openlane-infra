@@ -45,9 +45,9 @@ spec:
             - name: CORE_KEYWATCHER_KEYDIR
               value: /keys
             - name: CORE_SERVER_GRAPHPOOL_MAXWORKERS
-              value: '500'
+              value: '200'
             - name: CORE_ENTCONFIG_MAXPOOLSIZE
-              value: '500'
+              value: '200'
             - name: CORE_DB_MAXCONNECTIONS
               value: '8'
             - name: CORE_DB_MAXIDLECONNECTIONS
