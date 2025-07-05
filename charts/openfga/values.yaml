@@ -19,7 +19,8 @@ openfga:
   podAnnotations: {}
   podExtraLabels: {}
 
-  extraEnvVars: []
+  extraEnvVars: 
+    - OPENFGA_MAX_CHECKS_PER_BATCH_CHECK=500
   extraVolumes: []
   extraVolumeMounts: []
   extraInitContainers: []
