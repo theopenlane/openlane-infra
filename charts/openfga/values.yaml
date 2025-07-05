@@ -159,7 +159,7 @@ openfga:
     ttl: 60s
 
   experimentals:
-    - enable-check-optimizations
+    # - enable-check-optimizations
 
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
