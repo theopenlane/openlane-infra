@@ -1,5 +1,5 @@
 openfga:
-  replicaCount: 3
+  replicaCount: 2
 
   image:
     repository: openfga/openfga
@@ -88,8 +88,8 @@ openfga:
     secretKeys:
       uriKey: uri
     maxCacheSize:
-    maxOpenConns: 15
-    maxIdleConns: 15
+    maxOpenConns: 20
+    maxIdleConns: 20
     connMaxIdleTime:
     connMaxLifetime:
     applyMigrations: false
