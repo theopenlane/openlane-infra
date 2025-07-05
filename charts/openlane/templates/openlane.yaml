@@ -23,7 +23,6 @@ spec:
         - name: openlane
           args:
             - serve 
-            - --debug
           env:
             - name: CORE_SUBSCRIPTION_TRIALSUBSCRIPTIONPRICEID
               value: "price_1RbrmsR7q8Ny5Jw0iFHsf5Vv"
@@ -53,8 +52,6 @@ spec:
               value: '8'
             - name: CORE_DB_MAXIDLECONNECTIONS
               value: '8'
-            - name: CORE_DB_DEBUG
-              value: "true"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
