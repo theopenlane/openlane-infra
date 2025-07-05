@@ -174,7 +174,7 @@ openfga:
   listObjectsMaxResults: 1000
   listUsersDeadline: 5s
   listUsersMaxResults: 1000
-  requestTimeout: 8s
+  requestTimeout: 3s
   requestDurationDatastoreQueryCountBuckets: [50, 200]
   allowWriting1_0Models:
   allowEvaluating1_0Models:
