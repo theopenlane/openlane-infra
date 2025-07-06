@@ -11,7 +11,9 @@ openfga:
   fullnameOverride: ""
   serviceAccount:
     create: true
-    annotations: {}
+    annotations:
+      argocd.argoproj.io/hook: PreSync
+      argocd.argoproj.io/sync-wave: "-2"
     name: ""
 
   annotations: {}
@@ -223,8 +225,6 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
-      helm.sh/hook: ""
-      helm.sh/hook-delete-policy: ""
       argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
     labels:
