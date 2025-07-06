@@ -98,7 +98,7 @@ openfga:
     connMaxLifetime:
     applyMigrations: true
     waitForMigrations: true
-    migrationType: job
+    migrationType: initContainer
     migrations:
       resources: {}
       image:
