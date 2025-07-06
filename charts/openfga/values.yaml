@@ -1,5 +1,5 @@
 openfga:
-  replicaCount: 3
+  replicaCount: 2
 
   image:
     repository: openfga/openfga
@@ -11,7 +11,9 @@ openfga:
   fullnameOverride: ""
   serviceAccount:
     create: true
-    annotations: {}
+    annotations:
+      argocd.argoproj.io/hook: PreSync
+      argocd.argoproj.io/sync-wave: "-2"
     name: ""
 
   annotations: {}
@@ -19,7 +21,9 @@ openfga:
   podAnnotations: {}
   podExtraLabels: {}
 
-  extraEnvVars: []
+  extraEnvVars: 
+    - name: OPENFGA_MAX_CHECKS_PER_BATCH_CHECK
+      value: "500"
   extraVolumes: []
   extraVolumeMounts: []
   extraInitContainers: []
@@ -88,13 +92,13 @@ openfga:
     secretKeys:
       uriKey: uri
     maxCacheSize:
-    maxOpenConns: 8
-    maxIdleConns: 8
+    maxOpenConns: 20
+    maxIdleConns: 20
     connMaxIdleTime:
     connMaxLifetime:
-    applyMigrations: false
-    waitForMigrations: false
-    migrationType: initContainer
+    applyMigrations: true
+    waitForMigrations: true
+    migrationType: job
     migrations:
       resources: {}
       image:
@@ -139,7 +143,7 @@ openfga:
       issuer:
 
   playground:
-    enabled: true
+    enabled: false
     port: 3000
 
   profiler:
@@ -154,7 +158,7 @@ openfga:
   checkQueryCache:
     enabled: true
     limit:
-    ttl: 30s
+    ttl: 60s
 
   experimentals:
     - enable-check-optimizations
@@ -162,16 +166,16 @@ openfga:
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
   maxAuthorizationModelSizeInBytes:
-  maxConcurrentReadsForCheck:
-  maxConcurrentReadsForListObjects:
-  maxConcurrentReadsForListUsers:
+  maxConcurrentReadsForCheck: 100
+  maxConcurrentReadsForListObjects: 100
+  maxConcurrentReadsForListUsers: 100
   changelogHorizonOffset:
   resolveNodeLimit:
   resolveNodeBreadthLimit:
   listObjectsDeadline: 5s
   listObjectsMaxResults: 10000
   listUsersDeadline: 5s
-  listUsersMaxResults: 10000
+  listUsersMaxResults: 1000
   requestTimeout: 5s
   requestDurationDatastoreQueryCountBuckets: [50, 200]
   allowWriting1_0Models:
@@ -221,9 +225,11 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
-      helm.sh/hook: "post-install, post-upgrade, post-rollback"
-      argocd.argoproj.io/sync-wave: "0"
-    labels: {}
+      helm.sh/hook: null
+      helm.sh/hook-weight: null
+      helm.sh/hook-delete-policy: null
+      argocd.argoproj.io/hook: PreSync
+      argocd.argoproj.io/sync-wave: "-1"
     timeout:
 
   testPodSpec: {}
