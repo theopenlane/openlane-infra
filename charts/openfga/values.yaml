@@ -225,7 +225,7 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
-      helm.sh/hook: ""
+      helm.sh/hook: "post-install, post-upgrade, post-delete"
       argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
     labels:
