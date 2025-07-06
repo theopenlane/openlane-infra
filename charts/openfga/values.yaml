@@ -225,6 +225,7 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
+      helm.sh/hook: ""
       argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
     labels:
