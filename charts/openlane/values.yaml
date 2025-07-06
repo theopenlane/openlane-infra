@@ -12,7 +12,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.20.6"
+    tag: "v0.20.10"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
@@ -263,6 +263,19 @@ openlane:
   api:
     # Additional annotations to apply to the main ConfigMap
     commonAnnotations: {}
+  podMonitor:
+    # -- If `true`, create a PodMonitor resource to support the Prometheus Operator.
+    enabled: true
+    # -- Additional labels for the PodMonitor.
+    additionalLabels: {}
+    # -- Annotations to add to the PodMonitor.
+    annotations: {}
+    # -- (string) If set create the PodMonitor in an alternate namespace.
+    namespace:  # @schema type:[string, null]; default: null
+    # -- (string) Interval at which Prometheus scrapes metrics.
+    interval:  # @schema type:[string, null]; default: null
+    # -- (string) Timeout if metrics cannot be retrieved in given time interval.
+    scrapeTimeout:  # @schema type:[string, null]; default: null
 
 
 riverboat:

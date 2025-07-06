@@ -1,4 +1,4 @@
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 # openlane
 
@@ -35,7 +35,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.17.3"` |  |
+| openlane.image.tag | string | `"v0.20.6"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
@@ -58,6 +58,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.secretEnv.CORE_AUTH_PROVIDERS_GOOGLE_CLIENTSECRET | string | `""` |  |
 | openlane.secretEnv.CORE_AUTH_PROVIDERS_GITHUB_CLIENTSECRET | string | `""` |  |
 | openlane.secretEnv.CORE_TOTP_SECRET | string | `""` |  |
+| openlane.secretEnv.CORE_SLACK_WEBHOOKURL | string | `""` |  |
 | openlane.cloudsql.enabled | bool | `true` |  |
 | openlane.cloudsql.instanceSecret | string | `"cloudsql-credentials"` |  |
 | openlane.service.type | string | `"ClusterIP"` |  |
@@ -180,6 +181,12 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.openfga.requestTimeout | string | `"5s"` |  |
 | openlane.features.dbxEnabled | string | `"false"` |  |
 | openlane.api.commonAnnotations | object | `{}` |  |
+| openlane.podMonitor.enabled | bool | `true` | If `true`, create a PodMonitor resource to support the Prometheus Operator. |
+| openlane.podMonitor.additionalLabels | object | `{}` | Additional labels for the PodMonitor. |
+| openlane.podMonitor.annotations | object | `{}` | Annotations to add to the PodMonitor. |
+| openlane.podMonitor.namespace | string | `nil` | If set create the PodMonitor in an alternate namespace. |
+| openlane.podMonitor.interval | string | `nil` | Interval at which Prometheus scrapes metrics. |
+| openlane.podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
 | riverboat.image.tag | string | `"amd64-latest"` |  |
