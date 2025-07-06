@@ -1,4 +1,4 @@
-version: 0.1.2
+version: 0.1.3
 name: openlane-cert-manager
 apiVersion: v2
 appVersion: 0.1.0
@@ -14,5 +14,5 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: cert-manager
-    version: "v1.18.0"
+    version: "v1.18.2"
     repository: "https://charts.jetstack.io"

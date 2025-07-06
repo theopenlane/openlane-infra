@@ -88,8 +88,8 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.datastore.existingSecret | string | `"cloudsql-credentials"` |  |
 | openfga.datastore.secretKeys.uriKey | string | `"uri"` |  |
 | openfga.datastore.maxCacheSize | string | `nil` |  |
-| openfga.datastore.maxOpenConns | int | `240` |  |
-| openfga.datastore.maxIdleConns | int | `200` |  |
+| openfga.datastore.maxOpenConns | int | `8` |  |
+| openfga.datastore.maxIdleConns | int | `8` |  |
 | openfga.datastore.connMaxIdleTime | string | `nil` |  |
 | openfga.datastore.connMaxLifetime | string | `nil` |  |
 | openfga.datastore.applyMigrations | bool | `false` |  |
@@ -129,7 +129,7 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.checkQueryCache.enabled | bool | `true` |  |
 | openfga.checkQueryCache.limit | string | `nil` |  |
 | openfga.checkQueryCache.ttl | string | `"30s"` |  |
-| openfga.experimentals | list | `[]` |  |
+| openfga.experimentals[0] | string | `"enable-check-optimizations"` |  |
 | openfga.maxTuplesPerWrite | string | `nil` |  |
 | openfga.maxTypesPerAuthorizationModel | string | `nil` |  |
 | openfga.maxAuthorizationModelSizeInBytes | string | `nil` |  |
@@ -139,11 +139,11 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.changelogHorizonOffset | string | `nil` |  |
 | openfga.resolveNodeLimit | string | `nil` |  |
 | openfga.resolveNodeBreadthLimit | string | `nil` |  |
-| openfga.listObjectsDeadline | string | `nil` |  |
+| openfga.listObjectsDeadline | string | `"5s"` |  |
 | openfga.listObjectsMaxResults | int | `10000` |  |
-| openfga.listUsersDeadline | string | `nil` |  |
+| openfga.listUsersDeadline | string | `"5s"` |  |
 | openfga.listUsersMaxResults | int | `10000` |  |
-| openfga.requestTimeout | string | `nil` |  |
+| openfga.requestTimeout | string | `"5s"` |  |
 | openfga.requestDurationDatastoreQueryCountBuckets[0] | int | `50` |  |
 | openfga.requestDurationDatastoreQueryCountBuckets[1] | int | `200` |  |
 | openfga.allowWriting1_0Models | string | `nil` |  |
