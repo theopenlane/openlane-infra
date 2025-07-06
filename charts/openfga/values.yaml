@@ -223,9 +223,8 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
-      helm.sh/hook: "post-install, post-upgrade, post-rollback, post-delete"
+      helm.sh/hook: "post-install, post-upgrade, post-delete"
       argocd.argoproj.io/sync-wave: "0"
-      helm.sh/hook-weight: "-5"
     labels: {}
     timeout:
 
