@@ -225,7 +225,7 @@ openfga:
     annotations:
       helm.sh/hook: ""
       helm.sh/hook-delete-policy: ""
-      # argocd.argoproj.io/hook: PreSync
+      argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
     labels:
       forceRerun: "true"
