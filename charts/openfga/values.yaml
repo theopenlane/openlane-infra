@@ -96,9 +96,9 @@ openfga:
     maxIdleConns: 20
     connMaxIdleTime:
     connMaxLifetime:
-    applyMigrations: false
-    waitForMigrations: false
-    migrationType: initContainer
+    applyMigrations: true
+    waitForMigrations: true
+    migrationType: job
     migrations:
       resources: {}
       image:
@@ -225,9 +225,6 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
-      helm.sh/hook: null
-      helm.sh/hook-weight: null
-      helm.sh/hook-delete-policy: null
       argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
     labels:
