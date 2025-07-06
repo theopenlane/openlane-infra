@@ -223,7 +223,9 @@ openfga:
     extraInitContainers: []
     sidecars: []
     annotations:
-      helm.sh/hook: "post-install, post-upgrade, post-delete"
+      helm.sh/hook: ""
+      helm.sh/hook-delete-policy: ""
+      # argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
     labels:
       forceRerun: "true"
