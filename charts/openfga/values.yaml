@@ -224,10 +224,9 @@ openfga:
     sidecars: []
     annotations:
       helm.sh/hook: "post-install, post-upgrade, post-delete"
-      # argocd.argoproj.io/sync-wave: "0"
-      argocd.argoproj.io/hook: PreSync
       argocd.argoproj.io/sync-wave: "-1"
-    labels: {}
+    labels:
+      forceRerun: "true"
     timeout:
 
   testPodSpec: {}
