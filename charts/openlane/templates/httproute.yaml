@@ -3,12 +3,12 @@ kind: HTTPRoute
 metadata:
   name: openlane-route
   labels:
-    gateway: prod-global-gateway
+    gateway: prod-central1-core-gateway
   namespace: openlane
 spec:
   parentRefs:
-  - name: prod-global-gateway
-    namespace: argocd
+  - name: prod-central1-core-gateway
+    namespace: gateway-system
     sectionName: https
   hostnames:
   - "api.theopenlane.io"
@@ -21,26 +21,3 @@ spec:
     backendRefs:
     - name: prod-openlane
       port: 80
----
-apiVersion: networking.gke.io/v1
-kind: HealthCheckPolicy
-metadata:
-  name: openlane-healthcheck
-  namespace: openlane
-spec:
-  default:
-    unhealthyThreshold: 10
-    healthyThreshold: 1
-    timeoutSec: 5
-    logConfig:
-      enabled: true
-    config:
-      type: HTTP
-      httpHealthCheck:
-        requestPath: /livez
-        portName: http
-  targetRef:
-    group: ""
-    kind: Service
-    name: prod-openlane
-
