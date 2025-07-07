@@ -25,9 +25,9 @@ spec:
             - serve
           env:
             - name: CORE_SUBSCRIPTION_TRIALSUBSCRIPTIONPRICEID
-              value: "price_1RbrmsR7q8Ny5Jw0iFHsf5Vv"
+              value: "price_1QKLyeBvxky1R7SvaZYGWyQb"
             - name: CORE_SUBSCRIPTION_PERSONALORGSUBSCRIPTIONPRICEID
-              value: "price_1RbrmsR7q8Ny5Jw0iFHsf5Vv"
+              value: "price_1QycPyBvxky1R7Svz0gOWnNh"
             - name: CORE_SUBSCRIPTION_STRIPEWEBHOOKURL
               value: "https://api.prod.openlane.com/v1/stripe/webhook"
             - name: CORE_SERVER_CSRFPROTECTION_ENABLED
