@@ -30,6 +30,25 @@ entries:
     urls:
     - gcp-project-base-0.1.0.tgz
     version: 0.1.0
+  openlane:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-09T16:03:01.677908205Z"
+    description: A Helm chart to deploy the core Openlane server on GKE clusters
+    digest: 7c6733e0ebb5686798f6b62ae006c82e370f0d4eb163fd32882b27b50f45ea70
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane
+    sources:
+    - https://github.com/theopenlane/core
+    type: application
+    urls:
+    - openlane-0.1.1.tgz
+    version: 0.1.1
   openlane-alertmanager:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -95,6 +114,29 @@ entries:
     - openlane-argocd-0.1.0.tgz
     version: 0.1.0
   openlane-cert-manager:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-07-09T16:03:01.832392397Z"
+    dependencies:
+    - name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.18.2
+    description: A Helm chart to deploy cert-manager on GKE clusters using Config
+      Connector for Openlane
+    digest: a870b7d577d9e1df092f3465666b34f86b9e67638df2406ae4f4d84a0173474a
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-cert-manager
+    sources:
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-cert-manager-0.1.3.tgz
+    version: 0.1.3
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-31T19:17:26.986356322Z"
@@ -169,7 +211,80 @@ entries:
     urls:
     - openlane-cert-manager-0.1.0.tgz
     version: 0.1.0
+  openlane-eso:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-09T16:03:02.175300158Z"
+    dependencies:
+    - alias: openfga
+      name: openfga
+      repository: https://openfga.github.io/helm-charts
+      version: 0.2.36
+    description: A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
+    digest: 699528a313a3d161086dab94755cd981790fd6b7b390530b3e78a1384327b489
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-eso
+    sources:
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-eso-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-09T16:03:01.990068337Z"
+    dependencies:
+    - alias: grafana
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 9.2.2
+    - alias: oauth2
+      name: oauth2-proxy
+      repository: https://oauth2-proxy.github.io/manifests
+      version: 7.12.17
+    description: A Helm chart to deploy External Secrets Operator on GKE clusters
+      for Openlane
+    digest: 3fc4056a0cac0453dcd3c93a9da34450fac9fe26f8e4c4e2257ab90ab5470372
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-eso
+    sources:
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-eso-0.1.0.tgz
+    version: 0.1.0
   openlane-external-dns:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2025-07-09T16:03:02.310667998Z"
+    dependencies:
+    - name: external-dns
+      repository: https://kubernetes-sigs.github.io/external-dns/
+      version: 1.17.0
+    description: Deploys external-dns and its monitoring
+    digest: dc19a6767581a3fff99fe8e4b39ae39c07c22a8d6137e6a1357a1ea521bc24d5
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-external-dns
+    sources:
+    - https://github.com/theopenlane/openlane-infra
+    urls:
+    - openlane-external-dns-0.1.3.tgz
+    version: 0.1.3
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2025-05-31T19:17:27.114395795Z"
@@ -902,4 +1017,27 @@ entries:
     urls:
     - openlane-gcp-workload-identity-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-31T19:17:29.286817442Z"
+  openlane-prometheus-crds:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-09T16:03:04.686588423Z"
+    dependencies:
+    - name: prometheus-operator-crds
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 21.0.0
+    description: Install only the Prometheus Operator CRDs on GKE clusters for Openlane
+    digest: a1bcbc4b4f8c42f1af9e3052c6918e2846e4ece8bea8d9f9189e7f0d4867bfd6
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-prometheus-crds
+    sources:
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-prometheus-crds-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-07-09T16:03:04.686639538Z"
