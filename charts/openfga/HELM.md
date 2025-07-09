@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://openfga.github.io/helm-charts | openfga(openfga) | 0.2.31 |
+| https://openfga.github.io/helm-charts | openfga(openfga) | 0.2.36 |
 
 ## Maintainers
 
@@ -37,7 +37,7 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| openfga.replicaCount | int | `3` |  |
+| openfga.replicaCount | int | `2` |  |
 | openfga.image.repository | string | `"openfga/openfga"` |  |
 | openfga.image.pullPolicy | string | `"Always"` |  |
 | openfga.image.tag | string | `""` |  |
@@ -45,12 +45,14 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.nameOverride | string | `""` |  |
 | openfga.fullnameOverride | string | `""` |  |
 | openfga.serviceAccount.create | bool | `true` |  |
-| openfga.serviceAccount.annotations | object | `{}` |  |
+| openfga.serviceAccount.annotations."argocd.argoproj.io/hook" | string | `"PreSync"` |  |
+| openfga.serviceAccount.annotations."argocd.argoproj.io/sync-wave" | string | `"-2"` |  |
 | openfga.serviceAccount.name | string | `""` |  |
 | openfga.annotations | object | `{}` |  |
 | openfga.podAnnotations | object | `{}` |  |
 | openfga.podExtraLabels | object | `{}` |  |
-| openfga.extraEnvVars | list | `[]` |  |
+| openfga.extraEnvVars[0].name | string | `"OPENFGA_MAX_CHECKS_PER_BATCH_CHECK"` |  |
+| openfga.extraEnvVars[0].value | string | `"500"` |  |
 | openfga.extraVolumes | list | `[]` |  |
 | openfga.extraVolumeMounts | list | `[]` |  |
 | openfga.extraInitContainers | list | `[]` |  |
@@ -88,13 +90,13 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.datastore.existingSecret | string | `"cloudsql-credentials"` |  |
 | openfga.datastore.secretKeys.uriKey | string | `"uri"` |  |
 | openfga.datastore.maxCacheSize | string | `nil` |  |
-| openfga.datastore.maxOpenConns | int | `8` |  |
-| openfga.datastore.maxIdleConns | int | `8` |  |
+| openfga.datastore.maxOpenConns | int | `20` |  |
+| openfga.datastore.maxIdleConns | int | `20` |  |
 | openfga.datastore.connMaxIdleTime | string | `nil` |  |
 | openfga.datastore.connMaxLifetime | string | `nil` |  |
-| openfga.datastore.applyMigrations | bool | `false` |  |
-| openfga.datastore.waitForMigrations | bool | `false` |  |
-| openfga.datastore.migrationType | string | `"initContainer"` |  |
+| openfga.datastore.applyMigrations | bool | `true` |  |
+| openfga.datastore.waitForMigrations | bool | `true` |  |
+| openfga.datastore.migrationType | string | `"job"` |  |
 | openfga.datastore.migrations.resources | object | `{}` |  |
 | openfga.datastore.migrations.image.repository | string | `"groundnuty/k8s-wait-for"` |  |
 | openfga.datastore.migrations.image.pullPolicy | string | `"Always"` |  |
@@ -119,7 +121,7 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.authn.preshared.keysSecret | string | `"preshared-keys"` |  |
 | openfga.authn.oidc.audience | string | `nil` |  |
 | openfga.authn.oidc.issuer | string | `nil` |  |
-| openfga.playground.enabled | bool | `true` |  |
+| openfga.playground.enabled | bool | `false` |  |
 | openfga.playground.port | int | `3000` |  |
 | openfga.profiler.enabled | bool | `false` |  |
 | openfga.profiler.addr | string | `"0.0.0.0:3001"` |  |
@@ -128,21 +130,21 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.log.timestampFormat | string | `"Unix"` |  |
 | openfga.checkQueryCache.enabled | bool | `true` |  |
 | openfga.checkQueryCache.limit | string | `nil` |  |
-| openfga.checkQueryCache.ttl | string | `"30s"` |  |
+| openfga.checkQueryCache.ttl | string | `"60s"` |  |
 | openfga.experimentals[0] | string | `"enable-check-optimizations"` |  |
 | openfga.maxTuplesPerWrite | string | `nil` |  |
 | openfga.maxTypesPerAuthorizationModel | string | `nil` |  |
 | openfga.maxAuthorizationModelSizeInBytes | string | `nil` |  |
-| openfga.maxConcurrentReadsForCheck | string | `nil` |  |
-| openfga.maxConcurrentReadsForListObjects | string | `nil` |  |
-| openfga.maxConcurrentReadsForListUsers | string | `nil` |  |
+| openfga.maxConcurrentReadsForCheck | int | `100` |  |
+| openfga.maxConcurrentReadsForListObjects | int | `100` |  |
+| openfga.maxConcurrentReadsForListUsers | int | `100` |  |
 | openfga.changelogHorizonOffset | string | `nil` |  |
 | openfga.resolveNodeLimit | string | `nil` |  |
 | openfga.resolveNodeBreadthLimit | string | `nil` |  |
 | openfga.listObjectsDeadline | string | `"5s"` |  |
 | openfga.listObjectsMaxResults | int | `10000` |  |
 | openfga.listUsersDeadline | string | `"5s"` |  |
-| openfga.listUsersMaxResults | int | `10000` |  |
+| openfga.listUsersMaxResults | int | `1000` |  |
 | openfga.requestTimeout | string | `"5s"` |  |
 | openfga.requestDurationDatastoreQueryCountBuckets[0] | int | `50` |  |
 | openfga.requestDurationDatastoreQueryCountBuckets[1] | int | `200` |  |
@@ -171,9 +173,11 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.migrate.extraVolumeMounts | list | `[]` |  |
 | openfga.migrate.extraInitContainers | list | `[]` |  |
 | openfga.migrate.sidecars | list | `[]` |  |
-| openfga.migrate.annotations."helm.sh/hook" | string | `"post-install, post-upgrade, post-rollback"` |  |
-| openfga.migrate.annotations."argocd.argoproj.io/sync-wave" | string | `"0"` |  |
-| openfga.migrate.labels | object | `{}` |  |
+| openfga.migrate.annotations."helm.sh/hook" | string | `nil` |  |
+| openfga.migrate.annotations."helm.sh/hook-weight" | string | `nil` |  |
+| openfga.migrate.annotations."helm.sh/hook-delete-policy" | string | `nil` |  |
+| openfga.migrate.annotations."argocd.argoproj.io/hook" | string | `"PreSync"` |  |
+| openfga.migrate.annotations."argocd.argoproj.io/sync-wave" | string | `"-1"` |  |
 | openfga.migrate.timeout | string | `nil` |  |
 | openfga.testPodSpec | object | `{}` |  |
 | openfga.testContainerSpec | object | `{}` |  |

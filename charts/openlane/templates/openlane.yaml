@@ -52,6 +52,9 @@ spec:
               value: '8'
             - name: CORE_DB_MAXIDLECONNECTIONS
               value: '8'
+            # set to true to release a new model for the authz service
+            - name: CORE_AUTHZ_CREATENEWMODEL
+              value: "false"
           envFrom:
             - secretRef:
                 name: openlane-app-secret
