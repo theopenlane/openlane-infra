@@ -35,7 +35,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.20.6"` |  |
+| openlane.image.tag | string | `"v0.22.2"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
@@ -125,7 +125,6 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.email.urls.invite | string | `"https://console.theopenlane.io/invite"` |  |
 | openlane.email.urls.reset | string | `"https://console.theopenlane.io/password-reset"` |  |
 | openlane.email.urls.verifySubscriber | string | `"https://console.theopenlane.io/subscriber-verify"` |  |
-| openlane.geodetic.enabled | string | `"false"` |  |
 | openlane.server.corsAllowOrigins | string | `"https://console.theopenlane.io,https://www.theopenlane.io,https://studio.apollographql.com,https://docs.theopenlane.io"` |  |
 | openlane.server.debug | string | `"false"` |  |
 | openlane.server.metricsPort | string | `":17609"` |  |
@@ -181,12 +180,12 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.openfga.requestTimeout | string | `"5s"` |  |
 | openlane.features.dbxEnabled | string | `"false"` |  |
 | openlane.api.commonAnnotations | object | `{}` |  |
-| openlane.podMonitor.enabled | bool | `true` | If `true`, create a PodMonitor resource to support the Prometheus Operator. |
-| openlane.podMonitor.additionalLabels | object | `{}` | Additional labels for the PodMonitor. |
-| openlane.podMonitor.annotations | object | `{}` | Annotations to add to the PodMonitor. |
-| openlane.podMonitor.namespace | string | `nil` | If set create the PodMonitor in an alternate namespace. |
-| openlane.podMonitor.interval | string | `nil` | Interval at which Prometheus scrapes metrics. |
-| openlane.podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
+| podMonitor.enabled | bool | `true` | If `true`, create a PodMonitor resource to support the Prometheus Operator. |
+| podMonitor.additionalLabels | object | `{}` | Additional labels for the PodMonitor. |
+| podMonitor.annotations | object | `{}` | Annotations to add to the PodMonitor. |
+| podMonitor.namespace | string | `nil` | If set create the PodMonitor in an alternate namespace. |
+| podMonitor.interval | string | `nil` | Interval at which Prometheus scrapes metrics. |
+| podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
 | riverboat.image.tag | string | `"amd64-latest"` |  |
