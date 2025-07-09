@@ -21,7 +21,7 @@ openfga:
   podAnnotations: {}
   podExtraLabels: {}
 
-  extraEnvVars: 
+  extraEnvVars:
     - name: OPENFGA_MAX_CHECKS_PER_BATCH_CHECK
       value: "500"
   extraVolumes: []
