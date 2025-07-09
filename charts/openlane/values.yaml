@@ -260,7 +260,6 @@ openlane:
   api:
     # Additional annotations to apply to the main ConfigMap
     commonAnnotations: {}
-    
 podMonitor:
   # -- If `true`, create a PodMonitor resource to support the Prometheus Operator.
   enabled: true
@@ -274,8 +273,6 @@ podMonitor:
   interval:  # @schema type:[string, null]; default: null
   # -- (string) Timeout if metrics cannot be retrieved in given time interval.
   scrapeTimeout:  # @schema type:[string, null]; default: null
-
-
 riverboat:
   replicaCount: 2
   image:
@@ -292,7 +289,6 @@ riverboat:
       # token used by the worker
       configToken: ""
       configFromEmail: no-reply@mail.theopenlane.io
-
 riverboatui:
   image:
     # Repository for the riverboat UI image
