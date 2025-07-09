@@ -4,10 +4,16 @@ chart-dirs:
   - charts
 
 chart-repos:
- - argo-cd=https://argoproj.github.io/argo-helm
- - cert-manager=https://charts.jetstack.io
- - external-dns=https://kubernetes-sigs.github.io/external-dns/
- - openlane-infra=https://theopenlane.github.io/openlane-infra
+  - argo-cd=https://argoproj.github.io/argo-helm
+  - cert-manager=https://charts.jetstack.io
+  - external-dns=https://kubernetes-sigs.github.io/external-dns/
+  - openlane-infra=https://theopenlane.github.io/openlane-infra
+  - openlane-eso=https://charts.external-secrets.io
+  - openfga=https://openfga.github.io/helm-charts
+  - grafana=https://grafana.github.io/helm-charts
+  - oauth2-proxy=https://oauth2-proxy.github.io/manifests
+  - prometheus-operator-crds=https://prometheus-community.github.io/helm-charts
+
 helm-extra-args: "--timeout 900s"
 validate-chart-schema: false
 validate-maintainers: false
