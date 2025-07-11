@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: openlane-org-gateway
+  namespace: gateway-system
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  listeners:
+  - name: https
+    port: 443
+    protocol: HTTPS
+    hostname: "*.theopenlane.org"
+    tls:
+      mode: Terminate
+      certificateRefs:
+        - name: openlane-org-gateway-cert
+    allowedRoutes:
+      namespaces:
+        from: All
