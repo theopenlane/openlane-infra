@@ -35,7 +35,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.22.2"` |  |
+| openlane.image.tag | string | `"v0.22.5"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
