@@ -261,7 +261,12 @@ cert-manager:
   #        secretName: "cert-manager-metrics-ca"
   #        dnsNames:
   #        - cert-manager-metrics
-  config: {}
+  config:
+    apiVersion: controller.config.cert-manager.io/v1alpha1
+    kind: ControllerConfiguration
+    enableGatewayAPI: true
+    featureGates:
+      ExperimentalGatewayAPISupport: true
 
   # Setting Nameservers for DNS01 Self Check.
   # For more information, see the [cert-manager documentation](https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check).

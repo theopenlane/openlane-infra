@@ -1,4 +1,4 @@
-[![Chart Publish](https://github.com/theopenlane/openlane-infra/actions/workflows/charts-publish.yml/badge.svg?branch=main)](https://github.com/heopenlane/openlane-infra/actions/workflows/publish.yml)
+[![Chart Publish](https://github.com/theopenlane/openlane-infra/actions/workflows/charts-publish.yml/badge.svg?branch=main)](https://github.com/heopenlane/openlane-infra/actions/workflows/charts-publish.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=theopenlane_openlane-infra&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=theopenlane_openlane-infra)
 

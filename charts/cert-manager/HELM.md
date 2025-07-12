@@ -64,7 +64,10 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 | cert-manager.serviceAccount.annotations."iam.gke.io/gcp-service-account" | string | `"dns01-solver@prod-apps-project.iam.gserviceaccount.com"` |  |
 | cert-manager.serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | cert-manager.enableCertificateOwnerRef | bool | `false` |  |
-| cert-manager.config | object | `{}` |  |
+| cert-manager.config.apiVersion | string | `"controller.config.cert-manager.io/v1alpha1"` |  |
+| cert-manager.config.kind | string | `"ControllerConfiguration"` |  |
+| cert-manager.config.enableGatewayAPI | bool | `true` |  |
+| cert-manager.config.featureGates.ExperimentalGatewayAPISupport | bool | `true` |  |
 | cert-manager.dns01RecursiveNameservers | string | `""` |  |
 | cert-manager.dns01RecursiveNameserversOnly | bool | `false` |  |
 | cert-manager.disableAutoApproval | bool | `false` |  |

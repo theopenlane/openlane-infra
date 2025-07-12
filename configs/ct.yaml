@@ -1,8 +1,26 @@
 remote: origin
 target-branch: main
+all: true
 chart-dirs:
   - charts
-
+excluded-charts:
+  - openlane-gcp-bigquery
+  - openlane-gcp-bootstrap
+  - openlane-gcp-bucket
+  - openlane-gcp-cloud-nat
+  - openlane-gcp-cloudsql
+  - openlane-gcp-compute-address
+  - openlane-gcp-compute-router
+  - openlane-gcp-dns-zone
+  - openlane-gcp-gke-cluster
+  - openlane-gcp-iam-policy-members
+  - openlane-gcp-kcc
+  - openlane-gcp-memorystore
+  - openlane-gcp-project
+  - openlane-gcp-service-account
+  - openlane-gcp-subnetwork
+  - openlane-gcp-vpc-network
+  - openlane-gcp-workload-identity
 chart-repos:
   - argo-cd=https://argoproj.github.io/argo-helm
   - cert-manager=https://charts.jetstack.io
@@ -13,7 +31,7 @@ chart-repos:
   - grafana=https://grafana.github.io/helm-charts
   - oauth2-proxy=https://oauth2-proxy.github.io/manifests
   - prometheus-operator-crds=https://prometheus-community.github.io/helm-charts
-
+  - windmill=https://windmill-labs.github.io/windmill-helm-charts
 helm-extra-args: "--timeout 900s"
 validate-chart-schema: false
 validate-maintainers: false

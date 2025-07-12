@@ -43,10 +43,10 @@ firewallRules:
     direction: "INGRESS"
     priority: 1000
     sourceRanges:
-      - "10.0.0.0/8" # Adjust to your VPC's full private range if broader
+      - "10.0.0.0/8"
     allowed:
       - protocol: "all"
-    targetTags: [] # Apply to all instances in source ranges
+    targetTags: []
 
   # -- Allow ingress from GKE masters to nodes (required by GKE).
   - name: "allow-gke-master-ingress"
@@ -55,8 +55,8 @@ firewallRules:
     priority: 1000
     # GKE master CIDR block is dynamic, use Google-recommended static ranges + your VPC CIDR
     sourceRanges:
-      - "130.211.0.0/22" # GCP LB health checks and masters
-      - "35.191.0.0/16" # GCP LB health checks and masters
+      - "130.211.0.0/22"
+      - "35.191.0.0/16"
       # Consider adding your GKE master authorized network if explicitly set in cluster.
     targetTags:
       - 'gke-{{ .Values.network.projectId }}-{{ include "gcp-gke-prod-cluster.fullname" . }}-node'
@@ -73,12 +73,12 @@ firewallRules:
     direction: "INGRESS"
     priority: 1000
     sourceRanges:
-      - "130.211.0.0/22" # GCP Load Balancer Health Check IP range
-      - "35.191.0.0/16" # GCP Load Balancer Health Check IP range
+      - "130.211.0.0/22"
+      - "35.191.0.0/16"
     allowed:
       - protocol: "tcp"
-        ports: ["80", "443", "8080"] # Adjust to your service ports
-    targetTags: [] # Apply to all relevant instances/VMs (e.g., GKE nodes)
+        ports: ["80", "443", "8080"]
+    targetTags: []
 
   # -- Default allow egress to all (securely restrict this where possible)
   - name: "allow-egress-all"
@@ -101,7 +101,7 @@ sharedVPC:
     enabled: false
     # -- The reference to the host project.
     hostProjectRef:
-      external: "" # IMPORTANT: Set this to your host project ID.
+      external: ""
     # -- The reference to the host network in the Shared VPC Host project.
     hostNetworkRef:
       external: "openlane-network"

@@ -1,8 +1,9 @@
-version: 0.1.2
+version: 1.0.0
 apiVersion: v2
-appVersion: 0.1.0
-description: Deploys external-dns and its monitoring
-name: openlane-external-dns
+appVersion: 1.0.0
+description: Helm chart for managing deployment of Windmill alongside Openlane
+name: openlane-windmill
+type: application
 maintainers:
   - email: support@theopenlane.io
     name: Openlane
@@ -12,6 +13,6 @@ sources:
   - https://github.com/theopenlane/openlane-infra
 home: https://docs.theopenlane.io
 dependencies:
-  - name: external-dns
-    version: 1.17.0
-    repository: https://kubernetes-sigs.github.io/external-dns
+  - name: windmill
+    version: 2.0.439
+    repository: https://windmill-labs.github.io/windmill-helm-charts

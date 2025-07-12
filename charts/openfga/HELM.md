@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://openfga.github.io/helm-charts | openfga(openfga) | 0.2.36 |
+| https://openfga.github.io/helm-charts | openfga(openfga) | 0.2.38 |
 
 ## Maintainers
 
