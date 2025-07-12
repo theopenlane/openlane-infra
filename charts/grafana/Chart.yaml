@@ -14,10 +14,10 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: grafana
-    version: 9.2.2
+    version: 9.2.10
     repository: https://grafana.github.io/helm-charts
     alias: grafana
   - name: oauth2-proxy
-    version: 7.12.17
+    version: 7.12.19
     repository: https://oauth2-proxy.github.io/manifests
     alias: oauth2
