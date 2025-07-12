@@ -4,23 +4,23 @@ all: true
 chart-dirs:
   - charts
 excluded-charts:
-  - openlane-infra/openlane-gcp-bigquery
-  - openlane-infra/openlane-gcp-bootstrap
-  - openlane-infra/openlane-gcp-bucket
-  - openlane-infra/openlane-gcp-cloud-nat
-  - openlane-infra/openlane-gcp-cloudsql
-  - openlane-infra/openlane-gcp-compute-address
-  - openlane-infra/openlane-gcp-compute-router
-  - openlane-infra/openlane-gcp-dns-zone
-  - openlane-infra/openlane-gcp-gke-cluster
-  - openlane-infra/openlane-gcp-iam-policy-members
-  - openlane-infra/openlane-gcp-kcc
-  - openlane-infra/openlane-gcp-memorystore
-  - openlane-infra/openlane-gcp-project
-  - openlane-infra/openlane-gcp-service-account
-  - openlane-infra/openlane-gcp-subnetwork
-  - openlane-infra/openlane-gcp-vpc-network
-  - openlane-infra/openlane-gcp-workload-identity
+  - openlane-gcp-bigquery
+  - openlane-gcp-bootstrap
+  - openlane-gcp-bucket
+  - openlane-gcp-cloud-nat
+  - openlane-gcp-cloudsql
+  - openlane-gcp-compute-address
+  - openlane-gcp-compute-router
+  - openlane-gcp-dns-zone
+  - openlane-gcp-gke-cluster
+  - openlane-gcp-iam-policy-members
+  - openlane-gcp-kcc
+  - openlane-gcp-memorystore
+  - openlane-gcp-project
+  - openlane-gcp-service-account
+  - openlane-gcp-subnetwork
+  - openlane-gcp-vpc-network
+  - openlane-gcp-workload-identity
 chart-repos:
   - argo-cd=https://argoproj.github.io/argo-helm
   - cert-manager=https://charts.jetstack.io
