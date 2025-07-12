@@ -17,10 +17,10 @@ billingAccountId: "BILLING_ID_DEFAULT"
 primaryRegion: "us-east4"
 envName: "default"
 envCapitalizedName: "Default"
-kms: {} # Passed for CMEK reference
+kms: {}
 commonAppConfig:
   gkeCluster:
-    enabled: true # Default state for GKE clusters in app projects
+    enabled: true
     nodeCount: 1
     machineType: "e2-standard-2"
     workloadIdentityEnabled: true

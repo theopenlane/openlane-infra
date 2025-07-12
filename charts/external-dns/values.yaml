@@ -1,7 +1,3 @@
-
-
-  # Default values for external-dns.
-  # This is a YAML-formatted file.
 external-dns:
   global:
     # -- Global image pull secrets.
@@ -35,8 +31,8 @@ external-dns:
     # -- Annotations to add to the service account. Templates are allowed in both the key and the value. Example: `example.com/annotation/{{ .Values.nameOverride }}: {{ .Values.nameOverride }}`
     annotations: {}
     # -- (string) If this is set and `serviceAccount.create` is `true` this will be used for the created `ServiceAccount` name, if set and `serviceAccount.create` is `false` then this will define an existing `ServiceAccount` to use.
-    name: external-dns # @schema type:[string, null]; default: null
-    # -- Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `ServiceAccount`.
+    name: external-dns
+    # -- Set this to `false` to [opt out of API credential automounting] for the `ServiceAccount`.
     automountServiceAccountToken: true
 
   service:
@@ -68,7 +64,7 @@ external-dns:
     type: Recreate  # @schema enum:[Recreate, RollingUpdate]; type:string; default: Recreate
 
   # -- (int) Specify the number of old `ReplicaSets` to retain to allow rollback of the `Deployment``.
-  revisionHistoryLimit: 2 # @schema type:[integer, null];minimum:0
+  revisionHistoryLimit: 2
 
   # -- Labels to add to the `Pod`.
   podLabels: {}
@@ -219,12 +215,12 @@ external-dns:
   # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
   registry: txt  # @schema enum:[txt, aws-sd, dynamodb, noop]; default: "txt"
   # -- (string) Specify an identifier for this instance of _ExternalDNS_ wWhen using a registry other than `noop`.
-  txtOwnerId: external-dns # @schema type:[string, null]; default: null
+  txtOwnerId: external-dns
   # -- (string) Specify a prefix for the domain names of TXT records created for the `txt` registry.
-  # Mutually exclusive with `txtSuffix`.
+  #  Mutually exclusive with `txtSuffix`.
   txtPrefix:  # @schema type:[string, null]; default: null
   # -- (string) Specify a suffix for the domain names of TXT records created for the `txt` registry.
-  # Mutually exclusive with `txtPrefix`.
+  #  Mutually exclusive with `txtPrefix`.
   txtSuffix:  # @schema type:[string, null]; default: null
 
   # -- Limit possible target zones by domain suffixes.

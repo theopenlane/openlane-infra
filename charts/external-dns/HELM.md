@@ -1,4 +1,4 @@
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 # openlane-external-dns
 
@@ -17,7 +17,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes-sigs.github.io/external-dns/ | external-dns | 1.17.0 |
+| https://kubernetes-sigs.github.io/external-dns | external-dns | 1.17.0 |
 
 ## Maintainers
 
@@ -49,7 +49,7 @@ Deploys external-dns and its monitoring
 | external-dns.serviceAccount.labels | object | `{}` | Labels to add to the service account. |
 | external-dns.serviceAccount.annotations | object | `{}` | Annotations to add to the service account. Templates are allowed in both the key and the value. Example: `example.com/annotation/{{ .Values.nameOverride }}: {{ .Values.nameOverride }}` |
 | external-dns.serviceAccount.name | string | `"external-dns"` | If this is set and `serviceAccount.create` is `true` this will be used for the created `ServiceAccount` name, if set and `serviceAccount.create` is `false` then this will define an existing `ServiceAccount` to use. |
-| external-dns.serviceAccount.automountServiceAccountToken | bool | `true` | Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `ServiceAccount`. |
+| external-dns.serviceAccount.automountServiceAccountToken | bool | `true` | Set this to `false` to [opt out of API credential automounting] for the `ServiceAccount`. |
 | external-dns.service.annotations | object | `{}` | Service annotations. |
 | external-dns.service.port | int | `7979` | Service HTTP port. |
 | external-dns.service.ipFamilies | list | `[]` | Service IP families (e.g. IPv4 and/or IPv6). |
@@ -102,8 +102,8 @@ Deploys external-dns and its monitoring
 | external-dns.policy | string | `"upsert-only"` | How DNS records are synchronized between sources and providers; available values are `sync` & `upsert-only`. |
 | external-dns.registry | string | `"txt"` | Specify the registry for storing ownership and labels. Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`. |
 | external-dns.txtOwnerId | string | `"external-dns"` | Specify an identifier for this instance of _ExternalDNS_ wWhen using a registry other than `noop`. |
-| external-dns.txtPrefix | string | `nil` | Specify a prefix for the domain names of TXT records created for the `txt` registry. Mutually exclusive with `txtSuffix`. |
-| external-dns.txtSuffix | string | `nil` | Specify a suffix for the domain names of TXT records created for the `txt` registry. Mutually exclusive with `txtPrefix`. |
+| external-dns.txtPrefix | string | `nil` | Specify a prefix for the domain names of TXT records created for the `txt` registry.  Mutually exclusive with `txtSuffix`. |
+| external-dns.txtSuffix | string | `nil` | Specify a suffix for the domain names of TXT records created for the `txt` registry.  Mutually exclusive with `txtPrefix`. |
 | external-dns.domainFilters | list | `["theopenlane.org"]` | Limit possible target zones by domain suffixes. |
 | external-dns.excludeDomains | list | `[]` | Intentionally exclude domains from being managed. |
 | external-dns.labelFilter | string | `nil` | Filter resources queried for endpoints by label selector |
