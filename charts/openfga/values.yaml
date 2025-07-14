@@ -111,20 +111,20 @@ openfga:
     type: ClusterIP
     port: 8080
 
-telemetry:
-  trace:
-    enabled: false
-    otlp:
-      endpoint:
-      tls:
-        enabled: false
-    sampleRatio:
+  telemetry:
+    trace:
+      enabled: false
+      otlp:
+        endpoint:
+        tls:
+          enabled: false
+      sampleRatio:
 
-  metrics:
-    enabled: true
-    serviceMonitor:
+    metrics:
       enabled: true
-      namespace: "openfga"
+      serviceMonitor:
+        enabled: true
+        namespace: "openfga"
 
   datastore:
     engine: postgres
