@@ -263,7 +263,7 @@ openlane:
 podMonitoring:
   enabled: true
   interval: 30s
-  scrapeTimeout: 
+  scrapeTimeout:
 podMonitor:
   # -- If `true`, create a PodMonitor resource to support the Prometheus Operator.
   enabled: true

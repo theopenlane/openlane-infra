@@ -278,4 +278,4 @@ openfga:
 podMonitoring:
   enabled: true
   interval: 30s
-  scrapeTimeout: 
+  scrapeTimeout:
