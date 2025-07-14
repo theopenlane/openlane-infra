@@ -215,6 +215,9 @@ A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
 | openfga.migrate.timeout | string | `nil` |  |
 | openfga.testPodSpec | object | `{}` |  |
 | openfga.testContainerSpec | object | `{}` |  |
+| podMonitoring.enabled | bool | `true` |  |
+| podMonitoring.interval | string | `"30s"` |  |
+| podMonitoring.scrapeTimeout | string | `nil` |  |
 
 ## Update documentation
 

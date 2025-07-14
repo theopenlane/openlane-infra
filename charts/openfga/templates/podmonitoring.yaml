@@ -1,3 +1,4 @@
+{{- if .Values.podMonitoring.enabled }}
 apiVersion: monitoring.googleapis.com/v1
 kind: PodMonitoring
 metadata:
@@ -6,8 +7,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: openfga
+      {{- include "openfga.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: metrics
     path: /metrics
-    interval: 30s
+    {{- with .Values.podMonitoring.interval }}
+    interval: {{ . }}
+    {{- end }}
+    {{- with .Values.podMonitoring.scrapeTimeout }}
+    scrapeTimeout: {{ . }}
+    {{- end }}
+  {{- end }}

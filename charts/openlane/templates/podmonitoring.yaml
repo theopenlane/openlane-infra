@@ -11,10 +11,10 @@ spec:
   endpoints:
   - port: metrics
     path: /metrics
-    {{- with .Values.podMonitor.interval }}
+    {{- with .Values.podMonitoring.interval }}
     interval: {{ . }}
     {{- end }}
-    {{- with .Values.podMonitor.scrapeTimeout }}
+    {{- with .Values.podMonitoring.scrapeTimeout }}
     scrapeTimeout: {{ . }}
     {{- end }}
   {{- end }}
