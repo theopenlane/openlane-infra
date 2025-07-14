@@ -274,3 +274,8 @@ openfga:
 
   testPodSpec: {}
   testContainerSpec: {}
+
+podMonitoring:
+  enabled: true
+  interval: 30s
+  scrapeTimeout:

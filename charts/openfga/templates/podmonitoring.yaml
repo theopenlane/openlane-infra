@@ -1,0 +1,20 @@
+{{- if .Values.podMonitoring.enabled }}
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: openfga-metrics
+  namespace: openfga
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: openfga
+  endpoints:
+  - port: metrics
+    path: /metrics
+    {{- with .Values.podMonitoring.interval }}
+    interval: {{ . }}
+    {{- end }}
+    {{- with .Values.podMonitoring.scrapeTimeout }}
+    scrapeTimeout: {{ . }}
+    {{- end }}
+  {{- end }}
