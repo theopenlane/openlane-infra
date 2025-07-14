@@ -35,7 +35,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.23.1"` |  |
+| openlane.image.tag | string | `"v0.23.0"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
@@ -180,6 +180,9 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.openfga.requestTimeout | string | `"5s"` |  |
 | openlane.features.dbxEnabled | string | `"false"` |  |
 | openlane.api.commonAnnotations | object | `{}` |  |
+| podMonitoring.enabled | bool | `true` |  |
+| podMonitoring.interval | string | `"30s"` |  |
+| podMonitoring.scrapeTimeout | string | `nil` |  |
 | podMonitor.enabled | bool | `true` | If `true`, create a PodMonitor resource to support the Prometheus Operator. |
 | podMonitor.additionalLabels | object | `{}` | Additional labels for the PodMonitor. |
 | podMonitor.annotations | object | `{}` | Annotations to add to the PodMonitor. |
