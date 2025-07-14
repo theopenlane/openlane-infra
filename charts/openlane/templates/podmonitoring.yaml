@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "openlane.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/name: openlane
   endpoints:
   - port: metrics
     path: /metrics
