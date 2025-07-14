@@ -211,7 +211,7 @@ openfga:
   maxConcurrentReadsForListUsers: 1000
   changelogHorizonOffset:
   resolveNodeLimit:
-  resolveNodeBreadthLimit: 
+  resolveNodeBreadthLimit:
   listObjectsDeadline: 10s
   listObjectsMaxResults: 1000
   listUsersDeadline: 10s
