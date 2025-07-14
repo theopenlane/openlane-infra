@@ -1,5 +1,5 @@
 openfga:
-  replicaCount: 2
+  replicaCount: 3
 
   image:
     repository: openfga/openfga
@@ -23,6 +23,34 @@ openfga:
 
   extraEnvVars:
     - name: OPENFGA_MAX_CHECKS_PER_BATCH_CHECK
+      value: "500"
+    - name: OPENFGA_CHECK_CACHE_LIMIT
+      value: "50000"
+    - name: OPENFGA_CHECK_ITERATOR_CACHE_ENABLED
+      value: "true"
+    - name: OPENFGA_CHECK_ITERATOR_CACHE_MAX_RESULTS
+      value: "50000"
+    - name: OPENFGA_CHECK_ITERATOR_CACHE_TTL
+      value: "60s"
+    - name: OPENFGA_CACHE_CONTROLLER_ENABLED
+      value: "true"
+    - name: OPENFGA_CACHE_CONTROLLER_TTL
+      value: "60s"
+    - name: OPENFGA_CHECK_DISPATCH_THROTTLING_ENABLED
+      value: "true"
+    - name: OPENFGA_CHECK_DISPATCH_THROTTLING_THRESHOLD
+      value: "500"
+    - name: OPENFGA_LIST_OBJECTS_ITERATOR_CACHE_ENABLED
+      value: "true"
+    - name: OPENFGA_LIST_OBJECTS_ITERATOR_CACHE_MAX_RESULTS
+      value: "10000"
+    - name: OPENFGA_LIST_OBJECTS_ITERATOR_CACHE_TTL
+      value: "60s"
+    - name: OPENFGA_LIST_OBJECTS_DISPATCH_THROTTLING_THRESHOLD
+      value: "500"
+    - name: OPENFGA_LIST_USERS_DISPATCH_THROTTLING_ENABLED
+      value: "true"
+    - name: OPENFGA_LIST_USERS_DISPATCH_THROTTLING_THRESHOLD
       value: "500"
   extraVolumes: []
   extraVolumeMounts: []
@@ -83,8 +111,20 @@ openfga:
     type: ClusterIP
     port: 8080
 
+  telemetry:
+    trace:
+      enabled: false
+      otlp:
+        endpoint:
+        tls:
+          enabled: false
+      sampleRatio:
+
     metrics:
       enabled: true
+      serviceMonitor:
+        enabled: true
+        namespace: "openfga"
 
   datastore:
     engine: postgres
@@ -92,10 +132,10 @@ openfga:
     secretKeys:
       uriKey: uri
     maxCacheSize:
-    maxOpenConns: 20
-    maxIdleConns: 20
-    connMaxIdleTime:
-    connMaxLifetime:
+    maxOpenConns: 30
+    maxIdleConns: 10
+    connMaxIdleTime: 1h
+    connMaxLifetime: 1h
     applyMigrations: true
     waitForMigrations: true
     migrationType: job
@@ -144,7 +184,6 @@ openfga:
 
   playground:
     enabled: false
-    port: 3000
 
   profiler:
     enabled: false
@@ -157,26 +196,27 @@ openfga:
 
   checkQueryCache:
     enabled: true
-    limit:
+    limit: # deprecated, see OPENFGA_CHECK_CACHE_LIMIT
     ttl: 60s
 
   experimentals:
     - enable-check-optimizations
+    - enable-list-objects-optimizations
 
   maxTuplesPerWrite:
   maxTypesPerAuthorizationModel:
   maxAuthorizationModelSizeInBytes:
-  maxConcurrentReadsForCheck: 100
-  maxConcurrentReadsForListObjects: 100
-  maxConcurrentReadsForListUsers: 100
+  maxConcurrentReadsForCheck: 1000
+  maxConcurrentReadsForListObjects: 1000
+  maxConcurrentReadsForListUsers: 1000
   changelogHorizonOffset:
   resolveNodeLimit:
   resolveNodeBreadthLimit:
-  listObjectsDeadline: 5s
-  listObjectsMaxResults: 10000
-  listUsersDeadline: 5s
+  listObjectsDeadline: 10s
+  listObjectsMaxResults: 1000
+  listUsersDeadline: 10s
   listUsersMaxResults: 1000
-  requestTimeout: 5s
+  requestTimeout: 10s
   requestDurationDatastoreQueryCountBuckets: [50, 200]
   allowWriting1_0Models:
   allowEvaluating1_0Models:
