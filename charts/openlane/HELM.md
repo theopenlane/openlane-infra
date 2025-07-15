@@ -278,6 +278,45 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | riverboatui.riverDatabaseHost | string | `""` |  |
 | riverboatui.servicePort | int | `8080` |  |
 | riverboatui.secretName | string | `"riverboatui-app-secret"` |  |
+| core | string | `nil` |  |
+| externalSecrets.enabled | bool | `true` | Enable external secrets integration |
+| externalSecrets.secrets | object | `{"core-entconfig-summarizer-llm-gemini-credentialsjson":{"enabled":true,"remoteKey":"core-entconfig-summarizer-llm-gemini-credentialsjson","secretKey":"CORE_ENTCONFIG_SUMMARIZER_LLM_GEMINI_CREDENTIALSJSON"},"core-keywatcher-secretmanager":{"enabled":true,"remoteKey":"core-keywatcher-secretmanager","secretKey":"CORE_KEYWATCHER_SECRETMANAGER"},"core-objectstorage-accesskey":{"enabled":true,"remoteKey":"core-objectstorage-accesskey","secretKey":"CORE_OBJECTSTORAGE_ACCESSKEY"},"core-objectstorage-credentialsjson":{"enabled":true,"remoteKey":"core-objectstorage-credentialsjson","secretKey":"CORE_OBJECTSTORAGE_CREDENTIALSJSON"},"core-objectstorage-secretkey":{"enabled":true,"remoteKey":"core-objectstorage-secretkey","secretKey":"CORE_OBJECTSTORAGE_SECRETKEY"},"core-server-secretmanager":{"enabled":true,"remoteKey":"core-server-secretmanager","secretKey":"CORE_SERVER_SECRETMANAGER"},"core-slack-webhookurl":{"enabled":true,"remoteKey":"core-slack-webhookurl","secretKey":"CORE_SLACK_WEBHOOKURL"},"core-subscription-privatestripekey":{"enabled":true,"remoteKey":"core-subscription-privatestripekey","secretKey":"CORE_SUBSCRIPTION_PRIVATESTRIPEKEY"},"core-subscription-stripewebhooksecret":{"enabled":true,"remoteKey":"core-subscription-stripewebhooksecret","secretKey":"CORE_SUBSCRIPTION_STRIPEWEBHOOKSECRET"}}` | List of external secrets to create |
+| externalSecrets.secrets.core-server-secretmanager | object | `{"enabled":true,"remoteKey":"core-server-secretmanager","secretKey":"CORE_SERVER_SECRETMANAGER"}` | core-server-secretmanager secret configuration |
+| externalSecrets.secrets.core-server-secretmanager.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-server-secretmanager.secretKey | string | `"CORE_SERVER_SECRETMANAGER"` | Environment variable key for server.secretManager |
+| externalSecrets.secrets.core-server-secretmanager.remoteKey | string | `"core-server-secretmanager"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-entconfig-summarizer-llm-gemini-credentialsjson | object | `{"enabled":true,"remoteKey":"core-entconfig-summarizer-llm-gemini-credentialsjson","secretKey":"CORE_ENTCONFIG_SUMMARIZER_LLM_GEMINI_CREDENTIALSJSON"}` | core-entconfig-summarizer-llm-gemini-credentialsjson secret configuration |
+| externalSecrets.secrets.core-entconfig-summarizer-llm-gemini-credentialsjson.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-entconfig-summarizer-llm-gemini-credentialsjson.secretKey | string | `"CORE_ENTCONFIG_SUMMARIZER_LLM_GEMINI_CREDENTIALSJSON"` | Environment variable key for entConfig.summarizer.llm.gemini.credentialsJSON |
+| externalSecrets.secrets.core-entconfig-summarizer-llm-gemini-credentialsjson.remoteKey | string | `"core-entconfig-summarizer-llm-gemini-credentialsjson"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-objectstorage-accesskey | object | `{"enabled":true,"remoteKey":"core-objectstorage-accesskey","secretKey":"CORE_OBJECTSTORAGE_ACCESSKEY"}` | core-objectstorage-accesskey secret configuration |
+| externalSecrets.secrets.core-objectstorage-accesskey.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-objectstorage-accesskey.secretKey | string | `"CORE_OBJECTSTORAGE_ACCESSKEY"` | Environment variable key for objectStorage.accessKey |
+| externalSecrets.secrets.core-objectstorage-accesskey.remoteKey | string | `"core-objectstorage-accesskey"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-objectstorage-secretkey | object | `{"enabled":true,"remoteKey":"core-objectstorage-secretkey","secretKey":"CORE_OBJECTSTORAGE_SECRETKEY"}` | core-objectstorage-secretkey secret configuration |
+| externalSecrets.secrets.core-objectstorage-secretkey.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-objectstorage-secretkey.secretKey | string | `"CORE_OBJECTSTORAGE_SECRETKEY"` | Environment variable key for objectStorage.secretKey |
+| externalSecrets.secrets.core-objectstorage-secretkey.remoteKey | string | `"core-objectstorage-secretkey"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-objectstorage-credentialsjson | object | `{"enabled":true,"remoteKey":"core-objectstorage-credentialsjson","secretKey":"CORE_OBJECTSTORAGE_CREDENTIALSJSON"}` | core-objectstorage-credentialsjson secret configuration |
+| externalSecrets.secrets.core-objectstorage-credentialsjson.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-objectstorage-credentialsjson.secretKey | string | `"CORE_OBJECTSTORAGE_CREDENTIALSJSON"` | Environment variable key for objectStorage.credentialsJSON |
+| externalSecrets.secrets.core-objectstorage-credentialsjson.remoteKey | string | `"core-objectstorage-credentialsjson"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-subscription-privatestripekey | object | `{"enabled":true,"remoteKey":"core-subscription-privatestripekey","secretKey":"CORE_SUBSCRIPTION_PRIVATESTRIPEKEY"}` | core-subscription-privatestripekey secret configuration |
+| externalSecrets.secrets.core-subscription-privatestripekey.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-subscription-privatestripekey.secretKey | string | `"CORE_SUBSCRIPTION_PRIVATESTRIPEKEY"` | Environment variable key for subscription.privateStripeKey |
+| externalSecrets.secrets.core-subscription-privatestripekey.remoteKey | string | `"core-subscription-privatestripekey"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-subscription-stripewebhooksecret | object | `{"enabled":true,"remoteKey":"core-subscription-stripewebhooksecret","secretKey":"CORE_SUBSCRIPTION_STRIPEWEBHOOKSECRET"}` | core-subscription-stripewebhooksecret secret configuration |
+| externalSecrets.secrets.core-subscription-stripewebhooksecret.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-subscription-stripewebhooksecret.secretKey | string | `"CORE_SUBSCRIPTION_STRIPEWEBHOOKSECRET"` | Environment variable key for subscription.stripeWebhookSecret |
+| externalSecrets.secrets.core-subscription-stripewebhooksecret.remoteKey | string | `"core-subscription-stripewebhooksecret"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-keywatcher-secretmanager | object | `{"enabled":true,"remoteKey":"core-keywatcher-secretmanager","secretKey":"CORE_KEYWATCHER_SECRETMANAGER"}` | core-keywatcher-secretmanager secret configuration |
+| externalSecrets.secrets.core-keywatcher-secretmanager.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-keywatcher-secretmanager.secretKey | string | `"CORE_KEYWATCHER_SECRETMANAGER"` | Environment variable key for keywatcher.secretManager |
+| externalSecrets.secrets.core-keywatcher-secretmanager.remoteKey | string | `"core-keywatcher-secretmanager"` | Remote key in GCP Secret Manager |
+| externalSecrets.secrets.core-slack-webhookurl | object | `{"enabled":true,"remoteKey":"core-slack-webhookurl","secretKey":"CORE_SLACK_WEBHOOKURL"}` | core-slack-webhookurl secret configuration |
+| externalSecrets.secrets.core-slack-webhookurl.enabled | bool | `true` | Enable this external secret |
+| externalSecrets.secrets.core-slack-webhookurl.secretKey | string | `"CORE_SLACK_WEBHOOKURL"` | Environment variable key for slack.webhookURL |
+| externalSecrets.secrets.core-slack-webhookurl.remoteKey | string | `"core-slack-webhookurl"` | Remote key in GCP Secret Manager |
 
 ## Update documentation
 
