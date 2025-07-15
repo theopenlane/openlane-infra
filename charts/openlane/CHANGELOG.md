@@ -1,6 +1,27 @@
 # Changelog
 
 
+## [📈 Bumping chart version: 0.23.4 -> 0.23.5
+0.23.5] - 2025-07-15
+
+### Changed🔧 Applying Helm configuration changes...
+Updating ConfigMap template
+✅ Updated ConfigMap template
+\n- 🔄 Merged Helm values.yaml🔄 Merging Helm values.yaml
+  🔀 Merging with existing chart values...
+  📋 Replacing core section...
+  🔐 Merging external secrets configuration...
+  📊 Analyzing changes...
+\n    • External secrets configuration updated\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 4567
+- Source Commit: e291945d
+- Source Branch: main
+- Generated: 2025-07-15 18:35:38 UTC
+
+---
+
 ## [📈 Bumping chart version: 0.23.3 -> 0.23.4
 0.23.4] - 2025-07-15
 

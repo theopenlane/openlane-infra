@@ -625,6 +625,14 @@ externalSecrets:
       secretKey: "CORE_ENTCONFIG_SUMMARIZER_LLM_GEMINI_CREDENTIALSJSON" # @schema type:string
       # -- Remote key in GCP Secret Manager
       remoteKey: "core-entconfig-summarizer-llm-gemini-credentialsjson" # @schema type:string
+    # -- core-entconfig-windmill-token secret configuration
+    core-entconfig-windmill-token:
+      # -- Enable this external secret
+      enabled: true # @schema type:boolean; default:true
+      # -- Environment variable key for entConfig.windmill.token
+      secretKey: "CORE_ENTCONFIG_WINDMILL_TOKEN" # @schema type:string
+      # -- Remote key in GCP Secret Manager
+      remoteKey: "core-entconfig-windmill-token" # @schema type:string
     # -- core-objectstorage-accesskey secret configuration
     core-objectstorage-accesskey:
       # -- Enable this external secret
