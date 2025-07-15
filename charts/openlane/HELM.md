@@ -1,4 +1,4 @@
-![Version: 0.23.4](https://img.shields.io/badge/Version-0.23.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.23.3](https://img.shields.io/badge/AppVersion-v0.23.3-informational?style=flat-square)
+![Version: 0.23.5](https://img.shields.io/badge/Version-0.23.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.23.5](https://img.shields.io/badge/AppVersion-v0.23.5-informational?style=flat-square)
 
 # openlane
 
@@ -34,7 +34,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.23.3"` |  |
+| openlane.image.tag | string | `"v0.23.5"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
