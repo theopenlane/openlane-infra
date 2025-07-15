@@ -1,4 +1,4 @@
-  # +docs:section=Global
+# +docs:section=Global
 
 cert-manager:
   # Default values for cert-manager.
@@ -292,8 +292,8 @@ cert-manager:
   # ref: https://cert-manager.io/docs/concepts/certificaterequest/#approval
   # +docs:property
   approveSignerNames:
-  - issuers.cert-manager.io/*
-  - clusterissuers.cert-manager.io/*
+    - issuers.cert-manager.io/*
+    - clusterissuers.cert-manager.io/*
 
   # Additional command line flags to pass to cert-manager controller binary.
   # To see all available flags run `docker run quay.io/jetstack/cert-manager-controller:<version> --help`.
@@ -337,7 +337,7 @@ cert-manager:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-      - ALL
+        - ALL
     readOnlyRootFilesystem: true
 
   # Additional volumes to add to the cert-manager controller pod.
@@ -415,7 +415,8 @@ cert-manager:
     kubernetes.io/os: linux
 
   # +docs:ignore
-  ingressShim: {}
+  ingressShim:
+    {}
 
     # Optional default issuer to use for ingress resources.
     # +docs:property=ingressShim.defaultIssuerName
@@ -443,7 +444,6 @@ cert-manager:
   # but certain domains should be excluded.
   # +docs:property
   # no_proxy: 127.0.0.1,localhost
-
 
   # A Kubernetes Affinity, if required. For more information, see [Affinity v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core).
   #
@@ -704,7 +704,7 @@ cert-manager:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
       readOnlyRootFilesystem: true
 
     podDisruptionBudget:
@@ -771,7 +771,6 @@ cert-manager:
       #      operator: NotIn
       #      values:
       #        - kube-system
-
 
     # Additional command line flags to pass to cert-manager webhook binary.
     # To see all available flags run `docker run quay.io/jetstack/cert-manager-webhook:<version> --help`.
@@ -955,7 +954,8 @@ cert-manager:
 
     # Overrides the mutating webhook and validating webhook so they reach the webhook
     # service using the `url` field instead of a service.
-    url: {}
+    url:
+      {}
       # host:
 
     # Enables default network policies for webhooks.
@@ -967,30 +967,30 @@ cert-manager:
       # inbound traffic.
       # +docs:property
       ingress:
-      - from:
-        - ipBlock:
-            cidr: 0.0.0.0/0
+        - from:
+            - ipBlock:
+                cidr: 0.0.0.0/0
 
       # Egress rule for the webhook network policy. By default, it allows all
       # outbound traffic to ports 80 and 443, as well as DNS ports.
       # +docs:property
       egress:
-      - ports:
-        - port: 80
-          protocol: TCP
-        - port: 443
-          protocol: TCP
-        - port: 53
-          protocol: TCP
-        - port: 53
-          protocol: UDP
-        # On OpenShift and OKD, the Kubernetes API server listens on.
-        # port 6443.
-        - port: 6443
-          protocol: TCP
-        to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
+        - ports:
+            - port: 80
+              protocol: TCP
+            - port: 443
+              protocol: TCP
+            - port: 53
+              protocol: TCP
+            - port: 53
+              protocol: UDP
+            # On OpenShift and OKD, the Kubernetes API server listens on.
+            # port 6443.
+            - port: 6443
+              protocol: TCP
+          to:
+            - ipBlock:
+                cidr: 0.0.0.0/0
 
     # Additional volumes to add to the cert-manager controller pod.
     volumes: []
@@ -1071,7 +1071,7 @@ cert-manager:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
       readOnlyRootFilesystem: true
 
     podDisruptionBudget:
@@ -1135,7 +1135,6 @@ cert-manager:
     #
     # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
     resources: {}
-
 
     # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
     # matching labels.
@@ -1298,7 +1297,7 @@ cert-manager:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-        - ALL
+          - ALL
       readOnlyRootFilesystem: true
 
     # Timeout for 'kubectl check api' command.
@@ -1326,7 +1325,7 @@ cert-manager:
     # the webhook URL, IP address and TCP connect errors for example.
     # +docs:property
     extraArgs:
-    - -v
+      - -v
 
     # Additional environment variables to pass to cert-manager startupapicheck binary.
     # For example:
@@ -1344,7 +1343,6 @@ cert-manager:
     #
     # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
     resources: {}
-
 
     # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
     # matching labels.
@@ -1474,3 +1472,94 @@ cert-manager:
   # for more info.
   # +docs:hidden
   enabled: true
+
+origin-ca-issuer:
+  # Value specific to the origin-ca-issuer controller
+  controller:
+    image:
+      repository: cloudflare/origin-ca-issuer
+      tag: v0.12.1
+      pullPolicy: Always
+
+    replicaCount: 1
+
+    # Optional deployment rollout strategy.
+    # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+    #   strategy:
+    #     rollingUpdate:
+    #       maxSurge: 0
+    #       maxUnavailable: 1
+    strategy: {}
+
+    # Disable waiting for CertificateRequests to be Approved before signing
+    disableApprovedCheck: false
+
+    # Override the namespace used to resolve API tokens for OriginClusterIssuer resources.
+    # By default, the namespace of the controller is used.
+    clusterResourceNamespace: ""
+
+    # Optional additional arguments
+    extraArgs: []
+
+    # Optional additional environment variables
+    extraEnv: []
+
+    # Specifies the service account for the controller.
+    serviceAccount:
+      create: true
+      # The name of the service account to use. If not set, a name is generated based on the template's full name.
+      # name: ""
+      # Optional additional annotations to add to the controller's service account.
+      # annotations: {}
+
+    resources:
+      limits:
+        cpu: "1"
+        memory: 512Mi
+      requests:
+        cpu: "1"
+        memory: 512Mi
+
+    # Optional Pod Security Context
+    # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    securityContext: {}
+
+    # Optional Container Security Context
+    # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    containerSecurityContext: {}
+
+    # Optional volumes to use with the origin-ca-issuer pods
+    # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/
+    volumes: []
+    volumeMounts: []
+
+    # Optional additional annotations to add to the deployment.
+    deploymentAnnotations: {}
+
+    # Optional additional labels to add to the deployment.
+    deploymentLabels: {}
+
+    # Optional additional annotations to add to the pods.
+    podAnnotations: {}
+
+    # Optional additional labels to add to the pods.
+    podLabels: {}
+
+    # Optional node selector for the deployment.
+    nodeSelector: {}
+
+    # Optional pod (anti-)affinities.
+    # ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#affinity-v1-core
+    affinity: {}
+
+    # Optional pod tolerations.
+    # ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#toleration-v1-core
+    #   tolerations:
+    #     - key: "CriticalAddonsOnly"
+    #       operator: "Exists"
+    #       effect: "NoSchedule"
+    tolerations: []
+
+  certmanager:
+    namespace: cert-manager
+    serviceAccountName: cert-manager

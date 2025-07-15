@@ -16,6 +16,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.jetstack.io | cert-manager | v1.18.2 |
+| oci://ghcr.io/cloudflare/origin-ca-issuer-charts | origin-ca-issuer | 0.5.12 |
 
 ## Maintainers
 
@@ -238,6 +239,33 @@ A Helm chart to deploy cert-manager on GKE clusters using Config Connector for O
 | cert-manager.extraObjects | list | `[]` |  |
 | cert-manager.creator | string | `"helm"` |  |
 | cert-manager.enabled | bool | `true` |  |
+| origin-ca-issuer.controller.image.repository | string | `"cloudflare/origin-ca-issuer"` |  |
+| origin-ca-issuer.controller.image.tag | string | `"v0.12.1"` |  |
+| origin-ca-issuer.controller.image.pullPolicy | string | `"Always"` |  |
+| origin-ca-issuer.controller.replicaCount | int | `1` |  |
+| origin-ca-issuer.controller.strategy | object | `{}` |  |
+| origin-ca-issuer.controller.disableApprovedCheck | bool | `false` |  |
+| origin-ca-issuer.controller.clusterResourceNamespace | string | `""` |  |
+| origin-ca-issuer.controller.extraArgs | list | `[]` |  |
+| origin-ca-issuer.controller.extraEnv | list | `[]` |  |
+| origin-ca-issuer.controller.serviceAccount.create | bool | `true` |  |
+| origin-ca-issuer.controller.resources.limits.cpu | string | `"1"` |  |
+| origin-ca-issuer.controller.resources.limits.memory | string | `"512Mi"` |  |
+| origin-ca-issuer.controller.resources.requests.cpu | string | `"1"` |  |
+| origin-ca-issuer.controller.resources.requests.memory | string | `"512Mi"` |  |
+| origin-ca-issuer.controller.securityContext | object | `{}` |  |
+| origin-ca-issuer.controller.containerSecurityContext | object | `{}` |  |
+| origin-ca-issuer.controller.volumes | list | `[]` |  |
+| origin-ca-issuer.controller.volumeMounts | list | `[]` |  |
+| origin-ca-issuer.controller.deploymentAnnotations | object | `{}` |  |
+| origin-ca-issuer.controller.deploymentLabels | object | `{}` |  |
+| origin-ca-issuer.controller.podAnnotations | object | `{}` |  |
+| origin-ca-issuer.controller.podLabels | object | `{}` |  |
+| origin-ca-issuer.controller.nodeSelector | object | `{}` |  |
+| origin-ca-issuer.controller.affinity | object | `{}` |  |
+| origin-ca-issuer.controller.tolerations | list | `[]` |  |
+| origin-ca-issuer.certmanager.namespace | string | `"cert-manager"` |  |
+| origin-ca-issuer.certmanager.serviceAccountName | string | `"cert-manager"` |  |
 
 ## Update documentation
 
