@@ -784,3 +784,4 @@ externalSecrets:
       secretKey: "CORE_SLACK_WEBHOOKURL" # @schema type:string
       # -- Remote key in GCP Secret Manager
       remoteKey: "core-slack-webhookurl" # @schema type:string
+core: null
