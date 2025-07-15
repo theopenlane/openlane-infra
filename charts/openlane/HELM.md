@@ -398,6 +398,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | externalSecrets.secrets.core-slack-webhookurl.enabled | bool | `true` | Enable this external secret |
 | externalSecrets.secrets.core-slack-webhookurl.secretKey | string | `"CORE_SLACK_WEBHOOKURL"` | Environment variable key for slack.webhookURL |
 | externalSecrets.secrets.core-slack-webhookurl.remoteKey | string | `"core-slack-webhookurl"` | Remote key in GCP Secret Manager |
+| core | string | `nil` |  |
 
 ## Update documentation
 
