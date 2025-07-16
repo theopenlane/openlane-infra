@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   openlane:
   - apiVersion: v2
+    appVersion: v0.23.5
+    created: "2025-07-16T17:00:11.479294434Z"
+    description: A Helm chart to deploy the core Openlane server on GKE clusters
+    digest: 6c380a878dbe3bfe173b8c6cb8b6c35d751051b1c17716986fd1acf05b72aad1
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane
+    sources:
+    - https://github.com/theopenlane/core
+    type: application
+    urls:
+    - openlane-0.23.6.tgz
+    version: 0.23.6
+  - apiVersion: v2
     appVersion: v0.23.3
     created: "2025-07-15T18:38:24.736517211Z"
     description: A Helm chart to deploy the core Openlane server on GKE clusters
@@ -896,4 +914,4 @@ entries:
     urls:
     - openlane-windmill-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-15T18:38:24.736597592Z"
+generated: "2025-07-16T17:00:11.632633915Z"
