@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [0.23.6] - 2025-07-16
+
+### Changed\n- 🔄 Merged Helm values.yaml\n- 🔐 External secrets configuration updated
+
+### Build Information
+- Build Number: 4603
+- Source Commit: e6f71d10
+- Source Branch: main
+- Generated: 2025-07-16 16:57:28 UTC
+
+---
+
 ## [📈 Bumping chart version: 0.23.4 -> 0.23.5
 0.23.5] - 2025-07-15
 
