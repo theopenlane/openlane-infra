@@ -582,6 +582,26 @@ entries:
     urls:
     - openlane-gcp-compute-router-0.1.0.tgz
     version: 0.1.0
+  openlane-gcp-dns-zone:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-07-16T17:18:39.578583168Z"
+    description: A Helm chart for gcp-dns-zone resource
+    digest: a0e5a1e780b1e0d513d3d5e9cb344a0dea20cf39e6978657cf418d66f3641fb4
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane-gcp-dns-zone
+    sources:
+    - https://github.com/theopenlane/core
+    - https://github.com/theopenlane/openlane-infra
+    type: application
+    urls:
+    - openlane-gcp-dns-zone-0.1.1.tgz
+    version: 0.1.1
   openlane-gcp-gke-cluster:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -914,4 +934,4 @@ entries:
     urls:
     - openlane-windmill-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-16T17:00:11.632633915Z"
+generated: "2025-07-16T17:18:40.826406574Z"
