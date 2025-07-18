@@ -117,11 +117,11 @@ if [[ -n "$DEP_ALIAS" ]]; then
 fi
 
 # --- Step 4: Copy external template files ---
-# Copy README template
-if [ -f "$SCRIPT_DIR/templates/README.md.gotmpl" ]; then
-  cp "$SCRIPT_DIR/templates/README.md.gotmpl" "$CHART_DIR/$CHART_NAME/README.md.gotmpl"
+# Copy HELM template
+if [ -f "$SCRIPT_DIR/templates/HELM.md.gotmpl" ]; then
+  cp "$SCRIPT_DIR/templates/HELM.md.gotmpl" "$CHART_DIR/$CHART_NAME/HELM.md.gotmpl"
 else
-  echo "Error: README template file not found in $SCRIPT_DIR/templates"
+  echo "Error: HELM template file not found in $SCRIPT_DIR/templates"
   exit 1
 fi
 

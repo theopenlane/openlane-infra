@@ -1,0 +1,11 @@
+apiVersion: cert-manager.k8s.cloudflare.com/v1
+kind: OriginIssuer
+metadata:
+  name: cloudflare-openlane-dns-com-api-token
+  namespace: gateway-system
+spec:
+  requestType: OriginECC
+  auth:
+    tokenRef:
+      name: cloudflare-openlane-dns-com-api-token
+      key: key
