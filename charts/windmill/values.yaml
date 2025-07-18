@@ -8,7 +8,7 @@ windmill:
         enabled: true
       resources:
         limits:
-          memory: "2Gi"
+          memory: "1Gi"
         requests:
           cpu: "250m"
           memory: "1024Mi"
@@ -83,7 +83,7 @@ windmill:
         # -- Controller to use. Valid options are "Deployment" and "StatefulSet"
         controller: "Deployment"
 
-        replicas: 3
+        replicas: 2
         # -- Annotations to apply to the pods
         annotations: {}
 
