@@ -38,7 +38,7 @@ Helm chart for managing deployment of Windmill alongside Openlane
 | windmill.postgresql.enabled | bool | `false` | enabled included Postgres container for demo purposes only using bitnami |
 | windmill.postgresql.fullnameOverride | string | `"windmill-postgresql"` |  |
 | windmill.postgresql.primary.persistence.enabled | bool | `true` |  |
-| windmill.postgresql.primary.resources.limits.memory | string | `"2Gi"` |  |
+| windmill.postgresql.primary.resources.limits.memory | string | `"1Gi"` |  |
 | windmill.postgresql.primary.resources.requests.cpu | string | `"250m"` |  |
 | windmill.postgresql.primary.resources.requests.memory | string | `"1024Mi"` |  |
 | windmill.postgresql.auth.postgresPassword | string | `"windmill"` |  |
@@ -74,7 +74,7 @@ Helm chart for managing deployment of Windmill alongside Openlane
 | windmill.windmill.hostAliases | list | `[]` | host aliases for all pods (can be overridden by individual worker groups) |
 | windmill.windmill.workerGroups[0].name | string | `"default"` |  |
 | windmill.windmill.workerGroups[0].controller | string | `"Deployment"` | Controller to use. Valid options are "Deployment" and "StatefulSet" |
-| windmill.windmill.workerGroups[0].replicas | int | `3` |  |
+| windmill.windmill.workerGroups[0].replicas | int | `2` |  |
 | windmill.windmill.workerGroups[0].annotations | object | `{}` | Annotations to apply to the pods |
 | windmill.windmill.workerGroups[0].terminationGracePeriodSeconds | int | `604800` | If a job is being ran, the container will wait for it to finish before terminating until this grace period |
 | windmill.windmill.workerGroups[0].labels | object | `{}` | Labels to apply to the pods |
