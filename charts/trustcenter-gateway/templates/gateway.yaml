@@ -1,0 +1,73 @@
+kind: Gateway
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: trustcenter-gateway
+  namespace: gateway-system
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        kinds:
+          - kind: HTTPRoute
+        namespaces:
+          from: All
+
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: openlane-dns-com-tls
+      allowedRoutes:
+        kinds:
+          - kind: HTTPRoute
+        namespaces:
+          from: All
+---
+# http route to solve acme challenges for the trust center
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: trustcenter-http-route
+  namespace: openlane
+  labels:
+    gateway: trustcenter-gateway
+spec:
+  parentRefs:
+    - name: trustcenter-gateway
+      sectionName: http
+      namespace: gateway-system
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/acme-challenge
+      backendRefs:
+        - name: prod-openlane
+          port: 80
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+---
+# TODO: eventually this should route to the public trust center frontend, but
+# routing to an echo server to validate the dns verification bits all work
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: trustcenter-https-route
+  namespace: gateway-system
+spec:
+  parentRefs:
+    - name: trustcenter-gateway
+      sectionName: https
+      namespace: gateway-system
+  rules:
+    - backendRefs:
+        - name: echo-server
+          port: 80
+          namespace: gateway-system
