@@ -17,19 +17,13 @@ spec:
     - path:
         type: PathPrefix
         value: /
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            add:
-            - name: X-Auth-Request-Redirect
-              value: "https://grafana.theopenlane.org/oauth2/start?rd=https://grafana.theopenlane.org/"
-      backendRefs:
-        - name: grafana-oauth2
-          port: 80
+    backendRefs:
+      - name: grafana-oauth2
+        port: 80
   - matches:
-      - path:
-          type: PathPrefix
-          value: /oauth2/
+    - path:
+        type: PathPrefix
+        value: /oauth2/
     backendRefs:
       - name: grafana-oauth2
         port: 80
