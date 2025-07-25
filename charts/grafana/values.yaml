@@ -58,9 +58,9 @@ oauth2:
       set_xauthrequest = true
       skip_auth_preflight = true
       redirect_url = "https://grafana.theopenlane.org/oauth2/callback"
-      upstreams = [ "http://grafana.grafana.svc.cluster.local:80/", ]
-      whitelist_domains: = [ "*.theopenlane.org", ]
-      email_domains = [ "*", ]
+      upstreams = [ "http://grafana.grafana.svc.cluster.local:80/" ]
+      whitelist_domains = [ "*.theopenlane.org" ]
+      email_domains = [ "*" ]
 
 
 # leaving this here as it's how i crated the oauth2 route
