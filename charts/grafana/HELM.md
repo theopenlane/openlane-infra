@@ -74,7 +74,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | oauth2.config.whitelistDomains[1] | string | `".theopenlane.io"` |  |
 | oauth2.config.redirectURL | string | `"https://grafana.theopenlane.org/oauth2/callback"` |  |
 | oauth2.config.upstreams[0] | string | `"http://grafana.default.svc.cluster.local:3000/"` |  |
-| oauth2.ingress.enabled | bool | `true` |  |
+| oauth2.ingress.enabled | bool | `false` |  |
 | oauth2.ingress.ingressClassName | string | `"gce"` |  |
 | oauth2.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
 | oauth2.ingress.annotations."external-dns.alpha.kubernetes.io/hostname" | string | `"grafana.theopenlane.org"` |  |

@@ -68,7 +68,7 @@ oauth2:
 
 # leaving this here as it's how i crated the oauth2 route
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: gce
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
