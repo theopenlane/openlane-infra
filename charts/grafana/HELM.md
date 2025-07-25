@@ -66,7 +66,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.persistence.size | string | `"10Gi"` |  |
 | oauth2.config.existingSecret | string | `"grafana-app-secret"` |  |
 | oauth2.config.provider | string | `"google"` |  |
-| oauth2.config.configFile | string | `"set_xauthrequest = true\nskip_auth_preflight = true\nredirect_url = \"https://grafana.theopenlane.org/oauth2/callback\"\nupstreams = [ \"http://grafana.grafana.svc.cluster.local:80/\" ]\nwhitelist_domains: = [ \"*.theopenlane.org\" ]\nemail_domains = [ \"*\" ]"` |  |
+| oauth2.config.configFile | string | `"set_xauthrequest = true\nskip_auth_preflight = true\nredirect_url = \"https://grafana.theopenlane.org/oauth2/callback\"\nupstreams = [ \"http://grafana.grafana.svc.cluster.local:80/\", ]\nwhitelist_domains: = [ \"*.theopenlane.org\", ]\nemail_domains = [ \"*\", ]"` |  |
 | oauth2.ingress.enabled | bool | `false` |  |
 | oauth2.ingress.ingressClassName | string | `"gce"` |  |
 | oauth2.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
