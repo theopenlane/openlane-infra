@@ -56,7 +56,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.datasources."datasources.yaml".datasources[0].isDefault | bool | `true` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.authenticationType | string | `"gce"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"prod-apps-project"` |  |
-| grafana.ingress.enabled | bool | `true` |  |
+| grafana.ingress.enabled | bool | `false` |  |
 | grafana.ingress.ingressClassName | string | `"gce"` |  |
 | grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
 | grafana.ingress.annotations."external-dns.alpha.kubernetes.io/hostname" | string | `"grafana.theopenlane.org"` |  |
@@ -65,9 +65,8 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.ingress.tls[0].secretName | string | `"grafana-tls"` |  |
 | grafana.persistence.enabled | bool | `true` |  |
 | grafana.persistence.size | string | `"10Gi"` |  |
-| oauth2.config.clientID | string | `"YOUR_GOOGLE_OAUTH_CLIENT_ID"` |  |
-| oauth2.config.clientSecret | string | `"YOUR_GOOGLE_OAUTH_CLIENT_SECRET"` |  |
-| oauth2.config.cookieSecret | string | `"YOUR_RANDOM_32BYTE_SECRET_BASE64"` |  |
+| oauth2.config.existingSecret | string | `"grafana-app-secret"` |  |
+| oauth2.config.cookieSecret | string | `"L0RBTFc2NVNCWDkrSDJDNG9zeFBHWFYrK3p4WFcxS0w="` |  |
 | oauth2.config.provider | string | `"google"` |  |
 | oauth2.config.emailDomains[0] | string | `"theopenlane.org"` |  |
 | oauth2.config.emailDomains[1] | string | `"theopenlane.io"` |  |

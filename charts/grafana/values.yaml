@@ -33,8 +33,9 @@ grafana:
             authenticationType: gce
             defaultProject: prod-apps-project
 
+# leaving this here as it's how i crated the http route
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: gce
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -52,9 +53,8 @@ grafana:
 
 oauth2:
   config:
-    clientID: YOUR_GOOGLE_OAUTH_CLIENT_ID
-    clientSecret: YOUR_GOOGLE_OAUTH_CLIENT_SECRET
-    cookieSecret: YOUR_RANDOM_32BYTE_SECRET_BASE64
+    existingSecret: grafana-app-secret
+    cookieSecret: L0RBTFc2NVNCWDkrSDJDNG9zeFBHWFYrK3p4WFcxS0w=
     provider: google
     emailDomains:
       - theopenlane.org
@@ -66,6 +66,7 @@ oauth2:
     upstreams:
       - http://grafana.default.svc.cluster.local:3000/
 
+# leaving this here as it's how i crated the oauth2 route
   ingress:
     enabled: true
     ingressClassName: gce

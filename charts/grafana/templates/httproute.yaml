@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: grafana-http-route
+  namespace: grafana
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: grafana.theopenlane.org
+spec:
+  parentRefs:
+  - name: openlane-org-gateway
+    namespace: gateway-system
+    sectionName: https
+  hostnames:
+    - grafana.theopenlane.org
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: prod-grafana
+      port: 80
+  - matches:
+    - path:
+        type: ImplementationSpecific
+        value: /
+    backendRefs:
+    - name: prod-oauth2
+      port: 80
