@@ -18,12 +18,12 @@ spec:
         type: PathPrefix
         value: /
     backendRefs:
-    - name: prod-grafana
+    - name: grafana
       port: 80
   - matches:
     - path:
         type: PathPrefix
         value: /
     backendRefs:
-    - name: prod-oauth2
+    - name: grafana-oauth2
       port: 80
