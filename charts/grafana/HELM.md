@@ -41,7 +41,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana."grafana.ini".auth.disable_login_form | bool | `true` |  |
 | grafana."grafana.ini".auth.disable_signout_menu | bool | `false` |  |
 | grafana."grafana.ini"."auth.proxy".enabled | bool | `true` |  |
-| grafana."grafana.ini"."auth.proxy".header_name | string | `"X-Auth-Request-Email"` |  |
+| grafana."grafana.ini"."auth.proxy".header_name | string | `"X-Auth-Request-Redirect"` |  |
 | grafana."grafana.ini"."auth.proxy".auto_sign_up | bool | `true` |  |
 | grafana."grafana.ini"."auth.proxy".sync_ttl | int | `60` |  |
 | grafana."grafana.ini"."auth.proxy".whitelist | string | `""` |  |
@@ -65,14 +65,13 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.persistence.enabled | bool | `true` |  |
 | grafana.persistence.size | string | `"10Gi"` |  |
 | oauth2.config.existingSecret | string | `"grafana-app-secret"` |  |
-| oauth2.config.cookieSecret | string | `"L0RBTFc2NVNCWDkrSDJDNG9zeFBHWFYrK3p4WFcxS0w="` |  |
 | oauth2.config.provider | string | `"google"` |  |
 | oauth2.config.emailDomains[0] | string | `"theopenlane.org"` |  |
 | oauth2.config.emailDomains[1] | string | `"theopenlane.io"` |  |
 | oauth2.config.whitelistDomains[0] | string | `".theopenlane.org"` |  |
 | oauth2.config.whitelistDomains[1] | string | `".theopenlane.io"` |  |
 | oauth2.config.redirectURL | string | `"https://grafana.theopenlane.org/oauth2/callback"` |  |
-| oauth2.config.upstreams[0] | string | `"http://grafana.default.svc.cluster.local:3000/"` |  |
+| oauth2.config.upstreams[0] | string | `"http://grafana.default.svc.cluster.local:80"` |  |
 | oauth2.ingress.enabled | bool | `false` |  |
 | oauth2.ingress.ingressClassName | string | `"gce"` |  |
 | oauth2.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |

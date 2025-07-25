@@ -9,7 +9,7 @@ grafana:
       disable_signout_menu: false
     auth.proxy:
       enabled: true
-      header_name: X-Auth-Request-Email
+      header_name: X-Auth-Request-Redirect
       auto_sign_up: true
       sync_ttl: 60
       whitelist: ""
@@ -53,7 +53,6 @@ grafana:
 oauth2:
   config:
     existingSecret: grafana-app-secret
-    cookieSecret: L0RBTFc2NVNCWDkrSDJDNG9zeFBHWFYrK3p4WFcxS0w=
     provider: google
     emailDomains:
       - theopenlane.org
@@ -63,7 +62,7 @@ oauth2:
       - .theopenlane.io
     redirectURL: https://grafana.theopenlane.org/oauth2/callback
     upstreams:
-      - http://grafana.default.svc.cluster.local:3000/
+      - http://grafana.default.svc.cluster.local:80
 
 # leaving this here as it's how i crated the oauth2 route
   ingress:
