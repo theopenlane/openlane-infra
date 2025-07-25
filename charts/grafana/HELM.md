@@ -66,15 +66,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.persistence.size | string | `"10Gi"` |  |
 | oauth2.config.existingSecret | string | `"grafana-app-secret"` |  |
 | oauth2.config.provider | string | `"google"` |  |
-| oauth2.config.setXAuthRequest | bool | `true` |  |
-| oauth2.config.skipAuthPreflight[0] | string | `"GET"` |  |
-| oauth2.config.skipAuthPreflight[1] | string | `"OPTIONS"` |  |
-| oauth2.config.emailDomains[0] | string | `"theopenlane.org"` |  |
-| oauth2.config.emailDomains[1] | string | `"theopenlane.io"` |  |
-| oauth2.config.whitelistDomains[0] | string | `".theopenlane.org"` |  |
-| oauth2.config.whitelistDomains[1] | string | `".theopenlane.io"` |  |
-| oauth2.config.redirectURL | string | `"https://grafana.theopenlane.org/oauth2/callback"` |  |
-| oauth2.config.upstreams[0] | string | `"http://grafana.grafana.svc.cluster.local:80/"` |  |
+| oauth2.config.configFile | string | `"set_xauthrequest: true\nskip_auth_preflight: true\nredirect_url: https://grafana.theopenlane.org/oauth2/callback\nupstreams:\n  - http://grafana.grafana.svc.cluster.local:80/\nwhitelist_domains:\n  - theopenlane.org\n  - theopenlane.io\nemail_domains:\n  - theopenlane.org\n  - theopenlane.io"` |  |
 | oauth2.ingress.enabled | bool | `false` |  |
 | oauth2.ingress.ingressClassName | string | `"gce"` |  |
 | oauth2.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |

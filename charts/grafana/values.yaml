@@ -54,19 +54,18 @@ oauth2:
   config:
     existingSecret: grafana-app-secret
     provider: google
-    setXAuthRequest: true
-    skipAuthPreflight:
-      - "GET"
-      - "OPTIONS"
-    emailDomains:
-      - theopenlane.org
-      - theopenlane.io
-    whitelistDomains:
-      - .theopenlane.org
-      - .theopenlane.io
-    redirectURL: https://grafana.theopenlane.org/oauth2/callback
-    upstreams:
-      - http://grafana.grafana.svc.cluster.local:80/
+    configFile: |-
+      set_xauthrequest: true
+      skip_auth_preflight: true
+      redirect_url: https://grafana.theopenlane.org/oauth2/callback
+      upstreams:
+        - http://grafana.grafana.svc.cluster.local:80/
+      whitelist_domains:
+        - theopenlane.org
+        - theopenlane.io
+      email_domains:
+        - theopenlane.org
+        - theopenlane.io
 
 # leaving this here as it's how i crated the oauth2 route
   ingress:
