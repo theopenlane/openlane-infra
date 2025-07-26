@@ -36,8 +36,6 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| grafana.admin.userKey | string | `"admin-user"` |  |
-| grafana.admin.passwordKey | string | `"admin-password"` |  |
 | grafana."grafana.ini".auth.disable_login_form | bool | `true` |  |
 | grafana."grafana.ini".auth.disable_signout_menu | bool | `false` |  |
 | grafana."grafana.ini"."auth.anonymous".enabled | bool | `true` |  |
