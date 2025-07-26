@@ -1,13 +1,11 @@
 grafana:
-  admin:
-    existingSecret: grafana-admin-secret
-    userKey: admin-user
-    passwordKey: admin-password
-
   grafana.ini:
     auth:
       disable_login_form: true
       disable_signout_menu: false
+    auth.anonymous:
+      enabled: true
+      org_role: "Admin"
     auth.proxy:
       enabled: true
       header_name: X-Auth-Request-Email
@@ -20,6 +18,8 @@ grafana:
       data: /var/lib/grafana/data
     analytics:
       check_for_updates: true
+    users:
+      auto_assign_org_role: Admin
 
   datasources:
     datasources.yaml:
@@ -28,46 +28,47 @@ grafana:
         - name: Google Cloud Monitoring
           type: stackdriver
           access: proxy
+          editable: true
+          orgId: 1
           isDefault: true
           jsonData:
             authenticationType: gce
             defaultProject: prod-apps-project
 
-  ingress:
-    enabled: true
-    ingressClassName: gce
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      external-dns.alpha.kubernetes.io/hostname: grafana.theopenlane.org
-    hosts:
-      - grafana.theopenlane.org
-    tls:
-      - hosts:
-          - grafana.theopenlane.org
-        secretName: grafana-tls
-
   persistence:
     enabled: true
     size: 10Gi
 
+  plugins:
+    - grafana-clock-panel
+    - digrich-bubblechart-panel
+    - natel-discrete-panel
+    - pr0ps-trackmap-panel
+    - grafana-piechart-panel
+    - vonage-status-panel
+    - grafana-worldmap-panel
+
+  serviceAccount:
+    annotations:
+      iam.gke.io/gcp-service-account: grafana-gke-sa@prod-apps-project.iam.gserviceaccount.com
+    automountServiceAccountToken: true
+
 oauth2:
   config:
-    clientID: YOUR_GOOGLE_OAUTH_CLIENT_ID
-    clientSecret: YOUR_GOOGLE_OAUTH_CLIENT_SECRET
-    cookieSecret: YOUR_RANDOM_32BYTE_SECRET_BASE64
+    existingSecret: grafana-app-secret
     provider: google
-    emailDomains:
-      - theopenlane.org
-      - theopenlane.io
-    whitelistDomains:
-      - .theopenlane.org
-      - .theopenlane.io
-    redirectURL: https://grafana.theopenlane.org/oauth2/callback
-    upstreams:
-      - http://grafana.default.svc.cluster.local:3000/
+    configFile: |-
+      set_xauthrequest = true
+      skip_auth_preflight = true
+      redirect_url = "https://grafana.theopenlane.org/oauth2/callback"
+      upstreams = [ "http://grafana:80/" ]
+      whitelist_domains = [ "*.theopenlane.org" ]
+      email_domains = [ "*" ]
 
+
+# leaving this here as it's how i crated the oauth2 route
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: gce
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
