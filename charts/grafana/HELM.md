@@ -41,6 +41,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana."grafana.ini".auth.disable_login_form | bool | `true` |  |
 | grafana."grafana.ini".auth.disable_signout_menu | bool | `false` |  |
 | grafana."grafana.ini"."auth.anonymous".enabled | bool | `true` |  |
+| grafana."grafana.ini"."auth.anonymous".org_role | string | `"Admin"` |  |
 | grafana."grafana.ini"."auth.proxy".enabled | bool | `true` |  |
 | grafana."grafana.ini"."auth.proxy".header_name | string | `"X-Auth-Request-Email"` |  |
 | grafana."grafana.ini"."auth.proxy".auto_sign_up | bool | `true` |  |
@@ -49,22 +50,25 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana."grafana.ini".server.root_url | string | `"https://grafana.theopenlane.org"` |  |
 | grafana."grafana.ini".paths.data | string | `"/var/lib/grafana/data"` |  |
 | grafana."grafana.ini".analytics.check_for_updates | bool | `true` |  |
+| grafana."grafana.ini".users.auto_assign_org_role | string | `"Admin"` |  |
 | grafana.datasources."datasources.yaml".apiVersion | int | `1` |  |
 | grafana.datasources."datasources.yaml".datasources[0].name | string | `"Google Cloud Monitoring"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].type | string | `"stackdriver"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].access | string | `"proxy"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].editable | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[0].orgId | int | `1` |  |
 | grafana.datasources."datasources.yaml".datasources[0].isDefault | bool | `true` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.authenticationType | string | `"gce"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.defaultProject | string | `"prod-apps-project"` |  |
-| grafana.ingress.enabled | bool | `false` |  |
-| grafana.ingress.ingressClassName | string | `"gce"` |  |
-| grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"letsencrypt-prod"` |  |
-| grafana.ingress.annotations."external-dns.alpha.kubernetes.io/hostname" | string | `"grafana.theopenlane.org"` |  |
-| grafana.ingress.hosts[0] | string | `"grafana.theopenlane.org"` |  |
-| grafana.ingress.tls[0].hosts[0] | string | `"grafana.theopenlane.org"` |  |
-| grafana.ingress.tls[0].secretName | string | `"grafana-tls"` |  |
 | grafana.persistence.enabled | bool | `true` |  |
 | grafana.persistence.size | string | `"10Gi"` |  |
+| grafana.plugins[0] | string | `"grafana-clock-panel"` |  |
+| grafana.plugins[1] | string | `"digrich-bubblechart-panel"` |  |
+| grafana.plugins[2] | string | `"natel-discrete-panel"` |  |
+| grafana.plugins[3] | string | `"pr0ps-trackmap-panel"` |  |
+| grafana.plugins[4] | string | `"grafana-piechart-panel"` |  |
+| grafana.plugins[5] | string | `"vonage-status-panel"` |  |
+| grafana.plugins[6] | string | `"grafana-worldmap-panel"` |  |
 | oauth2.config.existingSecret | string | `"grafana-app-secret"` |  |
 | oauth2.config.provider | string | `"google"` |  |
 | oauth2.config.configFile | string | `"set_xauthrequest = true\nskip_auth_preflight = true\nredirect_url = \"https://grafana.theopenlane.org/oauth2/callback\"\nupstreams = [ \"http://grafana:80/\" ]\nwhitelist_domains = [ \"*.theopenlane.org\" ]\nemail_domains = [ \"*\" ]"` |  |

@@ -9,6 +9,7 @@ grafana:
       disable_signout_menu: false
     auth.anonymous:
       enabled: true
+      org_role: "Admin"
     auth.proxy:
       enabled: true
       header_name: X-Auth-Request-Email
@@ -21,6 +22,8 @@ grafana:
       data: /var/lib/grafana/data
     analytics:
       check_for_updates: true
+    users:
+      auto_assign_org_role: Admin
 
   datasources:
     datasources.yaml:
@@ -29,28 +32,25 @@ grafana:
         - name: Google Cloud Monitoring
           type: stackdriver
           access: proxy
+          editable: true
+          orgId: 1
           isDefault: true
           jsonData:
             authenticationType: gce
             defaultProject: prod-apps-project
 
-# leaving this here as it's how i crated the http route
-  ingress:
-    enabled: false
-    ingressClassName: gce
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      external-dns.alpha.kubernetes.io/hostname: grafana.theopenlane.org
-    hosts:
-      - grafana.theopenlane.org
-    tls:
-      - hosts:
-          - grafana.theopenlane.org
-        secretName: grafana-tls
-
   persistence:
     enabled: true
     size: 10Gi
+
+  plugins:
+    - grafana-clock-panel
+    - digrich-bubblechart-panel
+    - natel-discrete-panel
+    - pr0ps-trackmap-panel
+    - grafana-piechart-panel
+    - vonage-status-panel
+    - grafana-worldmap-panel
 
 oauth2:
   config:
