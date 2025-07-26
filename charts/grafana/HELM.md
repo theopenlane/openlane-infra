@@ -40,6 +40,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.admin.passwordKey | string | `"admin-password"` |  |
 | grafana."grafana.ini".auth.disable_login_form | bool | `true` |  |
 | grafana."grafana.ini".auth.disable_signout_menu | bool | `false` |  |
+| grafana."grafana.ini"."auth.anonymous".enabled | bool | `true` |  |
 | grafana."grafana.ini"."auth.proxy".enabled | bool | `true` |  |
 | grafana."grafana.ini"."auth.proxy".header_name | string | `"X-Auth-Request-Email"` |  |
 | grafana."grafana.ini"."auth.proxy".auto_sign_up | bool | `true` |  |
