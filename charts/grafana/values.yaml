@@ -53,7 +53,7 @@ grafana:
     - grafana-worldmap-panel
 
   serviceAccount:
-    labels:
+    annotations:
       iam.gke.io/gcp-service-account: grafana-gke-sa@prod-apps-project.iam.gserviceaccount.com
     automountServiceAccountToken: true
 

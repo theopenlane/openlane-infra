@@ -69,7 +69,7 @@ A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
 | grafana.plugins[4] | string | `"grafana-piechart-panel"` |  |
 | grafana.plugins[5] | string | `"vonage-status-panel"` |  |
 | grafana.plugins[6] | string | `"grafana-worldmap-panel"` |  |
-| grafana.serviceAccount.labels."iam.gke.io/gcp-service-account" | string | `"grafana-gke-sa@prod-apps-project.iam.gserviceaccount.com"` |  |
+| grafana.serviceAccount.annotations."iam.gke.io/gcp-service-account" | string | `"grafana-gke-sa@prod-apps-project.iam.gserviceaccount.com"` |  |
 | grafana.serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | oauth2.config.existingSecret | string | `"grafana-app-secret"` |  |
 | oauth2.config.provider | string | `"google"` |  |
