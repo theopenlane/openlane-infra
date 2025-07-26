@@ -52,6 +52,11 @@ grafana:
     - vonage-status-panel
     - grafana-worldmap-panel
 
+  serviceAccount:
+    labels:
+      iam.gke.io/gcp-service-account: grafana-gke-sa@prod-apps-project.iam.gserviceaccount.com
+    automountServiceAccountToken: true
+
 oauth2:
   config:
     existingSecret: grafana-app-secret
