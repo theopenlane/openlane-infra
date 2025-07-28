@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.24.2] - 2025-07-28
+
+### Changed✅ Updated ConfigMap template
+\n- 🔄 Merged Helm values.yaml\n- 🔐 External secrets configuration updated\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 4753
+- Source Commit: c4988a25
+- Source Branch: main
+- Generated: 2025-07-28 00:09:50 UTC
+
+---
+
 ## [0.24.1] - 2025-07-24
 
 ### Changed✅ Updated ConfigMap template
