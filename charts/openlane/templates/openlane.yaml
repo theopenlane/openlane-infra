@@ -55,6 +55,8 @@ spec:
             # set to true to release a new model for the authz service
             - name: CORE_AUTHZ_CREATENEWMODEL
               value: "false"
+            - name: CORE_SERVER_DEFAULTTRUSTCENTERDOMAIN
+              value: {{ .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain }}
           envFrom:
             - secretRef:
                 name: openlane-app-secret
