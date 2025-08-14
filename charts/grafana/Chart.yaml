@@ -18,6 +18,6 @@ dependencies:
     repository: https://grafana.github.io/helm-charts
     alias: grafana
   - name: oauth2-proxy
-    version: 7.12.19
+    version: 7.18.0
     repository: https://oauth2-proxy.github.io/manifests
     alias: oauth2
