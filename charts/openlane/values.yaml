@@ -193,12 +193,12 @@ openlane:
         cookieDomain: "" # @schema type:string
         # -- CookiePath specifies the path for the CSRF cookie, default to "/"
         cookiePath: "/" # @schema type:string; default:/
+      # -- DefaultTrustCenterDomain is the default domain to use for the trust center if no custom domain is set
+      defaultTrustCenterDomain: "" # @schema type:string
       # -- FieldLevelEncryption contains the configuration for field level encryption
       fieldLevelEncryption:
         # -- Enabled indicates whether Tink encryption is enabled
         enabled: false # @schema type:boolean; default:false
-      # -- DefaultTrustCenterDomain is the default domain to use for the trust center if no custom domain is set
-      defaultTrustCenterDomain: "trust.theopenlane.net" # @schema type:string
     # -- EntConfig contains the ent configuration used by the ent middleware
     entConfig:
       # -- EntityTypes is the list of entity types to create by default for the organization
