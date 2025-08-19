@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.24.2] - 2025-07-31
+
+### Changed✅ Updated ConfigMap template
+\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 4822
+- Source Commit: 2032d537
+- Source Branch: main
+- Generated: 2025-07-31 15:53:09 UTC
+
+---
+
 ## [0.24.2] - 2025-07-28
 
 ### Changed✅ Updated ConfigMap template
