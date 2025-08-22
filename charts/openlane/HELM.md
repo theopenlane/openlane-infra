@@ -187,13 +187,13 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.coreConfiguration.authz.credentials.issuer | string | `""` | issuer for the openFGA client |
 | openlane.coreConfiguration.authz.credentials.scopes | string | `""` | scopes for the openFGA client |
 | openlane.coreConfiguration.authz.ignoreDuplicateKeyError | bool | `true` | ignore duplicate key error |
-| openlane.coreConfiguration.db | object | `{"cacheTTL":"1s","databaseName":"openlane","debug":false,"driverName":"pgx","enableHistory":false,"maxConnections":0,"maxIdleConnections":0,"migrationProvider":"atlas","multiWrite":false,"primaryDbSource":"file:openlane.db","runMigrations":true,"secondaryDbSource":"file:backup.db"}` | DB contains the database configuration for the ent client |
+| openlane.coreConfiguration.db | object | `{"cacheTTL":"1s","databaseName":"openlane","debug":false,"driverName":"pgx","enableHistory":false,"maxConnections":0,"maxIdleConnections":0,"migrationProvider":"atlas","multiWrite":false,"primaryDbSource":"postgres://postgres:password@0.0.0.0:5432/core?sslmode=disable","runMigrations":true,"secondaryDbSource":"postgres://postgres:password@0.0.0.0:5432/core-secondary?sslmode=disable"}` | DB contains the database configuration for the ent client |
 | openlane.coreConfiguration.db.debug | bool | `false` | debug enables printing the debug database logs |
 | openlane.coreConfiguration.db.databaseName | string | `"openlane"` | the name of the database to use with otel tracing |
 | openlane.coreConfiguration.db.driverName | string | `"pgx"` | sql driver name |
 | openlane.coreConfiguration.db.multiWrite | bool | `false` | enables writing to two databases simultaneously |
-| openlane.coreConfiguration.db.primaryDbSource | string | `"file:openlane.db"` | dsn of the primary database |
-| openlane.coreConfiguration.db.secondaryDbSource | string | `"file:backup.db"` | dsn of the secondary database if multi-write is enabled |
+| openlane.coreConfiguration.db.primaryDbSource | string | `"postgres://postgres:password@0.0.0.0:5432/core?sslmode=disable"` | dsn of the primary database |
+| openlane.coreConfiguration.db.secondaryDbSource | string | `"postgres://postgres:password@0.0.0.0:5432/core-secondary?sslmode=disable"` | dsn of the secondary database if multi-write is enabled |
 | openlane.coreConfiguration.db.cacheTTL | string | `"1s"` | cache results for subsequent requests |
 | openlane.coreConfiguration.db.runMigrations | bool | `true` | run migrations on startup |
 | openlane.coreConfiguration.db.migrationProvider | string | `"atlas"` | migration provider to use for running migrations |
