@@ -29,9 +29,9 @@ spec:
             - name: RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_ENABLED
               value: "true"
             - name: RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST
-              value: "https://api.theopenlane.io/query"
+              value: "https://api.theopenlane.io"
             - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST
-              value: "https://api.theopenlane.io/query"
+              value: "https://api.theopenlane.io"
           envFrom:
             - secretRef:
                 name: riverboat-app-secret
