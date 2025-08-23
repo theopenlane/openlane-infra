@@ -765,7 +765,7 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-latest
+    tag: amd64-v0.2.2
     pullPolicy: IfNotPresent
   # Hostname for the riverboat database
   riverDatabaseHost: ""
