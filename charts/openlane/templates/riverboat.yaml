@@ -19,6 +19,15 @@ spec:
       containers:
         - args:
             - serve
+          env:
+            - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_ENABLED
+              value: "true"
+            - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_INTERVAL
+              value: "300000000000" # 5 minutes
+            - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_CUTOFFDURATION
+              value: "1800000000000" # 30 minutes
+            - name: RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_ENABLED
+              value: "true"
           envFrom:
             - secretRef:
                 name: riverboat-app-secret
