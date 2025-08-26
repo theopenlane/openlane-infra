@@ -1444,7 +1444,7 @@ CORE_EMAIL_FROMEMAIL: "no-reply@mail.{{ .Values.domain }}"
 {{- if (and (.Values.openlane.coreConfiguration.email) (.Values.openlane.coreConfiguration.email.supportEmail)) }}
 CORE_EMAIL_SUPPORTEMAIL: {{ .Values.openlane.coreConfiguration.email.supportEmail | toJson | quote }}
 {{- else if .Values.domain }}
-CORE_EMAIL_SUPPORTEMAIL: "support@.{{ .Values.domain }}"
+CORE_EMAIL_SUPPORTEMAIL: "support@{{ .Values.domain }}"
 {{- end }}
 
 {{- with .Values.openlane.coreConfiguration }}
