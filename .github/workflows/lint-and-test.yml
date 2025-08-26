@@ -53,7 +53,11 @@ jobs:
           for chart in charts/*; do
             if [[ -d "$chart" ]]; then
               echo "Generating documentation for $chart"
-              helm-docs --chart-search-root "$chart" --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+              if [[ "$chart" == "charts/openlane" ]]; then
+                helm-docs --chart-search-root "$chart" --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file -f values-ref.yaml
+              else
+                helm-docs --chart-search-root "$chart" --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+              fi
             fi
           done
           if [[ $(git diff --stat) != '' ]]; then
