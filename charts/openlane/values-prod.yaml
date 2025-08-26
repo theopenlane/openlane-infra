@@ -1,0 +1,68 @@
+openlane:
+  replicaCount: 3
+  image:
+    repository: ghcr.io/theopenlane/core
+    tag: "v0.29.3"
+    pullPolicy: IfNotPresent
+  secret:
+    name: openlane-app-secret
+  coreConfiguration:
+    domain: "theopenlane.io"
+    server:
+      db:
+        maxConnections: 8
+        maxIdleConnections: 8
+      csrfProtection:
+          enabled: true
+          sameSite: "None" 
+          cookieDomain: ".theopenlane.io"
+      graphPool:
+        maxWorkers: 200
+      defaultTrustCenterDomain: "openlane.net"
+    sessions:
+      sameSite: "None"
+    email:
+      templatesPath: "/brandedemails"
+    entConfig:
+      entityTypes: 
+        - "vendor"
+      modules:
+        enabled: false
+      maxPoolSize: 200 
+    subscription:
+      enabled: true 
+      publicStripeKey: "" # @schema type:string
+      trialSubscriptionPriceID: "price_1QKLyeBvxky1R7SvaZYGWyQb"
+      personalOrgSubscriptionPriceID: "price_1QycPyBvxky1R7Svz0gOWnNh" 
+      stripeWebhookURL: "https://api.openlane.com/v1/stripe/webhook"
+      stripeBillingPortalSuccessURL: "https://console.openlane.com/billing" # @schema type:string; default:https://console.openlane.com/billing
+      stripeCancellationReturnURL: "https://console.theopenlane.io/organization-settings/billing/subscription_canceled" # @schema type:string; 
+    keywatcher:
+      enabled: true
+      keyDir: "/keys" 
+
+podMonitoring:
+  enabled: true
+  interval: 30s
+
+podMonitor:
+  enabled: true
+
+riverboatui:
+  image:
+    repository: ghcr.io/riverqueue/riverui
+    tag: latest
+    pullPolicy: IfNotPresent
+  servicePort: 8080
+  secretName: riverboatui-app-secret
+
+riverboat:
+  replicaCount: 2
+  image:
+    repository: ghcr.io/theopenlane/riverboat
+    tag: amd64-v0.2.2
+    pullPolicy: IfNotPresent
+  workers:
+    emailWorker:
+      configDevMode: "false"
+      configFromEmail: no-reply@mail.theopenlane.io
