@@ -1,11 +1,4 @@
 openlane:
-  replicaCount: 3
-  image:
-    repository: ghcr.io/theopenlane/core
-    tag: "v0.29.3"
-    pullPolicy: IfNotPresent
-  secret:
-    name: openlane-app-secret
   coreConfiguration:
     domain: "theopenlane.io"
     server:
@@ -40,29 +33,3 @@ openlane:
     keywatcher:
       enabled: true
       keyDir: "/keys" 
-
-podMonitoring:
-  enabled: true
-  interval: 30s
-
-podMonitor:
-  enabled: true
-
-riverboatui:
-  image:
-    repository: ghcr.io/riverqueue/riverui
-    tag: latest
-    pullPolicy: IfNotPresent
-  servicePort: 8080
-  secretName: riverboatui-app-secret
-
-riverboat:
-  replicaCount: 2
-  image:
-    repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.2.2
-    pullPolicy: IfNotPresent
-  workers:
-    emailWorker:
-      configDevMode: "false"
-      configFromEmail: no-reply@mail.theopenlane.io
