@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --debug --config configs/ct.yaml --lint-conf configs/lintconf.yaml --helm-extra-values charts/openlane/values-prod.yaml
+        run: ct lint --debug --config configs/ct.yaml --lint-conf configs/lintconf.yaml
 
       - name: Run docs-testing (helm-docs)
         id: helm-docs
