@@ -1,6 +1,6 @@
+domain: "theopenlane.io"
 openlane:
   coreConfiguration:
-    domain: "theopenlane.io"
     server:
       db:
         maxConnections: 8
@@ -27,9 +27,6 @@ openlane:
       publicStripeKey: "" # @schema type:string
       trialSubscriptionPriceID: "price_1QKLyeBvxky1R7SvaZYGWyQb"
       personalOrgSubscriptionPriceID: "price_1QycPyBvxky1R7Svz0gOWnNh" 
-      stripeWebhookURL: "https://api.openlane.com/v1/stripe/webhook"
-      stripeBillingPortalSuccessURL: "https://console.openlane.com/billing" # @schema type:string; default:https://console.openlane.com/billing
-      stripeCancellationReturnURL: "https://console.theopenlane.io/organization-settings/billing/subscription_canceled" # @schema type:string; 
     keywatcher:
       enabled: true
       keyDir: "/keys" 
