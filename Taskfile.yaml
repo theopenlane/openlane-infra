@@ -108,10 +108,17 @@ tasks:
         cmd: cp scripts/templates/HELM.md.gotmpl {{.CHART}}/HELM.md.gotmpl
 
   docs:
+    silent: true
     desc: Generate documentation for all charts
     cmds:
       - for: { var: CHARTS, as: CHART }
-        cmd: helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+        cmd: |
+          if [ {{.CHART}} == "charts/openlane" ]
+          then
+            helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file -f values-ref.yaml
+          else
+            helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+          fi
     preconditions:
       - which helm-docs
 
