@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.27.4] - 2025-08-26
+
+### Changed✅ Updated ConfigMap template
+\n- 🔄 Merged Helm values-ref.yaml\n- ✅ Initial values file created\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 5202
+- Source Commit: 1f3da31a
+- Source Branch: main
+- Generated: 2025-08-26 09:11:23 UTC
+
+---
+
 ## [0.27.3] - 2025-08-25
 
 ### Changed✅ Updated ConfigMap template
