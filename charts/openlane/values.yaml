@@ -194,7 +194,7 @@ openlane:
         # -- CookiePath specifies the path for the CSRF cookie, default to "/"
         cookiePath: "/" # @schema type:string; default:/
       # -- DefaultTrustCenterDomain is the default domain to use for the trust center if no custom domain is set
-      defaultTrustCenterDomain: "" # @schema type:string
+      defaultTrustCenterDomain: "trust.theopenlane.net" # @schema type:string
       # -- FieldLevelEncryption contains the configuration for field level encryption
       fieldLevelEncryption:
         # -- Enabled indicates whether Tink encryption is enabled
