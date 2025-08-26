@@ -25,13 +25,19 @@ spec:
             - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_INTERVAL
               value: "5m"
             - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_CUTOFFDURATION
-              value: "30m" 
+              value: "30m"
             - name: RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_ENABLED
               value: "true"
             - name: RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST
               value: "https://api.theopenlane.io"
             - name: RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST
               value: "https://api.theopenlane.io"
+            - name: "RIVERBOAT_RIVER_WORKERS_CREATECUSTOMDOMAINWORKER_CONFIG_ENABLED"
+              value: "true"
+            - name: "RIVERBOAT_RIVER_WORKERS_DELETECUSTOMDOMAINWORKER_CONFIG_ENABLED"
+              value: "true"
+            - name: "RIVERBOAT_RIVER_WORKERS_VALIDATECUSTOMDOMAINWORKER_CONFIG_ENABLED"
+              value: "true"
           envFrom:
             - secretRef:
                 name: riverboat-app-secret
