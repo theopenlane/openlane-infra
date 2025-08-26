@@ -27,7 +27,7 @@ spec:
             - secretRef:
                 name: {{ .Values.openlane.secret.name }}
             - configMapRef:
-                name: openlane-config
+                name:  openlane-config
           image: {{ .Values.openlane.image.repository }}:{{ .Values.openlane.image.tag }}
           imagePullPolicy: Always
           ports:
@@ -63,12 +63,10 @@ spec:
             failureThreshold: 30
           volumeMounts:
             - name: brandedemails-volume
-              mountPath: {{ .Values.openlane.coreConfiguration.email.templatesPath}}
+              mountPath: "/brandedemails"
               readOnly: true
-          {{- if .Values.openlane.coreConfiguration.keywatcher.enabled }}
             - name: token-keys
-              mountPath: {{ .Values.openlane.coreConfiguration.keywatcher.keyDir }}
-          {{- end }}
+              mountPath: "/keys"
               readOnly: true
       volumes:
         - name: brandedemails-volume
