@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.27.5] - 2025-08-27
+
+### Changed✅ Updated ConfigMap template
+\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 5254
+- Source Commit: d8f37c4c
+- Source Branch: main
+- Generated: 2025-08-27 21:30:27 UTC
+
+---
+
 ## [0.27.4] - 2025-08-26
 
 ### Changed✅ Updated ConfigMap template
