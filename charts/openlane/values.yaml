@@ -85,6 +85,10 @@ openlane:
             pathType: Prefix
     tls: []
   coreConfiguration:
+    # -- Domain provides a global domain value for other modules to inherit
+    domain: "" # @schema type:string
+    # -- RefreshInterval determines how often to reload the config
+    refreshInterval: 10m0s # @schema type:integer; default:10m
     # -- Server contains the echo server settings
     server:
       # -- Dev enables echo's dev mode options
@@ -213,7 +217,7 @@ openlane:
         # -- LLM contains configuration for large language model based summarization
         llm:
           # -- Provider specifies which LLM service to use
-          provider: none  # @schema type:string; default:none
+          provider: none # @schema type:string; default:none
           # -- Anthropic contains configuration for Anthropic's API
           anthropic:
             # -- BetaHeader specifies the beta API features to enable
