@@ -811,6 +811,8 @@ riverboat:
       token: ""
       # email address to send notifications from
       fromEmail: no-reply@mail.theopenlane.io
+      # testDir used when in dev mode
+      testDir: ""
     deleteExportContentWorker:
       # enable the delete content worker periodic job
       enabled: false
