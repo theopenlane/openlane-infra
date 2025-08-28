@@ -13,7 +13,7 @@ metadata:
     checksum/config: {{ .Values | toYaml | sha256sum }}
 data:
   RIVERBOAT_REFRESHINTERVAL: {{ .Values.riverboat.refreshInterval }}
-  RIVERBOAT_RIVER_QUEUES: {{ .Values.riverboat.queues }}
+  RIVERBOAT_RIVER_QUEUES: "{{ join "," .Values.riverboat.queues }}"
 
   # email worker
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.emailWorker.enabled }}
