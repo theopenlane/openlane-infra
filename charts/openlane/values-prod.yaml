@@ -78,9 +78,7 @@ openlane:
     keywatcher:
       enabled: true
       keyDir: "/keys" 
-    integrationOauthProvider: 
-      redirectUrl: 
-      successRedirectUrl: 
+    integrationOauthProvider:
       github: 
         clientId: "Ov23li4ZVNEkKhrdBZu5"
         scopes: ["read:user", "user:email", "repo"] 
