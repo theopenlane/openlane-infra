@@ -24,6 +24,8 @@ openlane:
           - https://studio.apollographql.com
           - https://docs.theopenlane.io
           - https://*openlane*.vercel.app
+      secure:
+        hstsmaxage: "31536000" 
     db:
       maxConnections: 8
       maxIdleConnections: 8
@@ -55,7 +57,7 @@ openlane:
     email:
       templatesPath: "/brandedemails"
       companyName: "Openlane"
-      corporation: "theopenlane, Inc."
+      corporation: "theopenlane Inc."
       companyAddress: "5150 Broadway St · San Antonio · TX 78209"
       year: "2025"
       logoURL: "https://imagedelivery.net/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
