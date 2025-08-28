@@ -74,6 +74,9 @@ openlane:
     keywatcher:
       enabled: true
       keyDir: "/keys" 
+    supportedProviders: # note this is not currently used, but these are the hardcoded values
+      - github
+      - slack
     integrationOauthProvider: 
       redirectUrl: 
       successRedirectUrl: 
