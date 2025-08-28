@@ -6,7 +6,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.30.0"
+    tag: "v0.30.1"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
@@ -213,7 +213,7 @@ openlane:
         # -- LLM contains configuration for large language model based summarization
         llm:
           # -- Provider specifies which LLM service to use
-          provider: "none" # @schema type:string
+          provider: none  # @schema type:string; default:none
           # -- Anthropic contains configuration for Anthropic's API
           anthropic:
             # -- BetaHeader specifies the beta API features to enable
