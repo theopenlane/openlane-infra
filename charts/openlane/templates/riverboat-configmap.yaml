@@ -17,22 +17,22 @@ data:
 
   # email worker
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.emailWorker.enabled }}
-  RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_FROMEMAIL: {{ .Values.riverboat.workers.emailWorker.fromEmail }}
+  RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_FROMEMAIL: {{ .Values.riverboat.workers.emailWorker.fromEmail | quote }}
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_DEVMODE: {{ .Values.riverboat.workers.emailWorker.devMode }}
-  RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_TESTDIR: {{ .Values.riverboat.workers.emailWorker.testDir  }}
+  RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_TESTDIR: {{ .Values.riverboat.workers.emailWorker.testDir | quote | default "" }}
 
   # export worker
   RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.deleteExportContentWorker.enabled }}
-  RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_INTERVAL: {{ .Values.riverboat.workers.deleteExportContentWorker.interval }}
-  RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_CUTOFFDURATION: {{ .Values.riverboat.workers.deleteExportContentWorker.cutoffDuration }}
+  RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_INTERVAL: {{ .Values.riverboat.workers.deleteExportContentWorker.interval | quote }}
+  RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_CUTOFFDURATION: {{ .Values.riverboat.workers.deleteExportContentWorker.cutoffDuration | quote }}
   RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.exportContentWorker.enabled }}
   {{- if .Values.riverboat.workers.exportContentWorker.openlaneAPIHost }}
-  RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.exportContentWorker.openlaneAPIHost }}
+  RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.exportContentWorker.openlaneAPIHost | quote }}
   {{- else if .Values.domain }}
   RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: "https://api.{{ .Values.domain }}"
   {{- end }}
   {{- if .Values.riverboat.workers.deleteExportContentWorker.openlaneAPIHost }}
-  RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.deleteExportContentWorker.openlaneAPIHost }}
+  RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.deleteExportContentWorker.openlaneAPIHost | quote }}
   {{- else if .Values.domain }}
   RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: "https://api.{{ .Values.domain }}"
   {{- end }}
@@ -43,9 +43,9 @@ data:
   RIVERBOAT_RIVER_WORKERS_VALIDATECUSTOMDOMAINWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.customDomainWorker.enabled }}
 
   {{- if .Values.riverboat.workers.customDomainWorker.openlaneAPIHost }}
-  RIVERBOAT_RIVER_WORKERS_CREATECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.customDomainWorker.openlaneAPIHost }}
-  RIVERBOAT_RIVER_WORKERS_DELETECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.customDomainWorker.openlaneAPIHost }}
-  RIVERBOAT_RIVER_WORKERS_VALIDATECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.customDomainWorker.openlaneAPIHost }}
+  RIVERBOAT_RIVER_WORKERS_CREATECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.customDomainWorker.openlaneAPIHost | quote }}
+  RIVERBOAT_RIVER_WORKERS_DELETECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.customDomainWorker.openlaneAPIHost | quote }}
+  RIVERBOAT_RIVER_WORKERS_VALIDATECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.customDomainWorker.openlaneAPIHost | quote }}
   {{- else if .Values.domain }}
   RIVERBOAT_RIVER_WORKERS_CREATECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: "https://api.{{ .Values.domain }}"
   RIVERBOAT_RIVER_WORKERS_DELETECUSTOMDOMAINWORKER_CONFIG_OPENLANEAPIHOST: "https://api.{{ .Values.domain }}"
@@ -54,7 +54,7 @@ data:
 
   # database workers
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.databaseWorker.enabled }}
-  RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_BASEURL: {{ .Values.riverboat.workers.databaseWorker.baseUrl }}
-  RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_ENDPOINT: {{ .Values.riverboat.workers.databaseWorker.endpoint  }}
+  RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_BASEURL: {{ .Values.riverboat.workers.databaseWorker.baseUrl  | quote | default "" }}
+  RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_ENDPOINT: {{ .Values.riverboat.workers.databaseWorker.endpoint  | quote }}
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_DEBUG: {{ .Values.riverboat.workers.databaseWorker.debug }}
 {{- end }}
