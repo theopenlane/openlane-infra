@@ -54,6 +54,7 @@ openlane:
       corporation: "theopenlane, Inc."
       companyAddress: "5150 Broadway St · San Antonio · TX 78209"
       year: "2025"
+      logoUrl: "https://imagedelivery.net/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
     objectStorage:
       region: "us-east-1" # todo: look at moving to us-west
       defaultBucket: "openlane-prod"
