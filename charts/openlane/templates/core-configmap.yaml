@@ -26,7 +26,6 @@ data:
   CORE_SERVER_TLS_CERTKEY: {{ .Values.openlane.coreConfiguration.server.tls.certKey | quote | default "server.key" }}
   CORE_SERVER_TLS_AUTOCERT: {{ .Values.openlane.coreConfiguration.server.tls.autoCert | quote | default "false" }}
   CORE_SERVER_CORS_ENABLED: {{ .Values.openlane.coreConfiguration.server.cors.enabled | quote | default "true" }}
-  CORE_SERVER_CORS_PREFIXES: {{ .Values.openlane.coreConfiguration.server.cors.prefixes | quote }}
 {{- if .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
   CORE_SERVER_CORS_ALLOWORIGINS: {{ .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
 {{- else if .Values.domain }}
@@ -45,10 +44,8 @@ data:
   CORE_SERVER_SECURE_REFERRERPOLICY: {{ .Values.openlane.coreConfiguration.server.secure.referrerpolicy | quote | default "same-origin" }}
   CORE_SERVER_SECURE_CSPREPORTONLY: {{ .Values.openlane.coreConfiguration.server.secure.cspreportonly | quote | default "false" }}
   CORE_SERVER_REDIRECTS_ENABLED: {{ .Values.openlane.coreConfiguration.server.redirects.enabled | quote | default "true" }}
-  CORE_SERVER_REDIRECTS_REDIRECTS: {{ .Values.openlane.coreConfiguration.server.redirects.redirects | quote }}
   CORE_SERVER_REDIRECTS_CODE: {{ .Values.openlane.coreConfiguration.server.redirects.code | quote }}
   CORE_SERVER_CACHECONTROL_ENABLED: {{ .Values.openlane.coreConfiguration.server.cacheControl.enabled | quote | default "true" }}
-  CORE_SERVER_CACHECONTROL_NOCACHEHEADERS: {{ .Values.openlane.coreConfiguration.server.cacheControl.noCacheHeaders | quote }}
   CORE_SERVER_CACHECONTROL_ETAGHEADERS: {{ join "," .Values.openlane.coreConfiguration.server.cacheControl.etagHeaders | quote }}
   CORE_SERVER_MIME_ENABLED: {{ .Values.openlane.coreConfiguration.server.mime.enabled | quote | default "true" }}
   CORE_SERVER_MIME_MIMETYPESFILE: {{ .Values.openlane.coreConfiguration.server.mime.mimeTypesFile | quote }}
@@ -120,7 +117,6 @@ data:
 {{- else }}
   CORE_AUTH_TOKEN_JWKSENDPOINT: ""
 {{- end }}
-  CORE_AUTH_TOKEN_KEYS: {{ .Values.openlane.coreConfiguration.auth.token.keys | quote }}
   CORE_AUTH_TOKEN_GENERATEKEYS: {{ .Values.openlane.coreConfiguration.auth.token.generateKeys | quote | default "true" }}
   CORE_AUTH_SUPPORTEDPROVIDERS: {{ join "," .Values.openlane.coreConfiguration.auth.supportedProviders | quote }}
   CORE_AUTH_PROVIDERS_REDIRECTURL: {{ .Values.openlane.coreConfiguration.auth.providers.redirectUrl | quote | default "http://localhost:3001/api/auth/callback/theopenlane" }}
