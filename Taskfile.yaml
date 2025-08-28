@@ -113,12 +113,7 @@ tasks:
     cmds:
       - for: { var: CHARTS, as: CHART }
         cmd: |
-          if [ {{.CHART}} == "charts/openlane" ]
-          then
-            helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file -f values-ref.yaml
-          else
-            helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
-          fi
+          helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
     preconditions:
       - which helm-docs
 
