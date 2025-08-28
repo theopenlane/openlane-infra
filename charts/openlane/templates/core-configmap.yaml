@@ -27,7 +27,7 @@ data:
   CORE_SERVER_TLS_AUTOCERT: {{ .Values.openlane.coreConfiguration.server.tls.autoCert | quote | default "false" }}
   CORE_SERVER_CORS_ENABLED: {{ .Values.openlane.coreConfiguration.server.cors.enabled | quote | default "true" }}
 {{- if .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
-  CORE_SERVER_CORS_ALLOWORIGINS: {{ .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
+  CORE_SERVER_CORS_ALLOWORIGINS: {{ join "," .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
 {{- else if .Values.domain }}
   CORE_SERVER_CORS_ALLOWORIGINS: "https://console.{{ .Values.domain }},https://docs.{{ .Values.domain }},https://www.{{ .Values.domain }}"
 {{- else }}
@@ -150,7 +150,7 @@ data:
   CORE_AUTH_PROVIDERS_WEBAUTHN_RELYINGPARTYID: ""
 {{- end }}
 {{- if .Values.openlane.coreConfiguration.auth.providers.webauthn.requestOrigins }}
-  CORE_AUTH_PROVIDERS_WEBAUTHN_REQUESTORIGINS: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.requestOrigins }}
+  CORE_AUTH_PROVIDERS_WEBAUTHN_REQUESTORIGINS: {{ join "," .Values.openlane.coreConfiguration.auth.providers.webauthn.requestOrigins }}
 {{- else if .Values.domain }}
   CORE_AUTH_PROVIDERS_WEBAUTHN_REQUESTORIGINS: "https://console.{{ .Values.domain }}"
 {{- else }}
