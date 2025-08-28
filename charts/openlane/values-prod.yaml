@@ -76,10 +76,10 @@ openlane:
       redirectUrl: 
       successRedirectUrl: 
       github: 
-        clientId: 
+        clientId: "Ov23li4ZVNEkKhrdBZu5"
         scopes: ["read:user", "user:email", "repo"] 
       slack: 
-        clientId: 
+        clientId: "7576222813318.8026395673346"
         scopes: ["chat:write", "channels:read"]
 # riverboat values
 riverboat:
