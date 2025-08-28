@@ -40,6 +40,7 @@ openlane:
       supportedProviders: # note this is not currently used, but adding to ensure future compatibility
         - github
         - google
+        - webauthn
       providers: 
         redirectUrl: "https://console.theopenlane.io/api/auth/callback"
         github: 
