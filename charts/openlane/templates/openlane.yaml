@@ -23,43 +23,11 @@ spec:
         - name: openlane
           args:
             - serve
-          env:
-            - name: CORE_SUBSCRIPTION_TRIALSUBSCRIPTIONPRICEID
-              value: "price_1QKLyeBvxky1R7SvaZYGWyQb"
-            - name: CORE_SUBSCRIPTION_PERSONALORGSUBSCRIPTIONPRICEID
-              value: "price_1QycPyBvxky1R7Svz0gOWnNh"
-            - name: CORE_SUBSCRIPTION_STRIPEWEBHOOKURL
-              value: "https://api.prod.openlane.com/v1/stripe/webhook"
-            - name: CORE_SERVER_CSRFPROTECTION_ENABLED
-              value: "true"
-            - name: CORE_SERVER_CSRFPROTECTION_SAMESITE
-              value: "None"
-            - name: CORE_SERVER_CSRFPROTECTION_COOKIEDOMAIN
-              value: .theopenlane.io
-            - name: CORE_SESSIONS_SAMESITE
-              value: None
-            - name: CORE_EMAIL_TEMPLATESPATH
-              value: /brandedemails
-            - name: CORE_KEYWATCHER_ENABLED
-              value: "true"
-            - name: CORE_KEYWATCHER_KEYDIR
-              value: /keys
-            - name: CORE_SERVER_GRAPHPOOL_MAXWORKERS
-              value: '200'
-            - name: CORE_ENTCONFIG_MAXPOOLSIZE
-              value: '200'
-            - name: CORE_DB_MAXCONNECTIONS
-              value: '8'
-            - name: CORE_DB_MAXIDLECONNECTIONS
-              value: '8'
-            # set to true to release a new model for the authz service
-            - name: CORE_AUTHZ_CREATENEWMODEL
-              value: "false"
-            - name: CORE_SERVER_DEFAULTTRUSTCENTERDOMAIN
-              value: {{ .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain }}
           envFrom:
             - secretRef:
-                name: openlane-app-secret
+                name: {{ .Values.openlane.secret.name }}
+            - configMapRef:
+                name:  openlane-config
           image: {{ .Values.openlane.image.repository }}:{{ .Values.openlane.image.tag }}
           imagePullPolicy: Always
           ports:
@@ -95,10 +63,10 @@ spec:
             failureThreshold: 30
           volumeMounts:
             - name: brandedemails-volume
-              mountPath: /brandedemails
+              mountPath: "/brandedemails"
               readOnly: true
             - name: token-keys
-              mountPath: /keys
+              mountPath: "/keys"
               readOnly: true
       volumes:
         - name: brandedemails-volume

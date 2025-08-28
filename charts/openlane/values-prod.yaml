@@ -1,0 +1,96 @@
+domain: "theopenlane.io"
+openlane:
+  coreConfiguration:
+    domain: "theopenlane.io"
+    server:
+      csrfProtection:
+          enabled: true
+          sameSite: "None" 
+          cookieDomain: ".theopenlane.io"
+      graphPool:
+        maxWorkers: 200
+      complexityLimit: 200
+      defaultTrustCenterDomain: "trust.openlane.net"
+      cors:
+        enabled: true
+        allowOrigins:
+          - https://console.theopenlane.io
+          - https://www.theopenlane.io
+          - https://studio.apollographql.com
+          - https://docs.theopenlane.io
+          - https://*openlane*.vercel.app
+    db:
+      maxConnections: 8
+      maxIdleConnections: 8
+      migrationProvider: goose
+      enableHistory: true
+      databaseName: prod-openlane-db
+    authz: 
+      enabled: true
+      hostUrl: http://openfga.openfga.svc.cluster.local:8080
+    auth:
+      token:
+        kid: "16FFBS79AZ12168N0RAW3CEAGG"
+        generateKeys: false
+        issuer: "https://api.theopenlane.io" # this has a default in the value.yaml, so we need to explicitly set
+        audience: "https://api.theopenlane.io"  # this has a default in the value.yaml, so we need to explicitly set
+      providers: 
+        # todo: check if this is actually used
+        redirectUrl: "https://console.theopenlane.io/api/auth/callback"
+        github: 
+          clientEndpoint: "https://api.theopenlane.io"
+          clientId: "Ov23liFCzRTms6uIou68"
+        google: 
+          clientEndpoint: "https://api.theopenlane.io"
+          clientId: "45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com"
+        webauthn: 
+          relyingPartyId: "theopenlane.io"
+          requestOrigins: http://localhost:17608
+            - "https://console.theopenlane.io"
+    sessions:
+      sameSite: "None"
+      domain: ".theopenlane.io" # todo: allow this to work with the domain, need the "." prefix
+    redis: 
+      address: "10.252.1.3:6379"
+    email:
+      templatesPath: "/brandedemails"
+      companyName: "Openlane"
+      corporation: "theopenlane, Inc."
+      companyAddress: "5150 Broadway St · San Antonio · TX 78209"
+    objectStorage:
+      region: "us-east-1" # this should be in us-west-2, but this matches current prod
+      defaultBucket: "openlane-prod"
+      provider: "s3"
+    entConfig:
+      entityTypes: 
+        - "vendor"
+      modules:
+        enabled: false
+      maxPoolSize: 200
+    subscription:
+      enabled: true 
+      publicStripeKey: "pk_live_51Pt0QSBvxky1R7SvYpeVpeSwvaJDiKtCNsLq6SzyDFYRwgVog5onL0pqM95POXuKPIyqJNiEPqj1yNsaaeGONYsp00vm49o15e"
+      trialSubscriptionPriceID: "price_1QKLyeBvxky1R7SvaZYGWyQb"
+      personalOrgSubscriptionPriceID: "price_1QycPyBvxky1R7Svz0gOWnNh" 
+      stripeBillingPortalSuccessURL: "https://console.theopenlane.io/organization-settings/billing"
+    keywatcher:
+      enabled: true
+      keyDir: "/keys" 
+    integrationOauthProvider: 
+      redirectUrl: 
+      successRedirectUrl: 
+      github: 
+        clientId: 
+        scopes: ["read:user", "user:email", "repo"] 
+      slack: 
+        clientId: 
+        scopes: ["chat:write", "channels:read"]
+  workers:
+    emailWorker:
+      enabled: true
+    deleteExportContentWorker:
+      enabled: true
+    exportContentWorker:
+      enabled: true
+    customDomainWorker:
+      enabled: true

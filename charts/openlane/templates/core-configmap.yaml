@@ -225,9 +225,13 @@ data:
 {{- if .Values.openlane.coreConfiguration.email.supportEmail }}
   CORE_EMAIL_SUPPORTEMAIL: {{ .Values.openlane.coreConfiguration.email.supportEmail }}
 {{- else if .Values.domain }}
+<<<<<<< HEAD
+CORE_EMAIL_SUPPORTEMAIL: "support@{{ .Values.domain }}"
+=======
   CORE_EMAIL_SUPPORTEMAIL: "support@{{ .Values.domain }}"
 {{- else }}
   CORE_EMAIL_SUPPORTEMAIL: ""
+>>>>>>> eb8439b5cc9c166b83245d9ed7a9509d68cc5fa9
 {{- end }}
   CORE_EMAIL_LOGOURL: {{ .Values.openlane.coreConfiguration.email.logoURL | quote }}
 {{- if .Values.openlane.coreConfiguration.email.urls.root }}

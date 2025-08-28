@@ -6,7 +6,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.27.1"
+    tag: "v0.29.3"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
@@ -78,10 +78,6 @@ openlane:
             pathType: Prefix
     tls: []
   coreConfiguration:
-    # -- Domain provides a global domain value for other modules to inherit
-    domain: "" # @schema type:string
-    # -- RefreshInterval determines how often to reload the config
-    refreshInterval: 10m0s # @schema type:integer; default:10m
     # -- Server contains the echo server settings
     server:
       # -- Dev enables echo's dev mode options
@@ -803,4 +799,3 @@ riverboatui:
   # Port for the UI service
   servicePort: 8080
   secretName: riverboatui-app-secret
-core: null
