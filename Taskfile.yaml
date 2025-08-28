@@ -13,8 +13,8 @@ tasks:
   lint:
     desc: Lint all Helm charts
     cmds:
-      - for: { var: CHARTS, as: CHART }
-        cmd: helm lint {{.CHART}}
+    - for: { var: CHARTS, as: CHART }
+      cmd: helm lint {{.CHART}}
     preconditions:
       - which helm
 
@@ -28,6 +28,12 @@ tasks:
           helm template "{{.CHART}}" --include-crds --skip-tests --output-dir=rendered
     preconditions:
       - which helm
+
+  template:openlane:prod:
+    desc: Render the openlane Helm chart with production values
+    cmds:
+      - echo "Rendering openlane Helm chart with production values..."
+      - helm template charts/openlane -f charts/openlane/values.yaml -f charts/openlane/values-prod.yaml --name-template=prod --output-dir=rendered
 
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas
@@ -108,10 +114,12 @@ tasks:
         cmd: cp scripts/templates/HELM.md.gotmpl {{.CHART}}/HELM.md.gotmpl
 
   docs:
+    silent: true
     desc: Generate documentation for all charts
     cmds:
       - for: { var: CHARTS, as: CHART }
-        cmd: helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
+        cmd: |
+          helm-docs --chart-search-root {{.CHART}} --output-file=HELM.md --template-files=HELM.md.gotmpl --skip-version-footer --sort-values-order=file
     preconditions:
       - which helm-docs
 

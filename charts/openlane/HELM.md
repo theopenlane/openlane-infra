@@ -32,13 +32,16 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.27.1"` |  |
+| openlane.image.tag | string | `"v0.30.1"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
 | openlane.secret.create | bool | `false` |  |
 | openlane.secret.name | string | `"openlane-app-secret"` |  |
 | openlane.secret.annotations | object | `{}` |  |
+| openlane.config.create | bool | `false` |  |
+| openlane.config.name | string | `"openlane-config"` |  |
+| openlane.config.annotations | object | `{}` |  |
 | openlane.secretEnv.CORE_DB_PRIMARYDBSOURCE | string | `""` |  |
 | openlane.secretEnv.CORE_JOBQUEUE_CONNECTIONURI | string | `""` |  |
 | openlane.secretEnv.OPENFGA_DATASTORE_URI | string | `""` |  |
@@ -67,8 +70,6 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | openlane.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
 | openlane.ingress.tls | list | `[]` |  |
-| openlane.coreConfiguration.domain | string | `""` | Domain provides a global domain value for other modules to inherit |
-| openlane.coreConfiguration.refreshInterval | string | `"10m0s"` | RefreshInterval determines how often to reload the config |
 | openlane.coreConfiguration.server | object | `{"cacheControl":{"enabled":true,"etagHeaders":[],"noCacheHeaders":{}},"complexityLimit":100,"cors":{"allowOrigins":[],"cookieInsecure":false,"enabled":true,"prefixes":{}},"csrfProtection":{"cookie":"ol.csrf-token","cookieDomain":"","cookieHttpOnly":false,"cookiePath":"/","enabled":false,"header":"X-CSRF-Token","sameSite":"Lax","secure":true},"defaultTrustCenterDomain":"","dev":false,"enableGraphExtensions":true,"fieldLevelEncryption":{"enabled":false},"graphPool":{"maxWorkers":100},"idleTimeout":"30s","listen":":17608","maxResultLimit":100,"metricsPort":":17609","mime":{"defaultContentType":"application/data","enabled":true,"mimeTypesFile":""},"readHeaderTimeout":"2s","readTimeout":"15s","redirects":{"code":0,"enabled":true,"redirects":{}},"secure":{"contentsecuritypolicy":"default-src 'self'","contenttypenosniff":"nosniff","cspreportonly":false,"enabled":true,"hstsmaxage":31536000,"hstspreloadenabled":false,"referrerpolicy":"same-origin","xframeoptions":"SAMEORIGIN","xssprotection":"1; mode=block"},"shutdownGracePeriod":"10s","tls":{"autoCert":false,"certFile":"server.crt","certKey":"server.key","config":"","enabled":false},"writeTimeout":"15s"}` | Server contains the echo server settings |
 | openlane.coreConfiguration.server.dev | bool | `false` | Dev enables echo's dev mode options |
 | openlane.coreConfiguration.server.listen | string | `":17608"` | Listen sets the listen address to serve the echo server on |
@@ -126,12 +127,12 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.coreConfiguration.server.defaultTrustCenterDomain | string | `""` | DefaultTrustCenterDomain is the default domain to use for the trust center if no custom domain is set |
 | openlane.coreConfiguration.server.fieldLevelEncryption | object | `{"enabled":false}` | FieldLevelEncryption contains the configuration for field level encryption |
 | openlane.coreConfiguration.server.fieldLevelEncryption.enabled | bool | `false` | Enabled indicates whether Tink encryption is enabled |
-| openlane.coreConfiguration.entConfig | object | `{"entityTypes":[],"maxPoolSize":100,"modules":{"enabled":true},"summarizer":{"llm":{"anthropic":{"baseURL":"","betaHeader":"","legacyTextCompletion":false},"cloudflare":{"accountID":"","serverURL":""},"openai":{"organizationID":"","url":""},"provider":null},"maximumSentences":60,"type":"lexrank"},"windmill":{"baseURL":"https://app.windmill.dev","defaultTimeout":"30s","enabled":false,"onFailureScript":"","onSuccessScript":"","timezone":"UTC","workspace":""}}` | EntConfig contains the ent configuration used by the ent middleware |
+| openlane.coreConfiguration.entConfig | object | `{"entityTypes":[],"maxPoolSize":100,"modules":{"enabled":true},"summarizer":{"llm":{"anthropic":{"baseURL":"","betaHeader":"","legacyTextCompletion":false},"cloudflare":{"accountID":"","serverURL":""},"openai":{"organizationID":"","url":""},"provider":"none"},"maximumSentences":60,"type":"lexrank"},"windmill":{"baseURL":"https://app.windmill.dev","defaultTimeout":"30s","enabled":false,"onFailureScript":"","onSuccessScript":"","timezone":"UTC","workspace":""}}` | EntConfig contains the ent configuration used by the ent middleware |
 | openlane.coreConfiguration.entConfig.entityTypes | list | `[]` | EntityTypes is the list of entity types to create by default for the organization |
-| openlane.coreConfiguration.entConfig.summarizer | object | `{"llm":{"anthropic":{"baseURL":"","betaHeader":"","legacyTextCompletion":false},"cloudflare":{"accountID":"","serverURL":""},"openai":{"organizationID":"","url":""},"provider":null},"maximumSentences":60,"type":"lexrank"}` | Summarizer contains configuration for text summarization |
+| openlane.coreConfiguration.entConfig.summarizer | object | `{"llm":{"anthropic":{"baseURL":"","betaHeader":"","legacyTextCompletion":false},"cloudflare":{"accountID":"","serverURL":""},"openai":{"organizationID":"","url":""},"provider":"none"},"maximumSentences":60,"type":"lexrank"}` | Summarizer contains configuration for text summarization |
 | openlane.coreConfiguration.entConfig.summarizer.type | string | `"lexrank"` | Type specifies the summarization algorithm to use |
-| openlane.coreConfiguration.entConfig.summarizer.llm | object | `{"anthropic":{"baseURL":"","betaHeader":"","legacyTextCompletion":false},"cloudflare":{"accountID":"","serverURL":""},"openai":{"organizationID":"","url":""},"provider":null}` | LLM contains configuration for large language model based summarization |
-| openlane.coreConfiguration.entConfig.summarizer.llm.provider | string | `nil` | Provider specifies which LLM service to use |
+| openlane.coreConfiguration.entConfig.summarizer.llm | object | `{"anthropic":{"baseURL":"","betaHeader":"","legacyTextCompletion":false},"cloudflare":{"accountID":"","serverURL":""},"openai":{"organizationID":"","url":""},"provider":"none"}` | LLM contains configuration for large language model based summarization |
+| openlane.coreConfiguration.entConfig.summarizer.llm.provider | string | `"none"` | Provider specifies which LLM service to use |
 | openlane.coreConfiguration.entConfig.summarizer.llm.anthropic | object | `{"baseURL":"","betaHeader":"","legacyTextCompletion":false}` | Anthropic contains configuration for Anthropic's API |
 | openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader | string | `""` | BetaHeader specifies the beta API features to enable |
 | openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion | bool | `false` | LegacyTextCompletion enables legacy text completion API |
@@ -371,19 +372,38 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"amd64-v0.2.2"` |  |
+| riverboat.image.tag | string | `"amd64-v0.3.1"` |  |
 | riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
-| riverboat.riverDatabaseHost | string | `""` |  |
-| riverboat.workers.emailWorker.configDevMode | string | `"false"` |  |
-| riverboat.workers.emailWorker.configToken | string | `""` |  |
-| riverboat.workers.emailWorker.configFromEmail | string | `"no-reply@mail.theopenlane.io"` |  |
+| riverboat.secret.create | bool | `false` |  |
+| riverboat.secret.name | string | `"riverboat-app-secret"` |  |
+| riverboat.secret.annotations | object | `{}` |  |
+| riverboat.config.create | bool | `false` |  |
+| riverboat.config.name | string | `"riverboat-config"` |  |
+| riverboat.config.annotations | object | `{}` |  |
+| riverboat.refreshInterval | string | `"10m"` |  |
+| riverboat.workers.emailWorker.enabled | bool | `false` |  |
+| riverboat.workers.emailWorker.devMode | string | `"false"` |  |
+| riverboat.workers.emailWorker.token | string | `""` |  |
+| riverboat.workers.emailWorker.fromEmail | string | `"no-reply@mail.theopenlane.io"` |  |
+| riverboat.workers.emailWorker.testDir | string | `""` |  |
+| riverboat.workers.deleteExportContentWorker.enabled | bool | `false` |  |
+| riverboat.workers.deleteExportContentWorker.openlaneAPIHost | string | `""` |  |
+| riverboat.workers.deleteExportContentWorker.interval | string | `"30m"` |  |
+| riverboat.workers.deleteExportContentWorker.cutoffDuration | string | `"24h"` |  |
+| riverboat.workers.exportContentWorker.enabled | bool | `false` |  |
+| riverboat.workers.exportContentWorker.openlaneAPIHost | string | `""` |  |
+| riverboat.workers.customDomainWorker.enabled | bool | `false` |  |
+| riverboat.workers.customDomainWorker.openlaneAPIHost | string | `""` |  |
+| riverboat.workers.databaseWorker.enabled | bool | `false` |  |
+| riverboat.workers.databaseWorker.baseUrl | string | `""` |  |
+| riverboat.workers.databaseWorker.endpoint | string | `"query"` |  |
+| riverboat.workers.databaseWorker.debug | bool | `false` |  |
 | riverboatui.image.repository | string | `"ghcr.io/riverqueue/riverui"` |  |
 | riverboatui.image.tag | string | `"latest"` |  |
 | riverboatui.image.pullPolicy | string | `"IfNotPresent"` |  |
 | riverboatui.riverDatabaseHost | string | `""` |  |
 | riverboatui.servicePort | int | `8080` |  |
 | riverboatui.secretName | string | `"riverboatui-app-secret"` |  |
-| core | string | `nil` |  |
 
 ## Update documentation
 

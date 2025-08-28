@@ -1,0 +1,104 @@
+# top level values
+domain: "theopenlane.io"
+# core app values
+openlane:
+  secret:
+    create: true
+  config:
+    create: true
+  coreConfiguration:
+    server:
+      csrfProtection:
+          enabled: true
+          sameSite: "None" 
+          cookieDomain: ".theopenlane.io"
+      graphPool:
+        maxWorkers: 200
+      complexityLimit: 200
+      defaultTrustCenterDomain: "trust.openlane.net"
+      cors:
+        enabled: true
+        allowOrigins:
+          - https://console.theopenlane.io
+          - https://www.theopenlane.io
+          - https://studio.apollographql.com
+          - https://docs.theopenlane.io
+          - https://*openlane*.vercel.app
+      secure:
+        hstsmaxage: "31536000" 
+    db:
+      maxConnections: 8
+      maxIdleConnections: 8
+      migrationProvider: goose
+      enableHistory: true
+      databaseName: prod-openlane-db
+    authz: 
+      enabled: true
+      hostUrl: http://openfga.openfga.svc.cluster.local:8080
+    auth:
+      token:
+        kid: "16FFBS79AZ12168N0RAW3CEAGG"
+        generateKeys: false
+      supportedProviders: # note this is not currently used, but adding to ensure future compatibility
+        - github
+        - google
+        - webauthn
+      providers: 
+        redirectUrl: "https://console.theopenlane.io/api/auth/callback"
+        github: 
+          clientId: "Ov23liFCzRTms6uIou68"
+        google: 
+          clientId: "45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com"
+    sessions:
+      sameSite: "None"
+      domain: ".theopenlane.io" # todo: allow this to work with the domain, need the "." prefix
+    redis: 
+      address: "10.252.1.3:6379"
+    email:
+      templatesPath: "/brandedemails"
+      companyName: "Openlane"
+      corporation: "theopenlane Inc."
+      companyAddress: "5150 Broadway St · San Antonio · TX 78209"
+      year: "2025"
+      logoURL: "https://imagedelivery.net/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
+    objectStorage:
+      region: "us-east-1" # todo: look at moving to us-west
+      defaultBucket: "openlane-prod"
+      provider: "s3"
+    entConfig:
+      entityTypes: 
+        - "vendor"
+      modules:
+        enabled: false
+      maxPoolSize: 200
+    subscription:
+      enabled: true 
+      publicStripeKey: "pk_live_51Pt0QSBvxky1R7SvYpeVpeSwvaJDiKtCNsLq6SzyDFYRwgVog5onL0pqM95POXuKPIyqJNiEPqj1yNsaaeGONYsp00vm49o15e"
+      trialSubscriptionPriceID: "price_1QKLyeBvxky1R7SvaZYGWyQb"
+      personalOrgSubscriptionPriceID: "price_1QycPyBvxky1R7Svz0gOWnNh" 
+      stripeBillingPortalSuccessURL: "https://console.theopenlane.io/organization-settings/billing"
+    keywatcher:
+      enabled: true
+      keyDir: "/keys" 
+    integrationOauthProvider:
+      github: 
+        clientId: "Ov23li4ZVNEkKhrdBZu5"
+        scopes: ["read:user", "user:email", "repo"] 
+      slack: 
+        clientId: "7576222813318.8026395673346"
+        scopes: ["chat:write", "channels:read"]
+# riverboat values
+riverboat:
+  secret:
+    create: true
+  config:
+    create: true
+  workers:
+    emailWorker:
+      enabled: true
+    deleteExportContentWorker:
+      enabled: true
+    exportContentWorker:
+      enabled: true
+    customDomainWorker:
+      enabled: true

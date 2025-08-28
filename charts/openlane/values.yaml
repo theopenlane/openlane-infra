@@ -6,7 +6,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.27.1"
+    tag: "v0.30.1"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
@@ -19,6 +19,13 @@ openlane:
     # Name for the generated secret
     name: openlane-app-secret
     # Optional annotations for the secret
+    annotations: {}
+  config:
+    # whether to create the config resource
+    create: false
+    # Name for the generated config
+    name: openlane-config
+    # Optional annotations for the config
     annotations: {}
   # Secrets injected as environment variables
   secretEnv:
@@ -78,10 +85,6 @@ openlane:
             pathType: Prefix
     tls: []
   coreConfiguration:
-    # -- Domain provides a global domain value for other modules to inherit
-    domain: "" # @schema type:string
-    # -- RefreshInterval determines how often to reload the config
-    refreshInterval: 10m0s # @schema type:integer; default:10m
     # -- Server contains the echo server settings
     server:
       # -- Dev enables echo's dev mode options
@@ -210,7 +213,7 @@ openlane:
         # -- LLM contains configuration for large language model based summarization
         llm:
           # -- Provider specifies which LLM service to use
-          provider: # @schema type:string
+          provider: none  # @schema type:string; default:none
           # -- Anthropic contains configuration for Anthropic's API
           anthropic:
             # -- BetaHeader specifies the beta API features to enable
@@ -781,17 +784,59 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.2.2
+    tag: amd64-v0.3.1
     pullPolicy: IfNotPresent
-  # Hostname for the riverboat database
-  riverDatabaseHost: ""
+  secret:
+    # Whether to create the secret resource
+    create: false
+    # Name for the generated secret
+    name: riverboat-app-secret
+    # Optional annotations for the secret
+    annotations: {}
+  config:
+    # whether to create the config resource
+    create: false
+    # Name for the generated config
+    name: riverboat-config
+    # Optional annotations for the config
+    annotations: {}
+  refreshInterval: "10m"
   workers:
     emailWorker:
+      enabled: false
       # enable developer mode
-      configDevMode: "false"
+      devMode: "false"
       # token used by the worker
-      configToken: ""
-      configFromEmail: no-reply@mail.theopenlane.io
+      token: ""
+      # email address to send notifications from
+      fromEmail: no-reply@mail.theopenlane.io
+      # testDir used when in dev mode
+      testDir: ""
+    deleteExportContentWorker:
+      # enable the delete content worker periodic job
+      enabled: false
+      # openlane API host for the worker
+      openlaneAPIHost: ""
+      # interval to run the periodic job
+      interval: 30m
+      # duration to keep exported content
+      cutoffDuration: 24h
+    exportContentWorker:
+      # enable the export content worker
+      enabled: false
+      # openlane API host for the worker
+      openlaneAPIHost: ""
+    customDomainWorker:
+      # enable the custom domain worker
+      enabled: false
+      # openlane API host for the worker
+      openlaneAPIHost: ""
+    databaseWorker:
+      # enable the database worker
+      enabled: false
+      baseUrl: ""
+      endpoint: "query"
+      debug: false
 riverboatui:
   image:
     # Repository for the riverboat UI image
@@ -803,4 +848,3 @@ riverboatui:
   # Port for the UI service
   servicePort: 8080
   secretName: riverboatui-app-secret
-core: null
