@@ -7,7 +7,6 @@ openlane:
   config:
     create: true
   coreConfiguration:
-    domain: "theopenlane.io"
     server:
       csrfProtection:
           enabled: true
@@ -38,21 +37,12 @@ openlane:
       token:
         kid: "16FFBS79AZ12168N0RAW3CEAGG"
         generateKeys: false
-        issuer: "https://api.theopenlane.io" # this has a default in the value.yaml, so we need to explicitly set
-        audience: "https://api.theopenlane.io"  # this has a default in the value.yaml, so we need to explicitly set
       providers: 
-        # todo: check if this is actually used
         redirectUrl: "https://console.theopenlane.io/api/auth/callback"
         github: 
-          clientEndpoint: "https://api.theopenlane.io"
           clientId: "Ov23liFCzRTms6uIou68"
         google: 
-          clientEndpoint: "https://api.theopenlane.io"
           clientId: "45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com"
-        webauthn: 
-          relyingPartyId: "theopenlane.io"
-          requestOrigins: http://localhost:17608
-            - "https://console.theopenlane.io"
     sessions:
       sameSite: "None"
       domain: ".theopenlane.io" # todo: allow this to work with the domain, need the "." prefix
@@ -64,7 +54,7 @@ openlane:
       corporation: "theopenlane, Inc."
       companyAddress: "5150 Broadway St · San Antonio · TX 78209"
     objectStorage:
-      region: "us-east-1" # this should be in us-west-2, but this matches current prod
+      region: "us-east-1" # todo: look at moving to us-west
       defaultBucket: "openlane-prod"
       provider: "s3"
     entConfig:
