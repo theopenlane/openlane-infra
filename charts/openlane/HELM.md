@@ -372,9 +372,14 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"amd64-v0.2.2"` |  |
+| riverboat.image.tag | string | `"amd64-v0.3.1"` |  |
 | riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
-| riverboat.riverDatabaseHost | string | `""` |  |
+| riverboat.secret.create | bool | `false` |  |
+| riverboat.secret.name | string | `"riverboat-app-secret"` |  |
+| riverboat.secret.annotations | object | `{}` |  |
+| riverboat.config.create | bool | `false` |  |
+| riverboat.config.name | string | `"riverboat-config"` |  |
+| riverboat.config.annotations | object | `{}` |  |
 | riverboat.refreshInterval | string | `"10m"` |  |
 | riverboat.queues[0] | string | `"default"` |  |
 | riverboat.queues[1] | string | `"email"` |  |
