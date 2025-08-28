@@ -20,6 +20,13 @@ openlane:
     name: openlane-app-secret
     # Optional annotations for the secret
     annotations: {}
+  config:
+    # whether to create the config resource
+    create: false
+    # Name for the generated config
+    name: openlane-config
+    # Optional annotations for the config
+    annotations: {}
   # Secrets injected as environment variables
   secretEnv:
     # connection string to the primary database
@@ -783,11 +790,23 @@ riverboat:
   riverDatabaseHost: ""
   workers:
     emailWorker:
+      enabled: false
       # enable developer mode
       configDevMode: "false"
       # token used by the worker
       configToken: ""
       configFromEmail: no-reply@mail.theopenlane.io
+    deleteExportContentWorker:
+      enabled: false
+      openlaneAPIHost: ""
+    exportContentWorker:
+      enabled: false
+      openlaneAPIHost: ""
+    customDomainWorker:
+      enabled: false
+      openlaneAPIHost: ""
+    databaseWorker: 
+      enabled: false
 riverboatui:
   image:
     # Repository for the riverboat UI image

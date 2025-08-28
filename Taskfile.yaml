@@ -14,7 +14,7 @@ tasks:
     desc: Lint all Helm charts
     cmds:
     - for: { var: CHARTS, as: CHART }
-      cmd: helm lint {{.CHART}} -f charts/openlane/values-prod.yaml
+      cmd: helm lint {{.CHART}}
     preconditions:
       - which helm
 

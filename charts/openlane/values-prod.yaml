@@ -1,4 +1,8 @@
 domain: "theopenlane.io"
+secret:
+  create: true
+config:
+  create: true
 openlane:
   coreConfiguration:
     domain: "theopenlane.io"
@@ -85,12 +89,13 @@ openlane:
       slack: 
         clientId: 
         scopes: ["chat:write", "channels:read"]
-  workers:
-    emailWorker:
-      enabled: true
-    deleteExportContentWorker:
-      enabled: true
-    exportContentWorker:
-      enabled: true
-    customDomainWorker:
-      enabled: true
+  riverboat:
+    workers:
+      emailWorker:
+        enabled: true
+      deleteExportContentWorker:
+        enabled: true
+      exportContentWorker:
+        enabled: true
+      customDomainWorker:
+        enabled: true
