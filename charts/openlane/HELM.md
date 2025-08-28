@@ -381,12 +381,11 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | riverboat.config.name | string | `"riverboat-config"` |  |
 | riverboat.config.annotations | object | `{}` |  |
 | riverboat.refreshInterval | string | `"10m"` |  |
-| riverboat.queues[0] | string | `"default"` |  |
-| riverboat.queues[1] | string | `"email"` |  |
 | riverboat.workers.emailWorker.enabled | bool | `false` |  |
 | riverboat.workers.emailWorker.devMode | string | `"false"` |  |
 | riverboat.workers.emailWorker.token | string | `""` |  |
 | riverboat.workers.emailWorker.fromEmail | string | `"no-reply@mail.theopenlane.io"` |  |
+| riverboat.workers.emailWorker.testDir | string | `""` |  |
 | riverboat.workers.deleteExportContentWorker.enabled | bool | `false` |  |
 | riverboat.workers.deleteExportContentWorker.openlaneAPIHost | string | `""` |  |
 | riverboat.workers.deleteExportContentWorker.interval | string | `"30m"` |  |

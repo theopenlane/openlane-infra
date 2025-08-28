@@ -801,7 +801,6 @@ riverboat:
     # Optional annotations for the config
     annotations: {}
   refreshInterval: "10m"
-  queues: ["default", "email"]
   workers:
     emailWorker:
       enabled: false
