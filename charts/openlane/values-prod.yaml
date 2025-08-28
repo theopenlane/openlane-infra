@@ -83,6 +83,10 @@ openlane:
         scopes: ["chat:write", "channels:read"]
 # riverboat values
 riverboat:
+  secret:
+    create: true
+  config:
+    create: true
   workers:
     emailWorker:
       enabled: true

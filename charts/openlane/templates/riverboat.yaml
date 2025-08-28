@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-riverboat
+  name: riverboat-config
   namespace: openlane
   labels:
     {{- include "riverboat.labels" . | nindent 4 }}
@@ -20,10 +20,14 @@ spec:
         - args:
             - serve
           envFrom:
+          {{- if .Values.riverboat.secret.create }}
             - secretRef:
-                name: riverboat-app-secret
+                name: {{ .Values.riverboat.secret.name }}
+          {{- end }}
+          {{- if .Values.riverboat.config.create }}
             - configMapRef:
-                name: riverboat-config
+                name: {{ .Values.riverboat.config.name }}
+          {{- end }}
           image: {{ .Values.riverboat.image.repository }}:{{ .Values.riverboat.image.tag }}
           imagePullPolicy: Always
           name: riverboat

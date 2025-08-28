@@ -1,3 +1,4 @@
+{{- if .Values.riverboat.config.create }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -56,5 +57,4 @@ data:
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_BASEURL: {{ .Values.riverboat.workers.databaseWorker.baseUrl }}
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_ENDPOINT: {{ .Values.riverboat.workers.databaseWorker.endpoint  }}
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_DEBUG: {{ .Values.riverboat.workers.databaseWorker.debug }}
-
-
+{{- end }}

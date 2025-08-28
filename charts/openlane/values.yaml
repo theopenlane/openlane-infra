@@ -784,10 +784,22 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.2.2
+    tag: amd64-v0.3.1
     pullPolicy: IfNotPresent
-  # Hostname for the riverboat database
-  riverDatabaseHost: ""
+  secret:
+    # Whether to create the secret resource
+    create: false
+    # Name for the generated secret
+    name: riverboat-app-secret
+    # Optional annotations for the secret
+    annotations: {}
+  config:
+    # whether to create the config resource
+    create: false
+    # Name for the generated config
+    name: riverboat-config
+    # Optional annotations for the config
+    annotations: {}
   refreshInterval: "10m"
   queues: ["default", "email"]
   workers:

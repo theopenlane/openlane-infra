@@ -29,6 +29,12 @@ tasks:
     preconditions:
       - which helm
 
+  template:openlane:prod:
+    desc: Render the openlane Helm chart with production values
+    cmds:
+      - echo "Rendering openlane Helm chart with production values..."
+      - helm template "charts/openlane" --values "charts/openlane/values.yaml,charts/openlane/values-prod.yaml"
+
   lint:schema:
     desc: Validate Helm chart manifests using kubeconform and GCP schemas
     vars:
