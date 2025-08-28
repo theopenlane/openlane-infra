@@ -1,4 +1,3 @@
-{{- if .Values.openlane.config.create }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -380,4 +379,3 @@ data:
   CORE_INTEGRATIONOAUTHPROVIDER_SLACK_CLIENTENDPOINT: ""
 {{- end }}
   CORE_INTEGRATIONOAUTHPROVIDER_SLACK_SCOPES: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.scopes | quote }}
-{{- end }}

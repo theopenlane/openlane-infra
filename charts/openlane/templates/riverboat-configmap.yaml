@@ -15,6 +15,7 @@ data:
   RIVERBOAT_RIVER_QUEUES: {{ .Values.riverboat.queues }}
 
   # email worker
+  RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.emailWorker.enabled }}
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_FROMEMAIL: {{ .Values.riverboat.workers.emailWorker.fromEmail }}
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_DEVMODE: {{ .Values.riverboat.workers.emailWorker.devMode }}
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_TESTDIR: {{ .Values.riverboat.workers.emailWorker.testDir  }}
@@ -29,7 +30,7 @@ data:
   {{- else if .Values.domain }}
   RIVERBOAT_RIVER_WORKERS_EXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: "https://api.{{ .Values.domain }}"
   {{- end }}
-  {{ if .Values.riverboat.workers.deleteExportContentWorker.openlaneAPIHost }}
+  {{- if .Values.riverboat.workers.deleteExportContentWorker.openlaneAPIHost }}
   RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.deleteExportContentWorker.openlaneAPIHost }}
   {{- else if .Values.domain }}
   RIVERBOAT_RIVER_WORKERS_DELETEEXPORTCONTENTWORKER_CONFIG_OPENLANEAPIHOST: "https://api.{{ .Values.domain }}"
@@ -55,3 +56,5 @@ data:
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_BASEURL: {{ .Values.riverboat.workers.databaseWorker.baseUrl }}
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_ENDPOINT: {{ .Values.riverboat.workers.databaseWorker.endpoint  }}
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_DEBUG: {{ .Values.riverboat.workers.databaseWorker.debug }}
+
+

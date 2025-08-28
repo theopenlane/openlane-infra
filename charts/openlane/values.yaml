@@ -788,25 +788,42 @@ riverboat:
     pullPolicy: IfNotPresent
   # Hostname for the riverboat database
   riverDatabaseHost: ""
+  refreshInterval: "10m"
+  queues: ["default", "email"]
   workers:
     emailWorker:
       enabled: false
       # enable developer mode
-      configDevMode: "false"
+      devMode: "false"
       # token used by the worker
-      configToken: ""
-      configFromEmail: no-reply@mail.theopenlane.io
+      token: ""
+      # email address to send notifications from
+      fromEmail: no-reply@mail.theopenlane.io
     deleteExportContentWorker:
+      # enable the delete content worker periodic job
       enabled: false
+      # openlane API host for the worker
       openlaneAPIHost: ""
+      # interval to run the periodic job
+      interval: 30m
+      # duration to keep exported content
+      cutoffDuration: 24h
     exportContentWorker:
+      # enable the export content worker
       enabled: false
+      # openlane API host for the worker
       openlaneAPIHost: ""
     customDomainWorker:
+      # enable the custom domain worker
       enabled: false
+      # openlane API host for the worker
       openlaneAPIHost: ""
-    databaseWorker: 
+    databaseWorker:
+      # enable the database worker
       enabled: false
+      baseUrl: ""
+      endpoint: "query"
+      debug: false
 riverboatui:
   image:
     # Repository for the riverboat UI image

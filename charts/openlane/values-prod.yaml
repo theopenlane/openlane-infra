@@ -1,9 +1,11 @@
+# top level values
 domain: "theopenlane.io"
-secret:
-  create: true
-config:
-  create: true
+# core app values
 openlane:
+  secret:
+    create: true
+  config:
+    create: true
   coreConfiguration:
     domain: "theopenlane.io"
     server:
@@ -89,13 +91,14 @@ openlane:
       slack: 
         clientId: 
         scopes: ["chat:write", "channels:read"]
-  riverboat:
-    workers:
-      emailWorker:
-        enabled: true
-      deleteExportContentWorker:
-        enabled: true
-      exportContentWorker:
-        enabled: true
-      customDomainWorker:
-        enabled: true
+# riverboat values
+riverboat:
+  workers:
+    emailWorker:
+      enabled: true
+    deleteExportContentWorker:
+      enabled: true
+    exportContentWorker:
+      enabled: true
+    customDomainWorker:
+      enabled: true
