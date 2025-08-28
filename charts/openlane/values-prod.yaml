@@ -37,6 +37,9 @@ openlane:
       token:
         kid: "16FFBS79AZ12168N0RAW3CEAGG"
         generateKeys: false
+      supportedProviders: # note this is not currently used, but adding to ensure future compatibility
+        - github
+        - google
       providers: 
         redirectUrl: "https://console.theopenlane.io/api/auth/callback"
         github: 
@@ -74,9 +77,6 @@ openlane:
     keywatcher:
       enabled: true
       keyDir: "/keys" 
-    supportedProviders: # note this is not currently used, but these are the hardcoded values
-      - github
-      - slack
     integrationOauthProvider: 
       redirectUrl: 
       successRedirectUrl: 
