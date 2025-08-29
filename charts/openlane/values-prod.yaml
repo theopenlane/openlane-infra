@@ -15,7 +15,7 @@ openlane:
       graphPool:
         maxWorkers: 200
       complexityLimit: 200
-      defaultTrustCenterDomain: "trust.openlane.net"
+      defaultTrustCenterDomain: "trust.theopenlane.net"
       cors:
         enabled: true
         allowOrigins:
