@@ -85,6 +85,10 @@ openlane:
             pathType: Prefix
     tls: []
   coreConfiguration:
+    # -- Domain provides a global domain value for other modules to inherit
+    domain: "" # @schema type:string
+    # -- RefreshInterval determines how often to reload the config
+    refreshInterval: 10m0s # @schema type:integer; default:10m
     # -- Server contains the echo server settings
     server:
       # -- Dev enables echo's dev mode options
@@ -202,6 +206,9 @@ openlane:
       fieldLevelEncryption:
         # -- Enabled indicates whether Tink encryption is enabled
         enabled: false # @schema type:boolean; default:false
+      # -- TrustCenterCnameTarget is the cname target for the trust center
+      # Used for mapping the vanity domains to the trust centers
+      trustCenterCnameTarget: "" # @schema type:string
     # -- EntConfig contains the ent configuration used by the ent middleware
     entConfig:
       # -- EntityTypes is the list of entity types to create by default for the organization
