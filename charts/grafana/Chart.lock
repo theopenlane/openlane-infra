@@ -1,9 +1,9 @@
 dependencies:
 - name: grafana
   repository: https://grafana.github.io/helm-charts
-  version: 9.3.0
+  version: 9.4.4
 - name: oauth2-proxy
   repository: https://oauth2-proxy.github.io/manifests
   version: 7.12.19
-digest: sha256:78eaa10d10e68de4ccaceff9e17d581d6c573c614d2264d9611f620a7c27b514
-generated: "2025-07-26T17:58:22.439794-05:00"
+digest: sha256:0e17a2b231fb8e317ff26b6ad527472da37ccba90f62e8e811d5424d730146a1
+generated: "2025-09-01T19:54:02.747777189Z"
