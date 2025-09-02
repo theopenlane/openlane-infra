@@ -16,6 +16,7 @@ openlane:
         maxWorkers: 200
       complexityLimit: 200
       defaultTrustCenterDomain: "trust.theopenlane.net"
+      trustCenterCnameTarget: "cname.openlane-dns.com"
       cors:
         enabled: true
         allowOrigins:
