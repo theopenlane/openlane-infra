@@ -793,7 +793,7 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.3.3
+    tag: amd64-v0.3.4
     pullPolicy: IfNotPresent
   secret:
     # Whether to create the secret resource
