@@ -68,6 +68,29 @@ spec:
       namespace: gateway-system
   rules:
     - backendRefs:
-        - name: echo-server
-          port: 80
+        - name: trustcenter-fe
+          port: 3001
           namespace: gateway-system
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: trust-center-health-check
+  namespace: gateway-system
+spec:
+  default:
+    checkIntervalSec: 10
+    timeoutSec: 5
+    healthyThreshold: 2
+    unhealthyThreshold: 2
+    logConfig:
+      enabled: true
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 3001
+        requestPath: /health-check
+  targetRef:
+    group: ""
+    kind: Service
+    name: trustcenter-fe
