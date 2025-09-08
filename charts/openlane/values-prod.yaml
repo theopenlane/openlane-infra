@@ -75,8 +75,6 @@ openlane:
     subscription:
       enabled: true 
       publicStripeKey: "pk_live_51Pt0QSBvxky1R7SvYpeVpeSwvaJDiKtCNsLq6SzyDFYRwgVog5onL0pqM95POXuKPIyqJNiEPqj1yNsaaeGONYsp00vm49o15e"
-      trialSubscriptionPriceID: "price_1QKLyeBvxky1R7SvaZYGWyQb"
-      personalOrgSubscriptionPriceID: "price_1QycPyBvxky1R7Svz0gOWnNh" 
       stripeBillingPortalSuccessURL: "https://console.theopenlane.io/organization-settings/billing"
     keywatcher:
       enabled: true
