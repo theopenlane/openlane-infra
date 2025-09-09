@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   openlane:
   - apiVersion: v2
+    appVersion: v0.31.1
+    created: "2025-09-09T17:14:46.812559452Z"
+    description: A Helm chart to deploy the core Openlane server on GKE clusters
+    digest: 5a249adefc9093a39fad8189245a89b033f0f914e557bb3e3232e0d902bd88e7
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane
+    sources:
+    - https://github.com/theopenlane/core
+    type: application
+    urls:
+    - openlane-0.31.1.tgz
+    version: 0.31.1
+  - apiVersion: v2
     appVersion: v0.30.12
     created: "2025-09-08T17:54:36.167945493Z"
     description: A Helm chart to deploy the core Openlane server on GKE clusters
@@ -1467,4 +1485,4 @@ entries:
     urls:
     - trustcenter-gateway-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-08T17:54:36.168328862Z"
+generated: "2025-09-09T17:14:46.812817447Z"
