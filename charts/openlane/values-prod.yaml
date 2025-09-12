@@ -45,7 +45,8 @@ openlane:
         - google
         - webauthn
       providers: 
-        redirectUrl: "https://console.theopenlane.io/api/auth/callback"
+        # redirect url for sso logins
+        redirectUrl: "https://console.theopenlane.io/login/sso"
         github: 
           clientId: "Ov23liFCzRTms6uIou68"
         google: 
