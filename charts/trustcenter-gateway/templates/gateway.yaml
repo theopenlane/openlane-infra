@@ -68,6 +68,6 @@ spec:
       namespace: gateway-system
   rules:
     - backendRefs:
-        - name: echo-server
-          port: 80
+        - name: trustcenter-fe
+          port: 3002
           namespace: gateway-system
