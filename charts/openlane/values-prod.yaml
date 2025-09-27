@@ -71,7 +71,7 @@ openlane:
       entityTypes: 
         - "vendor"
       modules:
-        enabled: true
+        enabled: false
       maxPoolSize: 200
     subscription:
       enabled: true 
