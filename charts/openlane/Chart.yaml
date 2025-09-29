@@ -1,6 +1,6 @@
-version: 0.35.2
+version: 0.35.3
 apiVersion: v2
-appVersion: "v0.35.2"
+appVersion: "v0.35.3"
 description: A Helm chart to deploy the core Openlane server on GKE clusters
 name: openlane
 type: application
