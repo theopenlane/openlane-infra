@@ -6,7 +6,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.36.0"
+    tag: "v0.36.1"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Service account used by the API pods
