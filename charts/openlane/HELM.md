@@ -165,7 +165,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable | bool | `true` | EnableAutoUpdateDisposable indicates whether to automatically update disposable email addresses |
 | openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck | bool | `true` | EnableGravatarCheck indicates whether to check for Gravatar existence |
 | openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck | bool | `false` | EnableSMTPCheck indicates whether to check email by smtp |
-| openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes | object | `{"disposable":false,"free":false,"role":false}` | AllowedEmailTypes indicates which types of email addresses are allowed |
+| openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes | object | `{"disposable":false,"free":false,"role":false}` | AllowedEmailTypes defines the allowed email types for verification |
 | openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable | bool | `false` | Disposable indicates whether disposable email addresses are allowed |
 | openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free | bool | `false` | Free indicates whether free email addresses are allowed |
 | openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role | bool | `false` | Role indicates whether role-based email addresses are allowed |
