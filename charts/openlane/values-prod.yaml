@@ -71,7 +71,7 @@ openlane:
       entityTypes: 
         - "vendor"
       modules:
-        enabled: false
+        enabled: true
       emailValidation:
         enabled: true
         allowedEmailTypes: 

@@ -32,7 +32,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.36.2"` |  |
+| openlane.image.tag | string | `"v0.36.4"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
@@ -210,7 +210,7 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.coreConfiguration.sessions | object | `{"domain":"","httpOnly":true,"maxAge":3600,"sameSite":"Strict","secure":true}` | Sessions config for user sessions and cookies |
 | openlane.coreConfiguration.totp | object | `{"codeLength":6,"enabled":true,"issuer":"","recoveryCodeCount":16,"recoveryCodeLength":8,"redis":true}` | TOTP contains the configuration for the TOTP provider |
 | openlane.coreConfiguration.ratelimit | object | `{"burst":30,"enabled":false,"expires":"10m0s","limit":10}` | Ratelimit contains the configuration for the rate limiter |
-| openlane.coreConfiguration.objectStorage | object | `{"defaultBucket":"file_uploads","enabled":true,"keys":["uploadFile"],"localURL":"http://localhost:17608/files/","maxMemoryMB":0,"maxSizeMB":0,"provider":"","region":""}` | ObjectStorage contains the configuration for the object storage backend |
+| openlane.coreConfiguration.objectStorage | object | `{"defaultBucket":"file_uploads","enabled":true,"endpoint":"","keys":["uploadFile"],"localURL":"http://localhost:17608/files/","maxMemoryMB":0,"maxSizeMB":0,"provider":"","region":"","usePathStyle":false}` | ObjectStorage contains the configuration for the object storage backend |
 | openlane.coreConfiguration.objectStorage.enabled | bool | `true` | Enabled indicates if the store is enabled |
 | openlane.coreConfiguration.objectStorage.provider | string | `""` | Provider is the name of the provider, eg. disk, s3, will default to disk if nothing is set |
 | openlane.coreConfiguration.objectStorage.region | string | `""` | Region is the region for the storage provider |
@@ -219,6 +219,8 @@ A Helm chart to deploy the core Openlane server on GKE clusters
 | openlane.coreConfiguration.objectStorage.keys | list | `["uploadFile"]` | Keys is a list of keys to look for in the multipart form on the REST request if the keys are not found, the request upload will be skipped this is not used when uploading files with gqlgen and the graphql handler |
 | openlane.coreConfiguration.objectStorage.maxSizeMB | int | `0` | MaxUploadSizeMB is the maximum size of file uploads to accept in megabytes |
 | openlane.coreConfiguration.objectStorage.maxMemoryMB | int | `0` | MaxUploadMemoryMB is the maximum memory in megabytes to use when parsing a multipart form |
+| openlane.coreConfiguration.objectStorage.endpoint | string | `""` | Endpoint is used for other s3 compatible storage systems e.g minio, digital ocean spaces . they do not use the same s3 endpoint |
+| openlane.coreConfiguration.objectStorage.usePathStyle | bool | `false` | UsePathStyle is useful for other s3 compatible systems that use path styles not bucket.host path minio is a popular example here |
 | openlane.coreConfiguration.subscription | object | `{"enabled":false,"publicStripeKey":"","stripeBillingPortalSuccessURL":"https://console.openlane.com/organization-settings/billing","stripeCancellationReturnURL":"https://console.theopenlane.io/organization-settings/billing","stripeWebhookEvents":[],"stripeWebhookURL":"https://api.openlane.com/v1/stripe/webhook"}` | Entitlements contains the configuration for the entitlements service |
 | openlane.coreConfiguration.subscription.enabled | bool | `false` | Enabled determines if the entitlements service is enabled |
 | openlane.coreConfiguration.subscription.publicStripeKey | string | `""` | PublicStripeKey is the key for the stripe service |
