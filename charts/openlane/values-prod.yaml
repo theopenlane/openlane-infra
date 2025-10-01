@@ -72,6 +72,8 @@ openlane:
         - "vendor"
       modules:
         enabled: false
+      emailValidation:
+        enabled: true
       maxPoolSize: 200
     subscription:
       enabled: true 
