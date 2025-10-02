@@ -15,7 +15,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.external-secrets.io | eso(external-secrets) | 0.18.2 |
+| https://charts.external-secrets.io | eso(external-secrets) | 0.20.1 |
 
 ## Maintainers
 
@@ -25,7 +25,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
+A Helm chart to deploy External Secrets Operator for Openlane
 
 ## Source Code
 

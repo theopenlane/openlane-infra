@@ -15,7 +15,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://windmill-labs.github.io/windmill-helm-charts | windmill | 2.0.449 |
+| https://windmill-labs.github.io/windmill-helm-charts | windmill | 2.0.505 |
 
 ## Maintainers
 

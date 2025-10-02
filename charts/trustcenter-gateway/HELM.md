@@ -1,5 +1,7 @@
 # trustcenter-gateway
 
+**Homepage:** <https://docs.theopenlane.io>
+
 ## Prerequisites
 
 - [Helm](https://helm.sh/docs/intro/install/)
@@ -9,9 +11,19 @@
 
 Once you've installed `task` you can simply run `task install` to get the remaining dependencies installed, assuning you're using macOS and have `brew`.
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Openlane | <support@theopenlane.io> | <https://www.theopenlane.io> |
+
 ## Description
 
-A Helm chart for Kubernetes
+A Helm chart for deploying the necessary components to run the Trustcenter Gateway
+
+## Source Code
+
+* <https://github.com/theopenlane/core>
 
 ## Update documentation
 

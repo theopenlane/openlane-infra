@@ -19,7 +19,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart to deploy the core Openlane server on GKE clusters
+A Helm chart to deploy the core Openlane server
 
 ## Source Code
 

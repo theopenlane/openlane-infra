@@ -2,26 +2,16 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=theopenlane_openlane-infra&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=theopenlane_openlane-infra)
 
-> NOTE: This repository is currently in **beta**. It is not yet production-ready, but we are actively working on it. Please use with caution!
 
-# Openlane Infrastructure Provisioning
+# Openlane Helm Chart
 
-This repository contains Helm charts and scripts designed to provision production-grade GCP infrastructure using a GitOps approach, powered by **GCP Config Controller** (which includes managed Config Sync and **Config Connector**). The infrastructure includes a GKE Autopilot cluster, shared VPC, DNS, Load Balancing (ingress), CloudSQL, and Memorystore Redis.
+This repo contains a basic helm chart for deploying the Openlane stack, as well as some other misc. items we use to manage our environment such as cert-manager, external-dns, and other general Kubernetes ecosystem components. If you're wanting purely the Openlane stack, that will be inside of `charts/openlane` and it's major direct dependency, OpenFGA which we have a wrapper for to the upstream FGA chart inside of `charts/openfga`.
 
-## Architecture Overview
+> WARNING: Use these charts with caution and review the files beforehand! Because we have not yet invested a lot of time into parameterization of the charts `values.yaml`, many of the configuration options present do not directly control the deployment behavior, and many of the yaml files in the `templates directory are "flat" / contain hard-cded values.
 
-The general goal of this repo (and the chart structure) is to be able to include, as chart dependencies, infrastructure related resources alongside the application resources. What this means practically is that we want to have the same templating mechanism for things like GCP service accounts or IP addresses as we do for applications we deploy onto a Kubernetes cluster.
+Additionally, the chart has not yet been fully genericized to include things like a PostgreSQL or Redis deployment alongside the Openlane containers. We leverage our cloud provider for these services, so you could include them by simply importing the openlane chart and then adding postgresql, redis, or any other additional components you'd like to create alongside Openlane until we've had an opportunity to add and test those configurations.
 
-For example, when you are deploying `external-DNS` and `cert-manager` the deployment instructions created by the various maintainers of those projects have you doing things like:
-
-- creating GCP service accounts
-- creating IAM policy bindings
-- creating DNS zones if they don't exist
-- creating certificate maps or managed certificate resources
-- among other things...
-
-From our experience this usually involves a mix of either manual commands, some gross combination of terraform + helm, or some other weird combination. Since we already planned / wanted to use helm to define our application resources, and GCP provides a similarly yaml-oriented declarative configuration setup with Config Connector, we decided to try and make charts (and include as chart depepdencdies) so that we could have both our application and our infrastructure defined in a similar-ish way.
-
+If it's helpful from a compatibility perspetive, we use GCP CloudSQL and GCP Memorystore and can confirm those work with our core server deployment and OpenFGA.
 
 ## Chart Scaffolding
 

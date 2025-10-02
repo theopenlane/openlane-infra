@@ -1,7 +1,7 @@
 version: 0.1.1
 apiVersion: v2
 appVersion: 1.0.0
-description: A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
+description: A Helm chart to deploy External Secrets Operator for Openlane
 name: openlane-eso
 type: application
 maintainers:
@@ -14,6 +14,6 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: external-secrets
-    version: 0.18.2
+    version: 0.20.1
     repository: https://charts.external-secrets.io
     alias: eso

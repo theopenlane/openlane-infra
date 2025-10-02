@@ -10,7 +10,7 @@ openlane:
     server:
       csrfProtection:
           enabled: true
-          sameSite: "None" 
+          sameSite: "None"
           cookieDomain: ".theopenlane.io"
       graphPool:
         maxWorkers: 200
@@ -26,14 +26,14 @@ openlane:
           - https://docs.theopenlane.io
           - https://*openlane*.vercel.app
       secure:
-        hstsmaxage: "31536000" 
+        hstsmaxage: "31536000"
     db:
       maxConnections: 8
       maxIdleConnections: 8
       migrationProvider: goose
       enableHistory: true
       databaseName: prod-openlane-db
-    authz: 
+    authz:
       enabled: true
       hostUrl: http://openfga.openfga.svc.cluster.local:8080
     auth:
@@ -44,17 +44,17 @@ openlane:
         - github
         - google
         - webauthn
-      providers: 
+      providers:
         # redirect url for sso logins
         redirectUrl: "https://console.theopenlane.io/login/sso"
-        github: 
+        github:
           clientId: "Ov23liFCzRTms6uIou68"
-        google: 
+        google:
           clientId: "45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com"
     sessions:
       sameSite: "None"
       domain: ".theopenlane.io" # todo: allow this to work with the domain, need the "." prefix
-    redis: 
+    redis:
       address: "10.252.1.3:6379"
     email:
       templatesPath: "/brandedemails"
@@ -68,27 +68,26 @@ openlane:
       defaultBucket: "openlane-prod"
       provider: "s3"
     entConfig:
-      entityTypes: 
+      entityTypes:
         - "vendor"
       modules:
         enabled: true
       emailValidation:
         enabled: true
-        allowedEmailTypes: 
+        allowedEmailTypes:
           role: true
       maxPoolSize: 200
     subscription:
-      enabled: true 
-      publicStripeKey: "pk_live_51Pt0QSBvxky1R7SvYpeVpeSwvaJDiKtCNsLq6SzyDFYRwgVog5onL0pqM95POXuKPIyqJNiEPqj1yNsaaeGONYsp00vm49o15e"
+      enabled: true
       stripeBillingPortalSuccessURL: "https://console.theopenlane.io/organization-settings/billing"
     keywatcher:
       enabled: true
-      keyDir: "/keys" 
+      keyDir: "/keys"
     integrationOauthProvider:
-      github: 
+      github:
         clientId: "Ov23li4ZVNEkKhrdBZu5"
-        scopes: ["read:user", "user:email", "repo"] 
-      slack: 
+        scopes: ["read:user", "user:email", "repo"]
+      slack:
         clientId: "7576222813318.8026395673346"
         scopes: ["chat:write", "channels:read"]
 # riverboat values

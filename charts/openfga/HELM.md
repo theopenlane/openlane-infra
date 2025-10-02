@@ -15,7 +15,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://openfga.github.io/helm-charts | openfga(openfga) | 0.2.38 |
+| https://openfga.github.io/helm-charts | openfga(openfga) | 0.2.44 |
 
 ## Maintainers
 
@@ -25,7 +25,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart to deploy OpenFGA Server on GKE clusters for Openlane
+A Helm chart to deploy OpenFGA Server for Openlane
 
 ## Source Code
 
