@@ -5,6 +5,9 @@ metadata:
   namespace: openlane
   labels:
     {{- include "openlane.labels" . | nindent 4 }}
+  annotations:
+    # This checksum will trigger deployment restarts when the ConfigMap changes
+    checksum/config: {{ .Values | toYaml | sha256sum }}
 spec:
   revisionHistoryLimit: 0
   replicas: {{ .Values.openlane.replicaCount }}
