@@ -55,7 +55,7 @@ Deploys external-dns and its monitoring
 | external-dns.rbac.create | bool | `true` | If `true`, create a `ClusterRole` & `ClusterRoleBinding` with access to the Kubernetes API. |
 | external-dns.rbac.additionalPermissions | list | `[]` | Additional rules to add to the `ClusterRole`. |
 | external-dns.deploymentAnnotations | object | `{}` | Annotations to add to the `Deployment`. |
-| external-dns.extraContainers | object | `{}` | Extra containers to add to the `Deployment`. |
+| external-dns.extraContainers | list | `[]` | Extra containers to add to the `Deployment`. |
 | external-dns.deploymentStrategy | object | `{"type":"Recreate"}` | [Deployment Strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy). |
 | external-dns.revisionHistoryLimit | int | `2` | Specify the number of old `ReplicaSets` to retain to allow rollback of the `Deployment``. |
 | external-dns.podLabels | object | `{}` | Labels to add to the `Pod`. |
