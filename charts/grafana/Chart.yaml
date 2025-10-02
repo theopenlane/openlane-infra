@@ -1,7 +1,7 @@
 version: 0.1.0
 apiVersion: v2
 appVersion: 1.0.0
-description: A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
+description: A Helm chart to deploy External Secrets Operator for Openlane
 name: openlane-eso
 type: application
 maintainers:
@@ -14,10 +14,10 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: grafana
-    version: 9.3.0
+    version: 10.0.0
     repository: https://grafana.github.io/helm-charts
     alias: grafana
   - name: oauth2-proxy
-    version: 7.12.19
+    version: 8.3.0
     repository: https://oauth2-proxy.github.io/manifests
     alias: oauth2

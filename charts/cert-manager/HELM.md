@@ -26,7 +26,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart to deploy cert-manager on GKE clusters using Config Connector for Openlane
+A Helm chart to deploy cert-manager using Config Connector for Openlane
 
 ## Source Code
 

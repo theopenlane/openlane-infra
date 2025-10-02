@@ -15,8 +15,8 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana(grafana) | 9.3.0 |
-| https://oauth2-proxy.github.io/manifests | oauth2(oauth2-proxy) | 7.12.19 |
+| https://grafana.github.io/helm-charts | grafana(grafana) | 10.0.0 |
+| https://oauth2-proxy.github.io/manifests | oauth2(oauth2-proxy) | 8.3.0 |
 
 ## Maintainers
 
@@ -26,7 +26,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-A Helm chart to deploy External Secrets Operator on GKE clusters for Openlane
+A Helm chart to deploy External Secrets Operator for Openlane
 
 ## Source Code
 
