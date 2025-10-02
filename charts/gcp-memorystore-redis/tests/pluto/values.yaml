@@ -1,7 +1,0 @@
-enabled: true
-redisInstance:
-  name: "test-redis"
-  projectId: "test-project"
-  region: "us-central1"
-  tier: "BASIC"
-  memorySizeGb: 1

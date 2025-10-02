@@ -15,7 +15,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | prometheus-operator-crds | 21.0.0 |
+| https://prometheus-community.github.io/helm-charts | prometheus-operator-crds | 23.0.0 |
 
 ## Maintainers
 
@@ -25,7 +25,7 @@ Once you've installed `task` you can simply run `task install` to get the remain
 
 ## Description
 
-Install only the Prometheus Operator CRDs on GKE clusters for Openlane
+Install only the Prometheus Operator CRDs for Openlane
 
 ## Source Code
 
