@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.36.6] - 2025-10-02
+
+### Changed✅ Updated ConfigMap template
+\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 6067
+- Source Commit: 9963a049
+- Source Branch: main
+- Generated: 2025-10-02 04:29:24 UTC
+
+---
+
 ## [0.36.5] - 2025-10-01
 
 ### Changed✅ Updated ConfigMap template
