@@ -9,6 +9,10 @@ This repo contains a basic helm chart for deploying the Openlane stack, as well 
 
 > WARNING: Use these charts with caution and review the files beforehand! Because we have not yet invested a lot of time into parameterization of the charts `values.yaml`, many of the configuration options present do not directly control the deployment behavior, and many of the yaml files in the `templates directory are "flat" / contain hard-cded values.
 
+Additionally, the chart has not yet been fully genericized to include things like a PostgreSQL or Redis deployment alongside the Openlane containers. We leverage our cloud provider for these services, so you could include them by simply importing the openlane chart and then adding postgresql, redis, or any other additional components you'd like to create alongside Openlane until we've had an opportunity to add and test those configurations.
+
+If it's helpful from a compatibility perspetive, we use GCP CloudSQL and GCP Memorystore and can confirm those work with our core server deployment and OpenFGA.
+
 ## Chart Scaffolding
 
 The repository includes a custom shell script (`openlane-chart.sh`) to scaffold new charts. This tool automates the process of:
