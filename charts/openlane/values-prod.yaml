@@ -33,6 +33,10 @@ openlane:
       migrationProvider: goose
       enableHistory: true
       databaseName: prod-openlane-db
+    jobQueue:
+      metrics:
+        enableMetrics: true
+        metricsDurationUnit: "s"
     authz:
       enabled: true
       hostUrl: http://openfga.openfga.svc.cluster.local:8080
