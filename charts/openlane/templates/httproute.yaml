@@ -33,6 +33,7 @@ spec:
   targetRef:
     group: ""
     kind: Service
-    name: openlane
-  securityPolicy:
-    name: restrict-to-cloudflare
+    name: prod-openlane
+  default:
+    securityPolicy:
+      name: restrict-to-cloudflare
