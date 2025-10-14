@@ -27,8 +27,6 @@ kind: GCPBackendPolicy
 metadata:
   name: openlane-cf-whitelist
   namespace: openlane
-  labels:
-    gateway: prod-central1-core-gateway
 spec:
   targetRef:
     group: ""
