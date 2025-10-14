@@ -35,5 +35,4 @@ spec:
     kind: Service
     name: prod-openlane
   default:
-    securityPolicy:
-      name: restrict-to-cloudflare
+    securityPolicy: restrict-to-cloudflare
