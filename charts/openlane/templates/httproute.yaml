@@ -31,8 +31,8 @@ metadata:
     gateway: prod-central1-core-gateway
 spec:
   targetRef:
-    group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    name: openlane-route
+    group: ""
+    kind: Service
+    name: openlane
   securityPolicy:
     name: restrict-to-cloudflare
