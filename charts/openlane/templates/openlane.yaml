@@ -22,6 +22,23 @@ spec:
         gke-gcsfuse/volumes: "true"
     spec:
       serviceAccountName: openlane-gke-deployment-sa
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - openlane
+            topologyKey: "kubernetes.io/hostname"
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            {{- include "openlane.selectorLabels" . | nindent 12 }}
       containers:
         - name: openlane
           args:

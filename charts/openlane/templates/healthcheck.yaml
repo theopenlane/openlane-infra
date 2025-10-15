@@ -14,7 +14,8 @@ spec:
       type: HTTP
       httpHealthCheck:
         requestPath: /livez
-        portName: http
+        port: 80
+        portSpecification: USE_FIXED_PORT
   targetRef:
     group: ""
     kind: Service

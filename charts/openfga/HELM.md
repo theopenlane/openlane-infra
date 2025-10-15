@@ -198,8 +198,14 @@ A Helm chart to deploy OpenFGA Server for Openlane
 | openfga.autoscaling.targetMemoryUtilizationPercentage | int | `80` |  |
 | openfga.nodeSelector | object | `{}` |  |
 | openfga.tolerations | list | `[]` |  |
-| openfga.topologySpreadConstraints | list | `[]` |  |
-| openfga.affinity | object | `{}` |  |
+| openfga.topologySpreadConstraints[0].maxSkew | int | `1` |  |
+| openfga.topologySpreadConstraints[0].topologyKey | string | `"topology.kubernetes.io/zone"` |  |
+| openfga.topologySpreadConstraints[0].whenUnsatisfiable | string | `"ScheduleAnyway"` |  |
+| openfga.topologySpreadConstraints[0].labelSelector.matchLabels."app.kubernetes.io/name" | string | `"openfga"` |  |
+| openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].key | string | `"app"` |  |
+| openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].operator | string | `"In"` |  |
+| openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].values[0] | string | `"openfga"` |  |
+| openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].topologyKey | string | `"kubernetes.io/hostname"` |  |
 | openfga.sidecars | list | `[]` |  |
 | openfga.migrate.extraVolumes | list | `[]` |  |
 | openfga.migrate.extraVolumeMounts | list | `[]` |  |
