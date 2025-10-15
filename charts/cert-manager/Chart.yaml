@@ -14,7 +14,7 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: cert-manager
-    version: "v1.18.2"
+    version: "v1.19.1"
     repository: "https://charts.jetstack.io"
   - name: origin-ca-issuer
     version: "0.5.12"
