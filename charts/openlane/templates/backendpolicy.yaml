@@ -1,0 +1,12 @@
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: openlane-cf-whitelist
+  namespace: openlane
+spec:
+  targetRef:
+    group: ""
+    kind: Service
+    name: prod-openlane
+  default:
+    securityPolicy: restrict-to-cloudflare
