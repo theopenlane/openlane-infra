@@ -202,7 +202,7 @@ A Helm chart to deploy OpenFGA Server for Openlane
 | openfga.topologySpreadConstraints[0].topologyKey | string | `"topology.kubernetes.io/zone"` |  |
 | openfga.topologySpreadConstraints[0].whenUnsatisfiable | string | `"ScheduleAnyway"` |  |
 | openfga.topologySpreadConstraints[0].labelSelector.matchLabels."app.kubernetes.io/name" | string | `"openfga"` |  |
-| openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].key | string | `"app"` |  |
+| openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].key | string | `"app.kubernetes.io/name"` |  |
 | openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].operator | string | `"In"` |  |
 | openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions[0].values[0] | string | `"openfga"` |  |
 | openfga.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].topologyKey | string | `"kubernetes.io/hostname"` |  |
