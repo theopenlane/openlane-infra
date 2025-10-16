@@ -54,7 +54,48 @@ spec:
           requestRedirect:
             scheme: https
 ---
-# ExternalName Service pointing to Vercel
+# GCPBackendPolicy for external HTTPS backend
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: trustcenter-vercel-policy
+  namespace: gateway-system
+spec:
+  default:
+    connectionDraining:
+      drainingTimeoutSec: 60
+    timeoutSec: 30
+    logging:
+      enabled: true
+      sampleRate: 1.0
+  targetRef:
+    group: ""
+    kind: Service
+    name: trustcenter-vercel
+---
+# HealthCheckPolicy with very lenient settings
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: trustcenter-vercel-healthcheck
+  namespace: gateway-system
+spec:
+  default:
+    checkIntervalSec: 60
+    timeoutSec: 30
+    healthyThreshold: 1
+    unhealthyThreshold: 10
+    config:
+      type: HTTPS
+      httpsHealthCheck:
+        requestPath: /health-check
+        port: 443
+  targetRef:
+    group: ""
+    kind: Service
+    name: trustcenter-vercel
+---
+# Service pointing to external endpoint
 apiVersion: v1
 kind: Service
 metadata:
@@ -67,8 +108,9 @@ spec:
     - port: 443
       protocol: TCP
       targetPort: 443
+      name: https
 ---
-# HTTPRoute routing to the external service
+# HTTPRoute with Host header modification
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
@@ -80,24 +122,13 @@ spec:
       sectionName: https
       namespace: gateway-system
   rules:
-    - backendRefs:
+    - filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: Host
+                value: trust-center-openlane.vercel.app
+      backendRefs:
         - name: trustcenter-vercel
           port: 443
           namespace: gateway-system
-# TODO: eventually this should route to the public trust center frontend, but
-# routing to an echo server to validate the dns verification bits all work
-# kind: HTTPRoute
-# apiVersion: gateway.networking.k8s.io/v1beta1
-# metadata:
-#   name: trustcenter-https-route
-#   namespace: gateway-system
-# spec:
-#   parentRefs:
-#     - name: trustcenter-gateway
-#       sectionName: https
-#       namespace: gateway-system
-#   rules:
-#     - backendRefs:
-#         - name: echo-server
-#           port: 80
-#           namespace: gateway-system
