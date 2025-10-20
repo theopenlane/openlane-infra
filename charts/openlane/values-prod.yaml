@@ -25,6 +25,7 @@ openlane:
           - https://studio.apollographql.com
           - https://docs.theopenlane.io
           - https://*openlane*.vercel.app
+          - https://trust.theopenlane.net
       secure:
         hstsmaxage: "31536000"
     db:
