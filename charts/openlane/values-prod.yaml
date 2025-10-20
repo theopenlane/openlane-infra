@@ -68,13 +68,23 @@ openlane:
       year: "2025"
       logoURL: "https://imagedelivery.net/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
     objectStorage:
+      enabled: true
       maxSizeMB: 100
       providers: 
         s3: 
           enabled: true
           ensureAvailable: true
           region: "us-east-1"
-          bucket: "openlane-prod"
+          bucket: "ol-us-east-2"
+          baseURL: "https://api.theopenlane.io/v1/files"
+          proxyPresignEnabled: false
+        cloudflareR2: 
+          enabled: true
+          ensureAvailable: true
+          bucket: "ol-trust-center"
+          region: "WNAM"
+          baseURL: "https://api.theopenlane.io/v1/files"
+          proxyPresignEnabled: false
     entConfig:
       entityTypes:
         - "vendor"
