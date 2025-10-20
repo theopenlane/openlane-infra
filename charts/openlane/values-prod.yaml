@@ -75,7 +75,7 @@ openlane:
         s3: 
           enabled: true
           ensureAvailable: true
-          region: "us-east-1"
+          region: "us-east-2"
           bucket: "ol-us-east-2"
           baseURL: "https://api.theopenlane.io/v1/files"
           proxyPresignEnabled: false
