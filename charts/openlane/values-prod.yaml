@@ -76,7 +76,7 @@ openlane:
           enabled: true
           ensureAvailable: true
           region: "us-east-2"
-          bucket: "ol"
+          bucket: "opln"
           baseURL: "https://api.theopenlane.io/v1/files"
           proxyPresignEnabled: false
         cloudflareR2: 
