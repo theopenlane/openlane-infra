@@ -32,7 +32,7 @@ A Helm chart to deploy the core Openlane server
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.40.2"` |  |
+| openlane.image.tag | string | `"v0.40.3"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
