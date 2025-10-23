@@ -87,6 +87,18 @@ spec:
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 30
+          # Resource requests and limits (optional, set in values.yaml)
+          {{- if or .Values.openlane.resources.requests .Values.openlane.resources.limits }}
+          resources:
+            {{- if .Values.openlane.resources.requests }}
+            requests:
+{{ toYaml .Values.openlane.resources.requests | indent 14 }}
+            {{- end }}
+            {{- if .Values.openlane.resources.limits }}
+            limits:
+{{ toYaml .Values.openlane.resources.limits | indent 14 }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
             - name: brandedemails-volume
               mountPath: {{ .Values.openlane.coreConfiguration.email.templatesPath }}

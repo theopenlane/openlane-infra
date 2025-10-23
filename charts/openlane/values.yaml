@@ -9,6 +9,18 @@ openlane:
     tag: "v0.40.3"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
+  # Resource requests and limits for the `openlane` container
+  # Example:
+  # resources:
+  #   requests:
+  #     cpu: "100m"
+  #     memory: "128Mi"
+  #   limits:
+  #     cpu: "500m"
+  #     memory: "512Mi"
+  resources:
+    requests: {}
+    limits: {}
   # Service account used by the API pods
   serviceAccountName: {}
   # Name of an existing secret with configuration
@@ -1051,6 +1063,7 @@ podMonitoring:
   enabled: true
   interval: 30s
   scrapeTimeout:
+  # (optional) scrape timeout for Prometheus
 podMonitor:
   # -- If `true`, create a PodMonitor resource to support the Prometheus Operator.
   enabled: true
