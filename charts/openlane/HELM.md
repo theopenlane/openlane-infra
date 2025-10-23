@@ -34,6 +34,8 @@ A Helm chart to deploy the core Openlane server
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
 | openlane.image.tag | string | `"v0.40.3"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
+| openlane.resources.requests | object | `{}` |  |
+| openlane.resources.limits | object | `{}` |  |
 | openlane.serviceAccountName | object | `{}` |  |
 | openlane.existingSecret | string | `""` |  |
 | openlane.secret.create | bool | `false` |  |
