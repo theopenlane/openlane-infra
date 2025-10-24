@@ -1478,7 +1478,7 @@ origin-ca-issuer:
   controller:
     image:
       repository: cloudflare/origin-ca-issuer
-      tag: v0.12.1
+      tag: v0.13.0
       pullPolicy: Always
 
     replicaCount: 1
