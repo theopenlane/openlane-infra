@@ -95,6 +95,9 @@ openlane:
         enabled: true
         allowedEmailTypes:
           role: true
+      billing:
+        requirePaymentMethod: true
+        bypassEmailDomains: ["theopenlane.io"]
       maxPoolSize: 200
     subscription:
       enabled: true
