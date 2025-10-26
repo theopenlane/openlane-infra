@@ -1154,3 +1154,8 @@ riverboatui:
   # Port for the UI service
   servicePort: 8080
   secretName: riverboatui-app-secret
+trustcenter:
+  image:
+    # Repository for the trustcenter image
+    repository: ghcr.io/theopenlane/trust-center-fe
+    tag: v0.1.15

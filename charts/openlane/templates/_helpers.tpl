@@ -13,7 +13,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/name: {{ include "openlane.name" . }}
 {{- end }}
 
+{{- define "trustcenter.name" -}}
+{{- default "trustcenter" .Values.trustcenter.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
 
+{{- define "trustcenter.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "openlane.name" . }}
+{{- end }}
+
+{{- define "trustcenter.labels" -}}
+{{ include "trustcenter.selectorLabels" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
 
 {{- define "riverboat.labels" -}}
 {{ include "riverboat.selectorLabels" . }}
