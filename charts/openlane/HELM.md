@@ -551,8 +551,6 @@ A Helm chart to deploy the core Openlane server
 | riverboatui.riverDatabaseHost | string | `""` |  |
 | riverboatui.servicePort | int | `8080` |  |
 | riverboatui.secretName | string | `"riverboatui-app-secret"` |  |
-| trustcenter.image.repository | string | `"ghcr.io/theopenlane/trust-center-fe"` |  |
-| trustcenter.image.tag | string | `"v0.1.15"` |  |
 
 ## Update documentation
 
