@@ -12,7 +12,7 @@ metadata:
   labels:
     {{- include "trustcenter.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.trustcenter.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "trustcenter.selectorLabels" . | nindent 6 }}
@@ -46,8 +46,7 @@ spec:
             {{- include "trustcenter.selectorLabels" . | nindent 12 }}
       containers:
         - name: trustcenter
-          # image: ghcr.io/theopenlane/trust-center-fe:v0.1.11-ac-1
-          image: {{ .Values.trustcenter.image.repository }}:{{ .Values.trustcenter.image.tag }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 3001
               protocol: TCP
