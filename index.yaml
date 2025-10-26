@@ -2248,6 +2248,17 @@ entries:
     urls:
     - openlane-windmill-1.0.0.tgz
     version: 1.0.0
+  trustcenter:
+  - apiVersion: v2
+    appVersion: v0.1.15
+    created: "2025-10-26T21:22:20.320417727Z"
+    description: A Helm chart for Kubernetes
+    digest: f78674b219cb2fe786bdd469f7fc92ea623f6339156b533b6baaa07c3cddcedb
+    name: trustcenter
+    type: application
+    urls:
+    - trustcenter-0.1.0.tgz
+    version: 0.1.0
   trustcenter-gateway:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -2259,4 +2270,4 @@ entries:
     urls:
     - trustcenter-gateway-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-26T19:03:25.659784781Z"
+generated: "2025-10-26T21:22:20.3206224Z"
