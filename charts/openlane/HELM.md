@@ -183,7 +183,7 @@ A Helm chart to deploy the core Openlane server
 | openlane.coreConfiguration.auth.providers.github | object | `{"clientEndpoint":"","clientId":"","redirectUrl":"/v1/github/callback","scopes":[]}` | Github contains the configuration settings for the Github Oauth Provider |
 | openlane.coreConfiguration.auth.providers.google | object | `{"clientEndpoint":"","clientId":"","redirectUrl":"/v1/google/callback","scopes":[]}` | Google contains the configuration settings for the Google Oauth Provider |
 | openlane.coreConfiguration.auth.providers.webauthn | object | `{"debug":false,"displayName":"","enabled":true,"enforceTimeout":true,"maxDevices":10,"relyingPartyId":"","requestOrigins":[],"timeout":"1m0s"}` | Webauthn contains the configuration settings for the Webauthn Oauth Provider |
-| openlane.coreConfiguration.authz | object | `{"createNewModel":false,"credentials":{"audience":"","clientId":"","issuer":"","scopes":""},"enabled":true,"hostUrl":"https://authz.theopenlane.io","ignoreDuplicateKeyError":true,"modelFile":"fga/model/model.fga","modelId":"","storeId":"","storeName":"openlane"}` | Authz contains the authorization settings for fine grained access control |
+| openlane.coreConfiguration.authz | object | `{"createNewModel":false,"credentials":{"audience":"","clientId":"","issuer":"","scopes":""},"enabled":true,"hostUrl":"https://authz.theopenlane.io","modelFile":"fga/model/model.fga","modelId":"","storeId":"","storeName":"openlane"}` | Authz contains the authorization settings for fine grained access control |
 | openlane.coreConfiguration.authz.enabled | bool | `true` | enables authorization checks with openFGA |
 | openlane.coreConfiguration.authz.storeName | string | `"openlane"` | name of openFGA store |
 | openlane.coreConfiguration.authz.hostUrl | string | `"https://authz.theopenlane.io"` | host url with scheme of the openFGA API |
@@ -196,7 +196,6 @@ A Helm chart to deploy the core Openlane server
 | openlane.coreConfiguration.authz.credentials.audience | string | `""` | audience for the openFGA client |
 | openlane.coreConfiguration.authz.credentials.issuer | string | `""` | issuer for the openFGA client |
 | openlane.coreConfiguration.authz.credentials.scopes | string | `""` | scopes for the openFGA client |
-| openlane.coreConfiguration.authz.ignoreDuplicateKeyError | bool | `true` | ignore duplicate key error |
 | openlane.coreConfiguration.db | object | `{"cacheTTL":"1s","databaseName":"openlane","debug":false,"driverName":"pgx","enableHistory":false,"maxConnections":0,"maxIdleConnections":0,"migrationProvider":"atlas","multiWrite":false,"runMigrations":true}` | DB contains the database configuration for the ent client |
 | openlane.coreConfiguration.db.debug | bool | `false` | debug enables printing the debug database logs |
 | openlane.coreConfiguration.db.databaseName | string | `"openlane"` | the name of the database to use with otel tracing |
