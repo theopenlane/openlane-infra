@@ -116,7 +116,7 @@ spec:
               mountOptions: "implicit-dirs"
         - name: token-keys
           secret:
-            secretName: token-keys
+            secretName: token-keys-eddsa
             items:
               - key: tls.key
                 path: 01JZ6M4SGPSBJY8ENJ53PG7GYS.pem

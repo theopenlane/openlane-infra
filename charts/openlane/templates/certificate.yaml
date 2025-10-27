@@ -8,13 +8,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: signing-token
+  name: signing-token-eddsa
 spec:
-  secretName: token-keys
+  secretName: token-keys-eddsa
   commonName: core-token
   privateKey:
-    algorithm: RSA
-    size: 4096
+    algorithm: Ed25519
     encoding: PKCS8
   usages:
     - digital signature
