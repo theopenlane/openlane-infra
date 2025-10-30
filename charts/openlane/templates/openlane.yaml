@@ -120,3 +120,27 @@ spec:
             items:
               - key: tls.key
                 path: 01JZ6M4SGPSBJY8ENJ53PG7GYS.pem
+
+---
+{{- if .Values.openlane.pdb.enabled }}
+# PodDisruptionBudget for the openlane deployment
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Release.Name }}-openlane-pdb
+  namespace: openlane
+  labels:
+    {{- include "openlane.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.openlane.pdb.minAvailable }}
+  minAvailable: {{ .Values.openlane.pdb.minAvailable }}
+  {{- else if .Values.openlane.pdb.maxUnavailable }}
+  maxUnavailable: {{ .Values.openlane.pdb.maxUnavailable }}
+  {{- else }}
+  # default to 1 if enabled but no value provided
+  minAvailable: 1
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "openlane.selectorLabels" . | nindent 6 }}
+{{- end }}
