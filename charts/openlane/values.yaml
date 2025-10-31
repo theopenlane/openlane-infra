@@ -2,6 +2,14 @@ openlane:
   nameOverride: ""
   # Number of API replicas to run
   replicaCount: 3
+  # PodDisruptionBudget configuration for the Openlane pods
+  # Enable to create a PodDisruptionBudget. Configure either minAvailable or maxUnavailable.
+  pdb:
+    enabled: true
+    # Specify an integer (1) or percentage ("50%") for minAvailable. If unset, maxUnavailable will be used.
+    minAvailable: 1
+    # Alternatively you can set maxUnavailable instead of minAvailable.
+    # maxUnavailable: 1
   image:
     # Container image repository
     repository: ghcr.io/theopenlane/core

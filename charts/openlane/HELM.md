@@ -31,6 +31,8 @@ A Helm chart to deploy the core Openlane server
 |-----|------|---------|-------------|
 | openlane.nameOverride | string | `""` |  |
 | openlane.replicaCount | int | `3` |  |
+| openlane.pdb.enabled | bool | `true` |  |
+| openlane.pdb.minAvailable | int | `1` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
 | openlane.image.tag | string | `"v0.42.2"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
