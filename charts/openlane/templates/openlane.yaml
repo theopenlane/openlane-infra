@@ -8,6 +8,7 @@ metadata:
   annotations:
     # This checksum will trigger deployment restarts when the ConfigMap changes
     checksum/config: {{ .Values | toYaml | sha256sum }}
+    argo-cd.argoproj.io/sync-wave: "2"
 spec:
   revisionHistoryLimit: 0
   replicas: {{ .Values.openlane.replicaCount }}
