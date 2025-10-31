@@ -21,5 +21,11 @@
             ]
         }
     ],
-  "postUpdateOptions": ["helmUpdateSubChartArchives"]
+  "postUpdateOptions": ["helmUpdateSubChartArchives"],
+  "postUpgradeTasks": {
+    "description": "Regenerate Helm documentation after chart dependency updates",
+    "fileFilters": ["charts/**"],
+    "commands": ["./scripts/renovate-docs.sh"],
+    "executionMode": "branch"
+  }
 }
