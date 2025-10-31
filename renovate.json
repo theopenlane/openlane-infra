@@ -27,5 +27,8 @@
     "fileFilters": ["charts/**"],
     "commands": ["./scripts/renovate-docs.sh"],
     "executionMode": "branch"
-  }
+  },
+  "allowedCommands": [
+    "./scripts/renovate-docs.sh"
+  ]
 }
