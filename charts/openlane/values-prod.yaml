@@ -68,7 +68,7 @@ openlane:
       companyAddress: "5150 Broadway St · San Antonio · TX 78209"
       fromEmail: "support@mail.theopenlane.io"
       year: "2025"
-      logoURL: "https://theopenlane.io/cdn-cgi/imagedelivery/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
+      logoURL: "https://www.theopenlane.io/cdn-cgi/imagedelivery/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
     objectStorage:
       enabled: true
       maxSizeMB: 100
