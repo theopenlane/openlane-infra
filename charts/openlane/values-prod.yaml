@@ -2,6 +2,8 @@
 domain: "theopenlane.io"
 # core app values
 openlane:
+  pdb:
+    minAvailable: 2
   secret:
     create: true
   config:
@@ -113,6 +115,9 @@ openlane:
       slack:
         clientId: "7576222813318.8026395673346"
         scopes: ["chat:write", "channels:read"]
+    ratelimit:
+      enabled: true
+      dryRun: true
 # riverboat values
 riverboat:
   secret:
