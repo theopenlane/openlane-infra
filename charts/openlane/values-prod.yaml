@@ -119,9 +119,8 @@ openlane:
       enabled: true
       dryRun: true
       options:
-        -
-          requests: 500
-          window: 10s
+        requests: 500
+        window: 10s
 # riverboat values
 riverboat:
   secret:
