@@ -327,7 +327,7 @@ data:
   CORE_TOTP_RECOVERYCODECOUNT: {{ .Values.openlane.coreConfiguration.totp.recoveryCodeCount | quote | default "16" }}
   CORE_TOTP_RECOVERYCODELENGTH: {{ .Values.openlane.coreConfiguration.totp.recoveryCodeLength | quote | default "8" }}
   CORE_RATELIMIT_ENABLED: {{ .Values.openlane.coreConfiguration.ratelimit.enabled | quote | default "false" }}
-  CORE_RATELIMIT_OPTIONS: {{ .Values.openlane.coreConfiguration.ratelimit.options | toJson }}
+  CORE_RATELIMIT_OPTIONS: {{ join "," .Values.openlane.coreConfiguration.ratelimit.options | quote }}
   CORE_RATELIMIT_HEADERS: {{ join "," .Values.openlane.coreConfiguration.ratelimit.headers | quote | default "True-Client-IP" }}
   CORE_RATELIMIT_FORWARDEDINDEXFROMBEHIND: {{ .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind | quote | default "0" }}
   CORE_RATELIMIT_INCLUDEPATH: {{ .Values.openlane.coreConfiguration.ratelimit.includePath | quote | default "false" }}

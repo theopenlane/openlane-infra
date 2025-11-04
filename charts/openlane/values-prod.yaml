@@ -116,7 +116,7 @@ openlane:
         clientId: "7576222813318.8026395673346"
         scopes: ["chat:write", "channels:read"]
     ratelimit:
-      enabled: true
+      enabled: false
       dryRun: true
       options:
         - requests: 500
