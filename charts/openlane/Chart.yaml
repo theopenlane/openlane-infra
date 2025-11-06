@@ -1,6 +1,6 @@
-version: 0.43.3
+version: 0.43.4
 apiVersion: v2
-appVersion: "v0.43.3"
+appVersion: "v0.43.4"
 description: A Helm chart to deploy the core Openlane server
 name: openlane
 type: application
