@@ -11,28 +11,6 @@
 {{- end }}
 {{- end }}
 {{- end }}
-{{- define "openlane.maybeMap" -}}
-{{- $indentCount := index . "indent" -}}
-{{- $indent := repeat $indentCount " " -}}
-{{- $name := index . "name" -}}
-{{- $value := index . "value" -}}
-{{- if gt (len $value) 0 -}}
-{{ printf "%s%s:\n" $indent $name }}
-{{- $pad := add $indentCount 2 -}}
-{{ toYaml $value | indent $pad }}
-{{- end -}}
-{{- end }}
-{{- define "openlane.maybeList" -}}
-{{- $indentCount := index . "indent" -}}
-{{- $indent := repeat $indentCount " " -}}
-{{- $name := index . "name" -}}
-{{- $value := index . "value" -}}
-{{- if gt (len $value) 0 -}}
-{{ printf "%s%s:\n" $indent $name }}
-{{- $pad := add $indentCount 2 -}}
-{{ toYaml $value | indent $pad }}
-{{- end -}}
-{{- end }}
 {{- if .Values.openlane.config.create }}
 ---
 apiVersion: v1
@@ -95,7 +73,10 @@ data:
         enabled: {{ .Values.openlane.coreConfiguration.server.cors.enabled }}
 {{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.cors.prefixes | default (dict)) }}
-        {{ include "openlane.maybeMap" (dict "indent" 8 "name" "prefixes" "value" $mapValue) }}
+        {{- if gt (len $mapValue) 0 }}
+        prefixes:
+        {{- toYaml $mapValue | nindent 10 }}
+        {{- end }}
         {{- if .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
         allowOrigins:
         {{ toYaml .Values.openlane.coreConfiguration.server.cors.allowOrigins | nindent 10 }}
@@ -144,7 +125,10 @@ data:
         enabled: {{ .Values.openlane.coreConfiguration.server.redirects.enabled }}
 {{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.redirects.redirects | default (dict)) }}
-        {{ include "openlane.maybeMap" (dict "indent" 8 "name" "redirects" "value" $mapValue) }}
+        {{- if gt (len $mapValue) 0 }}
+        redirects:
+        {{- toYaml $mapValue | nindent 10 }}
+        {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.redirects.code) "0" }}
         code: {{ .Values.openlane.coreConfiguration.server.redirects.code }}
 {{- end }}
@@ -153,9 +137,15 @@ data:
         enabled: {{ .Values.openlane.coreConfiguration.server.cacheControl.enabled }}
 {{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.cacheControl.noCacheHeaders | default (dict)) }}
-        {{ include "openlane.maybeMap" (dict "indent" 8 "name" "noCacheHeaders" "value" $mapValue) }}
+        {{- if gt (len $mapValue) 0 }}
+        noCacheHeaders:
+        {{- toYaml $mapValue | nindent 10 }}
+        {{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.server.cacheControl.etagHeaders | default (list)) }}
-        {{ include "openlane.maybeList" (dict "indent" 8 "name" "etagHeaders" "value" $sliceValue) }}
+        {{- if gt (len $sliceValue) 0 }}
+        etagHeaders:
+        {{- toYaml $sliceValue | nindent 10 }}
+        {{- end }}
       mime:
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.mime.enabled }}
@@ -216,7 +206,10 @@ data:
 {{- end }}
     entConfig:
       {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.entityTypes | default (list)) }}
-      {{ include "openlane.maybeList" (dict "indent" 6 "name" "entityTypes" "value" $sliceValue) }}
+      {{- if gt (len $sliceValue) 0 }}
+      entityTypes:
+      {{- toYaml $sliceValue | nindent 8 }}
+      {{- end }}
       summarizer:
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.type) "lexrank" }}
         type: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.type | quote }}
@@ -315,7 +308,10 @@ data:
         requirePaymentMethod: {{ .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod }}
 {{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.billing.bypassEmailDomains | default (list)) }}
-        {{ include "openlane.maybeList" (dict "indent" 8 "name" "bypassEmailDomains" "value" $sliceValue) }}
+        {{- if gt (len $sliceValue) 0 }}
+        bypassEmailDomains:
+        {{- toYaml $sliceValue | nindent 10 }}
+        {{- end }}
     auth:
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.enabled) "true" }}
       enabled: {{ .Values.openlane.coreConfiguration.auth.enabled }}
@@ -362,7 +358,10 @@ data:
         jwksEndpoint: ""
         {{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.auth.token.keys | default (dict)) }}
-        {{ include "openlane.maybeMap" (dict "indent" 8 "name" "keys" "value" $mapValue) }}
+        {{- if gt (len $mapValue) 0 }}
+        keys:
+        {{- toYaml $mapValue | nindent 10 }}
+        {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.generateKeys) "true" }}
         generateKeys: {{ .Values.openlane.coreConfiguration.auth.token.generateKeys }}
 {{- end }}
@@ -417,7 +416,10 @@ data:
           blacklistPrefix: {{ .Values.openlane.coreConfiguration.auth.token.redis.blacklistPrefix | quote }}
 {{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.supportedProviders | default (list)) }}
-      {{ include "openlane.maybeList" (dict "indent" 6 "name" "supportedProviders" "value" $sliceValue) }}
+      {{- if gt (len $sliceValue) 0 }}
+      supportedProviders:
+      {{- toYaml $sliceValue | nindent 8 }}
+      {{- end }}
       providers:
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.redirectUrl) "http://localhost:3001/api/auth/callback/theopenlane" }}
         redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.redirectUrl | quote }}
@@ -434,7 +436,10 @@ data:
           clientEndpoint: ""
           {{- end }}
           {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.providers.github.scopes | default (list)) }}
-          {{ include "openlane.maybeList" (dict "indent" 10 "name" "scopes" "value" $sliceValue) }}
+          {{- if gt (len $sliceValue) 0 }}
+          scopes:
+          {{- toYaml $sliceValue | nindent 12 }}
+          {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl) "/v1/github/callback" }}
           redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl | quote }}
 {{- end }}
@@ -450,7 +455,10 @@ data:
           clientEndpoint: ""
           {{- end }}
           {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.providers.google.scopes | default (list)) }}
-          {{ include "openlane.maybeList" (dict "indent" 10 "name" "scopes" "value" $sliceValue) }}
+          {{- if gt (len $sliceValue) 0 }}
+          scopes:
+          {{- toYaml $sliceValue | nindent 12 }}
+          {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl) "/v1/google/callback" }}
           redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl | quote }}
 {{- end }}
@@ -638,7 +646,10 @@ data:
         certificate: {{ .Values.openlane.coreConfiguration.tracer.otlp.certificate | quote }}
 {{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.tracer.otlp.headers | default (list)) }}
-        {{ include "openlane.maybeList" (dict "indent" 8 "name" "headers" "value" $sliceValue) }}
+        {{- if gt (len $sliceValue) 0 }}
+        headers:
+        {{- toYaml $sliceValue | nindent 10 }}
+        {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.compression) "" }}
         compression: {{ .Values.openlane.coreConfiguration.tracer.otlp.compression | quote }}
 {{- end }}
@@ -783,9 +794,15 @@ data:
       enabled: {{ .Values.openlane.coreConfiguration.ratelimit.enabled }}
 {{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.ratelimit.options | default (list)) }}
-      {{ include "openlane.maybeList" (dict "indent" 6 "name" "options" "value" $sliceValue) }}
+      {{- if gt (len $sliceValue) 0 }}
+      options:
+      {{- toYaml $sliceValue | nindent 8 }}
+      {{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.ratelimit.headers | default (list)) }}
-      {{ include "openlane.maybeList" (dict "indent" 6 "name" "headers" "value" $sliceValue) }}
+      {{- if gt (len $sliceValue) 0 }}
+      headers:
+      {{- toYaml $sliceValue | nindent 8 }}
+      {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind) "0" }}
       forwardedIndexFromBehind: {{ .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind }}
 {{- end }}
@@ -815,7 +832,10 @@ data:
       enabled: {{ .Values.openlane.coreConfiguration.objectStorage.enabled }}
 {{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.objectStorage.keys | default (list)) }}
-      {{ include "openlane.maybeList" (dict "indent" 6 "name" "keys" "value" $sliceValue) }}
+      {{- if gt (len $sliceValue) 0 }}
+      keys:
+      {{- toYaml $sliceValue | nindent 8 }}
+      {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.maxSizeMB) "0" }}
       maxSizeMB: {{ .Values.openlane.coreConfiguration.objectStorage.maxSizeMB }}
 {{- end }}
@@ -962,7 +982,10 @@ data:
       stripeCancellationReturnURL: "https://console.theopenlane.io/organization-settings/billing"
       {{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.subscription.stripeWebhookEvents | default (list)) }}
-      {{ include "openlane.maybeList" (dict "indent" 6 "name" "stripeWebhookEvents" "value" $sliceValue) }}
+      {{- if gt (len $sliceValue) 0 }}
+      stripeWebhookEvents:
+      {{- toYaml $sliceValue | nindent 8 }}
+      {{- end }}
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion) "2025_10_29_CLOVER" }}
       stripeWebhookAPIVersion: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion | quote }}
 {{- end }}
@@ -1009,7 +1032,10 @@ data:
         clientEndpoint: ""
         {{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationOauthProvider.github.scopes | default (list)) }}
-        {{ include "openlane.maybeList" (dict "indent" 8 "name" "scopes" "value" $sliceValue) }}
+        {{- if gt (len $sliceValue) 0 }}
+        scopes:
+        {{- toYaml $sliceValue | nindent 10 }}
+        {{- end }}
       slack:
 {{- if ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId) "" }}
         clientId: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId | quote }}
@@ -1022,5 +1048,8 @@ data:
         clientEndpoint: ""
         {{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationOauthProvider.slack.scopes | default (list)) }}
-        {{ include "openlane.maybeList" (dict "indent" 8 "name" "scopes" "value" $sliceValue) }}
+        {{- if gt (len $sliceValue) 0 }}
+        scopes:
+        {{- toYaml $sliceValue | nindent 10 }}
+        {{- end }}
 {{- end }}
