@@ -44,24 +44,24 @@ metadata:
 data:
   config.yaml: |-
 
-{{- with (include "openlane.checkField" (dict "indent" 4 "name" "domain" "value" .Values.openlane.coreConfiguration.domain "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 4 "name" "refreshInterval" "value" .Values.openlane.coreConfiguration.refreshInterval "default" "10m0s")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 4 "name" "domain" "value" .Values.openlane.coreConfiguration.domain "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 4 "name" "refreshInterval" "value" .Values.openlane.coreConfiguration.refreshInterval "default" "10m0s")) }}{{ . }}{{- end -}}
     server:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "dev" "value" .Values.openlane.coreConfiguration.server.dev "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "listen" "value" .Values.openlane.coreConfiguration.server.listen "default" ":17608")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "metricsPort" "value" .Values.openlane.coreConfiguration.server.metricsPort "default" ":17609")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "shutdownGracePeriod" "value" .Values.openlane.coreConfiguration.server.shutdownGracePeriod "default" "10s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "readTimeout" "value" .Values.openlane.coreConfiguration.server.readTimeout "default" "15s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "writeTimeout" "value" .Values.openlane.coreConfiguration.server.writeTimeout "default" "15s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "idleTimeout" "value" .Values.openlane.coreConfiguration.server.idleTimeout "default" "30s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "readHeaderTimeout" "value" .Values.openlane.coreConfiguration.server.readHeaderTimeout "default" "2s")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "dev" "value" .Values.openlane.coreConfiguration.server.dev "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "listen" "value" .Values.openlane.coreConfiguration.server.listen "default" ":17608")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "metricsPort" "value" .Values.openlane.coreConfiguration.server.metricsPort "default" ":17609")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "shutdownGracePeriod" "value" .Values.openlane.coreConfiguration.server.shutdownGracePeriod "default" "10s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "readTimeout" "value" .Values.openlane.coreConfiguration.server.readTimeout "default" "15s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "writeTimeout" "value" .Values.openlane.coreConfiguration.server.writeTimeout "default" "15s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "idleTimeout" "value" .Values.openlane.coreConfiguration.server.idleTimeout "default" "30s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "readHeaderTimeout" "value" .Values.openlane.coreConfiguration.server.readHeaderTimeout "default" "2s")) }}{{ . }}{{- end -}}
       tls:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.tls.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "certFile" "value" .Values.openlane.coreConfiguration.server.tls.certFile "default" "server.crt")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "certKey" "value" .Values.openlane.coreConfiguration.server.tls.certKey "default" "server.key")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "autoCert" "value" .Values.openlane.coreConfiguration.server.tls.autoCert "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.tls.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "certFile" "value" .Values.openlane.coreConfiguration.server.tls.certFile "default" "server.crt")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "certKey" "value" .Values.openlane.coreConfiguration.server.tls.certKey "default" "server.key")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "autoCert" "value" .Values.openlane.coreConfiguration.server.tls.autoCert "default" false)) }}{{ . }}{{- end -}}
       cors:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.cors.enabled "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.cors.enabled "default" true)) }}{{ . }}{{- end -}}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.cors.prefixes | default (dict)) }}
         {{ include "openlane.maybeMap" (dict "indent" 8 "name" "prefixes" "value" $mapValue) }}
         {{- if .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
@@ -76,98 +76,98 @@ data:
         allowOrigins:
           []
         {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookieInsecure" "value" .Values.openlane.coreConfiguration.server.cors.cookieInsecure "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookieInsecure" "value" .Values.openlane.coreConfiguration.server.cors.cookieInsecure "default" false)) }}{{ . }}{{- end -}}
       secure:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.secure.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "xssprotection" "value" .Values.openlane.coreConfiguration.server.secure.xssprotection "default" "1; mode=block")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "contenttypenosniff" "value" .Values.openlane.coreConfiguration.server.secure.contenttypenosniff "default" "nosniff")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "xframeoptions" "value" .Values.openlane.coreConfiguration.server.secure.xframeoptions "default" "SAMEORIGIN")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "hstspreloadenabled" "value" .Values.openlane.coreConfiguration.server.secure.hstspreloadenabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "hstsmaxage" "value" .Values.openlane.coreConfiguration.server.secure.hstsmaxage "default" 31536000)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "contentsecuritypolicy" "value" .Values.openlane.coreConfiguration.server.secure.contentsecuritypolicy "default" "default-src 'self'")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "referrerpolicy" "value" .Values.openlane.coreConfiguration.server.secure.referrerpolicy "default" "same-origin")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cspreportonly" "value" .Values.openlane.coreConfiguration.server.secure.cspreportonly "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.secure.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "xssprotection" "value" .Values.openlane.coreConfiguration.server.secure.xssprotection "default" "1; mode=block")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "contenttypenosniff" "value" .Values.openlane.coreConfiguration.server.secure.contenttypenosniff "default" "nosniff")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "xframeoptions" "value" .Values.openlane.coreConfiguration.server.secure.xframeoptions "default" "SAMEORIGIN")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "hstspreloadenabled" "value" .Values.openlane.coreConfiguration.server.secure.hstspreloadenabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "hstsmaxage" "value" .Values.openlane.coreConfiguration.server.secure.hstsmaxage "default" 31536000)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "contentsecuritypolicy" "value" .Values.openlane.coreConfiguration.server.secure.contentsecuritypolicy "default" "default-src 'self'")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "referrerpolicy" "value" .Values.openlane.coreConfiguration.server.secure.referrerpolicy "default" "same-origin")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cspreportonly" "value" .Values.openlane.coreConfiguration.server.secure.cspreportonly "default" false)) }}{{ . }}{{- end -}}
       redirects:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.redirects.enabled "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.redirects.enabled "default" true)) }}{{ . }}{{- end -}}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.redirects.redirects | default (dict)) }}
         {{ include "openlane.maybeMap" (dict "indent" 8 "name" "redirects" "value" $mapValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "code" "value" .Values.openlane.coreConfiguration.server.redirects.code "default" 0)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "code" "value" .Values.openlane.coreConfiguration.server.redirects.code "default" 0)) }}{{ . }}{{- end -}}
       cacheControl:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.cacheControl.enabled "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.cacheControl.enabled "default" true)) }}{{ . }}{{- end -}}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.cacheControl.noCacheHeaders | default (dict)) }}
         {{ include "openlane.maybeMap" (dict "indent" 8 "name" "noCacheHeaders" "value" $mapValue) }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.server.cacheControl.etagHeaders | default (list)) }}
         {{ include "openlane.maybeList" (dict "indent" 8 "name" "etagHeaders" "value" $sliceValue) }}
       mime:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.mime.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "mimeTypesFile" "value" .Values.openlane.coreConfiguration.server.mime.mimeTypesFile "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "defaultContentType" "value" .Values.openlane.coreConfiguration.server.mime.defaultContentType "default" "application/data")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.mime.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "mimeTypesFile" "value" .Values.openlane.coreConfiguration.server.mime.mimeTypesFile "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "defaultContentType" "value" .Values.openlane.coreConfiguration.server.mime.defaultContentType "default" "application/data")) }}{{ . }}{{- end -}}
       graphPool:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "maxWorkers" "value" .Values.openlane.coreConfiguration.server.graphPool.maxWorkers "default" 100)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enableGraphExtensions" "value" .Values.openlane.coreConfiguration.server.enableGraphExtensions "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "complexityLimit" "value" .Values.openlane.coreConfiguration.server.complexityLimit "default" 100)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxResultLimit" "value" .Values.openlane.coreConfiguration.server.maxResultLimit "default" 100)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "maxWorkers" "value" .Values.openlane.coreConfiguration.server.graphPool.maxWorkers "default" 100)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enableGraphExtensions" "value" .Values.openlane.coreConfiguration.server.enableGraphExtensions "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "complexityLimit" "value" .Values.openlane.coreConfiguration.server.complexityLimit "default" 100)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxResultLimit" "value" .Values.openlane.coreConfiguration.server.maxResultLimit "default" 100)) }}{{ . }}{{- end -}}
       csrfProtection:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.csrfProtection.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "header" "value" .Values.openlane.coreConfiguration.server.csrfProtection.header "default" "X-CSRF-Token")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookie" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookie "default" "ol.csrf-token")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "secure" "value" .Values.openlane.coreConfiguration.server.csrfProtection.secure "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "sameSite" "value" .Values.openlane.coreConfiguration.server.csrfProtection.sameSite "default" "Lax")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookieHttpOnly" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookieDomain" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookiePath" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath "default" "/")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "defaultTrustCenterDomain" "value" .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.csrfProtection.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "header" "value" .Values.openlane.coreConfiguration.server.csrfProtection.header "default" "X-CSRF-Token")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookie" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookie "default" "ol.csrf-token")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "secure" "value" .Values.openlane.coreConfiguration.server.csrfProtection.secure "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "sameSite" "value" .Values.openlane.coreConfiguration.server.csrfProtection.sameSite "default" "Lax")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookieHttpOnly" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookieDomain" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "cookiePath" "value" .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath "default" "/")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "defaultTrustCenterDomain" "value" .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain "default" "")) }}{{ . }}{{- end -}}
       fieldLevelEncryption:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "trustCenterCnameTarget" "value" .Values.openlane.coreConfiguration.server.trustCenterCnameTarget "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "trustCenterCnameTarget" "value" .Values.openlane.coreConfiguration.server.trustCenterCnameTarget "default" "")) }}{{ . }}{{- end -}}
     entConfig:
       {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.entityTypes | default (list)) }}
       {{ include "openlane.maybeList" (dict "indent" 6 "name" "entityTypes" "value" $sliceValue) }}
       summarizer:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "type" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.type "default" "lexrank")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "type" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.type "default" "lexrank")) }}{{ . }}{{- end -}}
         llm:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "provider" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider "default" "none")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "provider" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider "default" "none")) }}{{ . }}{{- end -}}
           anthropic:
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "betaHeader" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "legacyTextCompletion" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "baseURL" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "betaHeader" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "legacyTextCompletion" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "baseURL" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL "default" "")) }}{{ . }}{{- end -}}
           cloudflare:
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "accountID" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "serverURL" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "accountID" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "serverURL" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL "default" "")) }}{{ . }}{{- end -}}
           openai:
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "url" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "organizationID" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "maximumSentences" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences "default" 10)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "url" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "organizationID" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "maximumSentences" "value" .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences "default" 10)) }}{{ . }}{{- end -}}
       windmill:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.entConfig.windmill.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "baseURL" "value" .Values.openlane.coreConfiguration.entConfig.windmill.baseURL "default" "https://app.windmill.dev")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "workspace" "value" .Values.openlane.coreConfiguration.entConfig.windmill.workspace "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "defaultTimeout" "value" .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout "default" "30s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "timezone" "value" .Values.openlane.coreConfiguration.entConfig.windmill.timezone "default" "UTC")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "onFailureScript" "value" .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "onSuccessScript" "value" .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxPoolSize" "value" .Values.openlane.coreConfiguration.entConfig.maxPoolSize "default" 100)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.entConfig.windmill.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "baseURL" "value" .Values.openlane.coreConfiguration.entConfig.windmill.baseURL "default" "https://app.windmill.dev")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "workspace" "value" .Values.openlane.coreConfiguration.entConfig.windmill.workspace "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "defaultTimeout" "value" .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout "default" "30s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "timezone" "value" .Values.openlane.coreConfiguration.entConfig.windmill.timezone "default" "UTC")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "onFailureScript" "value" .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "onSuccessScript" "value" .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxPoolSize" "value" .Values.openlane.coreConfiguration.entConfig.maxPoolSize "default" 100)) }}{{ . }}{{- end -}}
       modules:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.entConfig.modules.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "useSandbox" "value" .Values.openlane.coreConfiguration.entConfig.modules.useSandbox "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxSchemaImportSize" "value" .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize "default" 262144)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.entConfig.modules.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "useSandbox" "value" .Values.openlane.coreConfiguration.entConfig.modules.useSandbox "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxSchemaImportSize" "value" .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize "default" 262144)) }}{{ . }}{{- end -}}
       emailValidation:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableAutoUpdateDisposable" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableGravatarCheck" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableSMTPCheck" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enabled" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableAutoUpdateDisposable" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableGravatarCheck" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableSMTPCheck" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck "default" false)) }}{{ . }}{{- end -}}
         allowedEmailTypes:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "disposable" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "free" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "role" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "disposable" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "free" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "role" "value" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role "default" false)) }}{{ . }}{{- end -}}
       billing:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "requirePaymentMethod" "value" .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "requirePaymentMethod" "value" .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod "default" false)) }}{{ . }}{{- end -}}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.billing.bypassEmailDomains | default (list)) }}
         {{ include "openlane.maybeList" (dict "indent" 8 "name" "bypassEmailDomains" "value" $sliceValue) }}
     auth:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.enabled "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.enabled "default" true)) }}{{ . }}{{- end -}}
       token:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "kid" "value" .Values.openlane.coreConfiguration.auth.token.kid "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "kid" "value" .Values.openlane.coreConfiguration.auth.token.kid "default" "")) }}{{ . }}{{- end -}}
         {{- if .Values.openlane.coreConfiguration.auth.token.audience }}
         audience: {{ .Values.openlane.coreConfiguration.auth.token.audience | quote }}
         {{- else if .Values.domain }}
@@ -189,9 +189,9 @@ data:
         {{- else }}
         issuer: ""
         {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "accessDuration" "value" .Values.openlane.coreConfiguration.auth.token.accessDuration "default" "1h0m0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "refreshDuration" "value" .Values.openlane.coreConfiguration.auth.token.refreshDuration "default" "2h0m0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "refreshOverlap" "value" .Values.openlane.coreConfiguration.auth.token.refreshOverlap "default" "-15m0s")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "accessDuration" "value" .Values.openlane.coreConfiguration.auth.token.accessDuration "default" "1h0m0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "refreshDuration" "value" .Values.openlane.coreConfiguration.auth.token.refreshDuration "default" "2h0m0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "refreshOverlap" "value" .Values.openlane.coreConfiguration.auth.token.refreshOverlap "default" "-15m0s")) }}{{ . }}{{- end -}}
         {{- if .Values.openlane.coreConfiguration.auth.token.jwksEndpoint }}
         jwksEndpoint: {{ .Values.openlane.coreConfiguration.auth.token.jwksEndpoint | quote }}
         {{- else if .Values.domain }}
@@ -201,31 +201,31 @@ data:
         {{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.auth.token.keys | default (dict)) }}
         {{ include "openlane.maybeMap" (dict "indent" 8 "name" "keys" "value" $mapValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "generateKeys" "value" .Values.openlane.coreConfiguration.auth.token.generateKeys "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "jwksCacheTTL" "value" .Values.openlane.coreConfiguration.auth.token.jwksCacheTTL "default" "5m0s")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "generateKeys" "value" .Values.openlane.coreConfiguration.auth.token.generateKeys "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "jwksCacheTTL" "value" .Values.openlane.coreConfiguration.auth.token.jwksCacheTTL "default" "5m0s")) }}{{ . }}{{- end -}}
         redis:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.token.redis.enabled "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.token.redis.enabled "default" false)) }}{{ . }}{{- end -}}
           config:
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "address" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.address "default" "localhost:6379")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "name" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.name "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "username" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.username "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "password" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.password "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "db" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.db "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "dialTimeout" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.dialTimeout "default" "5s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "readTimeout" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.readTimeout "default" "0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "writeTimeout" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.writeTimeout "default" "0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "maxRetries" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.maxRetries "default" 3)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "minIdleConns" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.minIdleConns "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "maxIdleConns" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.maxIdleConns "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 12 "name" "maxActiveConns" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.maxActiveConns "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "blacklistPrefix" "value" .Values.openlane.coreConfiguration.auth.token.redis.blacklistPrefix "default" "token:blacklist:")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "address" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.address "default" "localhost:6379")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "name" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.name "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "username" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.username "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "password" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.password "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "db" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.db "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "dialTimeout" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.dialTimeout "default" "5s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "readTimeout" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.readTimeout "default" "0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "writeTimeout" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.writeTimeout "default" "0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "maxRetries" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.maxRetries "default" 3)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "minIdleConns" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.minIdleConns "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "maxIdleConns" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.maxIdleConns "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 12 "name" "maxActiveConns" "value" .Values.openlane.coreConfiguration.auth.token.redis.config.maxActiveConns "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "blacklistPrefix" "value" .Values.openlane.coreConfiguration.auth.token.redis.blacklistPrefix "default" "token:blacklist:")) }}{{ . }}{{- end -}}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.supportedProviders | default (list)) }}
       {{ include "openlane.maybeList" (dict "indent" 6 "name" "supportedProviders" "value" $sliceValue) }}
       providers:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.auth.providers.redirectUrl "default" "http://localhost:3001/api/auth/callback/theopenlane")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.auth.providers.redirectUrl "default" "http://localhost:3001/api/auth/callback/theopenlane")) }}{{ . }}{{- end -}}
         github:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "clientId" "value" .Values.openlane.coreConfiguration.auth.providers.github.clientId "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "clientId" "value" .Values.openlane.coreConfiguration.auth.providers.github.clientId "default" "")) }}{{ . }}{{- end -}}
           {{- if .Values.openlane.coreConfiguration.auth.providers.github.clientEndpoint }}
           clientEndpoint: {{ .Values.openlane.coreConfiguration.auth.providers.github.clientEndpoint | quote }}
           {{- else if .Values.domain }}
@@ -235,9 +235,9 @@ data:
           {{- end }}
           {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.providers.github.scopes | default (list)) }}
           {{ include "openlane.maybeList" (dict "indent" 10 "name" "scopes" "value" $sliceValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl "default" "/v1/github/callback")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl "default" "/v1/github/callback")) }}{{ . }}{{- end -}}
         google:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "clientId" "value" .Values.openlane.coreConfiguration.auth.providers.google.clientId "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "clientId" "value" .Values.openlane.coreConfiguration.auth.providers.google.clientId "default" "")) }}{{ . }}{{- end -}}
           {{- if .Values.openlane.coreConfiguration.auth.providers.google.clientEndpoint }}
           clientEndpoint: {{ .Values.openlane.coreConfiguration.auth.providers.google.clientEndpoint | quote }}
           {{- else if .Values.domain }}
@@ -247,10 +247,10 @@ data:
           {{- end }}
           {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.providers.google.scopes | default (list)) }}
           {{ include "openlane.maybeList" (dict "indent" 10 "name" "scopes" "value" $sliceValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl "default" "/v1/google/callback")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl "default" "/v1/google/callback")) }}{{ . }}{{- end -}}
         webauthn:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "displayName" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.displayName "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "displayName" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.displayName "default" "")) }}{{ . }}{{- end -}}
           {{- if .Values.openlane.coreConfiguration.auth.providers.webauthn.relyingPartyId }}
           relyingPartyId: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.relyingPartyId | quote }}
           {{- else if .Values.domain }}
@@ -268,74 +268,74 @@ data:
           requestOrigins:
             []
           {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "maxDevices" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.maxDevices "default" 10)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enforceTimeout" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.enforceTimeout "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "timeout" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.timeout "default" "1m0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "debug" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.debug "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "maxDevices" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.maxDevices "default" 10)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enforceTimeout" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.enforceTimeout "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "timeout" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.timeout "default" "1m0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "debug" "value" .Values.openlane.coreConfiguration.auth.providers.webauthn.debug "default" false)) }}{{ . }}{{- end -}}
     authz:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.authz.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "storeName" "value" .Values.openlane.coreConfiguration.authz.storeName "default" "openlane")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "hostUrl" "value" .Values.openlane.coreConfiguration.authz.hostUrl "default" "https://authz.theopenlane.io")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "storeId" "value" .Values.openlane.coreConfiguration.authz.storeId "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "modelId" "value" .Values.openlane.coreConfiguration.authz.modelId "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "createNewModel" "value" .Values.openlane.coreConfiguration.authz.createNewModel "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "modelFile" "value" .Values.openlane.coreConfiguration.authz.modelFile "default" "fga/model/model.fga")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.authz.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "storeName" "value" .Values.openlane.coreConfiguration.authz.storeName "default" "openlane")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "hostUrl" "value" .Values.openlane.coreConfiguration.authz.hostUrl "default" "https://authz.theopenlane.io")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "storeId" "value" .Values.openlane.coreConfiguration.authz.storeId "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "modelId" "value" .Values.openlane.coreConfiguration.authz.modelId "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "createNewModel" "value" .Values.openlane.coreConfiguration.authz.createNewModel "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "modelFile" "value" .Values.openlane.coreConfiguration.authz.modelFile "default" "fga/model/model.fga")) }}{{ . }}{{- end -}}
       credentials:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "clientId" "value" .Values.openlane.coreConfiguration.authz.credentials.clientId "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "audience" "value" .Values.openlane.coreConfiguration.authz.credentials.audience "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "issuer" "value" .Values.openlane.coreConfiguration.authz.credentials.issuer "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "scopes" "value" .Values.openlane.coreConfiguration.authz.credentials.scopes "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "clientId" "value" .Values.openlane.coreConfiguration.authz.credentials.clientId "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "audience" "value" .Values.openlane.coreConfiguration.authz.credentials.audience "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "issuer" "value" .Values.openlane.coreConfiguration.authz.credentials.issuer "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "scopes" "value" .Values.openlane.coreConfiguration.authz.credentials.scopes "default" "")) }}{{ . }}{{- end -}}
     db:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "debug" "value" .Values.openlane.coreConfiguration.db.debug "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "databaseName" "value" .Values.openlane.coreConfiguration.db.databaseName "default" "openlane")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "driverName" "value" .Values.openlane.coreConfiguration.db.driverName "default" "pgx")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "multiWrite" "value" .Values.openlane.coreConfiguration.db.multiWrite "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "cacheTTL" "value" .Values.openlane.coreConfiguration.db.cacheTTL "default" "1s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "runMigrations" "value" .Values.openlane.coreConfiguration.db.runMigrations "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "migrationProvider" "value" .Values.openlane.coreConfiguration.db.migrationProvider "default" "atlas")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enableHistory" "value" .Values.openlane.coreConfiguration.db.enableHistory "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxConnections" "value" .Values.openlane.coreConfiguration.db.maxConnections "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxIdleConnections" "value" .Values.openlane.coreConfiguration.db.maxIdleConnections "default" 0)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "debug" "value" .Values.openlane.coreConfiguration.db.debug "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "databaseName" "value" .Values.openlane.coreConfiguration.db.databaseName "default" "openlane")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "driverName" "value" .Values.openlane.coreConfiguration.db.driverName "default" "pgx")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "multiWrite" "value" .Values.openlane.coreConfiguration.db.multiWrite "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "cacheTTL" "value" .Values.openlane.coreConfiguration.db.cacheTTL "default" "1s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "runMigrations" "value" .Values.openlane.coreConfiguration.db.runMigrations "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "migrationProvider" "value" .Values.openlane.coreConfiguration.db.migrationProvider "default" "atlas")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enableHistory" "value" .Values.openlane.coreConfiguration.db.enableHistory "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxConnections" "value" .Values.openlane.coreConfiguration.db.maxConnections "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxIdleConnections" "value" .Values.openlane.coreConfiguration.db.maxIdleConnections "default" 0)) }}{{ . }}{{- end -}}
     jobQueue:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "runMigrations" "value" .Values.openlane.coreConfiguration.jobQueue.runMigrations "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "runMigrations" "value" .Values.openlane.coreConfiguration.jobQueue.runMigrations "default" false)) }}{{ . }}{{- end -}}
       metrics:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableMetrics" "value" .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "metricsDurationUnit" "value" .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit "default" "ms")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableSemanticMetrics" "value" .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableMetrics" "value" .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "metricsDurationUnit" "value" .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit "default" "ms")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "enableSemanticMetrics" "value" .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics "default" true)) }}{{ . }}{{- end -}}
     redis:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.redis.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "address" "value" .Values.openlane.coreConfiguration.redis.address "default" "localhost:6379")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "name" "value" .Values.openlane.coreConfiguration.redis.name "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "username" "value" .Values.openlane.coreConfiguration.redis.username "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "password" "value" .Values.openlane.coreConfiguration.redis.password "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "db" "value" .Values.openlane.coreConfiguration.redis.db "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "dialTimeout" "value" .Values.openlane.coreConfiguration.redis.dialTimeout "default" "5s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "readTimeout" "value" .Values.openlane.coreConfiguration.redis.readTimeout "default" "0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "writeTimeout" "value" .Values.openlane.coreConfiguration.redis.writeTimeout "default" "0s")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxRetries" "value" .Values.openlane.coreConfiguration.redis.maxRetries "default" 3)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "minIdleConns" "value" .Values.openlane.coreConfiguration.redis.minIdleConns "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxIdleConns" "value" .Values.openlane.coreConfiguration.redis.maxIdleConns "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxActiveConns" "value" .Values.openlane.coreConfiguration.redis.maxActiveConns "default" 0)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.redis.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "address" "value" .Values.openlane.coreConfiguration.redis.address "default" "localhost:6379")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "name" "value" .Values.openlane.coreConfiguration.redis.name "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "username" "value" .Values.openlane.coreConfiguration.redis.username "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "password" "value" .Values.openlane.coreConfiguration.redis.password "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "db" "value" .Values.openlane.coreConfiguration.redis.db "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "dialTimeout" "value" .Values.openlane.coreConfiguration.redis.dialTimeout "default" "5s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "readTimeout" "value" .Values.openlane.coreConfiguration.redis.readTimeout "default" "0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "writeTimeout" "value" .Values.openlane.coreConfiguration.redis.writeTimeout "default" "0s")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxRetries" "value" .Values.openlane.coreConfiguration.redis.maxRetries "default" 3)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "minIdleConns" "value" .Values.openlane.coreConfiguration.redis.minIdleConns "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxIdleConns" "value" .Values.openlane.coreConfiguration.redis.maxIdleConns "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxActiveConns" "value" .Values.openlane.coreConfiguration.redis.maxActiveConns "default" 0)) }}{{ . }}{{- end -}}
     tracer:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.tracer.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "provider" "value" .Values.openlane.coreConfiguration.tracer.provider "default" "stdout")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "environment" "value" .Values.openlane.coreConfiguration.tracer.environment "default" "development")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.tracer.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "provider" "value" .Values.openlane.coreConfiguration.tracer.provider "default" "stdout")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "environment" "value" .Values.openlane.coreConfiguration.tracer.environment "default" "development")) }}{{ . }}{{- end -}}
       stdout:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "pretty" "value" .Values.openlane.coreConfiguration.tracer.stdout.pretty "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "disableTimestamp" "value" .Values.openlane.coreConfiguration.tracer.stdout.disableTimestamp "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "pretty" "value" .Values.openlane.coreConfiguration.tracer.stdout.pretty "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "disableTimestamp" "value" .Values.openlane.coreConfiguration.tracer.stdout.disableTimestamp "default" false)) }}{{ . }}{{- end -}}
       otlp:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "endpoint" "value" .Values.openlane.coreConfiguration.tracer.otlp.endpoint "default" "localhost:4317")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "insecure" "value" .Values.openlane.coreConfiguration.tracer.otlp.insecure "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "certificate" "value" .Values.openlane.coreConfiguration.tracer.otlp.certificate "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "endpoint" "value" .Values.openlane.coreConfiguration.tracer.otlp.endpoint "default" "localhost:4317")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "insecure" "value" .Values.openlane.coreConfiguration.tracer.otlp.insecure "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "certificate" "value" .Values.openlane.coreConfiguration.tracer.otlp.certificate "default" "")) }}{{ . }}{{- end -}}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.tracer.otlp.headers | default (list)) }}
         {{ include "openlane.maybeList" (dict "indent" 8 "name" "headers" "value" $sliceValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "compression" "value" .Values.openlane.coreConfiguration.tracer.otlp.compression "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "timeout" "value" .Values.openlane.coreConfiguration.tracer.otlp.timeout "default" "10s")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "compression" "value" .Values.openlane.coreConfiguration.tracer.otlp.compression "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "timeout" "value" .Values.openlane.coreConfiguration.tracer.otlp.timeout "default" "10s")) }}{{ . }}{{- end -}}
     email:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "companyName" "value" .Values.openlane.coreConfiguration.email.companyName "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "companyAddress" "value" .Values.openlane.coreConfiguration.email.companyAddress "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "corporation" "value" .Values.openlane.coreConfiguration.email.corporation "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "year" "value" .Values.openlane.coreConfiguration.email.year "default" 0)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "companyName" "value" .Values.openlane.coreConfiguration.email.companyName "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "companyAddress" "value" .Values.openlane.coreConfiguration.email.companyAddress "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "corporation" "value" .Values.openlane.coreConfiguration.email.corporation "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "year" "value" .Values.openlane.coreConfiguration.email.year "default" 0)) }}{{ . }}{{- end -}}
       {{- if .Values.openlane.coreConfiguration.email.fromEmail }}
       fromEmail: {{ .Values.openlane.coreConfiguration.email.fromEmail | quote }}
       {{- else if .Values.domain }}
@@ -350,7 +350,7 @@ data:
       {{- else }}
       supportEmail: ""
       {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "logoURL" "value" .Values.openlane.coreConfiguration.email.logoURL "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "logoURL" "value" .Values.openlane.coreConfiguration.email.logoURL "default" "")) }}{{ . }}{{- end -}}
       urls:
         {{- if .Values.openlane.coreConfiguration.email.urls.root }}
         root: {{ .Values.openlane.coreConfiguration.email.urls.root | quote }}
@@ -408,7 +408,7 @@ data:
         {{- else }}
         verifyBilling: ""
         {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "templatesPath" "value" .Values.openlane.coreConfiguration.email.templatesPath "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "templatesPath" "value" .Values.openlane.coreConfiguration.email.templatesPath "default" "")) }}{{ . }}{{- end -}}
     sessions:
       {{- if .Values.openlane.coreConfiguration.sessions.domain }}
       domain: {{ .Values.openlane.coreConfiguration.sessions.domain | quote }}
@@ -417,13 +417,13 @@ data:
       {{- else }}
       domain: ""
       {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxAge" "value" .Values.openlane.coreConfiguration.sessions.maxAge "default" 3600)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "secure" "value" .Values.openlane.coreConfiguration.sessions.secure "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "httpOnly" "value" .Values.openlane.coreConfiguration.sessions.httpOnly "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "sameSite" "value" .Values.openlane.coreConfiguration.sessions.sameSite "default" "Strict")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxAge" "value" .Values.openlane.coreConfiguration.sessions.maxAge "default" 3600)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "secure" "value" .Values.openlane.coreConfiguration.sessions.secure "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "httpOnly" "value" .Values.openlane.coreConfiguration.sessions.httpOnly "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "sameSite" "value" .Values.openlane.coreConfiguration.sessions.sameSite "default" "Strict")) }}{{ . }}{{- end -}}
     totp:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.totp.enabled "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "codeLength" "value" .Values.openlane.coreConfiguration.totp.codeLength "default" 6)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.totp.enabled "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "codeLength" "value" .Values.openlane.coreConfiguration.totp.codeLength "default" 6)) }}{{ . }}{{- end -}}
       {{- if .Values.openlane.coreConfiguration.totp.issuer }}
       issuer: {{ .Values.openlane.coreConfiguration.totp.issuer | quote }}
       {{- else if .Values.domain }}
@@ -431,73 +431,73 @@ data:
       {{- else }}
       issuer: ""
       {{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "redis" "value" .Values.openlane.coreConfiguration.totp.redis "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "recoveryCodeCount" "value" .Values.openlane.coreConfiguration.totp.recoveryCodeCount "default" 16)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "recoveryCodeLength" "value" .Values.openlane.coreConfiguration.totp.recoveryCodeLength "default" 8)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "redis" "value" .Values.openlane.coreConfiguration.totp.redis "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "recoveryCodeCount" "value" .Values.openlane.coreConfiguration.totp.recoveryCodeCount "default" 16)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "recoveryCodeLength" "value" .Values.openlane.coreConfiguration.totp.recoveryCodeLength "default" 8)) }}{{ . }}{{- end -}}
     ratelimit:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.ratelimit.enabled "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.ratelimit.enabled "default" false)) }}{{ . }}{{- end -}}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.ratelimit.options | default (list)) }}
       {{ include "openlane.maybeList" (dict "indent" 6 "name" "options" "value" $sliceValue) }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.ratelimit.headers | default (list)) }}
       {{ include "openlane.maybeList" (dict "indent" 6 "name" "headers" "value" $sliceValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "forwardedIndexFromBehind" "value" .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "includePath" "value" .Values.openlane.coreConfiguration.ratelimit.includePath "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "includeMethod" "value" .Values.openlane.coreConfiguration.ratelimit.includeMethod "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "keyPrefix" "value" .Values.openlane.coreConfiguration.ratelimit.keyPrefix "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "denyStatus" "value" .Values.openlane.coreConfiguration.ratelimit.denyStatus "default" 429)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "denyMessage" "value" .Values.openlane.coreConfiguration.ratelimit.denyMessage "default" "Too many requests")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "sendRetryAfterHeader" "value" .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader "default" true)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "dryRun" "value" .Values.openlane.coreConfiguration.ratelimit.dryRun "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "forwardedIndexFromBehind" "value" .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "includePath" "value" .Values.openlane.coreConfiguration.ratelimit.includePath "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "includeMethod" "value" .Values.openlane.coreConfiguration.ratelimit.includeMethod "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "keyPrefix" "value" .Values.openlane.coreConfiguration.ratelimit.keyPrefix "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "denyStatus" "value" .Values.openlane.coreConfiguration.ratelimit.denyStatus "default" 429)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "denyMessage" "value" .Values.openlane.coreConfiguration.ratelimit.denyMessage "default" "Too many requests")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "sendRetryAfterHeader" "value" .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader "default" true)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "dryRun" "value" .Values.openlane.coreConfiguration.ratelimit.dryRun "default" true)) }}{{ . }}{{- end -}}
     objectStorage:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.enabled "default" true)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.enabled "default" true)) }}{{ . }}{{- end -}}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.objectStorage.keys | default (list)) }}
       {{ include "openlane.maybeList" (dict "indent" 6 "name" "keys" "value" $sliceValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxSizeMB" "value" .Values.openlane.coreConfiguration.objectStorage.maxSizeMB "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxMemoryMB" "value" .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB "default" 0)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "devMode" "value" .Values.openlane.coreConfiguration.objectStorage.devMode "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxSizeMB" "value" .Values.openlane.coreConfiguration.objectStorage.maxSizeMB "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "maxMemoryMB" "value" .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB "default" 0)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "devMode" "value" .Values.openlane.coreConfiguration.objectStorage.devMode "default" false)) }}{{ . }}{{- end -}}
       providers:
         s3:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.region "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.region "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end -}}
         cloudflareR2:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end -}}
         gcs:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end -}}
         disk:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.region "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.region "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end -}}
         database:
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.region "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "enabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "ensureAvailable" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "region" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.region "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "bucket" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "endpoint" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "proxyPresignEnabled" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 10 "name" "baseURL" "value" .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL "default" "http://localhost:17608/v1/files")) }}{{ . }}{{- end -}}
     subscription:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.subscription.enabled "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.subscription.enabled "default" false)) }}{{ . }}{{- end -}}
       {{- if .Values.openlane.coreConfiguration.subscription.stripeWebhookURL }}
       stripeWebhookURL: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookURL | quote }}
       {{- else if .Values.domain }}
@@ -521,17 +521,17 @@ data:
       {{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.subscription.stripeWebhookEvents | default (list)) }}
       {{ include "openlane.maybeList" (dict "indent" 6 "name" "stripeWebhookEvents" "value" $sliceValue) }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "stripeWebhookAPIVersion" "value" .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion "default" "2025_10_29_CLOVER")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "stripeWebhookDiscardAPIVersion" "value" .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "stripeWebhookAPIVersion" "value" .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion "default" "2025_10_29_CLOVER")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "stripeWebhookDiscardAPIVersion" "value" .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion "default" "")) }}{{ . }}{{- end -}}
     keywatcher:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.keywatcher.enabled "default" false)) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "keyDir" "value" .Values.openlane.coreConfiguration.keywatcher.keyDir "default" "./keys")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "externalSecretsIntegration" "value" .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration "default" false)) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "enabled" "value" .Values.openlane.coreConfiguration.keywatcher.enabled "default" false)) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "keyDir" "value" .Values.openlane.coreConfiguration.keywatcher.keyDir "default" "./keys")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "externalSecretsIntegration" "value" .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration "default" false)) }}{{ . }}{{- end -}}
     slack:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "newSubscriberMessageFile" "value" .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile "default" "")) }}{{ . }}{{- end }}
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "newUserMessageFile" "value" .Values.openlane.coreConfiguration.slack.newUserMessageFile "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "newSubscriberMessageFile" "value" .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile "default" "")) }}{{ . }}{{- end -}}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "newUserMessageFile" "value" .Values.openlane.coreConfiguration.slack.newUserMessageFile "default" "")) }}{{ . }}{{- end -}}
     integrationOauthProvider:
-{{- with (include "openlane.checkField" (dict "indent" 6 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 6 "name" "redirectUrl" "value" .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl "default" "")) }}{{ . }}{{- end -}}
       {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.successRedirectUrl }}
       successRedirectUrl: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.successRedirectUrl | quote }}
       {{- else if .Values.domain }}
@@ -540,7 +540,7 @@ data:
       successRedirectUrl: ""
       {{- end }}
       github:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "clientId" "value" .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "clientId" "value" .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId "default" "")) }}{{ . }}{{- end -}}
         {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientEndpoint }}
         clientEndpoint: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientEndpoint | quote }}
         {{- else if .Values.domain }}
@@ -551,7 +551,7 @@ data:
         {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationOauthProvider.github.scopes | default (list)) }}
         {{ include "openlane.maybeList" (dict "indent" 8 "name" "scopes" "value" $sliceValue) }}
       slack:
-{{- with (include "openlane.checkField" (dict "indent" 8 "name" "clientId" "value" .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId "default" "")) }}{{ . }}{{- end }}
+{{- with (include "openlane.checkField" (dict "indent" 8 "name" "clientId" "value" .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId "default" "")) }}{{ . }}{{- end -}}
         {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientEndpoint }}
         clientEndpoint: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientEndpoint | quote }}
         {{- else if .Values.domain }}
