@@ -1,4 +1,18 @@
+{{- define "openlane.checkField" -}}
+{{- $indent := repeat (index . "indent") " " -}}
+{{- $name := index . "name" -}}
+{{- $value := index . "value" -}}
+{{- $default := index . "default" -}}
+{{- if and (not (kindIs "invalid" $value)) (ne (printf "%v" $value) (printf "%v" $default)) -}}
+{{- if kindIs "string" $value }}
+{{ printf "%s%s: %s\n" $indent $name (quote $value) }}
+{{- else }}
+{{ printf "%s%s: %v\n" $indent $name $value }}
+{{- end }}
+{{- end }}
+{{- end }}
 {{- if .Values.openlane.config.create }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,6 +23,7 @@ metadata:
     component: config
 data:
   config.yaml: |-
+
 {{ include "openlane.checkField" (dict "indent" 4 "name" "domain" "value" .Values.openlane.coreConfiguration.domain "default" "") }}
 {{ include "openlane.checkField" (dict "indent" 4 "name" "refreshInterval" "value" .Values.openlane.coreConfiguration.refreshInterval "default" "10m0s") }}
     server:
