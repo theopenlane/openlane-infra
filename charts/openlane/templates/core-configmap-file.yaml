@@ -5,9 +5,9 @@
 {{- $default := index . "default" -}}
 {{- if and (not (kindIs "invalid" $value)) (ne (printf "%v" $value) (printf "%v" $default)) -}}
 {{- if kindIs "string" $value }}
-{{ printf "%s%s: %s" $indent $name (quote $value) }}
+{{ printf "%s%s: %s\n" $indent $name (quote $value) }}
 {{- else }}
-{{ printf "%s%s: %v" $indent $name $value }}
+{{ printf "%s%s: %v\n" $indent $name $value }}
 {{- end }}
 {{- end }}
 {{- end }}
