@@ -17,7 +17,7 @@
 {{- $value := index . "value" -}}
 {{- if gt (len $value) 0 -}}
 {{ printf "%s%s:\n" $indent $name }}
-{{- $pad := add (len $indent) 2 -}}
+{{- $pad := int (add (len $indent) 2) -}}
 {{ toYaml $value | indent $pad }}
 {{- end -}}
 {{- end }}
@@ -27,7 +27,7 @@
 {{- $value := index . "value" -}}
 {{- if gt (len $value) 0 -}}
 {{ printf "%s%s:\n" $indent $name }}
-{{- $pad := add (len $indent) 2 -}}
+{{- $pad := int (add (len $indent) 2) -}}
 {{ toYaml $value | indent $pad }}
 {{- end -}}
 {{- end }}
