@@ -107,7 +107,16 @@ spec:
             - name: token-keys
               mountPath: {{ .Values.openlane.coreConfiguration.keywatcher.keyDir }}
               readOnly: true
+            - name: config-file
+              mountPath: /config/.config.yaml
+              subPath: .config.yaml
       volumes:
+        - name: config-file
+          configMap:
+            name: openlane-config-file
+            items:
+              - key: config.yaml
+                path: .config.yaml
         - name: brandedemails-volume
           csi:
             driver: gcsfuse.csi.storage.gke.io

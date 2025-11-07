@@ -55,3 +55,13 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- define "riverboatui.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "riverboatui.name" . }}
 {{- end }}
+
+{{- define "openlane.checkField" -}}
+{{- $indent := repeat " " (index . "indent") -}}
+{{- $name := index . "name" -}}
+{{- $value := index . "value" -}}
+{{- $default := index . "default" -}}
+{{- if and (not (eq $value nil)) (ne $value $default) -}}
+{{ printf "%s%s: %v\n" $indent $name $value }}
+{{- end -}}
+{{- end -}}
