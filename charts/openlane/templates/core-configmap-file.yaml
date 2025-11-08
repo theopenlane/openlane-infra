@@ -11,54 +11,54 @@ metadata:
 data:
   config.yaml: |-
 
-    {{- if (or (hasKey ((.Values.openlane.coreConfiguration) | default (dict)) "domain") (ne (printf "%v" .Values.openlane.coreConfiguration.domain) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.domain) "" }}
     domain: {{ .Values.openlane.coreConfiguration.domain | quote }}
-    {{- end }}
-    {{- if (or (hasKey ((.Values.openlane.coreConfiguration) | default (dict)) "refreshInterval") (ne (printf "%v" .Values.openlane.coreConfiguration.refreshInterval) "10m0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.refreshInterval) "10m0s" }}
     refreshInterval: {{ .Values.openlane.coreConfiguration.refreshInterval | quote }}
-    {{- end }}
+{{- end }}
     server:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "dev") (ne (printf "%v" .Values.openlane.coreConfiguration.server.dev) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.dev) "false" }}
       dev: {{ .Values.openlane.coreConfiguration.server.dev }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "listen") (ne (printf "%v" .Values.openlane.coreConfiguration.server.listen) ":17608")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.listen) ":17608" }}
       listen: {{ .Values.openlane.coreConfiguration.server.listen | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "metricsPort") (ne (printf "%v" .Values.openlane.coreConfiguration.server.metricsPort) ":17609")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.metricsPort) ":17609" }}
       metricsPort: {{ .Values.openlane.coreConfiguration.server.metricsPort | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "shutdownGracePeriod") (ne (printf "%v" .Values.openlane.coreConfiguration.server.shutdownGracePeriod) "10s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.shutdownGracePeriod) "10s" }}
       shutdownGracePeriod: {{ .Values.openlane.coreConfiguration.server.shutdownGracePeriod | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "readTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.server.readTimeout) "15s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.readTimeout) "15s" }}
       readTimeout: {{ .Values.openlane.coreConfiguration.server.readTimeout | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "writeTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.server.writeTimeout) "15s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.writeTimeout) "15s" }}
       writeTimeout: {{ .Values.openlane.coreConfiguration.server.writeTimeout | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "idleTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.server.idleTimeout) "30s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.idleTimeout) "30s" }}
       idleTimeout: {{ .Values.openlane.coreConfiguration.server.idleTimeout | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "readHeaderTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.server.readHeaderTimeout) "2s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.readHeaderTimeout) "2s" }}
       readHeaderTimeout: {{ .Values.openlane.coreConfiguration.server.readHeaderTimeout | quote }}
-      {{- end }}
+{{- end }}
       tls:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.tls) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.enabled) "false" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.tls.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.tls) | default (dict)) "certFile") (ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.certFile) "server.crt")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.certFile) "server.crt" }}
         certFile: {{ .Values.openlane.coreConfiguration.server.tls.certFile | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.tls) | default (dict)) "certKey") (ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.certKey) "server.key")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.certKey) "server.key" }}
         certKey: {{ .Values.openlane.coreConfiguration.server.tls.certKey | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.tls) | default (dict)) "autoCert") (ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.autoCert) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.tls.autoCert) "false" }}
         autoCert: {{ .Values.openlane.coreConfiguration.server.tls.autoCert }}
-        {{- end }}
+{{- end }}
       cors:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.cors) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.cors.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.cors.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.cors.enabled }}
-        {{- end }}
+{{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.cors.prefixes | default (dict)) }}
         {{- if gt (len $mapValue) 0 }}
         prefixes:
@@ -76,53 +76,53 @@ data:
         allowOrigins:
           []
         {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.cors) | default (dict)) "cookieInsecure") (ne (printf "%v" .Values.openlane.coreConfiguration.server.cors.cookieInsecure) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.cors.cookieInsecure) "false" }}
         cookieInsecure: {{ .Values.openlane.coreConfiguration.server.cors.cookieInsecure }}
-        {{- end }}
+{{- end }}
       secure:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.secure.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "xssprotection") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.xssprotection) "1; mode=block")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.xssprotection) "1; mode=block" }}
         xssprotection: {{ .Values.openlane.coreConfiguration.server.secure.xssprotection | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "contenttypenosniff") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.contenttypenosniff) "nosniff")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.contenttypenosniff) "nosniff" }}
         contenttypenosniff: {{ .Values.openlane.coreConfiguration.server.secure.contenttypenosniff | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "xframeoptions") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.xframeoptions) "SAMEORIGIN")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.xframeoptions) "SAMEORIGIN" }}
         xframeoptions: {{ .Values.openlane.coreConfiguration.server.secure.xframeoptions | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "hstspreloadenabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.hstspreloadenabled) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.hstspreloadenabled) "false" }}
         hstspreloadenabled: {{ .Values.openlane.coreConfiguration.server.secure.hstspreloadenabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "hstsmaxage") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.hstsmaxage) "31536000")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.hstsmaxage) "31536000" }}
         hstsmaxage: {{ .Values.openlane.coreConfiguration.server.secure.hstsmaxage }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "contentsecuritypolicy") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.contentsecuritypolicy) "default-src 'self'")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.contentsecuritypolicy) "default-src 'self'" }}
         contentsecuritypolicy: {{ .Values.openlane.coreConfiguration.server.secure.contentsecuritypolicy | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "referrerpolicy") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.referrerpolicy) "same-origin")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.referrerpolicy) "same-origin" }}
         referrerpolicy: {{ .Values.openlane.coreConfiguration.server.secure.referrerpolicy | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.secure) | default (dict)) "cspreportonly") (ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.cspreportonly) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.secure.cspreportonly) "false" }}
         cspreportonly: {{ .Values.openlane.coreConfiguration.server.secure.cspreportonly }}
-        {{- end }}
+{{- end }}
       redirects:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.redirects) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.redirects.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.redirects.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.redirects.enabled }}
-        {{- end }}
+{{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.redirects.redirects | default (dict)) }}
         {{- if gt (len $mapValue) 0 }}
         redirects:
         {{- toYaml $mapValue | nindent 10 }}
         {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.redirects) | default (dict)) "code") (ne (printf "%v" .Values.openlane.coreConfiguration.server.redirects.code) "0")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.redirects.code) "0" }}
         code: {{ .Values.openlane.coreConfiguration.server.redirects.code }}
-        {{- end }}
+{{- end }}
       cacheControl:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.cacheControl) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.cacheControl.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.cacheControl.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.cacheControl.enabled }}
-        {{- end }}
+{{- end }}
         {{- $mapValue := (.Values.openlane.coreConfiguration.server.cacheControl.noCacheHeaders | default (dict)) }}
         {{- if gt (len $mapValue) 0 }}
         noCacheHeaders:
@@ -134,63 +134,63 @@ data:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
       mime:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.mime) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.mime.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.mime) | default (dict)) "mimeTypesFile") (ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.mimeTypesFile) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.mimeTypesFile) "" }}
         mimeTypesFile: {{ .Values.openlane.coreConfiguration.server.mime.mimeTypesFile | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.mime) | default (dict)) "defaultContentType") (ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.defaultContentType) "application/data")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.mime.defaultContentType) "application/data" }}
         defaultContentType: {{ .Values.openlane.coreConfiguration.server.mime.defaultContentType | quote }}
-        {{- end }}
+{{- end }}
       graphPool:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.graphPool) | default (dict)) "maxWorkers") (ne (printf "%v" .Values.openlane.coreConfiguration.server.graphPool.maxWorkers) "100")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.graphPool.maxWorkers) "100" }}
         maxWorkers: {{ .Values.openlane.coreConfiguration.server.graphPool.maxWorkers }}
-        {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "enableGraphExtensions") (ne (printf "%v" .Values.openlane.coreConfiguration.server.enableGraphExtensions) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.enableGraphExtensions) "true" }}
       enableGraphExtensions: {{ .Values.openlane.coreConfiguration.server.enableGraphExtensions }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "complexityLimit") (ne (printf "%v" .Values.openlane.coreConfiguration.server.complexityLimit) "100")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.complexityLimit) "100" }}
       complexityLimit: {{ .Values.openlane.coreConfiguration.server.complexityLimit }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "maxResultLimit") (ne (printf "%v" .Values.openlane.coreConfiguration.server.maxResultLimit) "100")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.maxResultLimit) "100" }}
       maxResultLimit: {{ .Values.openlane.coreConfiguration.server.maxResultLimit }}
-      {{- end }}
+{{- end }}
       csrfProtection:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.enabled) "false" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.csrfProtection.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "header") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.header) "X-CSRF-Token")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.header) "X-CSRF-Token" }}
         header: {{ .Values.openlane.coreConfiguration.server.csrfProtection.header | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "cookie") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookie) "ol.csrf-token")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookie) "ol.csrf-token" }}
         cookie: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookie | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "secure") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.secure) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.secure) "true" }}
         secure: {{ .Values.openlane.coreConfiguration.server.csrfProtection.secure }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "sameSite") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.sameSite) "Lax")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.sameSite) "Lax" }}
         sameSite: {{ .Values.openlane.coreConfiguration.server.csrfProtection.sameSite | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "cookieHttpOnly") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly) "false" }}
         cookieHttpOnly: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "cookieDomain") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain) "" }}
         cookieDomain: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.csrfProtection) | default (dict)) "cookiePath") (ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath) "/")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath) "/" }}
         cookiePath: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath | quote }}
-        {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "defaultTrustCenterDomain") (ne (printf "%v" .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain) "" }}
       defaultTrustCenterDomain: {{ .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain | quote }}
-      {{- end }}
+{{- end }}
       fieldLevelEncryption:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server.fieldLevelEncryption) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled) "false" }}
         enabled: {{ .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled }}
-        {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.server) | default (dict)) "trustCenterCnameTarget") (ne (printf "%v" .Values.openlane.coreConfiguration.server.trustCenterCnameTarget) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.server.trustCenterCnameTarget) "" }}
       trustCenterCnameTarget: {{ .Values.openlane.coreConfiguration.server.trustCenterCnameTarget | quote }}
-      {{- end }}
+{{- end }}
     entConfig:
       {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.entityTypes | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
@@ -198,115 +198,115 @@ data:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
       summarizer:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer) | default (dict)) "type") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.type) "lexrank")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.type) "lexrank" }}
         type: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.type | quote }}
-        {{- end }}
+{{- end }}
         llm:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm) | default (dict)) "provider") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider) "none")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider) "none" }}
           provider: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider | quote }}
-          {{- end }}
+{{- end }}
           anthropic:
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic) | default (dict)) "betaHeader") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader) "" }}
             betaHeader: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic) | default (dict)) "legacyTextCompletion") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion) "false" }}
             legacyTextCompletion: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL) "" }}
             baseURL: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL | quote }}
-            {{- end }}
+{{- end }}
           cloudflare:
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare) | default (dict)) "accountID") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID) "" }}
             accountID: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare) | default (dict)) "serverURL") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL) "" }}
             serverURL: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL | quote }}
-            {{- end }}
+{{- end }}
           openai:
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai) | default (dict)) "url") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url) "" }}
             url: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai) | default (dict)) "organizationID") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID) "" }}
             organizationID: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID | quote }}
-            {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.summarizer) | default (dict)) "maximumSentences") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences) "10")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences) "10" }}
         maximumSentences: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences }}
-        {{- end }}
+{{- end }}
       windmill:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.enabled) "false" }}
         enabled: {{ .Values.openlane.coreConfiguration.entConfig.windmill.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.baseURL) "https://app.windmill.dev")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.baseURL) "https://app.windmill.dev" }}
         baseURL: {{ .Values.openlane.coreConfiguration.entConfig.windmill.baseURL | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "workspace") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.workspace) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.workspace) "" }}
         workspace: {{ .Values.openlane.coreConfiguration.entConfig.windmill.workspace | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "defaultTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout) "30s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout) "30s" }}
         defaultTimeout: {{ .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "timezone") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.timezone) "UTC")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.timezone) "UTC" }}
         timezone: {{ .Values.openlane.coreConfiguration.entConfig.windmill.timezone | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "onFailureScript") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript) "" }}
         onFailureScript: {{ .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.windmill) | default (dict)) "onSuccessScript") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript) "" }}
         onSuccessScript: {{ .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript | quote }}
-        {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig) | default (dict)) "maxPoolSize") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.maxPoolSize) "100")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.maxPoolSize) "100" }}
       maxPoolSize: {{ .Values.openlane.coreConfiguration.entConfig.maxPoolSize }}
-      {{- end }}
+{{- end }}
       modules:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.modules) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.modules.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.modules.enabled) "true" }}
         enabled: {{ .Values.openlane.coreConfiguration.entConfig.modules.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.modules) | default (dict)) "useSandbox") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.modules.useSandbox) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.modules.useSandbox) "false" }}
         useSandbox: {{ .Values.openlane.coreConfiguration.entConfig.modules.useSandbox }}
-        {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig) | default (dict)) "maxSchemaImportSize") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize) "262144")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize) "262144" }}
       maxSchemaImportSize: {{ .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize }}
-      {{- end }}
+{{- end }}
       emailValidation:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled) "false" }}
         enabled: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation) | default (dict)) "enableAutoUpdateDisposable") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable) "true" }}
         enableAutoUpdateDisposable: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation) | default (dict)) "enableGravatarCheck") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck) "true" }}
         enableGravatarCheck: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation) | default (dict)) "enableSMTPCheck") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck) "false" }}
         enableSMTPCheck: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck }}
-        {{- end }}
+{{- end }}
         allowedEmailTypes:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes) | default (dict)) "disposable") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable) "false" }}
           disposable: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes) | default (dict)) "free") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free) "false" }}
           free: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes) | default (dict)) "role") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role) "false" }}
           role: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role }}
-          {{- end }}
+{{- end }}
       billing:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.entConfig.billing) | default (dict)) "requirePaymentMethod") (ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod) "false" }}
         requirePaymentMethod: {{ .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod }}
-        {{- end }}
+{{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.billing.bypassEmailDomains | default (list)) }}
         {{- if gt (len $sliceValue) 0 }}
         bypassEmailDomains:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
     auth:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.enabled) "true" }}
       enabled: {{ .Values.openlane.coreConfiguration.auth.enabled }}
-      {{- end }}
+{{- end }}
       token:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token) | default (dict)) "kid") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.kid) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.kid) "" }}
         kid: {{ .Values.openlane.coreConfiguration.auth.token.kid | quote }}
-        {{- end }}
+{{- end }}
         {{- if .Values.openlane.coreConfiguration.auth.token.audience }}
         audience: {{ .Values.openlane.coreConfiguration.auth.token.audience | quote }}
         {{- else if .Values.domain }}
@@ -328,15 +328,15 @@ data:
         {{- else }}
         issuer: ""
         {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token) | default (dict)) "accessDuration") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.accessDuration) "1h0m0s")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.accessDuration) "1h0m0s" }}
         accessDuration: {{ .Values.openlane.coreConfiguration.auth.token.accessDuration | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token) | default (dict)) "refreshDuration") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.refreshDuration) "2h0m0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.refreshDuration) "2h0m0s" }}
         refreshDuration: {{ .Values.openlane.coreConfiguration.auth.token.refreshDuration | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token) | default (dict)) "refreshOverlap") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.refreshOverlap) "-15m0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.refreshOverlap) "-15m0s" }}
         refreshOverlap: {{ .Values.openlane.coreConfiguration.auth.token.refreshOverlap | quote }}
-        {{- end }}
+{{- end }}
         {{- if .Values.openlane.coreConfiguration.auth.token.jwksEndpoint }}
         jwksEndpoint: {{ .Values.openlane.coreConfiguration.auth.token.jwksEndpoint | quote }}
         {{- else if .Values.domain }}
@@ -349,72 +349,72 @@ data:
         keys:
         {{- toYaml $mapValue | nindent 10 }}
         {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token) | default (dict)) "generateKeys") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.generateKeys) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.generateKeys) "true" }}
         generateKeys: {{ .Values.openlane.coreConfiguration.auth.token.generateKeys }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token) | default (dict)) "jwksCacheTTL") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.jwksCacheTTL) "5m0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.jwksCacheTTL) "5m0s" }}
         jwksCacheTTL: {{ .Values.openlane.coreConfiguration.auth.token.jwksCacheTTL | quote }}
-        {{- end }}
+{{- end }}
         redis:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.enabled) "false" }}
           enabled: {{ .Values.openlane.coreConfiguration.auth.token.redis.enabled }}
-          {{- end }}
+{{- end }}
           config:
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.enabled) "true" }}
             enabled: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.enabled }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "address") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.address) "localhost:6379")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.address) "localhost:6379" }}
             address: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.address | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "name") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.name) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.name) "" }}
             name: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.name | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "username") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.username) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.username) "" }}
             username: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.username | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "password") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.password) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.password) "" }}
             password: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.password | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "db") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.db) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.db) "0" }}
             db: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.db }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "dialTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.dialTimeout) "5s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.dialTimeout) "5s" }}
             dialTimeout: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.dialTimeout | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "readTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.readTimeout) "0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.readTimeout) "0s" }}
             readTimeout: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.readTimeout | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "writeTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.writeTimeout) "0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.writeTimeout) "0s" }}
             writeTimeout: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.writeTimeout | quote }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "maxRetries") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.maxRetries) "3")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.maxRetries) "3" }}
             maxRetries: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.maxRetries }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "minIdleConns") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.minIdleConns) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.minIdleConns) "0" }}
             minIdleConns: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.minIdleConns }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "maxIdleConns") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.maxIdleConns) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.maxIdleConns) "0" }}
             maxIdleConns: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.maxIdleConns }}
-            {{- end }}
-            {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis.config) | default (dict)) "maxActiveConns") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.maxActiveConns) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.config.maxActiveConns) "0" }}
             maxActiveConns: {{ .Values.openlane.coreConfiguration.auth.token.redis.config.maxActiveConns }}
-            {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.token.redis) | default (dict)) "blacklistPrefix") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.blacklistPrefix) "token:blacklist:")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.token.redis.blacklistPrefix) "token:blacklist:" }}
           blacklistPrefix: {{ .Values.openlane.coreConfiguration.auth.token.redis.blacklistPrefix | quote }}
-          {{- end }}
+{{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.supportedProviders | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
       supportedProviders:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
       providers:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers) | default (dict)) "redirectUrl") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.redirectUrl) "http://localhost:3001/api/auth/callback/theopenlane")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.redirectUrl) "http://localhost:3001/api/auth/callback/theopenlane" }}
         redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.redirectUrl | quote }}
-        {{- end }}
+{{- end }}
         github:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.github) | default (dict)) "clientId") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.github.clientId) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.github.clientId) "" }}
           clientId: {{ .Values.openlane.coreConfiguration.auth.providers.github.clientId | quote }}
-          {{- end }}
+{{- end }}
           {{- if .Values.openlane.coreConfiguration.auth.providers.github.clientEndpoint }}
           clientEndpoint: {{ .Values.openlane.coreConfiguration.auth.providers.github.clientEndpoint | quote }}
           {{- else if .Values.domain }}
@@ -427,13 +427,13 @@ data:
           scopes:
           {{- toYaml $sliceValue | nindent 12 }}
           {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.github) | default (dict)) "redirectUrl") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl) "/v1/github/callback")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl) "/v1/github/callback" }}
           redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.github.redirectUrl | quote }}
-          {{- end }}
+{{- end }}
         google:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.google) | default (dict)) "clientId") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.google.clientId) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.google.clientId) "" }}
           clientId: {{ .Values.openlane.coreConfiguration.auth.providers.google.clientId | quote }}
-          {{- end }}
+{{- end }}
           {{- if .Values.openlane.coreConfiguration.auth.providers.google.clientEndpoint }}
           clientEndpoint: {{ .Values.openlane.coreConfiguration.auth.providers.google.clientEndpoint | quote }}
           {{- else if .Values.domain }}
@@ -446,16 +446,16 @@ data:
           scopes:
           {{- toYaml $sliceValue | nindent 12 }}
           {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.google) | default (dict)) "redirectUrl") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl) "/v1/google/callback")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl) "/v1/google/callback" }}
           redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.google.redirectUrl | quote }}
-          {{- end }}
+{{- end }}
         webauthn:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.webauthn) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.enabled) "true" }}
           enabled: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.enabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.webauthn) | default (dict)) "displayName") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.displayName) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.displayName) "" }}
           displayName: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.displayName | quote }}
-          {{- end }}
+{{- end }}
           {{- if .Values.openlane.coreConfiguration.auth.providers.webauthn.relyingPartyId }}
           relyingPartyId: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.relyingPartyId | quote }}
           {{- else if .Values.domain }}
@@ -473,189 +473,189 @@ data:
           requestOrigins:
             []
           {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.webauthn) | default (dict)) "maxDevices") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.maxDevices) "10")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.maxDevices) "10" }}
           maxDevices: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.maxDevices }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.webauthn) | default (dict)) "enforceTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.enforceTimeout) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.enforceTimeout) "true" }}
           enforceTimeout: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.enforceTimeout }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.webauthn) | default (dict)) "timeout") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.timeout) "1m0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.timeout) "1m0s" }}
           timeout: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.timeout | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.auth.providers.webauthn) | default (dict)) "debug") (ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.debug) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.auth.providers.webauthn.debug) "false" }}
           debug: {{ .Values.openlane.coreConfiguration.auth.providers.webauthn.debug }}
-          {{- end }}
+{{- end }}
     authz:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.enabled) "true" }}
       enabled: {{ .Values.openlane.coreConfiguration.authz.enabled }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "storeName") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.storeName) "openlane")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.storeName) "openlane" }}
       storeName: {{ .Values.openlane.coreConfiguration.authz.storeName | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "hostUrl") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.hostUrl) "https://authz.theopenlane.io")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.hostUrl) "https://authz.theopenlane.io" }}
       hostUrl: {{ .Values.openlane.coreConfiguration.authz.hostUrl | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "storeId") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.storeId) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.storeId) "" }}
       storeId: {{ .Values.openlane.coreConfiguration.authz.storeId | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "modelId") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.modelId) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.modelId) "" }}
       modelId: {{ .Values.openlane.coreConfiguration.authz.modelId | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "createNewModel") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.createNewModel) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.createNewModel) "false" }}
       createNewModel: {{ .Values.openlane.coreConfiguration.authz.createNewModel }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz) | default (dict)) "modelFile") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.modelFile) "fga/model/model.fga")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.modelFile) "fga/model/model.fga" }}
       modelFile: {{ .Values.openlane.coreConfiguration.authz.modelFile | quote }}
-      {{- end }}
+{{- end }}
       credentials:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz.credentials) | default (dict)) "clientId") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.clientId) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.clientId) "" }}
         clientId: {{ .Values.openlane.coreConfiguration.authz.credentials.clientId | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz.credentials) | default (dict)) "audience") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.audience) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.audience) "" }}
         audience: {{ .Values.openlane.coreConfiguration.authz.credentials.audience | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz.credentials) | default (dict)) "issuer") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.issuer) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.issuer) "" }}
         issuer: {{ .Values.openlane.coreConfiguration.authz.credentials.issuer | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.authz.credentials) | default (dict)) "scopes") (ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.scopes) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.authz.credentials.scopes) "" }}
         scopes: {{ .Values.openlane.coreConfiguration.authz.credentials.scopes | quote }}
-        {{- end }}
+{{- end }}
     db:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "debug") (ne (printf "%v" .Values.openlane.coreConfiguration.db.debug) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.debug) "false" }}
       debug: {{ .Values.openlane.coreConfiguration.db.debug }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "databaseName") (ne (printf "%v" .Values.openlane.coreConfiguration.db.databaseName) "openlane")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.databaseName) "openlane" }}
       databaseName: {{ .Values.openlane.coreConfiguration.db.databaseName | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "driverName") (ne (printf "%v" .Values.openlane.coreConfiguration.db.driverName) "pgx")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.driverName) "pgx" }}
       driverName: {{ .Values.openlane.coreConfiguration.db.driverName | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "multiWrite") (ne (printf "%v" .Values.openlane.coreConfiguration.db.multiWrite) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.multiWrite) "false" }}
       multiWrite: {{ .Values.openlane.coreConfiguration.db.multiWrite }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "cacheTTL") (ne (printf "%v" .Values.openlane.coreConfiguration.db.cacheTTL) "1s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.cacheTTL) "1s" }}
       cacheTTL: {{ .Values.openlane.coreConfiguration.db.cacheTTL | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "runMigrations") (ne (printf "%v" .Values.openlane.coreConfiguration.db.runMigrations) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.runMigrations) "true" }}
       runMigrations: {{ .Values.openlane.coreConfiguration.db.runMigrations }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "migrationProvider") (ne (printf "%v" .Values.openlane.coreConfiguration.db.migrationProvider) "atlas")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.migrationProvider) "atlas" }}
       migrationProvider: {{ .Values.openlane.coreConfiguration.db.migrationProvider | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "enableHistory") (ne (printf "%v" .Values.openlane.coreConfiguration.db.enableHistory) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.enableHistory) "false" }}
       enableHistory: {{ .Values.openlane.coreConfiguration.db.enableHistory }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "maxConnections") (ne (printf "%v" .Values.openlane.coreConfiguration.db.maxConnections) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.maxConnections) "0" }}
       maxConnections: {{ .Values.openlane.coreConfiguration.db.maxConnections }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.db) | default (dict)) "maxIdleConnections") (ne (printf "%v" .Values.openlane.coreConfiguration.db.maxIdleConnections) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.db.maxIdleConnections) "0" }}
       maxIdleConnections: {{ .Values.openlane.coreConfiguration.db.maxIdleConnections }}
-      {{- end }}
+{{- end }}
     jobQueue:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.jobQueue) | default (dict)) "runMigrations") (ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.runMigrations) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.runMigrations) "false" }}
       runMigrations: {{ .Values.openlane.coreConfiguration.jobQueue.runMigrations }}
-      {{- end }}
+{{- end }}
       metrics:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.jobQueue.metrics) | default (dict)) "enableMetrics") (ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics) "false" }}
         enableMetrics: {{ .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.jobQueue.metrics) | default (dict)) "metricsDurationUnit") (ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit) "ms")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit) "ms" }}
         metricsDurationUnit: {{ .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.jobQueue.metrics) | default (dict)) "enableSemanticMetrics") (ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics) "true" }}
         enableSemanticMetrics: {{ .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics }}
-        {{- end }}
+{{- end }}
     redis:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.enabled) "true" }}
       enabled: {{ .Values.openlane.coreConfiguration.redis.enabled }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "address") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.address) "localhost:6379")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.address) "localhost:6379" }}
       address: {{ .Values.openlane.coreConfiguration.redis.address | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "name") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.name) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.name) "" }}
       name: {{ .Values.openlane.coreConfiguration.redis.name | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "username") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.username) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.username) "" }}
       username: {{ .Values.openlane.coreConfiguration.redis.username | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "password") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.password) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.password) "" }}
       password: {{ .Values.openlane.coreConfiguration.redis.password | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "db") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.db) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.db) "0" }}
       db: {{ .Values.openlane.coreConfiguration.redis.db }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "dialTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.dialTimeout) "5s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.dialTimeout) "5s" }}
       dialTimeout: {{ .Values.openlane.coreConfiguration.redis.dialTimeout | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "readTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.readTimeout) "0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.readTimeout) "0s" }}
       readTimeout: {{ .Values.openlane.coreConfiguration.redis.readTimeout | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "writeTimeout") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.writeTimeout) "0s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.writeTimeout) "0s" }}
       writeTimeout: {{ .Values.openlane.coreConfiguration.redis.writeTimeout | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "maxRetries") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.maxRetries) "3")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.maxRetries) "3" }}
       maxRetries: {{ .Values.openlane.coreConfiguration.redis.maxRetries }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "minIdleConns") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.minIdleConns) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.minIdleConns) "0" }}
       minIdleConns: {{ .Values.openlane.coreConfiguration.redis.minIdleConns }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "maxIdleConns") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.maxIdleConns) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.maxIdleConns) "0" }}
       maxIdleConns: {{ .Values.openlane.coreConfiguration.redis.maxIdleConns }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.redis) | default (dict)) "maxActiveConns") (ne (printf "%v" .Values.openlane.coreConfiguration.redis.maxActiveConns) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.redis.maxActiveConns) "0" }}
       maxActiveConns: {{ .Values.openlane.coreConfiguration.redis.maxActiveConns }}
-      {{- end }}
+{{- end }}
     tracer:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.enabled) "false" }}
       enabled: {{ .Values.openlane.coreConfiguration.tracer.enabled }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer) | default (dict)) "provider") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.provider) "stdout")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.provider) "stdout" }}
       provider: {{ .Values.openlane.coreConfiguration.tracer.provider | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer) | default (dict)) "environment") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.environment) "development")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.environment) "development" }}
       environment: {{ .Values.openlane.coreConfiguration.tracer.environment | quote }}
-      {{- end }}
+{{- end }}
       stdout:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.stdout) | default (dict)) "pretty") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.stdout.pretty) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.stdout.pretty) "true" }}
         pretty: {{ .Values.openlane.coreConfiguration.tracer.stdout.pretty }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.stdout) | default (dict)) "disableTimestamp") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.stdout.disableTimestamp) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.stdout.disableTimestamp) "false" }}
         disableTimestamp: {{ .Values.openlane.coreConfiguration.tracer.stdout.disableTimestamp }}
-        {{- end }}
+{{- end }}
       otlp:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.otlp) | default (dict)) "endpoint") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.endpoint) "localhost:4317")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.endpoint) "localhost:4317" }}
         endpoint: {{ .Values.openlane.coreConfiguration.tracer.otlp.endpoint | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.otlp) | default (dict)) "insecure") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.insecure) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.insecure) "true" }}
         insecure: {{ .Values.openlane.coreConfiguration.tracer.otlp.insecure }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.otlp) | default (dict)) "certificate") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.certificate) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.certificate) "" }}
         certificate: {{ .Values.openlane.coreConfiguration.tracer.otlp.certificate | quote }}
-        {{- end }}
+{{- end }}
         {{- $sliceValue := (.Values.openlane.coreConfiguration.tracer.otlp.headers | default (list)) }}
         {{- if gt (len $sliceValue) 0 }}
         headers:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.otlp) | default (dict)) "compression") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.compression) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.compression) "" }}
         compression: {{ .Values.openlane.coreConfiguration.tracer.otlp.compression | quote }}
-        {{- end }}
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.tracer.otlp) | default (dict)) "timeout") (ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.timeout) "10s")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.tracer.otlp.timeout) "10s" }}
         timeout: {{ .Values.openlane.coreConfiguration.tracer.otlp.timeout | quote }}
-        {{- end }}
+{{- end }}
     email:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.email) | default (dict)) "companyName") (ne (printf "%v" .Values.openlane.coreConfiguration.email.companyName) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.email.companyName) "" }}
       companyName: {{ .Values.openlane.coreConfiguration.email.companyName | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.email) | default (dict)) "companyAddress") (ne (printf "%v" .Values.openlane.coreConfiguration.email.companyAddress) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.email.companyAddress) "" }}
       companyAddress: {{ .Values.openlane.coreConfiguration.email.companyAddress | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.email) | default (dict)) "corporation") (ne (printf "%v" .Values.openlane.coreConfiguration.email.corporation) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.email.corporation) "" }}
       corporation: {{ .Values.openlane.coreConfiguration.email.corporation | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.email) | default (dict)) "year") (ne (printf "%v" .Values.openlane.coreConfiguration.email.year) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.email.year) "0" }}
       year: {{ .Values.openlane.coreConfiguration.email.year }}
-      {{- end }}
+{{- end }}
       {{- if .Values.openlane.coreConfiguration.email.fromEmail }}
       fromEmail: {{ .Values.openlane.coreConfiguration.email.fromEmail | quote }}
       {{- else if .Values.domain }}
@@ -670,9 +670,9 @@ data:
       {{- else }}
       supportEmail: ""
       {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.email) | default (dict)) "logoURL") (ne (printf "%v" .Values.openlane.coreConfiguration.email.logoURL) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.email.logoURL) "" }}
       logoURL: {{ .Values.openlane.coreConfiguration.email.logoURL | quote }}
-      {{- end }}
+{{- end }}
       urls:
         {{- if .Values.openlane.coreConfiguration.email.urls.root }}
         root: {{ .Values.openlane.coreConfiguration.email.urls.root | quote }}
@@ -730,9 +730,9 @@ data:
         {{- else }}
         verifyBilling: ""
         {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.email) | default (dict)) "templatesPath") (ne (printf "%v" .Values.openlane.coreConfiguration.email.templatesPath) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.email.templatesPath) "" }}
       templatesPath: {{ .Values.openlane.coreConfiguration.email.templatesPath | quote }}
-      {{- end }}
+{{- end }}
     sessions:
       {{- if .Values.openlane.coreConfiguration.sessions.domain }}
       domain: {{ .Values.openlane.coreConfiguration.sessions.domain | quote }}
@@ -741,25 +741,25 @@ data:
       {{- else }}
       domain: ""
       {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.sessions) | default (dict)) "maxAge") (ne (printf "%v" .Values.openlane.coreConfiguration.sessions.maxAge) "3600")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.sessions.maxAge) "3600" }}
       maxAge: {{ .Values.openlane.coreConfiguration.sessions.maxAge }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.sessions) | default (dict)) "secure") (ne (printf "%v" .Values.openlane.coreConfiguration.sessions.secure) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.sessions.secure) "true" }}
       secure: {{ .Values.openlane.coreConfiguration.sessions.secure }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.sessions) | default (dict)) "httpOnly") (ne (printf "%v" .Values.openlane.coreConfiguration.sessions.httpOnly) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.sessions.httpOnly) "true" }}
       httpOnly: {{ .Values.openlane.coreConfiguration.sessions.httpOnly }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.sessions) | default (dict)) "sameSite") (ne (printf "%v" .Values.openlane.coreConfiguration.sessions.sameSite) "Strict")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.sessions.sameSite) "Strict" }}
       sameSite: {{ .Values.openlane.coreConfiguration.sessions.sameSite | quote }}
-      {{- end }}
+{{- end }}
     totp:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.totp) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.totp.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.totp.enabled) "true" }}
       enabled: {{ .Values.openlane.coreConfiguration.totp.enabled }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.totp) | default (dict)) "codeLength") (ne (printf "%v" .Values.openlane.coreConfiguration.totp.codeLength) "6")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.totp.codeLength) "6" }}
       codeLength: {{ .Values.openlane.coreConfiguration.totp.codeLength }}
-      {{- end }}
+{{- end }}
       {{- if .Values.openlane.coreConfiguration.totp.issuer }}
       issuer: {{ .Values.openlane.coreConfiguration.totp.issuer | quote }}
       {{- else if .Values.domain }}
@@ -767,19 +767,19 @@ data:
       {{- else }}
       issuer: ""
       {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.totp) | default (dict)) "redis") (ne (printf "%v" .Values.openlane.coreConfiguration.totp.redis) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.totp.redis) "true" }}
       redis: {{ .Values.openlane.coreConfiguration.totp.redis }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.totp) | default (dict)) "recoveryCodeCount") (ne (printf "%v" .Values.openlane.coreConfiguration.totp.recoveryCodeCount) "16")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.totp.recoveryCodeCount) "16" }}
       recoveryCodeCount: {{ .Values.openlane.coreConfiguration.totp.recoveryCodeCount }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.totp) | default (dict)) "recoveryCodeLength") (ne (printf "%v" .Values.openlane.coreConfiguration.totp.recoveryCodeLength) "8")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.totp.recoveryCodeLength) "8" }}
       recoveryCodeLength: {{ .Values.openlane.coreConfiguration.totp.recoveryCodeLength }}
-      {{- end }}
+{{- end }}
     ratelimit:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.enabled) "false" }}
       enabled: {{ .Values.openlane.coreConfiguration.ratelimit.enabled }}
-      {{- end }}
+{{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.ratelimit.options | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
       options:
@@ -790,163 +790,173 @@ data:
       headers:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "forwardedIndexFromBehind") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind) "0")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind) "0" }}
       forwardedIndexFromBehind: {{ .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "includePath") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.includePath) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.includePath) "false" }}
       includePath: {{ .Values.openlane.coreConfiguration.ratelimit.includePath }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "includeMethod") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.includeMethod) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.includeMethod) "false" }}
       includeMethod: {{ .Values.openlane.coreConfiguration.ratelimit.includeMethod }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "keyPrefix") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.keyPrefix) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.keyPrefix) "" }}
       keyPrefix: {{ .Values.openlane.coreConfiguration.ratelimit.keyPrefix | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "denyStatus") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.denyStatus) "429")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.denyStatus) "429" }}
       denyStatus: {{ .Values.openlane.coreConfiguration.ratelimit.denyStatus }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "denyMessage") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.denyMessage) "Too many requests")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.denyMessage) "Too many requests" }}
       denyMessage: {{ .Values.openlane.coreConfiguration.ratelimit.denyMessage | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "sendRetryAfterHeader") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader) "true" }}
       sendRetryAfterHeader: {{ .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.ratelimit) | default (dict)) "dryRun") (ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.dryRun) "true")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.ratelimit.dryRun) "true" }}
       dryRun: {{ .Values.openlane.coreConfiguration.ratelimit.dryRun }}
-      {{- end }}
+{{- end }}
     objectStorage:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.enabled) "true")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.enabled) "true" }}
       enabled: {{ .Values.openlane.coreConfiguration.objectStorage.enabled }}
-      {{- end }}
+{{- end }}
       {{- $sliceValue := (.Values.openlane.coreConfiguration.objectStorage.keys | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
       keys:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage) | default (dict)) "maxSizeMB") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.maxSizeMB) "0")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.maxSizeMB) "0" }}
       maxSizeMB: {{ .Values.openlane.coreConfiguration.objectStorage.maxSizeMB }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage) | default (dict)) "maxMemoryMB") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB) "0")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB) "0" }}
       maxMemoryMB: {{ .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage) | default (dict)) "devMode") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.devMode) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.devMode) "false" }}
       devMode: {{ .Values.openlane.coreConfiguration.objectStorage.devMode }}
-      {{- end }}
+{{- end }}
       providers:
+        {{- if (or (or (or (or (or (or (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled) "false") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.region) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL) "http://localhost:17608/v1/files")) }}
         s3:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled) "false" }}
           enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "ensureAvailable") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable) "false" }}
           ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "region") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.region) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.region) "" }}
           region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.region | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "bucket") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket) "" }}
           bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "endpoint") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint) "" }}
           endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "proxyPresignEnabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled) "false" }}
           proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.s3) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL) "http://localhost:17608/v1/files")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL) "http://localhost:17608/v1/files" }}
           baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL | quote }}
-          {{- end }}
+{{- end }}
+        {{- end }}
+        {{- if (or (or (or (or (or (or (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled) "false") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL) "http://localhost:17608/v1/files")) }}
         cloudflareR2:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled) "false" }}
           enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "ensureAvailable") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable) "false" }}
           ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "region") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region) "" }}
           region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "bucket") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket) "" }}
           bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "endpoint") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint) "" }}
           endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "proxyPresignEnabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled) "false" }}
           proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL) "http://localhost:17608/v1/files")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL) "http://localhost:17608/v1/files" }}
           baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL | quote }}
-          {{- end }}
+{{- end }}
+        {{- end }}
+        {{- if (or (or (or (or (or (or (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled) "false") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL) "http://localhost:17608/v1/files")) }}
         gcs:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled) "false" }}
           enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "ensureAvailable") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable) "false" }}
           ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "region") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region) "" }}
           region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "bucket") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket) "" }}
           bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "endpoint") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint) "" }}
           endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "proxyPresignEnabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled) "false" }}
           proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.gcs) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL) "http://localhost:17608/v1/files")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL) "http://localhost:17608/v1/files" }}
           baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL | quote }}
-          {{- end }}
+{{- end }}
+        {{- end }}
+        {{- if (or (or (or (or (or (or (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled) "false") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.region) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL) "http://localhost:17608/v1/files")) }}
         disk:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled) "false" }}
           enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "ensureAvailable") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable) "false" }}
           ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "region") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.region) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.region) "" }}
           region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.region | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "bucket") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket) "" }}
           bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "endpoint") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint) "" }}
           endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "proxyPresignEnabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled) "false" }}
           proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.disk) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL) "http://localhost:17608/v1/files")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL) "http://localhost:17608/v1/files" }}
           baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL | quote }}
-          {{- end }}
+{{- end }}
+        {{- end }}
+        {{- if (or (or (or (or (or (or (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled) "false") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.region) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint) "")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled) "false")) (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL) "http://localhost:17608/v1/files")) }}
         database:
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled) "false" }}
           enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "ensureAvailable") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable) "false" }}
           ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "region") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.region) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.region) "" }}
           region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.region | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "bucket") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket) "" }}
           bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "endpoint") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint) "" }}
           endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint | quote }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "proxyPresignEnabled") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled) "false" }}
           proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled }}
-          {{- end }}
-          {{- if (or (hasKey ((.Values.openlane.coreConfiguration.objectStorage.providers.database) | default (dict)) "baseURL") (ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL) "http://localhost:17608/v1/files")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL) "http://localhost:17608/v1/files" }}
           baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL | quote }}
-          {{- end }}
+{{- end }}
+        {{- end }}
     subscription:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.subscription) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.subscription.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.subscription.enabled) "false" }}
       enabled: {{ .Values.openlane.coreConfiguration.subscription.enabled }}
-      {{- end }}
+{{- end }}
       {{- if .Values.openlane.coreConfiguration.subscription.stripeWebhookURL }}
       stripeWebhookURL: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookURL | quote }}
       {{- else if .Values.domain }}
@@ -973,33 +983,33 @@ data:
       stripeWebhookEvents:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.subscription) | default (dict)) "stripeWebhookAPIVersion") (ne (printf "%v" .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion) "2025_10_29_CLOVER")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion) "2025_10_29_CLOVER" }}
       stripeWebhookAPIVersion: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.subscription) | default (dict)) "stripeWebhookDiscardAPIVersion") (ne (printf "%v" .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion) "" }}
       stripeWebhookDiscardAPIVersion: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion | quote }}
-      {{- end }}
+{{- end }}
     keywatcher:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.keywatcher) | default (dict)) "enabled") (ne (printf "%v" .Values.openlane.coreConfiguration.keywatcher.enabled) "false")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.keywatcher.enabled) "false" }}
       enabled: {{ .Values.openlane.coreConfiguration.keywatcher.enabled }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.keywatcher) | default (dict)) "keyDir") (ne (printf "%v" .Values.openlane.coreConfiguration.keywatcher.keyDir) "./keys")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.keywatcher.keyDir) "./keys" }}
       keyDir: {{ .Values.openlane.coreConfiguration.keywatcher.keyDir | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.keywatcher) | default (dict)) "externalSecretsIntegration") (ne (printf "%v" .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration) "false")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration) "false" }}
       externalSecretsIntegration: {{ .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration }}
-      {{- end }}
+{{- end }}
     slack:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.slack) | default (dict)) "newSubscriberMessageFile") (ne (printf "%v" .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile) "" }}
       newSubscriberMessageFile: {{ .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile | quote }}
-      {{- end }}
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.slack) | default (dict)) "newUserMessageFile") (ne (printf "%v" .Values.openlane.coreConfiguration.slack.newUserMessageFile) "")) }}
+{{- end }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.slack.newUserMessageFile) "" }}
       newUserMessageFile: {{ .Values.openlane.coreConfiguration.slack.newUserMessageFile | quote }}
-      {{- end }}
+{{- end }}
     integrationOauthProvider:
-      {{- if (or (hasKey ((.Values.openlane.coreConfiguration.integrationOauthProvider) | default (dict)) "redirectUrl") (ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl) "" }}
       redirectUrl: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl | quote }}
-      {{- end }}
+{{- end }}
       {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.successRedirectUrl }}
       successRedirectUrl: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.successRedirectUrl | quote }}
       {{- else if .Values.domain }}
@@ -1008,9 +1018,9 @@ data:
       successRedirectUrl: ""
       {{- end }}
       github:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.integrationOauthProvider.github) | default (dict)) "clientId") (ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId) "" }}
         clientId: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId | quote }}
-        {{- end }}
+{{- end }}
         {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientEndpoint }}
         clientEndpoint: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientEndpoint | quote }}
         {{- else if .Values.domain }}
@@ -1024,9 +1034,9 @@ data:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
       slack:
-        {{- if (or (hasKey ((.Values.openlane.coreConfiguration.integrationOauthProvider.slack) | default (dict)) "clientId") (ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId) "")) }}
+{{- if ne (printf "%v" .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId) "" }}
         clientId: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId | quote }}
-        {{- end }}
+{{- end }}
         {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientEndpoint }}
         clientEndpoint: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientEndpoint | quote }}
         {{- else if .Values.domain }}
