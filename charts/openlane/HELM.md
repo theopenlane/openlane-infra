@@ -34,7 +34,7 @@ A Helm chart to deploy the core Openlane server
 | openlane.pdb.enabled | bool | `true` |  |
 | openlane.pdb.minAvailable | int | `1` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.44.1"` |  |
+| openlane.image.tag | string | `"v0.45.0"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.resources.requests | object | `{}` |  |
 | openlane.resources.limits | object | `{}` |  |
@@ -544,7 +544,7 @@ A Helm chart to deploy the core Openlane server
 | podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"amd64-v0.3.4"` |  |
+| riverboat.image.tag | string | `"amd64-v0.4.3"` |  |
 | riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
 | riverboat.secret.create | bool | `false` |  |
 | riverboat.secret.name | string | `"riverboat-app-secret"` |  |

@@ -11,9 +11,9 @@ openlane:
   coreConfiguration:
     server:
       csrfProtection:
-          enabled: true
-          sameSite: "None"
-          cookieDomain: ".theopenlane.io"
+        enabled: true
+        sameSite: "None"
+        cookieDomain: ".theopenlane.io"
       graphPool:
         maxWorkers: 200
       complexityLimit: 200
@@ -133,3 +133,7 @@ riverboat:
       enabled: true
     customDomainWorker:
       enabled: true
+      openlaneAPIHost: "https://api.theopenlane.io"
+    watermarkDocWorker:
+      enabled: true
+      openlaneAPIHost: "https://api.theopenlane.io"

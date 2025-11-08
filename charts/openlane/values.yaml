@@ -14,7 +14,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.44.1"
+    tag: "v0.45.0"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Resource requests and limits for the `openlane` container
@@ -1166,7 +1166,7 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.3.4
+    tag: amd64-v0.4.3
     pullPolicy: IfNotPresent
   secret:
     # Whether to create the secret resource
