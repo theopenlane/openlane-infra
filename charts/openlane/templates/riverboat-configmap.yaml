@@ -54,6 +54,6 @@ data:
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_ENDPOINT: {{ .Values.riverboat.workers.databaseWorker.endpoint | quote }}
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_DEBUG: {{ .Values.riverboat.workers.databaseWorker.debug | quote }}
 
-  RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.watermarkDocWorker.enabled }}
+  RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.watermarkDocWorker.enabled | quote }}
   RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.watermarkDocWorker.openlaneAPIHost }}
 {{- end }}
