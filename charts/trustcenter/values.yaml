@@ -9,7 +9,7 @@ replicaCount: 3
 image:
   # Repository for the trustcenter image
   repository: ghcr.io/theopenlane/trust-center-fe
-  tag: v0.1.15
+  tag: v0.1.16
 
 # This is to override the chart name.
 nameOverride: ""
