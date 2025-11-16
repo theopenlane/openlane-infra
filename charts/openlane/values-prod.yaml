@@ -137,3 +137,9 @@ riverboat:
     watermarkDocWorker:
       enabled: true
       openlaneAPIHost: "https://api.theopenlane.io"
+    cacheTrustCenterDataWorker:
+      enabled: true
+      cacheInterval: 10m
+      objectStorageProviders:
+        cloudflareR2:
+          enabled: true

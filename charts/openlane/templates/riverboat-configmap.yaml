@@ -56,4 +56,7 @@ data:
 
   RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.watermarkDocWorker.enabled | quote }}
   RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.watermarkDocWorker.openlaneAPIHost }}
+  RIVERBOAT_RIVER_WORKERS_CACHETRUSTCENTERDATAWORKER_CONFIG_OBJECTSTORAGE_PROVIDERS_CLOUDFLARER2_ENABLED: {{ .Values.riverboat.workers.cacheTrustCenterDataWorker.objectStorageProviders.cloudflareR2.enabled | quote }}
+  RIVERBOAT_RIVER_WORKERS_CACHETRUSTCENTERDATAWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.cacheTrustCenterDataWorker.enabled | quote }}
+  RIVERBOAT_RIVER_WORKERS_CACHETRUSTCENTERDATAWORKER_CONFIG_CACHEINTERVAL: {{ .Values.riverboat.workers.cacheTrustCenterDataWorker.cacheInterval | quote }}
 {{- end }}
