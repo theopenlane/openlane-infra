@@ -1,29 +1,23 @@
 # Default values for trustcenter.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 3
-
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   # Repository for the trustcenter image
   repository: ghcr.io/theopenlane/trust-center-fe
-  tag: v0.1.19-11172025  
-
+  tag: v0.1.19-11172025
 # This is to override the chart name.
 nameOverride: ""
-
 trustcenter:
   secret:
     create: true
-    name:  trustcenter-ui-app-secret
+    name: trustcenter-ui-app-secret
   config:
     create: true
-    name:  trustcenter-ui-config
+    name: trustcenter-ui-config
   r2:
     bucketRegion: "auto"
-
     # todo: update bucket name for production when ready
     bucketName: "trust-center-cache-dev"
-
