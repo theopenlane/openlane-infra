@@ -1176,10 +1176,11 @@ riverboat:
     # Optional annotations for the config
     annotations: {}
   refreshInterval: "10m"
-  metrics:
-    enablemetrics: true
-    metricsDurationUnit: "ms"
-    enableSemanticMetrics: true
+  river:
+    metrics:
+      enableMetrics: true
+      metricsDurationUnit: "ms"
+      enableSemanticMetrics: true
   workers:
     emailWorker:
       enabled: false
