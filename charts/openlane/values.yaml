@@ -1178,6 +1178,8 @@ riverboat:
   refreshInterval: "10m"
   metrics:
     enablemetrics: true
+    metricsDurationUnit: "ms"
+    enableSemanticMetrics: true
   workers:
     emailWorker:
       enabled: false
