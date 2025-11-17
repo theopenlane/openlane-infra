@@ -1219,6 +1219,8 @@ riverboat:
       debug: false
     watermarkDocWorker:
       enabled: true
+    slackWorker:
+      enabled: false
 riverboatui:
   image:
     # Repository for the riverboat UI image
