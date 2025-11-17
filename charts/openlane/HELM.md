@@ -546,7 +546,9 @@ A Helm chart to deploy the core Openlane server
 | riverboat.config.name | string | `"riverboat-config"` |  |
 | riverboat.config.annotations | object | `{}` |  |
 | riverboat.refreshInterval | string | `"10m"` |  |
-| riverboat.metrics.enablemetrics | bool | `true` |  |
+| riverboat.river.metrics.enableMetrics | bool | `true` |  |
+| riverboat.river.metrics.metricsDurationUnit | string | `"ms"` |  |
+| riverboat.river.metrics.enableSemanticMetrics | bool | `true` |  |
 | riverboat.workers.emailWorker.enabled | bool | `false` |  |
 | riverboat.workers.emailWorker.devMode | string | `"false"` |  |
 | riverboat.workers.emailWorker.token | string | `""` |  |
@@ -564,6 +566,8 @@ A Helm chart to deploy the core Openlane server
 | riverboat.workers.databaseWorker.baseUrl | string | `""` |  |
 | riverboat.workers.databaseWorker.endpoint | string | `"query"` |  |
 | riverboat.workers.databaseWorker.debug | bool | `false` |  |
+| riverboat.workers.watermarkDocWorker.enabled | bool | `true` |  |
+| riverboat.workers.slackWorker.enabled | bool | `false` |  |
 | riverboatui.image.repository | string | `"ghcr.io/riverqueue/riverui"` |  |
 | riverboatui.image.tag | string | `"latest"` |  |
 | riverboatui.image.pullPolicy | string | `"IfNotPresent"` |  |
