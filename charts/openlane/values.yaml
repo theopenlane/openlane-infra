@@ -1217,6 +1217,8 @@ riverboat:
       baseUrl: ""
       endpoint: "query"
       debug: false
+    watermarkDocWorker:
+      enabled: true
 riverboatui:
   image:
     # Repository for the riverboat UI image
