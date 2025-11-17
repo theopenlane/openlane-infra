@@ -14,7 +14,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.45.16"
+    tag: "v0.46.0"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Resource requests and limits for the `openlane` container
@@ -1159,8 +1159,8 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.4.3
-    pullPolicy: IfNotPresent
+    tag: amd64-v0.6.0
+    pullPolicy: Always
   secret:
     # Whether to create the secret resource
     create: false
@@ -1176,6 +1176,8 @@ riverboat:
     # Optional annotations for the config
     annotations: {}
   refreshInterval: "10m"
+  metrics:
+    enablemetrics: true
   workers:
     emailWorker:
       enabled: false

@@ -1,0 +1,14 @@
+{{- if .Values.trustcenter.config.create }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trustcenter-ui-config
+  namespace: trustcenter
+  labels:
+    app: trustcenter-ui
+    component: config
+data:
+  R2_BUCKET_REGION: {{ .Values.trustcenter.r2.bucketRegion | quote | default "auto" }}
+  R2_BUCKET_NAME: {{ .Values.trustcenter.r2.bucketName | quote | default "" }}
+{{- end }}

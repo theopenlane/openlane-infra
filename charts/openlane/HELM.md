@@ -34,7 +34,7 @@ A Helm chart to deploy the core Openlane server
 | openlane.pdb.enabled | bool | `true` |  |
 | openlane.pdb.minAvailable | int | `1` |  |
 | openlane.image.repository | string | `"ghcr.io/theopenlane/core"` |  |
-| openlane.image.tag | string | `"v0.45.16"` |  |
+| openlane.image.tag | string | `"v0.46.0"` |  |
 | openlane.image.pullPolicy | string | `"IfNotPresent"` |  |
 | openlane.resources.requests | object | `{}` |  |
 | openlane.resources.limits | object | `{}` |  |
@@ -537,8 +537,8 @@ A Helm chart to deploy the core Openlane server
 | podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"amd64-v0.4.3"` |  |
-| riverboat.image.pullPolicy | string | `"IfNotPresent"` |  |
+| riverboat.image.tag | string | `"amd64-v0.6.0"` |  |
+| riverboat.image.pullPolicy | string | `"Always"` |  |
 | riverboat.secret.create | bool | `false` |  |
 | riverboat.secret.name | string | `"riverboat-app-secret"` |  |
 | riverboat.secret.annotations | object | `{}` |  |
@@ -546,6 +546,7 @@ A Helm chart to deploy the core Openlane server
 | riverboat.config.name | string | `"riverboat-config"` |  |
 | riverboat.config.annotations | object | `{}` |  |
 | riverboat.refreshInterval | string | `"10m"` |  |
+| riverboat.metrics.enablemetrics | bool | `true` |  |
 | riverboat.workers.emailWorker.enabled | bool | `false` |  |
 | riverboat.workers.emailWorker.devMode | string | `"false"` |  |
 | riverboat.workers.emailWorker.token | string | `""` |  |

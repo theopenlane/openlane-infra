@@ -19,8 +19,14 @@ A Helm chart for Kubernetes
 |-----|------|---------|-------------|
 | replicaCount | int | `3` |  |
 | image.repository | string | `"ghcr.io/theopenlane/trust-center-fe"` |  |
-| image.tag | string | `"v0.1.15"` |  |
+| image.tag | string | `"v0.1.19-11172025"` |  |
 | nameOverride | string | `""` |  |
+| trustcenter.secret.create | bool | `true` |  |
+| trustcenter.secret.name | string | `"trustcenter-ui-app-secret"` |  |
+| trustcenter.config.create | bool | `true` |  |
+| trustcenter.config.name | string | `"trustcenter-ui-config"` |  |
+| trustcenter.r2.bucketRegion | string | `"auto"` |  |
+| trustcenter.r2.bucketName | string | `"trust-center-cache-dev"` |  |
 
 ## Update documentation
 
