@@ -10,6 +10,9 @@ metadata:
     component: config
 data:
   RIVERBOAT_REFRESHINTERVAL: {{ .Values.riverboat.refreshInterval | quote }}
+  RIVERBOAT_RIVER_METRICS_METRICSDURATIONUNIT: {{ .Values.riverboat.river.metrics.metricsDurationUnit | default "ms" }}
+  RIVERBOAT_RIVER_METRICS_ENABLESEMANTICMETRICS: {{ .Values.riverboat.river.metrics.enableSemanticMetrics | default true }}
+  RIVERBOAT_RIVER_METRICS_ENABLEMETRICS: {{ .Values.riverboat.river.metrics.enableMetrics | default false }}
 
   # email worker
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.emailWorker.enabled | quote }}
@@ -56,4 +59,9 @@ data:
 
   RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.watermarkDocWorker.enabled | quote }}
   RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.watermarkDocWorker.openlaneAPIHost }}
+
+  # slack workers
+  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_ENABLED: {{ .Values.riverboat.river.workers.slackWorker.config.enabled | default false }}
+  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_DEVMODE: {{ .Values.riverboat.river.workers.slackWorker.config.devMode | default true }}
+  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_TOKEN: {{ .Values.riverboat.river.workers.slackWorker.config.token }}
 {{- end }}

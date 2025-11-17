@@ -9,7 +9,21 @@ replicaCount: 3
 image:
   # Repository for the trustcenter image
   repository: ghcr.io/theopenlane/trust-center-fe
-  tag: v0.1.15
+  tag: v0.1.19-11172025  
 
 # This is to override the chart name.
 nameOverride: ""
+
+trustcenter:
+  secret:
+    create: true
+    name:  trustcenter-ui-app-secret
+  config:
+    create: true
+    name:  trustcenter-ui-config
+  r2:
+    bucketRegion: "auto"
+
+    # todo: update bucket name for production when ready
+    bucketName: "trust-center-cache-dev"
+

@@ -10,18 +10,18 @@ openlane:
     create: true
   coreConfiguration:
     server:
-      csrfProtection:
+      csrfprotection:
         enabled: true
         sameSite: "None"
         cookieDomain: ".theopenlane.io"
-      graphPool:
+      graphpool:
         maxWorkers: 200
-      complexityLimit: 200
-      defaultTrustCenterDomain: "trust.theopenlane.net"
-      trustCenterCnameTarget: "cname.openlane-dns.com"
+      complexitylimit: 200
+      defaulttrustcenterdomain: "trust.theopenlane.net"
+      trustcentercnametarget: "cname.openlane-dns.com"
       cors:
         enabled: true
-        allowOrigins:
+        alloworigins:
           - https://console.theopenlane.io
           - https://www.theopenlane.io
           - https://studio.apollographql.com
@@ -31,93 +31,93 @@ openlane:
       secure:
         hstsmaxage: "31536000"
     db:
-      maxConnections: 8
-      maxIdleConnections: 8
-      migrationProvider: goose
-      enableHistory: true
-      databaseName: prod-openlane-db
-    jobQueue:
+      maxconnections: 8
+      maxidleconnections: 8
+      migrationprovider: goose
+      enablehistory: true
+      databasename: prod-openlane-db
+    jobqueue:
       metrics:
-        enableMetrics: true
-        metricsDurationUnit: "s"
+        enablemetrics: true
+        metricsdurationunit: "s"
     authz:
       enabled: true
-      hostUrl: http://openfga.openfga.svc.cluster.local:8080
+      hosturl: http://openfga.openfga.svc.cluster.local:8080
     auth:
       token:
         kid: "16FFBS79AZ12168N0RAW3CEAGG"
-        generateKeys: false
-      supportedProviders: # note this is not currently used, but adding to ensure future compatibility
+        generatekeys: false
+      supportedproviders: # note this is not currently used, but adding to ensure future compatibility
         - github
         - google
         - webauthn
       providers:
         # redirect url for sso logins
-        redirectUrl: "https://console.theopenlane.io/login/sso"
+        redirecturl: "https://console.theopenlane.io/login/sso"
         github:
-          clientId: "Ov23liFCzRTms6uIou68"
+          clientid: "Ov23liFCzRTms6uIou68"
         google:
-          clientId: "45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com"
+          clientid: "45405492545-7emofbtcl8vd81rqc4af1eqb7mtuca83.apps.googleusercontent.com"
     sessions:
-      sameSite: "None"
+      samesite: "None"
       domain: ".theopenlane.io" # todo: allow this to work with the domain, need the "." prefix
     redis:
       address: "10.252.1.3:6379"
     email:
-      templatesPath: "/brandedemails"
-      companyName: "Openlane"
+      templatespath: "/brandedemails"
+      companyname: "Openlane"
       corporation: "theopenlane Inc."
-      companyAddress: "5150 Broadway St · San Antonio · TX 78209"
-      fromEmail: "support@mail.theopenlane.io"
+      companyaddress: "5150 Broadway St · San Antonio · TX 78209"
+      fromemail: "support@mail.theopenlane.io"
       year: "2025"
-      logoURL: "https://www.theopenlane.io/cdn-cgi/imagedelivery/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
-    objectStorage:
+      logourl: "https://www.theopenlane.io/cdn-cgi/imagedelivery/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
+    objectstorage:
       enabled: true
-      maxSizeMB: 100
+      maxsizemb: 100
       providers:
         s3:
           enabled: true
-          ensureAvailable: true
+          ensureavailable: true
           region: "us-east-2"
           bucket: "opln"
-          baseURL: "https://api.theopenlane.io/v1/files"
-          proxyPresignEnabled: false
-        cloudflareR2:
+          baseurl: "https://api.theopenlane.io/v1/files"
+          proxypresignenabled: false
+        cloudflarer2:
           enabled: true
-          ensureAvailable: true
+          ensureavailable: true
           bucket: "ol-trust-center"
           region: "WNAM"
-          baseURL: "https://api.theopenlane.io/v1/files"
-          proxyPresignEnabled: false
-    entConfig:
-      entityTypes:
+          baseurl: "https://api.theopenlane.io/v1/files"
+          proxypresignenabled: false
+    entconfig:
+      entitytypes:
         - "vendor"
       modules:
         enabled: true
-      emailValidation:
+      emailvalidation:
         enabled: true
-        allowedEmailTypes:
+        allowedemailtypes:
           role: true
       billing:
-        requirePaymentMethod: true
-        bypassEmailDomains: ["theopenlane.io"]
-      maxPoolSize: 200
+        requirepaymentmethod: true
+        bypassemaildomains: ["theopenlane.io"]
+      maxpoolsize: 200
     subscription:
       enabled: true
-      stripeBillingPortalSuccessURL: "https://console.theopenlane.io/organization-settings/billing"
+      stripebillingportalsuccessurl: "https://console.theopenlane.io/organization-settings/billing"
     keywatcher:
       enabled: true
-      keyDir: "/keys"
-    integrationOauthProvider:
+      keydir: "/keys"
+    integrationoauthprovider:
       github:
-        clientId: "Ov23li4ZVNEkKhrdBZu5"
+        clientid: "Ov23li4ZVNEkKhrdBZu5"
         scopes: ["read:user", "user:email", "repo"]
       slack:
-        clientId: "7576222813318.8026395673346"
+        clientid: "7576222813318.8026395673346"
         scopes: ["chat:write", "channels:read"]
     ratelimit:
       enabled: true
-      dryRun: true
+      dryrun: true
 # riverboat values
 riverboat:
   secret:
@@ -125,15 +125,15 @@ riverboat:
   config:
     create: true
   workers:
-    emailWorker:
+    emailworker:
       enabled: true
-    deleteExportContentWorker:
+    deleteexportcontentworker:
       enabled: true
-    exportContentWorker:
+    exportcontentworker:
       enabled: true
-    customDomainWorker:
+    customdomainworker:
       enabled: true
-      openlaneAPIHost: "https://api.theopenlane.io"
-    watermarkDocWorker:
+      openlaneapihost: "https://api.theopenlane.io"
+    watermarkdocworker:
       enabled: true
-      openlaneAPIHost: "https://api.theopenlane.io"
+      openlaneapihost: "https://api.theopenlane.io"
