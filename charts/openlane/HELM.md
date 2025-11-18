@@ -539,6 +539,9 @@ A Helm chart to deploy the core Openlane server
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
 | riverboat.image.tag | string | `"amd64-v0.6.1"` |  |
 | riverboat.image.pullPolicy | string | `"Always"` |  |
+| riverboat.podMonitoring.enabled | bool | `true` |  |
+| riverboat.podMonitoring.interval | string | `"30s"` |  |
+| riverboat.podMonitoring.scrapeTimeout | string | `nil` |  |
 | riverboat.secret.create | bool | `false` |  |
 | riverboat.secret.name | string | `"riverboat-app-secret"` |  |
 | riverboat.secret.annotations | object | `{}` |  |
