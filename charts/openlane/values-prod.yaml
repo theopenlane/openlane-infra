@@ -30,6 +30,24 @@ openlane:
           - https://trust.theopenlane.net
       secure:
         hstsmaxage: "31536000"
+    objectstorage:
+      enabled: true
+      maxsizemb: 100
+      providers:
+        s3:
+          enabled: true
+          ensureavailable: true
+          region: "us-east-2"
+          bucket: "opln"
+          baseurl: "https://api.theopenlane.io/v1/files"
+          proxypresignenabled: false
+        cloudflarer2:
+          enabled: true
+          ensureavailable: true
+          bucket: "ol-trust-center"
+          region: "WNAM"
+          baseurl: "https://api.theopenlane.io/v1/files"
+          proxypresignenabled: false
     db:
       maxconnections: 8
       maxidleconnections: 8
@@ -71,24 +89,6 @@ openlane:
       fromemail: "support@mail.theopenlane.io"
       year: "2025"
       logourl: "https://www.theopenlane.io/cdn-cgi/imagedelivery/2gi-D0CFOlSOflWJG-LQaA/12e42452-e66e-4bae-0011-45a3f2cb6200/public"
-    objectstorage:
-      enabled: true
-      maxsizemb: 100
-      providers:
-        s3:
-          enabled: true
-          ensureavailable: true
-          region: "us-east-2"
-          bucket: "opln"
-          baseurl: "https://api.theopenlane.io/v1/files"
-          proxypresignenabled: false
-        cloudflarer2:
-          enabled: true
-          ensureavailable: true
-          bucket: "ol-trust-center"
-          region: "WNAM"
-          baseurl: "https://api.theopenlane.io/v1/files"
-          proxypresignenabled: false
     entconfig:
       entitytypes:
         - "vendor"
@@ -125,15 +125,15 @@ riverboat:
   config:
     create: true
   workers:
-    emailworker:
+    emailWorker:
       enabled: true
-    deleteexportcontentworker:
+    deleteExportContentWorker:
       enabled: true
-    exportcontentworker:
+    exportContentWorker:
       enabled: true
-    customdomainworker:
+    customDomainWorker:
       enabled: true
-      openlaneapihost: "https://api.theopenlane.io"
-    watermarkdocworker:
+      openlaneAPIHost: "https://api.theopenlane.io"
+    watermarkDocWorker:
       enabled: true
-      openlaneapihost: "https://api.theopenlane.io"
+      openlaneAPIHost: "https://api.theopenlane.io"

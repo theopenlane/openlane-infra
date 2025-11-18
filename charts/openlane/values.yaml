@@ -1159,8 +1159,13 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.6.0
+    tag: amd64-v0.6.1
     pullPolicy: Always
+  # enable pod monitoring for gcp cloud monitoring
+  podMonitoring:
+    enabled: true
+    interval: 30s
+    scrapeTimeout:
   secret:
     # Whether to create the secret resource
     create: false
@@ -1221,6 +1226,7 @@ riverboat:
       enabled: true
     slackWorker:
       enabled: false
+      devMode: false
 riverboatui:
   image:
     # Repository for the riverboat UI image

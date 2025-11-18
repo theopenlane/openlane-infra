@@ -98,16 +98,15 @@ spec:
           {{- end }}
           volumeMounts:
             - name: brandedemails-volume
-              mountPath: {{ .Values.openlane.coreConfiguration.email.templatesPath }}
+              mountPath: {{ .Values.openlane.coreConfiguration.email.templatespath }}
               readOnly: true
             - name: token-keys
-              mountPath: {{ .Values.openlane.coreConfiguration.keywatcher.keyDir }}
+              mountPath: {{ .Values.openlane.coreConfiguration.keywatcher.keydir }}
               readOnly: true
               {{- if .Values.openlane.config.create }}
             - name: config-file
               mountPath: /config/.config.yaml
               subPath: .config.yaml
-              readOnly: true
               {{- end }}
       volumes:
         - name: config-file
