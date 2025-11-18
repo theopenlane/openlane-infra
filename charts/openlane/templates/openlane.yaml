@@ -51,6 +51,10 @@ spec:
             - secretRef:
                 name: {{ .Values.openlane.secret.name }}
           {{- end }}
+          {{- if .Values.openlane.config.create }}
+            - configMapRef:
+                name: {{ .Values.openlane.config.name }}
+          {{- end }}
           image: {{ .Values.openlane.image.repository }}:{{ .Values.openlane.image.tag }}
           imagePullPolicy: Always
           ports:
@@ -103,11 +107,11 @@ spec:
             - name: token-keys
               mountPath: {{ .Values.openlane.coreConfiguration.keywatcher.keydir }}
               readOnly: true
-              {{- if .Values.openlane.config.create }}
-            - name: config-file
-              mountPath: /config/.config.yaml
-              subPath: .config.yaml
-              {{- end }}
+            #   {{- if .Values.openlane.config.create }}
+            # - name: config-file
+            #   mountPath: /config/.config.yaml
+            #   subPath: .config.yaml
+            #   {{- end }}
       volumes:
         - name: config-file
           configMap:
