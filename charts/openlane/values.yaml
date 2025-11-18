@@ -1165,7 +1165,7 @@ riverboat:
   podMonitoring:
     enabled: true
     interval: 30s
-    scrapeTimeout: 
+    scrapeTimeout:
   secret:
     # Whether to create the secret resource
     create: false
