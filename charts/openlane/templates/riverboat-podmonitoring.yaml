@@ -1,0 +1,20 @@
+{{- if .Values.riverboat.podMonitoring.enabled }}
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: riverboat-metrics
+  namespace: openlane
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: riverboat
+  endpoints:
+  - port: metrics
+    path: /metrics
+    {{- with .Values.riverboat.podMonitoring.interval }}
+    interval: {{ . }}
+    {{- end }}
+    {{- with .Values.riverboat.podMonitoring.scrapeTimeout }}
+    scrapeTimeout: {{ . }}
+    {{- end }}
+{{- end }}

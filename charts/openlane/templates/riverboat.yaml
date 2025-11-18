@@ -34,3 +34,7 @@ spec:
           image: {{ .Values.riverboat.image.repository }}:{{ .Values.riverboat.image.tag }}
           imagePullPolicy: Always
           name: riverboat
+          ports:
+            - containerPort: 9100
+              protocol: TCP
+              name: metrics

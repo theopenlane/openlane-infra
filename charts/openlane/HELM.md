@@ -537,7 +537,7 @@ A Helm chart to deploy the core Openlane server
 | podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"amd64-v0.6.0"` |  |
+| riverboat.image.tag | string | `"amd64-v0.6.1"` |  |
 | riverboat.image.pullPolicy | string | `"Always"` |  |
 | riverboat.secret.create | bool | `false` |  |
 | riverboat.secret.name | string | `"riverboat-app-secret"` |  |
@@ -568,6 +568,7 @@ A Helm chart to deploy the core Openlane server
 | riverboat.workers.databaseWorker.debug | bool | `false` |  |
 | riverboat.workers.watermarkDocWorker.enabled | bool | `true` |  |
 | riverboat.workers.slackWorker.enabled | bool | `false` |  |
+| riverboat.workers.slackWorker.devMode | bool | `false` |  |
 | riverboatui.image.repository | string | `"ghcr.io/riverqueue/riverui"` |  |
 | riverboatui.image.tag | string | `"latest"` |  |
 | riverboatui.image.pullPolicy | string | `"IfNotPresent"` |  |

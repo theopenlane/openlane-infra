@@ -10,9 +10,9 @@ metadata:
     component: config
 data:
   RIVERBOAT_REFRESHINTERVAL: {{ .Values.riverboat.refreshInterval | quote }}
-  RIVERBOAT_RIVER_METRICS_METRICSDURATIONUNIT: {{ .Values.riverboat.river.metrics.metricsDurationUnit | default "ms" }}
-  RIVERBOAT_RIVER_METRICS_ENABLESEMANTICMETRICS: {{ .Values.riverboat.river.metrics.enableSemanticMetrics | default true }}
-  RIVERBOAT_RIVER_METRICS_ENABLEMETRICS: {{ .Values.riverboat.river.metrics.enableMetrics | default false }}
+  RIVERBOAT_RIVER_METRICS_METRICSDURATIONUNIT: {{ .Values.riverboat.river.metrics.metricsDurationUnit | default "ms" | quote  }}
+  RIVERBOAT_RIVER_METRICS_ENABLESEMANTICMETRICS: {{ .Values.riverboat.river.metrics.enableSemanticMetrics | quote }}
+  RIVERBOAT_RIVER_METRICS_ENABLEMETRICS: {{ .Values.riverboat.river.metrics.enableMetrics | quote }}
 
   # email worker
   RIVERBOAT_RIVER_WORKERS_EMAILWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.emailWorker.enabled | quote }}
@@ -58,10 +58,9 @@ data:
   RIVERBOAT_RIVER_WORKERS_DATABASEWORKER_CONFIG_DEBUG: {{ .Values.riverboat.workers.databaseWorker.debug | quote }}
 
   RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.watermarkDocWorker.enabled | quote }}
-  RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.watermarkDocWorker.openlaneAPIHost }}
+  RIVERBOAT_RIVER_WORKERS_WATERMARKDOCWORKER_CONFIG_OPENLANEAPIHOST: {{ .Values.riverboat.workers.watermarkDocWorker.openlaneAPIHost | quote }}
 
   # slack workers
-  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.slackWorker.enabled | default false }}
-  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_DEVMODE: {{ .Values.riverboat.workers.slackWorker.devMode | default true }}
-  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_TOKEN: {{ .Values.riverboat.workers.slackWorker.token }}
+  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_ENABLED: {{ .Values.riverboat.workers.slackWorker.enabled | quote }}
+  RIVERBOAT_RIVER_WORKERS_SLACKWORKER_CONFIG_DEVMODE: {{ .Values.riverboat.workers.slackWorker.devMode | quote }}
 {{- end }}
