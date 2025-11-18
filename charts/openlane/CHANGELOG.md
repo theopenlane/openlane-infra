@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.45.18] - 2025-11-18
+
+### Changed✅ Updated ConfigMap template
+\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 7145
+- Source Commit: 8e5a8053
+- Source Branch: main
+- Generated: 2025-11-18 07:23:51 UTC
+
+---
+
 ## [0.45.17] - 2025-11-17
 
 ### Changed✅ Updated ConfigMap template
