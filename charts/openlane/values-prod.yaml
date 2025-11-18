@@ -12,10 +12,10 @@ openlane:
     server:
       csrfprotection:
         enabled: true
-        sameSite: "None"
-        cookieDomain: ".theopenlane.io"
+        samesite: "None"
+        cookiedomain: ".theopenlane.io"
       graphpool:
-        maxWorkers: 200
+        maxworkers: 200
       complexitylimit: 200
       defaulttrustcenterdomain: "trust.theopenlane.net"
       trustcentercnametarget: "cname.openlane-dns.com"
