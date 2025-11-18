@@ -30,7 +30,7 @@ openlane:
           - https://trust.theopenlane.net
       secure:
         hstsmaxage: "31536000"
-    objectsstorage:
+    objectstorage:
       enabled: true
       maxsizemb: 100
       providers:
