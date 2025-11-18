@@ -14,8 +14,8 @@ data:
     {{- if .Values.openlane.coreConfiguration.domain }}
     domain: {{ .Values.openlane.coreConfiguration.domain | quote }}
     {{- end }}
-    {{- if .Values.openlane.coreConfiguration.refreshInterval }}
-    refreshInterval: {{ .Values.openlane.coreConfiguration.refreshInterval | quote }}
+    {{- if .Values.openlane.coreConfiguration.refreshinterval }}
+    refreshinterval: {{ .Values.openlane.coreConfiguration.refreshinterval | quote }}
     {{- end }}
     {{- if .Values.openlane.coreConfiguration.server }}
     server:
@@ -25,37 +25,37 @@ data:
       {{- if .Values.openlane.coreConfiguration.server.listen }}
       listen: {{ .Values.openlane.coreConfiguration.server.listen | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.metricsPort }}
-      metricsPort: {{ .Values.openlane.coreConfiguration.server.metricsPort | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.metricsport }}
+      metricsport: {{ .Values.openlane.coreConfiguration.server.metricsport | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.shutdownGracePeriod }}
-      shutdownGracePeriod: {{ .Values.openlane.coreConfiguration.server.shutdownGracePeriod | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.shutdowngraceperiod }}
+      shutdowngraceperiod: {{ .Values.openlane.coreConfiguration.server.shutdowngraceperiod | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.readTimeout }}
-      readTimeout: {{ .Values.openlane.coreConfiguration.server.readTimeout | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.readtimeout }}
+      readtimeout: {{ .Values.openlane.coreConfiguration.server.readtimeout | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.writeTimeout }}
-      writeTimeout: {{ .Values.openlane.coreConfiguration.server.writeTimeout | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.writetimeout }}
+      writetimeout: {{ .Values.openlane.coreConfiguration.server.writetimeout | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.idleTimeout }}
-      idleTimeout: {{ .Values.openlane.coreConfiguration.server.idleTimeout | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.idletimeout }}
+      idletimeout: {{ .Values.openlane.coreConfiguration.server.idletimeout | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.readHeaderTimeout }}
-      readHeaderTimeout: {{ .Values.openlane.coreConfiguration.server.readHeaderTimeout | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.readheadertimeout }}
+      readheadertimeout: {{ .Values.openlane.coreConfiguration.server.readheadertimeout | quote }}
       {{- end }}
       {{- if .Values.openlane.coreConfiguration.server.tls }}
       tls:
         {{- if .Values.openlane.coreConfiguration.server.tls.enabled }}
         enabled: {{ .Values.openlane.coreConfiguration.server.tls.enabled }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.tls.certFile }}
-        certFile: {{ .Values.openlane.coreConfiguration.server.tls.certFile | quote }}
+        {{- if .Values.openlane.coreConfiguration.server.tls.certfile }}
+        certfile: {{ .Values.openlane.coreConfiguration.server.tls.certfile | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.tls.certKey }}
-        certKey: {{ .Values.openlane.coreConfiguration.server.tls.certKey | quote }}
+        {{- if .Values.openlane.coreConfiguration.server.tls.certkey }}
+        certkey: {{ .Values.openlane.coreConfiguration.server.tls.certkey | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.tls.autoCert }}
-        autoCert: {{ .Values.openlane.coreConfiguration.server.tls.autoCert }}
+        {{- if .Values.openlane.coreConfiguration.server.tls.autocert }}
+        autocert: {{ .Values.openlane.coreConfiguration.server.tls.autocert }}
         {{- end }}
       {{- end }}
       {{- if .Values.openlane.coreConfiguration.server.cors }}
@@ -68,20 +68,20 @@ data:
         prefixes:
         {{- toYaml $mapValue | nindent 10 }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.cors.allowOrigins }}
-        allowOrigins:
-        {{- toYaml .Values.openlane.coreConfiguration.server.cors.allowOrigins | nindent 10 }}
+        {{- if .Values.openlane.coreConfiguration.server.cors.alloworigins }}
+        alloworigins:
+        {{- toYaml .Values.openlane.coreConfiguration.server.cors.alloworigins | nindent 10 }}
         {{- else if .Values.domain }}
-        allowOrigins:
+        alloworigins:
           - "https://console.{{ .Values.domain }}"
           - "https://docs.{{ .Values.domain }}"
           - "https://www.{{ .Values.domain }}"
         {{- else }}
-        allowOrigins:
+        alloworigins:
           []
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.cors.cookieInsecure }}
-        cookieInsecure: {{ .Values.openlane.coreConfiguration.server.cors.cookieInsecure }}
+        {{- if .Values.openlane.coreConfiguration.server.cors.cookieinsecure }}
+        cookieinsecure: {{ .Values.openlane.coreConfiguration.server.cors.cookieinsecure }}
         {{- end }}
       {{- end }}
       {{- if .Values.openlane.coreConfiguration.server.secure }}
@@ -128,19 +128,19 @@ data:
         code: {{ .Values.openlane.coreConfiguration.server.redirects.code }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.cacheControl }}
-      cacheControl:
-        {{- if .Values.openlane.coreConfiguration.server.cacheControl.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.server.cacheControl.enabled }}
+      {{- if .Values.openlane.coreConfiguration.server.cachecontrol }}
+      cachecontrol:
+        {{- if .Values.openlane.coreConfiguration.server.cachecontrol.enabled }}
+        enabled: {{ .Values.openlane.coreConfiguration.server.cachecontrol.enabled }}
         {{- end }}
-        {{- $mapValue := (.Values.openlane.coreConfiguration.server.cacheControl.noCacheHeaders | default (dict)) }}
+        {{- $mapValue := (.Values.openlane.coreConfiguration.server.cachecontrol.nocacheheaders | default (dict)) }}
         {{- if gt (len $mapValue) 0 }}
-        noCacheHeaders:
+        nocacheheaders:
         {{- toYaml $mapValue | nindent 10 }}
         {{- end }}
-        {{- $sliceValue := (.Values.openlane.coreConfiguration.server.cacheControl.etagHeaders | default (list)) }}
+        {{- $sliceValue := (.Values.openlane.coreConfiguration.server.cachecontrol.etagheaders | default (list)) }}
         {{- if gt (len $sliceValue) 0 }}
-        etagHeaders:
+        etagheaders:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
       {{- end }}
@@ -149,197 +149,197 @@ data:
         {{- if .Values.openlane.coreConfiguration.server.mime.enabled }}
         enabled: {{ .Values.openlane.coreConfiguration.server.mime.enabled }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.mime.mimeTypesFile }}
-        mimeTypesFile: {{ .Values.openlane.coreConfiguration.server.mime.mimeTypesFile | quote }}
+        {{- if .Values.openlane.coreConfiguration.server.mime.mimetypesfile }}
+        mimetypesfile: {{ .Values.openlane.coreConfiguration.server.mime.mimetypesfile | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.mime.defaultContentType }}
-        defaultContentType: {{ .Values.openlane.coreConfiguration.server.mime.defaultContentType | quote }}
-        {{- end }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.graphPool }}
-      graphPool:
-        {{- if .Values.openlane.coreConfiguration.server.graphPool.maxWorkers }}
-        maxWorkers: {{ .Values.openlane.coreConfiguration.server.graphPool.maxWorkers }}
+        {{- if .Values.openlane.coreConfiguration.server.mime.defaultcontenttype }}
+        defaultcontenttype: {{ .Values.openlane.coreConfiguration.server.mime.defaultcontenttype | quote }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.enableGraphExtensions }}
-      enableGraphExtensions: {{ .Values.openlane.coreConfiguration.server.enableGraphExtensions }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.enableGraphSubscriptions }}
-      enableGraphSubscriptions: {{ .Values.openlane.coreConfiguration.server.enableGraphSubscriptions }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.complexityLimit }}
-      complexityLimit: {{ .Values.openlane.coreConfiguration.server.complexityLimit }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.maxResultLimit }}
-      maxResultLimit: {{ .Values.openlane.coreConfiguration.server.maxResultLimit }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.csrfProtection }}
-      csrfProtection:
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.server.csrfProtection.enabled }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.header }}
-        header: {{ .Values.openlane.coreConfiguration.server.csrfProtection.header | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.cookie }}
-        cookie: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookie | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.secure }}
-        secure: {{ .Values.openlane.coreConfiguration.server.csrfProtection.secure }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.sameSite }}
-        sameSite: {{ .Values.openlane.coreConfiguration.server.csrfProtection.sameSite | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly }}
-        cookieHttpOnly: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookieHttpOnly }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain }}
-        cookieDomain: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookieDomain | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath }}
-        cookiePath: {{ .Values.openlane.coreConfiguration.server.csrfProtection.cookiePath | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.graphpool }}
+      graphpool:
+        {{- if .Values.openlane.coreConfiguration.server.graphpool.maxworkers }}
+        maxworkers: {{ .Values.openlane.coreConfiguration.server.graphpool.maxworkers }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain }}
-      defaultTrustCenterDomain: {{ .Values.openlane.coreConfiguration.server.defaultTrustCenterDomain | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.enablegraphextensions }}
+      enablegraphextensions: {{ .Values.openlane.coreConfiguration.server.enablegraphextensions }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.fieldLevelEncryption }}
-      fieldLevelEncryption:
-        {{- if .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.server.fieldLevelEncryption.enabled }}
+      {{- if .Values.openlane.coreConfiguration.server.enablegraphsubscriptions }}
+      enablegraphsubscriptions: {{ .Values.openlane.coreConfiguration.server.enablegraphsubscriptions }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.server.complexitylimit }}
+      complexitylimit: {{ .Values.openlane.coreConfiguration.server.complexitylimit }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.server.maxresultlimit }}
+      maxresultlimit: {{ .Values.openlane.coreConfiguration.server.maxresultlimit }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.server.csrfprotection }}
+      csrfprotection:
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.enabled }}
+        enabled: {{ .Values.openlane.coreConfiguration.server.csrfprotection.enabled }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.header }}
+        header: {{ .Values.openlane.coreConfiguration.server.csrfprotection.header | quote }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.cookie }}
+        cookie: {{ .Values.openlane.coreConfiguration.server.csrfprotection.cookie | quote }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.secure }}
+        secure: {{ .Values.openlane.coreConfiguration.server.csrfprotection.secure }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.samesite }}
+        samesite: {{ .Values.openlane.coreConfiguration.server.csrfprotection.samesite | quote }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.cookiehttponly }}
+        cookiehttponly: {{ .Values.openlane.coreConfiguration.server.csrfprotection.cookiehttponly }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.cookiedomain }}
+        cookiedomain: {{ .Values.openlane.coreConfiguration.server.csrfprotection.cookiedomain | quote }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.server.csrfprotection.cookiepath }}
+        cookiepath: {{ .Values.openlane.coreConfiguration.server.csrfprotection.cookiepath | quote }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.server.trustCenterCnameTarget }}
-      trustCenterCnameTarget: {{ .Values.openlane.coreConfiguration.server.trustCenterCnameTarget | quote }}
+      {{- if .Values.openlane.coreConfiguration.server.defaulttrustcenterdomain }}
+      defaulttrustcenterdomain: {{ .Values.openlane.coreConfiguration.server.defaulttrustcenterdomain | quote }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.server.fieldlevelencryption }}
+      fieldlevelencryption:
+        {{- if .Values.openlane.coreConfiguration.server.fieldlevelencryption.enabled }}
+        enabled: {{ .Values.openlane.coreConfiguration.server.fieldlevelencryption.enabled }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.server.trustcentercnametarget }}
+      trustcentercnametarget: {{ .Values.openlane.coreConfiguration.server.trustcentercnametarget | quote }}
       {{- end }}
     {{- end }}
-    {{- if .Values.openlane.coreConfiguration.entConfig }}
-    entConfig:
-      {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.entityTypes | default (list)) }}
+    {{- if .Values.openlane.coreConfiguration.entconfig }}
+    entconfig:
+      {{- $sliceValue := (.Values.openlane.coreConfiguration.entconfig.entitytypes | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
-      entityTypes:
+      entitytypes:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.summarizer }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.summarizer }}
       summarizer:
-        {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.type }}
-        type: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.type | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.type }}
+        type: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.type | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm }}
         llm:
-          {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider }}
-          provider: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.provider | quote }}
+          {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.provider }}
+          provider: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.provider | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic }}
+          {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic }}
           anthropic:
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader }}
-            betaHeader: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.betaHeader | quote }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic.betaheader }}
+            betaheader: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic.betaheader | quote }}
             {{- end }}
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion }}
-            legacyTextCompletion: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.legacyTextCompletion }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic.legacytextcompletion }}
+            legacytextcompletion: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic.legacytextcompletion }}
             {{- end }}
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL }}
-            baseURL: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.anthropic.baseURL | quote }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic.baseurl }}
+            baseurl: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.anthropic.baseurl | quote }}
             {{- end }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare }}
+          {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.cloudflare }}
           cloudflare:
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID }}
-            accountID: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.accountID | quote }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.cloudflare.accountid }}
+            accountid: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.cloudflare.accountid | quote }}
             {{- end }}
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL }}
-            serverURL: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.cloudflare.serverURL | quote }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.cloudflare.serverurl }}
+            serverurl: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.cloudflare.serverurl | quote }}
             {{- end }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai }}
+          {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.openai }}
           openai:
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url }}
-            url: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.url | quote }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.openai.url }}
+            url: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.openai.url | quote }}
             {{- end }}
-            {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID }}
-            organizationID: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.llm.openai.organizationID | quote }}
+            {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.llm.openai.organizationid }}
+            organizationid: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.llm.openai.organizationid | quote }}
             {{- end }}
           {{- end }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences }}
-        maximumSentences: {{ .Values.openlane.coreConfiguration.entConfig.summarizer.maximumSentences }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.summarizer.maximumsentences }}
+        maximumsentences: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.maximumsentences }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.windmill }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.windmill }}
       windmill:
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.entConfig.windmill.enabled }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.enabled }}
+        enabled: {{ .Values.openlane.coreConfiguration.entconfig.windmill.enabled }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.baseURL }}
-        baseURL: {{ .Values.openlane.coreConfiguration.entConfig.windmill.baseURL | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.baseurl }}
+        baseurl: {{ .Values.openlane.coreConfiguration.entconfig.windmill.baseurl | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.workspace }}
-        workspace: {{ .Values.openlane.coreConfiguration.entConfig.windmill.workspace | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.workspace }}
+        workspace: {{ .Values.openlane.coreConfiguration.entconfig.windmill.workspace | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout }}
-        defaultTimeout: {{ .Values.openlane.coreConfiguration.entConfig.windmill.defaultTimeout | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.defaulttimeout }}
+        defaulttimeout: {{ .Values.openlane.coreConfiguration.entconfig.windmill.defaulttimeout | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.timezone }}
-        timezone: {{ .Values.openlane.coreConfiguration.entConfig.windmill.timezone | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.timezone }}
+        timezone: {{ .Values.openlane.coreConfiguration.entconfig.windmill.timezone | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript }}
-        onFailureScript: {{ .Values.openlane.coreConfiguration.entConfig.windmill.onFailureScript | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.onfailurescript }}
+        onfailurescript: {{ .Values.openlane.coreConfiguration.entconfig.windmill.onfailurescript | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript }}
-        onSuccessScript: {{ .Values.openlane.coreConfiguration.entConfig.windmill.onSuccessScript | quote }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.onsuccessscript }}
+        onsuccessscript: {{ .Values.openlane.coreConfiguration.entconfig.windmill.onsuccessscript | quote }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.maxPoolSize }}
-      maxPoolSize: {{ .Values.openlane.coreConfiguration.entConfig.maxPoolSize }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.maxpoolsize }}
+      maxpoolsize: {{ .Values.openlane.coreConfiguration.entconfig.maxpoolsize }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.modules }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.modules }}
       modules:
-        {{- if .Values.openlane.coreConfiguration.entConfig.modules.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.entConfig.modules.enabled }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.modules.enabled }}
+        enabled: {{ .Values.openlane.coreConfiguration.entconfig.modules.enabled }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.modules.useSandbox }}
-        useSandbox: {{ .Values.openlane.coreConfiguration.entConfig.modules.useSandbox }}
-        {{- end }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize }}
-      maxSchemaImportSize: {{ .Values.openlane.coreConfiguration.entConfig.maxSchemaImportSize }}
-      {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation }}
-      emailValidation:
-        {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enabled }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable }}
-        enableAutoUpdateDisposable: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enableAutoUpdateDisposable }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck }}
-        enableGravatarCheck: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enableGravatarCheck }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck }}
-        enableSMTPCheck: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.enableSMTPCheck }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes }}
-        allowedEmailTypes:
-          {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable }}
-          disposable: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.disposable }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free }}
-          free: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.free }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role }}
-          role: {{ .Values.openlane.coreConfiguration.entConfig.emailValidation.allowedEmailTypes.role }}
-          {{- end }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.modules.usesandbox }}
+        usesandbox: {{ .Values.openlane.coreConfiguration.entconfig.modules.usesandbox }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entConfig.billing }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.maxschemaimportsize }}
+      maxschemaimportsize: {{ .Values.openlane.coreConfiguration.entconfig.maxschemaimportsize }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation }}
+      emailvalidation:
+        {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.enabled }}
+        enabled: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.enabled }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.enableautoupdatedisposable }}
+        enableautoupdatedisposable: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.enableautoupdatedisposable }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.enablegravatarcheck }}
+        enablegravatarcheck: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.enablegravatarcheck }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.enablesmtpcheck }}
+        enablesmtpcheck: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.enablesmtpcheck }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes }}
+        allowedemailtypes:
+          {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes.disposable }}
+          disposable: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes.disposable }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes.free }}
+          free: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes.free }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes.role }}
+          role: {{ .Values.openlane.coreConfiguration.entconfig.emailvalidation.allowedemailtypes.role }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.billing }}
       billing:
-        {{- if .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod }}
-        requirePaymentMethod: {{ .Values.openlane.coreConfiguration.entConfig.billing.requirePaymentMethod }}
+        {{- if .Values.openlane.coreConfiguration.entconfig.billing.requirepaymentmethod }}
+        requirepaymentmethod: {{ .Values.openlane.coreConfiguration.entconfig.billing.requirepaymentmethod }}
         {{- end }}
-        {{- $sliceValue := (.Values.openlane.coreConfiguration.entConfig.billing.bypassEmailDomains | default (list)) }}
+        {{- $sliceValue := (.Values.openlane.coreConfiguration.entconfig.billing.bypassemaildomains | default (list)) }}
         {{- if gt (len $sliceValue) 0 }}
-        bypassEmailDomains:
+        bypassemaildomains:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
       {{- end }}
@@ -477,15 +477,15 @@ data:
           {{- end }}
         {{- end }}
       {{- end }}
-      {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.supportedProviders | default (list)) }}
+      {{- $sliceValue := (.Values.openlane.coreConfiguration.auth.supportedproviders | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
-      supportedProviders:
+      supportedproviders:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
       {{- if .Values.openlane.coreConfiguration.auth.providers }}
       providers:
-        {{- if .Values.openlane.coreConfiguration.auth.providers.redirectUrl }}
-        redirectUrl: {{ .Values.openlane.coreConfiguration.auth.providers.redirectUrl | quote }}
+        {{- if .Values.openlane.coreConfiguration.auth.providers.redirecturl }}
+        redirecturl: {{ .Values.openlane.coreConfiguration.auth.providers.redirecturl | quote }}
         {{- end }}
         {{- if .Values.openlane.coreConfiguration.auth.providers.github }}
         github:
@@ -641,21 +641,21 @@ data:
       maxIdleConnections: {{ .Values.openlane.coreConfiguration.db.maxIdleConnections }}
       {{- end }}
     {{- end }}
-    {{- if .Values.openlane.coreConfiguration.jobQueue }}
-    jobQueue:
-      {{- if .Values.openlane.coreConfiguration.jobQueue.runMigrations }}
-      runMigrations: {{ .Values.openlane.coreConfiguration.jobQueue.runMigrations }}
+    {{- if .Values.openlane.coreConfiguration.jobqueue }}
+    jobqueue:
+      {{- if .Values.openlane.coreConfiguration.jobqueue.runMigrations }}
+      runMigrations: {{ .Values.openlane.coreConfiguration.jobqueue.runMigrations }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.jobQueue.metrics }}
+      {{- if .Values.openlane.coreConfiguration.jobqueue.metrics }}
       metrics:
-        {{- if .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics }}
-        enableMetrics: {{ .Values.openlane.coreConfiguration.jobQueue.metrics.enableMetrics }}
+        {{- if .Values.openlane.coreConfiguration.jobqueue.metrics.enableMetrics }}
+        enableMetrics: {{ .Values.openlane.coreConfiguration.jobqueue.metrics.enableMetrics }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit }}
-        metricsDurationUnit: {{ .Values.openlane.coreConfiguration.jobQueue.metrics.metricsDurationUnit | quote }}
+        {{- if .Values.openlane.coreConfiguration.jobqueue.metrics.metricsDurationUnit }}
+        metricsDurationUnit: {{ .Values.openlane.coreConfiguration.jobqueue.metrics.metricsDurationUnit | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics }}
-        enableSemanticMetrics: {{ .Values.openlane.coreConfiguration.jobQueue.metrics.enableSemanticMetrics }}
+        {{- if .Values.openlane.coreConfiguration.jobqueue.metrics.enableSemanticMetrics }}
+        enableSemanticMetrics: {{ .Values.openlane.coreConfiguration.jobqueue.metrics.enableSemanticMetrics }}
         {{- end }}
       {{- end }}
     {{- end }}
@@ -908,170 +908,170 @@ data:
       headers:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind }}
-      forwardedIndexFromBehind: {{ .Values.openlane.coreConfiguration.ratelimit.forwardedIndexFromBehind }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.forwardedindexfrombehind }}
+      forwardedindexfrombehind: {{ .Values.openlane.coreConfiguration.ratelimit.forwardedindexfrombehind }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.includePath }}
-      includePath: {{ .Values.openlane.coreConfiguration.ratelimit.includePath }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.includepath }}
+      includepath: {{ .Values.openlane.coreConfiguration.ratelimit.includepath }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.includeMethod }}
-      includeMethod: {{ .Values.openlane.coreConfiguration.ratelimit.includeMethod }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.includemethod }}
+      includemethod: {{ .Values.openlane.coreConfiguration.ratelimit.includemethod }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.keyPrefix }}
-      keyPrefix: {{ .Values.openlane.coreConfiguration.ratelimit.keyPrefix | quote }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.keyprefix }}
+      keyprefix: {{ .Values.openlane.coreConfiguration.ratelimit.keyprefix | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.denyStatus }}
-      denyStatus: {{ .Values.openlane.coreConfiguration.ratelimit.denyStatus }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.denystatus }}
+      denystatus: {{ .Values.openlane.coreConfiguration.ratelimit.denystatus }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.denyMessage }}
-      denyMessage: {{ .Values.openlane.coreConfiguration.ratelimit.denyMessage | quote }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.denymessage }}
+      denymessage: {{ .Values.openlane.coreConfiguration.ratelimit.denymessage | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader }}
-      sendRetryAfterHeader: {{ .Values.openlane.coreConfiguration.ratelimit.sendRetryAfterHeader }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.sendretryafterheader }}
+      sendretryafterheader: {{ .Values.openlane.coreConfiguration.ratelimit.sendretryafterheader }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.ratelimit.dryRun }}
-      dryRun: {{ .Values.openlane.coreConfiguration.ratelimit.dryRun }}
+      {{- if .Values.openlane.coreConfiguration.ratelimit.dryrun }}
+      dryrun: {{ .Values.openlane.coreConfiguration.ratelimit.dryrun }}
       {{- end }}
     {{- end }}
-    {{- if .Values.openlane.coreConfiguration.objectStorage }}
-    objectStorage:
-      {{- if .Values.openlane.coreConfiguration.objectStorage.enabled }}
-      enabled: {{ .Values.openlane.coreConfiguration.objectStorage.enabled }}
+    {{- if .Values.openlane.coreConfiguration.objectstorage }}
+    objectstorage:
+      {{- if .Values.openlane.coreConfiguration.objectstorage.enabled }}
+      enabled: {{ .Values.openlane.coreConfiguration.objectstorage.enabled }}
       {{- end }}
-      {{- $sliceValue := (.Values.openlane.coreConfiguration.objectStorage.keys | default (list)) }}
+      {{- $sliceValue := (.Values.openlane.coreConfiguration.objectstorage.keys | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
       keys:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.objectStorage.maxSizeMB }}
-      maxSizeMB: {{ .Values.openlane.coreConfiguration.objectStorage.maxSizeMB }}
+      {{- if .Values.openlane.coreConfiguration.objectstorage.maxsizemb }}
+      maxsizemb: {{ .Values.openlane.coreConfiguration.objectstorage.maxsizemb }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB }}
-      maxMemoryMB: {{ .Values.openlane.coreConfiguration.objectStorage.maxMemoryMB }}
+      {{- if .Values.openlane.coreConfiguration.objectstorage.maxmemorymb }}
+      maxmemorymb: {{ .Values.openlane.coreConfiguration.objectstorage.maxmemorymb }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.objectStorage.devMode }}
-      devMode: {{ .Values.openlane.coreConfiguration.objectStorage.devMode }}
+      {{- if .Values.openlane.coreConfiguration.objectstorage.devmode }}
+      devmode: {{ .Values.openlane.coreConfiguration.objectstorage.devmode }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.objectStorage.providers }}
+      {{- if .Values.openlane.coreConfiguration.objectstorage.providers }}
       providers:
-        {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3 }}
+        {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3 }}
         s3:
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled }}
-          enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.enabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.enabled }}
+          enabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.enabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable }}
-          ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.ensureAvailable }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.ensureavailable }}
+          ensureavailable: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.ensureavailable }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.region }}
-          region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.region | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.region }}
+          region: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.region | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket }}
-          bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.bucket | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.bucket }}
+          bucket: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.bucket | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint }}
-          endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.endpoint | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.endpoint }}
+          endpoint: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.endpoint | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled }}
-          proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.proxyPresignEnabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.proxypresignenabled }}
+          proxypresignenabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.proxypresignenabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL }}
-          baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.s3.baseURL | quote }}
-          {{- end }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2 }}
-        cloudflareR2:
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled }}
-          enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.enabled }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable }}
-          ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.ensureAvailable }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region }}
-          region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.region | quote }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket }}
-          bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.bucket | quote }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint }}
-          endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.endpoint | quote }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled }}
-          proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.proxyPresignEnabled }}
-          {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL }}
-          baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.cloudflareR2.baseURL | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.s3.baseurl }}
+          baseurl: {{ .Values.openlane.coreConfiguration.objectstorage.providers.s3.baseurl | quote }}
           {{- end }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs }}
+        {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2 }}
+        cloudflarer2:
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.enabled }}
+          enabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.enabled }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.ensureavailable }}
+          ensureavailable: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.ensureavailable }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.region }}
+          region: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.region | quote }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.bucket }}
+          bucket: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.bucket | quote }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.endpoint }}
+          endpoint: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.endpoint | quote }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.proxypresignenabled }}
+          proxypresignenabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.proxypresignenabled }}
+          {{- end }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.baseurl }}
+          baseurl: {{ .Values.openlane.coreConfiguration.objectstorage.providers.cloudflarer2.baseurl | quote }}
+          {{- end }}
+        {{- end }}
+        {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs }}
         gcs:
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled }}
-          enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.enabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.enabled }}
+          enabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.enabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable }}
-          ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.ensureAvailable }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.ensureavailable }}
+          ensureavailable: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.ensureavailable }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region }}
-          region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.region | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.region }}
+          region: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.region | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket }}
-          bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.bucket | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.bucket }}
+          bucket: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.bucket | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint }}
-          endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.endpoint | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.endpoint }}
+          endpoint: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.endpoint | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled }}
-          proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.proxyPresignEnabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.proxypresignenabled }}
+          proxypresignenabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.proxypresignenabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL }}
-          baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.gcs.baseURL | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.gcs.baseurl }}
+          baseurl: {{ .Values.openlane.coreConfiguration.objectstorage.providers.gcs.baseurl | quote }}
           {{- end }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk }}
+        {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk }}
         disk:
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled }}
-          enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.enabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.enabled }}
+          enabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.enabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable }}
-          ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.ensureAvailable }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.ensureavailable }}
+          ensureavailable: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.ensureavailable }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.region }}
-          region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.region | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.region }}
+          region: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.region | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket }}
-          bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.bucket | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.bucket }}
+          bucket: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.bucket | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint }}
-          endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.endpoint | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.endpoint }}
+          endpoint: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.endpoint | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled }}
-          proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.proxyPresignEnabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.proxypresignenabled }}
+          proxypresignenabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.proxypresignenabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL }}
-          baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.disk.baseURL | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.disk.baseurl }}
+          baseurl: {{ .Values.openlane.coreConfiguration.objectstorage.providers.disk.baseurl | quote }}
           {{- end }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database }}
+        {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database }}
         database:
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled }}
-          enabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.enabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.enabled }}
+          enabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.enabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable }}
-          ensureAvailable: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.ensureAvailable }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.ensureavailable }}
+          ensureavailable: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.ensureavailable }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.region }}
-          region: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.region | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.region }}
+          region: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.region | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket }}
-          bucket: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.bucket | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.bucket }}
+          bucket: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.bucket | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint }}
-          endpoint: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.endpoint | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.endpoint }}
+          endpoint: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.endpoint | quote }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled }}
-          proxyPresignEnabled: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.proxyPresignEnabled }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.proxypresignenabled }}
+          proxypresignenabled: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.proxypresignenabled }}
           {{- end }}
-          {{- if .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL }}
-          baseURL: {{ .Values.openlane.coreConfiguration.objectStorage.providers.database.baseURL | quote }}
+          {{- if .Values.openlane.coreConfiguration.objectstorage.providers.database.baseurl }}
+          baseurl: {{ .Values.openlane.coreConfiguration.objectstorage.providers.database.baseurl | quote }}
           {{- end }}
         {{- end }}
       {{- end }}
@@ -1081,37 +1081,37 @@ data:
       {{- if .Values.openlane.coreConfiguration.subscription.enabled }}
       enabled: {{ .Values.openlane.coreConfiguration.subscription.enabled }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.subscription.stripeWebhookURL }}
-      stripeWebhookURL: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookURL | quote }}
+      {{- if .Values.openlane.coreConfiguration.subscription.stripewebhookurl }}
+      stripewebhookurl: {{ .Values.openlane.coreConfiguration.subscription.stripewebhookurl | quote }}
       {{- else if .Values.domain }}
-      stripeWebhookURL: "https://api.{{ .Values.domain }}/v1/stripe/webhook"
+      stripewebhookurl: "https://api.{{ .Values.domain }}/v1/stripe/webhook"
       {{- else }}
-      stripeWebhookURL: "https://api.theopenlane.io/stripe/webhook"
+      stripewebhookurl: "https://api.theopenlane.io/stripe/webhook"
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.subscription.stripeBillingPortalSuccessURL }}
-      stripeBillingPortalSuccessURL: {{ .Values.openlane.coreConfiguration.subscription.stripeBillingPortalSuccessURL | quote }}
+      {{- if .Values.openlane.coreConfiguration.subscription.stripebillingportalsuccessurl }}
+      stripebillingportalsuccessurl: {{ .Values.openlane.coreConfiguration.subscription.stripebillingportalsuccessurl | quote }}
       {{- else if .Values.domain }}
-      stripeBillingPortalSuccessURL: "https://console.{{ .Values.domain }}/organization-settings/billing"
+      stripebillingportalsuccessurl: "https://console.{{ .Values.domain }}/organization-settings/billing"
       {{- else }}
-      stripeBillingPortalSuccessURL: "https://console.theopenlane.io/organization-settings/billing"
+      stripebillingportalsuccessurl: "https://console.theopenlane.io/organization-settings/billing"
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.subscription.stripeCancellationReturnURL }}
-      stripeCancellationReturnURL: {{ .Values.openlane.coreConfiguration.subscription.stripeCancellationReturnURL | quote }}
+      {{- if .Values.openlane.coreConfiguration.subscription.stripecancellationreturnurl }}
+      stripecancellationreturnurl: {{ .Values.openlane.coreConfiguration.subscription.stripecancellationreturnurl | quote }}
       {{- else if .Values.domain }}
-      stripeCancellationReturnURL: "https://console.{{ .Values.domain }}/organization-settings/billing"
+      stripecancellationreturnurl: "https://console.{{ .Values.domain }}/organization-settings/billing"
       {{- else }}
-      stripeCancellationReturnURL: "https://console.theopenlane.io/organization-settings/billing"
+      stripecancellationreturnurl: "https://console.theopenlane.io/organization-settings/billing"
       {{- end }}
-      {{- $sliceValue := (.Values.openlane.coreConfiguration.subscription.stripeWebhookEvents | default (list)) }}
+      {{- $sliceValue := (.Values.openlane.coreConfiguration.subscription.stripewebhookevents | default (list)) }}
       {{- if gt (len $sliceValue) 0 }}
-      stripeWebhookEvents:
+      stripewebhookevents:
       {{- toYaml $sliceValue | nindent 8 }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion }}
-      stripeWebhookAPIVersion: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookAPIVersion | quote }}
+      {{- if .Values.openlane.coreConfiguration.subscription.stripewebhookapiversion }}
+      stripewebhookapiversion: {{ .Values.openlane.coreConfiguration.subscription.stripewebhookapiversion | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion }}
-      stripeWebhookDiscardAPIVersion: {{ .Values.openlane.coreConfiguration.subscription.stripeWebhookDiscardAPIVersion | quote }}
+      {{- if .Values.openlane.coreConfiguration.subscription.stripewebhookdiscardapiversion }}
+      stripewebhookdiscardapiversion: {{ .Values.openlane.coreConfiguration.subscription.stripewebhookdiscardapiversion | quote }}
       {{- end }}
     {{- end }}
     {{- if .Values.openlane.coreConfiguration.keywatcher }}
@@ -1119,65 +1119,65 @@ data:
       {{- if .Values.openlane.coreConfiguration.keywatcher.enabled }}
       enabled: {{ .Values.openlane.coreConfiguration.keywatcher.enabled }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.keywatcher.keyDir }}
-      keyDir: {{ .Values.openlane.coreConfiguration.keywatcher.keyDir | quote }}
+      {{- if .Values.openlane.coreConfiguration.keywatcher.keydir }}
+      keydir: {{ .Values.openlane.coreConfiguration.keywatcher.keydir | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration }}
-      externalSecretsIntegration: {{ .Values.openlane.coreConfiguration.keywatcher.externalSecretsIntegration }}
+      {{- if .Values.openlane.coreConfiguration.keywatcher.externalsecretsintegration }}
+      externalsecretsintegration: {{ .Values.openlane.coreConfiguration.keywatcher.externalsecretsintegration }}
       {{- end }}
     {{- end }}
     {{- if .Values.openlane.coreConfiguration.slack }}
     slack:
-      {{- if .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile }}
-      newSubscriberMessageFile: {{ .Values.openlane.coreConfiguration.slack.newSubscriberMessageFile | quote }}
+      {{- if .Values.openlane.coreConfiguration.slack.newsubscribermessagefile }}
+      newsubscribermessagefile: {{ .Values.openlane.coreConfiguration.slack.newsubscribermessagefile | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.slack.newUserMessageFile }}
-      newUserMessageFile: {{ .Values.openlane.coreConfiguration.slack.newUserMessageFile | quote }}
+      {{- if .Values.openlane.coreConfiguration.slack.newusermessagefile }}
+      newusermessagefile: {{ .Values.openlane.coreConfiguration.slack.newusermessagefile | quote }}
       {{- end }}
     {{- end }}
-    {{- if .Values.openlane.coreConfiguration.integrationOauthProvider }}
-    integrationOauthProvider:
-      {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl }}
-      redirectUrl: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.redirectUrl | quote }}
+    {{- if .Values.openlane.coreConfiguration.integrationoauthprovider }}
+    integrationoauthprovider:
+      {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.redirecturl }}
+      redirecturl: {{ .Values.openlane.coreConfiguration.integrationoauthprovider.redirecturl | quote }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.successRedirectUrl }}
-      successRedirectUrl: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.successRedirectUrl | quote }}
+      {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.successredirecturl }}
+      successredirecturl: {{ .Values.openlane.coreConfiguration.integrationoauthprovider.successredirecturl | quote }}
       {{- else if .Values.domain }}
-      successRedirectUrl: "https://console.{{ .Values.domain }}/organization-settings/integrations"
+      successredirecturl: "https://console.{{ .Values.domain }}/organization-settings/integrations"
       {{- else }}
-      successRedirectUrl: ""
+      successredirecturl: ""
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.github }}
+      {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.github }}
       github:
-        {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId }}
-        clientId: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientId | quote }}
+        {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.github.clientid }}
+        clientid: {{ .Values.openlane.coreConfiguration.integrationoauthprovider.github.clientid | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientEndpoint }}
-        clientEndpoint: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.github.clientEndpoint | quote }}
+        {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.github.clientendpoint }}
+        clientendpoint: {{ .Values.openlane.coreConfiguration.integrationoauthprovider.github.clientendpoint | quote }}
         {{- else if .Values.domain }}
-        clientEndpoint: "https://api.{{ .Values.domain }}"
+        clientendpoint: "https://api.{{ .Values.domain }}"
         {{- else }}
-        clientEndpoint: ""
+        clientendpoint: ""
         {{- end }}
-        {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationOauthProvider.github.scopes | default (list)) }}
+        {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationoauthprovider.github.scopes | default (list)) }}
         {{- if gt (len $sliceValue) 0 }}
         scopes:
         {{- toYaml $sliceValue | nindent 10 }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.slack }}
+      {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.slack }}
       slack:
-        {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId }}
-        clientId: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientId | quote }}
+        {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.slack.clientid }}
+        clientid: {{ .Values.openlane.coreConfiguration.integrationoauthprovider.slack.clientid | quote }}
         {{- end }}
-        {{- if .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientEndpoint }}
-        clientEndpoint: {{ .Values.openlane.coreConfiguration.integrationOauthProvider.slack.clientEndpoint | quote }}
+        {{- if .Values.openlane.coreConfiguration.integrationoauthprovider.slack.clientendpoint }}
+        clientendpoint: {{ .Values.openlane.coreConfiguration.integrationoauthprovider.slack.clientendpoint | quote }}
         {{- else if .Values.domain }}
-        clientEndpoint: "https://api.{{ .Values.domain }}"
+        clientendpoint: "https://api.{{ .Values.domain }}"
         {{- else }}
-        clientEndpoint: ""
+        clientendpoint: ""
         {{- end }}
-        {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationOauthProvider.slack.scopes | default (list)) }}
+        {{- $sliceValue := (.Values.openlane.coreConfiguration.integrationoauthprovider.slack.scopes | default (list)) }}
         {{- if gt (len $sliceValue) 0 }}
         scopes:
         {{- toYaml $sliceValue | nindent 10 }}
