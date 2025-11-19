@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [0.46.3] - 2025-11-19
+
+### Changed\n- 🔄 Merged Helm values.yaml\n- 🔐 External secrets configuration updated
+
+### Build Information
+- Build Number: 7198
+- Source Commit: 3e274f2a
+- Source Branch: main
+- Generated: 2025-11-19 22:57:09 UTC
+
+---
+
 ## [0.45.18] - 2025-11-18
 
 ### Changed✅ Updated ConfigMap template
