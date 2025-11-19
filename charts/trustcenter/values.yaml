@@ -21,3 +21,4 @@ trustcenter:
     bucketRegion: "auto"
     # todo: update bucket name for production when ready
     bucketName: "trust-center-cache-dev"
+  defaultDomain: "trust.theopenlane.net"
