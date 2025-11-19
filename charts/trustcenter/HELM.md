@@ -27,6 +27,7 @@ A Helm chart for Kubernetes
 | trustcenter.config.name | string | `"trustcenter-ui-config"` |  |
 | trustcenter.r2.bucketRegion | string | `"auto"` |  |
 | trustcenter.r2.bucketName | string | `"trust-center-cache-dev"` |  |
+| trustcenter.defaultDomain | string | `"trust.theopenlane.net"` |  |
 
 ## Update documentation
 

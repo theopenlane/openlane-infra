@@ -11,4 +11,5 @@ metadata:
 data:
   R2_BUCKET_REGION: {{ .Values.trustcenter.r2.bucketRegion | quote | default "auto" }}
   R2_BUCKET_NAME: {{ .Values.trustcenter.r2.bucketName | quote | default "" }}
+  NEXT_PUBLIC_TRUST_CENTER_DOMAIN: {{ .Values.trustcenter.defaultDomain | quote }}
 {{- end }}
