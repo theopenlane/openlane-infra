@@ -3,6 +3,24 @@ entries:
   openlane:
   - apiVersion: v2
     appVersion: v0.46.2
+    created: "2025-11-19T22:59:23.22927271Z"
+    description: A Helm chart to deploy the core Openlane server
+    digest: 9c94e7f13da15746ae9be01e9c8419d195689232b2622804b5b4ca6dbb8aed4d
+    home: https://docs.theopenlane.io
+    icon: https://raw.githubusercontent.com/theopenlane/openlane-infra/refs/heads/main/assets/favicon.ico
+    maintainers:
+    - email: support@theopenlane.io
+      name: Openlane
+      url: https://www.theopenlane.io
+    name: openlane
+    sources:
+    - https://github.com/theopenlane/core
+    type: application
+    urls:
+    - openlane-0.46.3.tgz
+    version: 0.46.3
+  - apiVersion: v2
+    appVersion: v0.46.2
     created: "2025-11-19T04:36:34.028668558Z"
     description: A Helm chart to deploy the core Openlane server
     digest: 993ef3a9915bf75c0a30d0a6f0ed434c2833d40562ed8c271115341f5d3c3fdd
@@ -2774,4 +2792,4 @@ entries:
     urls:
     - trustcenter-gateway-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-19T04:36:34.029073907Z"
+generated: "2025-11-19T22:59:23.570987406Z"
