@@ -1,9 +1,9 @@
 dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
-  version: v1.18.2
+  version: v1.19.1
 - name: origin-ca-issuer
   repository: oci://ghcr.io/cloudflare/origin-ca-issuer-charts
   version: 0.5.12
-digest: sha256:56d4cde5bc2467f70a3cebca5c6e5fbaa8897733343049ced6b00f8642c6e6e9
-generated: "2025-07-15T10:39:46.558501-06:00"
+digest: sha256:9e8cc8d6c94cf08948b7e43908462dce3efd347c5e559b6d9e9ab13bf7511396
+generated: "2025-10-28T02:20:43.779180818Z"
