@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.46.8] - 2025-11-24
+
+### Changed✅ Updated ConfigMap template
+\n- 🔄 Merged Helm values.yaml\n- 🔐 External secrets configuration updated\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 7340
+- Source Commit: cfa614de
+- Source Branch: main
+- Generated: 2025-11-24 19:15:07 UTC
+
+---
+
 ## [0.46.7] - 2025-11-24
 
 ### Changed✅ Updated ConfigMap template
