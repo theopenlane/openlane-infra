@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [0.46.7] - 2025-11-24
+
+### Changed✅ Updated ConfigMap template
+\n- 🔄 Merged Helm values.yaml\n- 🔐 External secrets configuration updated\n- ✅ Updated ConfigMap template
+
+### Build Information
+- Build Number: 7319
+- Source Commit: 5b791662
+- Source Branch: main
+- Generated: 2025-11-24 00:00:31 UTC
+
+---
+
 ## [0.46.3] - 2025-11-19
 
 ### Changed\n- 🔄 Merged Helm values.yaml\n- 🔐 External secrets configuration updated
