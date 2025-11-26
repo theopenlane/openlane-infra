@@ -523,7 +523,7 @@ A Helm chart to deploy the core Openlane server
 | podMonitor.scrapeTimeout | string | `nil` | Timeout if metrics cannot be retrieved in given time interval. |
 | riverboat.replicaCount | int | `2` |  |
 | riverboat.image.repository | string | `"ghcr.io/theopenlane/riverboat"` |  |
-| riverboat.image.tag | string | `"amd64-v0.6.1"` |  |
+| riverboat.image.tag | string | `"amd64-v0.6.2"` |  |
 | riverboat.image.pullPolicy | string | `"Always"` |  |
 | riverboat.podMonitoring.enabled | bool | `true` |  |
 | riverboat.podMonitoring.interval | string | `"30s"` |  |
