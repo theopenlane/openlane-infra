@@ -1131,7 +1131,7 @@ riverboat:
   image:
     # Repository for the riverboat worker image
     repository: ghcr.io/theopenlane/riverboat
-    tag: amd64-v0.6.1
+    tag: amd64-v0.6.2
     pullPolicy: Always
   # enable pod monitoring for gcp cloud monitoring
   podMonitoring:
