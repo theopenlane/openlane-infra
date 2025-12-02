@@ -269,30 +269,6 @@ data:
         maximumsentences: {{ .Values.openlane.coreConfiguration.entconfig.summarizer.maximumsentences }}
         {{- end }}
       {{- end }}
-      {{- if .Values.openlane.coreConfiguration.entconfig.windmill }}
-      windmill:
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.enabled }}
-        enabled: {{ .Values.openlane.coreConfiguration.entconfig.windmill.enabled }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.baseurl }}
-        baseurl: {{ .Values.openlane.coreConfiguration.entconfig.windmill.baseurl | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.workspace }}
-        workspace: {{ .Values.openlane.coreConfiguration.entconfig.windmill.workspace | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.defaulttimeout }}
-        defaulttimeout: {{ .Values.openlane.coreConfiguration.entconfig.windmill.defaulttimeout | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.timezone }}
-        timezone: {{ .Values.openlane.coreConfiguration.entconfig.windmill.timezone | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.onfailurescript }}
-        onfailurescript: {{ .Values.openlane.coreConfiguration.entconfig.windmill.onfailurescript | quote }}
-        {{- end }}
-        {{- if .Values.openlane.coreConfiguration.entconfig.windmill.onsuccessscript }}
-        onsuccessscript: {{ .Values.openlane.coreConfiguration.entconfig.windmill.onsuccessscript | quote }}
-        {{- end }}
-      {{- end }}
       {{- if .Values.openlane.coreConfiguration.entconfig.maxpoolsize }}
       maxpoolsize: {{ .Values.openlane.coreConfiguration.entconfig.maxpoolsize }}
       {{- end }}
@@ -344,6 +320,16 @@ data:
         {{- if gt (len $sliceValue) 0 }}
         bypassemaildomains:
         {{- toYaml $sliceValue | nindent 10 }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.openlane.coreConfiguration.entconfig.notifications }}
+      notifications:
+        {{- if .Values.openlane.coreConfiguration.entconfig.notifications.consoleurl }}
+        consoleurl: {{ .Values.openlane.coreConfiguration.entconfig.notifications.consoleurl | quote }}
+        {{- else if .Values.domain }}
+        consoleurl: "https://console.{{ .Values.domain }}"
+        {{- else }}
+        consoleurl: "http://localhost:3001"
         {{- end }}
       {{- end }}
     {{- end }}
