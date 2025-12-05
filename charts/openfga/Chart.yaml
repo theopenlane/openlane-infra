@@ -16,4 +16,4 @@ dependencies:
   - name: openfga
     repository: https://openfga.github.io/helm-charts
     alias: openfga
-    version: 0.2.45
+    version: 0.2.50
