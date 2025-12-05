@@ -14,5 +14,5 @@ sources:
 home: https://docs.theopenlane.io
 dependencies:
   - name: windmill
-    version: 2.0.505
+    version: 2.0.508
     repository: https://windmill-labs.github.io/windmill-helm-charts
