@@ -14,7 +14,7 @@ openlane:
     # Container image repository
     repository: ghcr.io/theopenlane/core
     # Image tag to deploy
-    tag: "v0.48.3"
+    tag: "v0.48.4"
     # Kubernetes pull policy for the image
     pullPolicy: IfNotPresent
   # Resource requests and limits for the `openlane` container
